@@ -33,4 +33,14 @@ export class DummyApiService {
 
   //post
 
+  addNewStory(storia : any){
+
+
+      let body = {
+        name : storia.nome,
+        immagine : storia.img
+      }
+        this.http.post("localhost:3000/addStory",body )
+  }
+
 }

@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AutoreComponent } from './components/autore/autore.component';
 import { HttpClientModule } from '@angular/common/http';
+import { MyUppercasePipe } from './pipes/my-uppercase.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    AutoreComponent
+    AutoreComponent,
+    MyUppercasePipe
   ],
   imports: [
     BrowserModule,
