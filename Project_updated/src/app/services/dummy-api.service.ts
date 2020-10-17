@@ -11,17 +11,19 @@ export class DummyApiService {
 
 
 
-  constructor( private http : HttpClient) {
-  }
+  constructor(public http: HttpClient) { }
 
 
 
   // get
-  getStories():Observable<any>{
-    return this.http.get("https://sheet.best/api/sheets/f83c172f-ec99-484d-98a8-c7aba3c1d257")
+  getStories(): Observable<any> {
+    return this.http.get("https://sheet.best/api/sheets/8993a7e2-11f8-476b-8495-98e00fcfd75e")
   }
 
 
+  getStoria(id:number): Observable<any>{
+    return this.http.get("https://sheet.best/api/sheets/8993a7e2-11f8-476b-8495-98e00fcfd75e")
+  }
 
 
   //put
@@ -32,15 +34,16 @@ export class DummyApiService {
 
 
   //post
+  // mockup del metodo ancora da implementare a fondo .. aggiungere nuove storie
+  // addNewStory(storia : any){
 
-  addNewStory(storia : any){
 
-
-      let body = {
-        name : storia.nome,
-        immagine : storia.img
-      }
-        this.http.post("localhost:3000/addStory",body )
-  }
+  //     let body = {
+  //       id : storia.id ,
+  //       name : storia.nome,
+  //       sfondo : storia.sfondo
+  //     }
+  //       this.http.post("localhost:3000/story/"+body.id,  body )
+  // }
 
 }

@@ -5,8 +5,10 @@
 
   <ul>
 
-    <li *ngFor="let story of storie">
-     {{ story.nome }}    <button > modifica</button>
+    <li *ngFor="let storia of storie">
+     {{ storia.nome }}    <button > modifica</button><a [routerLink]="['/visualizza/:storia']" routerLinkActive="router-link-active" > anteprima</a>
+
+     <img [src]="storia.sfondo" [alt]="    '  immagine sfondo di  ' + storia.nome">
     </li>
 
     <input type="text" />

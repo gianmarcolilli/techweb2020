@@ -8,43 +8,36 @@ import { DummyApiService } from '../../services/dummy-api.service';
 })
 
 export class AutoreComponent implements OnInit {
-
-
-
-  storie : any [];
+  storie: any[] = [];
 
   constructor(private api: DummyApiService) { }
 
-  aggiungiStoria(){
-          // let storiaDaInviare = {
-          //   nome : // lo ottengo dal mio campo di input ,
-          //   img : // ottengo il path da file picker
-          // }
-
-
-
-          // this.api.addNewStory(storiaDaInviare)
+  aggiungiStoria() {
+    // let storiaDaInviare = {
+    //   nome : // lo ottengo dal mio campo di input ,
+    //   img : // ottengo il path da file picker
+    // }
+    // this.api.addNewStory(storiaDaInviare)
   }
 
-
-  modificaStoria(){
-
-
+  modificaStoria() {
   }
 
-
+// chiamata,
+// sottoscrizione
+// assegnamo il risultato alla nostra proprietà di classe
   ngOnInit(): void {
 
 
-    this.api.getStories().subscribe(
-        (arrayDiOggetti)=>{
-            console.log(arrayDiOggetti)
-            this.storie = arrayDiOggetti
 
-        }
+    this.api.getStories().subscribe(
+      (risultato) => {
+        this.storie = risultato
+      }
     );
 
 
+    console.log(" sono uscito !!!")
   }
 
 }

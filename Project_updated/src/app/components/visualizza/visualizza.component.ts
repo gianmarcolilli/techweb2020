@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { RESOURCE_CACHE_PROVIDER } from '@angular/platform-browser-dynamic';
 import { ActivatedRoute } from '@angular/router';
+import { DummyApiService } from 'src/app/services/dummy-api.service';
 
 @Component({
   selector: 'app-visualizza',
@@ -8,24 +10,48 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class VisualizzaComponent implements OnInit {
 
+  id="";
+  title  = "";
+  urlIconaPrincip: string ="";
+  constructor(private pluto:ActivatedRoute, private apiDb:DummyApiService) { }
 
 
-  title : string = "";
-  sfondo: string ="";
-  constructor(private pluto:ActivatedRoute) { }
+
+
+  refresh(){
+
+
+    let valore = this.id;
+
+    this.avviaLoading()
+    this.apiDb.getStories().subscribe(
+      (res) => {
+        if( res && res.length > 0){
+          res.forEach((element) => {
+              if(element.id == valore ){
+                //element è la nostra storia
+                this.id=element.id
+                this.title = element.nome
+                this.urlIconaPrincip =element.urlBackground
+
+              }
+          });
+
+
+        }
+        this.stoppaLoading()
+      }
+    );
+  }
+// chiamata,
+// sottoscrizione
+// assegnamo il risultato alla nostra proprietà di classe
+
   ngOnInit(): void {
-    const valore = this.pluto.snapshot.params.id;
-    console.log("l' id è"+valore);
-
+     this.id = this.pluto.snapshot.params.id;
+    this.refresh()
 
     // effettuare la chiamata al db( passando dal servizio dummy-api)
-
-
-      this.title = "mio titolo "
-      this.sfondo = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" // https://www.google.it/miaimmagine.png
-
-
-
 
   }
 
