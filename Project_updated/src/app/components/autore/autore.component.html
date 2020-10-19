@@ -1,18 +1,33 @@
 <p>autore works!</p>
 
 
-<div>
+<!-- <div>
 
   <ul>
 
     <li *ngFor="let storia of storie">
      {{ storia.nome }}    <button > modifica</button><a [routerLink]="['/visualizza/:storia']" routerLinkActive="router-link-active" > anteprima</a>
 
-     <img [src]="storia.sfondo" [alt]="    '  immagine sfondo di  ' + storia.nome">
+     <img *ngIf="" [src]="storia.urlBackground" [alt]="    '  immagine sfondo di  ' + storia.nome">
     </li>
 
     <input type="text" />
-
   </ul>
-</div>
+</div> -->
+{{statoMod | json}}
+<mat-accordion  multi="true" *ngIf="storie.length>0">
+    
+  <mat-expansion-panel *ngFor="let storia of storie;index as i">
+    <mat-expansion-panel-header>
+      {{storia.nome}}
+    </mat-expansion-panel-header>
+    <img [src]="storia.urlBackground" [alt]="    '  immagine sfondo di  ' + storia.nome">
+    <button (click)="statoMod[i]=!statoMod[i]"> modifica</button>
+    <a [routerLink]="['/visualizza/:storia']" routerLinkActive="router-link-active"> anteprima</a>
+    <app-modifica *ngIf="statoMod[i]" [id]='storia.id' [nome]='storia.nome' [sfondo]='storia.urlBackground'>
+    </app-modifica>
 
+  </mat-expansion-panel>
+
+
+</mat-accordion>

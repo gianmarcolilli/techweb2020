@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DummyApiService } from '../../services/dummy-api.service';
-
+import { Storia } from '../../interfaces/storia';
 @Component({
   selector: 'app-autore',
   templateUrl: './autore.component.html',
@@ -8,9 +8,13 @@ import { DummyApiService } from '../../services/dummy-api.service';
 })
 
 export class AutoreComponent implements OnInit {
-  storie: any[] = [];
+  storie: Storia[] = [];
 
+  statoMod : boolean[] = [];
   constructor(private api: DummyApiService) { }
+
+
+
 
   aggiungiStoria() {
     // let storiaDaInviare = {
@@ -23,9 +27,7 @@ export class AutoreComponent implements OnInit {
   modificaStoria() {
   }
 
-// chiamata,
-// sottoscrizione
-// assegnamo il risultato alla nostra proprietà di classe
+
   ngOnInit(): void {
 
 
@@ -33,11 +35,13 @@ export class AutoreComponent implements OnInit {
     this.api.getStories().subscribe(
       (risultato) => {
         this.storie = risultato
+        for(var i=0;i<this.storie.length;i++){
+          this.statoMod.push(false)
+        }
       }
     );
 
 
-    console.log(" sono uscito !!!")
   }
 
 }

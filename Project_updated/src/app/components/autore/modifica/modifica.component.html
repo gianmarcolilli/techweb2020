@@ -1,0 +1,14 @@
+<p>Modifica Works</p>
+
+
+  <input type="text" id="id" name="id"  [(ngModel)]="id"/>
+
+  <input type="text" id="nome" name="nome" [value]="nome"/>
+
+  <input type="text" id="urlBackground" name="urlBackground" [value]="sfondo"/>
+
+  <img [src]='sfondo' [alt]="'Immagine di sfondo di '+nome">
+
+  <button (click)="salvaModifiche()" >
+    Salva
+  </button>

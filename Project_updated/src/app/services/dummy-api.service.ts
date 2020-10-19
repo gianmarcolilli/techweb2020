@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Storia } from '../interfaces/storia';
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ export class DummyApiService {
   getStories(): Observable<any> {
     return this.http.get("https://sheet.best/api/sheets/8993a7e2-11f8-476b-8495-98e00fcfd75e")
   }
-
+ 
 
   getStoria(id:number): Observable<any>{
     return this.http.get("https://sheet.best/api/sheets/8993a7e2-11f8-476b-8495-98e00fcfd75e")
@@ -28,6 +29,9 @@ export class DummyApiService {
 
   //put
 
+  updateStoria(storia:Storia):Observable<any>{
+    return this.http.put("",storia)
+  }
 
 
 

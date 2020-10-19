@@ -15,15 +15,9 @@ export class VisualizzaComponent implements OnInit {
   urlIconaPrincip: string ="";
   constructor(private pluto:ActivatedRoute, private apiDb:DummyApiService) { }
 
-
-
-
   refresh(){
-
-
     let valore = this.id;
-
-    this.avviaLoading()
+    // this.avviaLoading()
     this.apiDb.getStories().subscribe(
       (res) => {
         if( res && res.length > 0){
@@ -33,13 +27,10 @@ export class VisualizzaComponent implements OnInit {
                 this.id=element.id
                 this.title = element.nome
                 this.urlIconaPrincip =element.urlBackground
-
               }
           });
-
-
         }
-        this.stoppaLoading()
+        // this.stoppaLoading()
       }
     );
   }
@@ -49,10 +40,8 @@ export class VisualizzaComponent implements OnInit {
 
   ngOnInit(): void {
      this.id = this.pluto.snapshot.params.id;
-    this.refresh()
-
+     this.refresh()
     // effettuare la chiamata al db( passando dal servizio dummy-api)
-
   }
 
 }
