@@ -15,6 +15,7 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModificaComponent } from './components/autore/modifica/modifica.component';
 import { FormsModule } from '@angular/forms';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { FormsModule } from '@angular/forms';
     MyUppercasePipe,
     VisualizzaComponent,
     HomePageComponent,
-    ModificaComponent
+    ModificaComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

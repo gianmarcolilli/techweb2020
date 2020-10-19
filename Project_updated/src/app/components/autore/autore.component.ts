@@ -1,18 +1,20 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular/core';
 import { DummyApiService } from '../../services/dummy-api.service';
 import { Storia } from '../../interfaces/storia';
 @Component({
   selector: 'app-autore',
   templateUrl: './autore.component.html',
-  styleUrls: ['./autore.component.css']
+  styleUrls: ['./autore.component.css'],
+  encapsulation:ViewEncapsulation.None
+
 })
 
 export class AutoreComponent implements OnInit {
+  titolo: string = "Menu' Autore";
   storie: Storia[] = [];
 
   statoMod : boolean[] = [];
   constructor(private api: DummyApiService) { }
-
 
 
 
