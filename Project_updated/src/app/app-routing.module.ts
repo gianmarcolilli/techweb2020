@@ -7,7 +7,9 @@ import { VisualizzaComponent } from './components/visualizza/visualizza.componen
 const routes: Routes = [
   { path: "home" , component:HomePageComponent},
   { path: "autore" , component:AutoreComponent},
-  { path: "visualizza/:id" , component:VisualizzaComponent}
+  { path: "visualizza/:id" , component:VisualizzaComponent},
+  { path: "" , component:HomePageComponent}
+
 ];
 
 @NgModule({

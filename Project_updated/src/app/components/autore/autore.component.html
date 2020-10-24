@@ -1,18 +1,45 @@
 <app-header [my-title]="titolo"> </app-header>
- <mat-accordion  multi="true" *ngIf="storie.length>0">
-   <mat-expansion-panel *ngFor="let storia of storie;index as i">
-     <mat-expansion-panel-header>
-       {{storia.nome}}
-     </mat-expansion-panel-header>
-     <img [src]="storia.urlBackground" [alt]="    '  immagine sfondo di  ' + storia.nome">
-     <button mat-raised-button color="primary" (click)="statoMod[i]=!statoMod[i]"> modifica</button>
-     <a [routerLink]="['/visualizza/:storia']" routerLinkActive="router-link-active"> anteprima</a>
-     <app-modifica *ngIf="statoMod[i]" [id]='storia.id' [nome]='storia.nome' [sfondo]='storia.urlBackground'>
-     </app-modifica>
-   </mat-expansion-panel>
- </mat-accordion>
+<mat-accordion multi="true" *ngIf="storie.length > 0; else error">
+  <mat-expansion-panel *ngFor="let storia of storie; index as i">
+    <mat-expansion-panel-header>
+      {{ storia.nome }}
+    </mat-expansion-panel-header>
+    <img
+      [src]="storia.urlBackground"
+      [alt]="'  immagine sfondo di  ' + storia.nome"
+    />
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="statoMod[i] = !statoMod[i]"
+    >
+      modifica
+    </button>
+    <a
+      [routerLink]="['/visualizza/:storia']"
+      routerLinkActive="router-link-active"
+    >
+      anteprima</a
+    >
+    <app-modifica
+      *ngIf="statoMod[i]"
+      [id]="storia.id"
+      [nome]="storia.nome"
+      [sfondo]="storia.urlBackground"
+    >
+    </app-modifica>
+  </mat-expansion-panel>
+</mat-accordion>
 
+<button mat-raised-button color="accent">aggiunta</button>
 
+<ng-template #error>
+  <div>
+    <mat-icon aria-hidden="false" aria-label="Example home icon"
+      >error</mat-icon
+    >
+    <h2>Errore</h2>
+  </div>
 
-
- <button  mat-raised-button color="accent">  aggiunta </button>
+  <template> </template
+></ng-template>

@@ -8,10 +8,14 @@ import { Router } from '@angular/router';
 })
 export class HomePageComponent implements OnInit {
 
-  constructor(  private pippo : Router ) { }
+  constructor(  private router : Router ) { }
 
   navigateToStory(storyValue){
-        this.pippo.navigateByUrl("visualizza/4")
+        this.router.navigateByUrl("visualizza/4")
+  }
+
+  navigateToAutore(){
+      this.router.navigateByUrl("autore")
   }
 
   ngOnInit(): void {
