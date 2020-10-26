@@ -1,0 +1,30 @@
+.formOne{
+  margin-top: 50px;
+  margin-left: 50px;
+}
+
+.mat-radio-container {
+  vertical-align: text-top;
+}
+
+.mat-card {
+  width: 200px;
+  height: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  margin:10px;
+}
+
+.mat-icon {
+  transform: scale(5);
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+h2 {
+  text-align: center;
+}

@@ -1,4 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
@@ -7,6 +8,7 @@ import { MatExpansionModule } from "@angular/material/expansion";
 import {MatListModule} from '@angular/material/list';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatIconModule} from '@angular/material/icon';
+import {MatRadioModule} from '@angular/material/radio';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -18,9 +20,9 @@ import { VisualizzaComponent } from './components/visualizza/visualizza.componen
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModificaComponent } from './components/autore/modifica/modifica.component';
-import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './components/header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { PlayerComponent } from './components/player/player.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     VisualizzaComponent,
     HomePageComponent,
     ModificaComponent,
-    HeaderComponent
+    HeaderComponent,
+    PlayerComponent
   ],
   imports: [
     BrowserModule,
@@ -45,7 +48,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatListModule,
     FontAwesomeModule,
     MatChipsModule,
-    MatIconModule
+    MatIconModule,
+    MatRadioModule
 
   ],
   providers: [],
