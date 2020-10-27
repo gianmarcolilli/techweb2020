@@ -5,8 +5,10 @@
     <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
   </button>
   <span>{{  myTitle  }}</span>
-  <span class="example-spacer">
-    <button mat-button (click)="navigateToAutore()" >Autore</button>
-    <button mat-button (click)="navigateToPlayer()">Player</button>
-  </span>
+  <span class="spacer"></span>
+  <ul>
+    <li>
+      <a mat-button routerLink="/autore" routerLinkActive="mat-accent">Autore</a>
+    </li>
+  </ul>
 </mat-toolbar>

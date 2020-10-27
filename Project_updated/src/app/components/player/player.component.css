@@ -1,30 +1,36 @@
-.formOne{
+.formOne , .formTwo {
   margin-top: 50px;
   margin-left: 50px;
 }
 
-.mat-radio-container {
-  vertical-align: text-top;
-}
-
-.mat-card {
+.formOne .mat-card {
   width: 200px;
   height: 300px;
   display: flex;
   flex-wrap: wrap;
   align-content: center;
-  margin:10px;
+  margin:auto;
 }
 
-.mat-icon {
+.formOne .mat-card .mat-icon {
   transform: scale(5);
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: auto;
-  margin-bottom: auto;
+  margin:auto;
 }
 
 h2 {
   text-align: center;
+}
+
+button {
+  width: 100px;
+  height: 100px;
+  float: right;
+  margin-right: 50px;
+}
+
+button .mat-icon {
+  transform: scale(5);
+  display: block;
+  margin:auto;
 }
