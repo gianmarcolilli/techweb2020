@@ -5,10 +5,10 @@ import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatExpansionModule } from "@angular/material/expansion";
-import {MatListModule} from '@angular/material/list';
-import {MatChipsModule} from '@angular/material/chips';
-import {MatIconModule} from '@angular/material/icon';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatListModule } from '@angular/material/list';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -23,6 +23,7 @@ import { ModificaComponent } from './components/autore/modifica/modifica.compone
 import { HeaderComponent } from './components/header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PlayerComponent } from './components/player/player.component';
+import { NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,9 @@ import { PlayerComponent } from './components/player/player.component';
     FontAwesomeModule,
     MatChipsModule,
     MatIconModule,
-    MatRadioModule
+    MatRadioModule,
+    NgbModule,
+    NgbAlertModule
 
   ],
   providers: [],

@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class PlayerComponent implements OnInit {
 
   titolo: string = "Player";
+  tipologiaGruppo = "";
+  fasciaEta = "";
 
   constructor() { }
 

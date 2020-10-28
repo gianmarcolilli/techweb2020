@@ -1,49 +1,61 @@
-<!-- <app-header [my-title]="titolo"> </app-header> -->
-
-
 <div class="formOne">
-  <h1>Selezionare le modalità di gioco</h1>
-  <form>
-    <mat-radio-button>
-      <mat-card>
-        <mat-icon aria-hidden="false" aria-label="person icon">person</mat-icon>
-      </mat-card>
-      <h2>Individuale</h2>
-    </mat-radio-button>
-    <mat-radio-button>
-      <mat-card>
-        <mat-icon aria-hidden="false" aria-label="group icon">group</mat-icon>
-      </mat-card>
-      <h2>Gruppo (2-5 persone)</h2>
-    </mat-radio-button>
-    <mat-radio-button>
-      <mat-card>
-        <mat-icon aria-hidden="false" aria-label="groups icon">groups</mat-icon>
-      </mat-card>
-      <h2>Classe (15-25 persone)</h2>
-    </mat-radio-button>
-  </form>
+  <mat-radio-group  [(ngModel)]="tipologiaGruppo" aria-label="Select an option">
+    <form>
+      <mat-radio-button value="individuale">
+        <mat-card>
+          <mat-icon aria-hidden="false" aria-label="person icon">person</mat-icon>
+        </mat-card>
+        <h2>Individuale</h2>
+      </mat-radio-button>
+      <mat-radio-button value="gruppo">
+        <mat-card>
+          <mat-icon aria-hidden="false" aria-label="group icon">group</mat-icon>
+        </mat-card>
+        <h2>Gruppo (2-5 persone)</h2>
+      </mat-radio-button>
+      <mat-radio-button value="classe">
+        <mat-card>
+          <mat-icon aria-hidden="false" aria-label="groups icon">groups</mat-icon>
+        </mat-card>
+        <h2>Classe (15-25 persone)</h2>
+      </mat-radio-button>
+    </form>
+  </mat-radio-group>
 </div>
 <div class="formTwo">
-  <h1>Selezionare la fascia di età</h1>
-  <form>
-    <mat-radio-button>
-      <mat-card>
-        7 - 10 anni
-      </mat-card>
-    </mat-radio-button>
-    <mat-radio-button>
-      <mat-card>
-        11 - 14 anni
-      </mat-card>
-    </mat-radio-button>
-    <mat-radio-button>
-      <mat-card>
-        15 - 18 anni
-      </mat-card>
-    </mat-radio-button>
-  </form>
+  <mat-radio-group [(ngModel)]="fasciaEta" aria-label="Select an option">
+    <form>
+      <mat-radio-button value="fasciaUno">
+        <mat-card>
+          7 - 10 anni
+        </mat-card>
+      </mat-radio-button>
+      <mat-radio-button value="fasciaDue">
+        <mat-card>
+          11 - 14 anni
+        </mat-card>
+      </mat-radio-button>
+      <mat-radio-button value="fasciaTre">
+        <mat-card>
+          15 - 18 anni
+        </mat-card>
+      </mat-radio-button>
+    </form>
+  </mat-radio-group>
 </div>
+<hr/>
+
+<mat-card class="col col-6">
+  <mat-card-header>
+    Riepilogo
+  </mat-card-header>
+  <mat-card-content>
+    <h2>Gruppo : {{tipologiaGruppo}}</h2>
+
+    <h2>Fascia di età : {{fasciaEta}}</h2> <br>
+
+  </mat-card-content>
+</mat-card>
 
 <div>
   <button mat-mini-fab color="warn">
