@@ -10,7 +10,14 @@ identifica la storia e i settaggi ma non la partita  -->  X
 
 identifica la storia, i settaggi, la partita --->    classe join   
 
+0  - australopitechi  ( 7.-10)
+1 - corpo umano (7-10)
+2 - monopoli	11-13
+3 - gioco4	13-18
 
+
+
+url indirrizzo/myplayer/0/
 -------------------------------------------O----------------------------------------------
 -------------------------------------------O----------------------------------------------
 
