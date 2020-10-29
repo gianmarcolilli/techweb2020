@@ -24,6 +24,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PlayerComponent } from './components/player/player.component';
 import { NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { QRCodeModule } from 'angularx-qrcode';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatIconModule,
     MatRadioModule,
     NgbModule,
-    NgbAlertModule
+    NgbAlertModule,
+    QRCodeModule
 
   ],
   providers: [],

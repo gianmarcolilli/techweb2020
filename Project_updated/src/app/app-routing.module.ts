@@ -10,7 +10,8 @@ const routes: Routes = [
   { path: "autore" , component:AutoreComponent},
   { path: "player" , component:PlayerComponent},
   { path: "visualizza/:id" , component:VisualizzaComponent},
-  { path: "" , component:HomePageComponent}
+  { path: "" , component:HomePageComponent},
+  { path: "player/:tipo/:fascia/:traccia", component:PlayerComponent}
 
 ];
 
