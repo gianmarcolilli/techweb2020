@@ -19,6 +19,7 @@ export interface Answer{
 export interface Storia {
   id: number,
   nome: string,
+  fasciaEta: string,
   urlBackground: string,
   steps: Step[],
   didascalia: string,
