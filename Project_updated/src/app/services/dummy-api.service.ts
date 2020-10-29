@@ -18,6 +18,42 @@ export class DummyApiService {
     {
       id: 0,
       nome: 'Evoluzione dell\'uomo',
+      fasciaEta: 'fasciaUno',
+      didascalia: "Ci troviamo 4 milioni di anni fa e sappiamo che nella scala evolutiva dell’uomo c\'&egrave una figura che intercorre tra la scimmia e l’homo sapiens.",
+      urlBackground: 'https://image.shutterstock.com/image-photo/background-yellow-color-260nw-339630764.jpg',
+      startText: "Comincia",
+      steps: [
+        {
+          numeroStep: 0,
+          titleStep: 'Quale è la figura?',
+          action: 'clickToGo',
+          backImg: "string",
+          actionImg: "",
+          answers: [' australopiteco', 'uomo di neandertal']
+        },
+        {
+          numeroStep: 1,
+          titleStep: 'siamo nello step due ?',
+          action: '4answers',
+          backImg: "string",
+          actionImg: "",
+          answers: [
+            {
+              content: ' australopiteco',
+              correct: true
+            }, {
+              content: ' scimmia',
+              correct: false
+            }
+
+          ]
+        }
+      ]
+    },
+    {
+      id: 1,
+      nome: 'Evoluzione della donna',
+      fasciaEta: 'fasciaDue',
       didascalia: "Ci troviamo 4 milioni di anni fa e sappiamo che nella scala evolutiva dell’uomo c\'&egrave una figura che intercorre tra la scimmia e l’homo sapiens.",
       urlBackground: 'https://image.shutterstock.com/image-photo/background-yellow-color-260nw-339630764.jpg',
       startText: "Comincia",
