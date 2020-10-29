@@ -1,4 +1,4 @@
-.formOne , .formTwo {
+.formOne , .formTwo, .formThree {
   margin-top: 50px;
   margin-left: 50px;
 }
@@ -34,9 +34,3 @@ button .mat-icon {
   display: block;
   margin:auto;
 }
-
-
-/* #prova1 {
-  background-image: url("C:/Users/Utente/Downloads/person-black-48dp/2x/baseline_person_black_48dp.png");
-  background-repeat: no-repeat;
-} */
