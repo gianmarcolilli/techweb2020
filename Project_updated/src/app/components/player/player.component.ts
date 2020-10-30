@@ -15,6 +15,7 @@ export class PlayerComponent implements OnInit {
   fasciaEta = "";
   storie = [];
   traccia = -1;
+  playClicked = false;
 
   getStories() {
     this.apiDb.getStories().subscribe( (storietemp) => {

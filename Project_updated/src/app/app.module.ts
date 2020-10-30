@@ -25,6 +25,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PlayerComponent } from './components/player/player.component';
 import { NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QRCodeModule } from 'angularx-qrcode';
+import { LobbyComponent } from './components/lobby/lobby.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     HomePageComponent,
     ModificaComponent,
     HeaderComponent,
-    PlayerComponent
+    PlayerComponent,
+    LobbyComponent
   ],
   imports: [
     BrowserModule,

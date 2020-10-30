@@ -18,8 +18,8 @@ identifica la storia, i settaggi, la partita --->    classe join
 
 
 url indirrizzo/myplayer/0/
--------------------------------------------O----------------------------------------------
--------------------------------------------O----------------------------------------------
+-------------------------------------------O-------------------   -- - --  ----------------------
+-------------------------------------------O--------------------   -- ---  ---------------------
 
 INDIVIDUALE -> qr code porta direttamente alla partita (tiene conto del tempo e del punteggio)
 GRUPPO 	-> qr code. Ognuno ha un telefono, quando uno risponde giusto, quelli dello stesso gruppo avanzano(polling)
@@ -28,3 +28,8 @@ CLASSE 	-> qr code che mi porta alla lobby della partita (compagni di classe)
 	   il primo che aderisce diventa capo gruppo, ha il compito di mettere pronto, ma solo quando la squadra ha un minimo di 2 giocatori
 	   quando tutti hanno messo pronto, countdown (10 sec) e parte il gioco per tutte le squadre
 	   (ipotesi che una squadra tardi a mettere pronto c'è un timer di x secondi priva che metta pronto in automatico)
+
+    
+ID| step    |     numPrevisto |    numInLobby |      
+0     -1	     25		     	1
+1     -1 	

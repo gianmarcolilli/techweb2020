@@ -1,84 +1,105 @@
-<div class="formOne">
-  <mat-radio-group  [(ngModel)]="tipologiaGruppo" aria-label="Select an option">
-    <form>
-      <mat-radio-button value="individuale">
-        <mat-card>
-          <mat-icon aria-hidden="false" aria-label="person icon">person</mat-icon>
-        </mat-card>
-        <h2>Individuale</h2>
-      </mat-radio-button>
-      <mat-radio-button value="gruppo">
-        <mat-card>
-          <mat-icon aria-hidden="false" aria-label="group icon">group</mat-icon>
-        </mat-card>
-        <h2>Gruppo (2-5 persone)</h2>
-      </mat-radio-button>
-      <mat-radio-button value="classe">
-        <mat-card>
-          <mat-icon aria-hidden="false" aria-label="groups icon">groups</mat-icon>
-        </mat-card>
-        <h2>Classe (15-25 persone)</h2>
-      </mat-radio-button>
-    </form>
-  </mat-radio-group>
-</div>
-<div class="formTwo">
-  <mat-radio-group [(ngModel)]="fasciaEta" aria-label="Select an option" (click)='traccia=-1'>
-    <form>
-      <mat-radio-button value="fasciaUno">
-        <mat-card>
-          7 - 10 anni
-        </mat-card>
-      </mat-radio-button>
-      <mat-radio-button value="fasciaDue">
-        <mat-card>
-          11 - 14 anni
-        </mat-card>
-      </mat-radio-button>
-      <mat-radio-button value="fasciaTre">
-        <mat-card>
-          15 - 18 anni
-        </mat-card>
-      </mat-radio-button>
-    </form>
-  </mat-radio-group>
-</div>
 
-<div class="formThree" *ngIf="fasciaEta!=''">
-  <mat-radio-group [(ngModel)]="traccia" aria-label="Select an option">
-    <form>
-      <ng-container *ngFor="let storia of storie">
-        <mat-radio-button [value]="storia.id" *ngIf="storia.fasciaEta==fasciaEta">
+<section *ngIf="!playClicked">
+  <div class="formOne">
+    <mat-radio-group  [(ngModel)]="tipologiaGruppo" aria-label="Select an option">
+      <form>
+        <mat-radio-button value="individuale">
           <mat-card>
-            {{storia.nome}}
+            <mat-icon aria-hidden="false" aria-label="person icon">person</mat-icon>
+          </mat-card>
+          <h2>Individuale</h2>
+        </mat-radio-button>
+        <mat-radio-button value="gruppo">
+          <mat-card>
+            <mat-icon aria-hidden="false" aria-label="group icon">group</mat-icon>
+          </mat-card>
+          <h2>Gruppo (2-5 persone)</h2>
+        </mat-radio-button>
+        <mat-radio-button value="classe">
+          <mat-card>
+            <mat-icon aria-hidden="false" aria-label="groups icon">groups</mat-icon>
+          </mat-card>
+          <h2>Classe (15-25 persone)</h2>
+        </mat-radio-button>
+      </form>
+    </mat-radio-group>
+  </div>
+  <div class="formTwo">
+    <mat-radio-group [(ngModel)]="fasciaEta" aria-label="Select an option" (click)='traccia=-1'>
+      <form>
+        <mat-radio-button value="fasciaUno">
+          <mat-card>
+            7 - 10 anni
           </mat-card>
         </mat-radio-button>
-      </ng-container>
-    </form>
-  </mat-radio-group>
+        <mat-radio-button value="fasciaDue">
+          <mat-card>
+            11 - 14 anni
+          </mat-card>
+        </mat-radio-button>
+        <mat-radio-button value="fasciaTre">
+          <mat-card>
+            15 - 18 anni
+          </mat-card>
+        </mat-radio-button>
+      </form>
+    </mat-radio-group>
+  </div>
+
+  <div class="formThree" *ngIf="fasciaEta!=''">
+    <mat-radio-group [(ngModel)]="traccia" aria-label="Select an option">
+      <form>
+        <ng-container *ngFor="let storia of storie">
+          <mat-radio-button [value]="storia.id" *ngIf="storia.fasciaEta==fasciaEta">
+            <mat-card>
+              {{storia.nome}}
+            </mat-card>
+          </mat-radio-button>
+        </ng-container>
+      </form>
+    </mat-radio-group>
+  </div>
+
+  <hr/>
+
+
+  <mat-card class="col col-6">
+    <mat-card-header>
+      Riepilogo
+    </mat-card-header>
+    <mat-card-content>
+      <h2>Gruppo : {{tipologiaGruppo}}</h2>
+
+      <h2>Fascia di età : {{fasciaEta}}</h2> <br>
+      <span *ngIf="traccia!=-1"> <h2>traccia: {{traccia}}</h2> <br>
+
+
+        <qrcode *ngIf="tipologiaGruppo=='individuale' || tipologiaGruppo=='gruppo'" [qrdata]="'http://localhost:4200/visualizza/'+tipologiaGruppo+'/'+fasciaEta" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+
+      </span>
+
+
+
+    </mat-card-content>
+  </mat-card>
+
+  <div (click)="playClicked= true">
+    <button mat-mini-fab color="warn">
+      <mat-icon>play_arrow</mat-icon>
+    </button>
+  </div>
+
+</section>
+
+
+<section *ngIf="playClicked">
+  <h3> Ecco i vostri qr code !</h3>
+  <div *ngIf="tipologiaGruppo=='classe'"  >
+  Squadra 1 <qrcode  [qrdata]="'http://localhost:4200/lobby/786'" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+  Squadra 2 <qrcode  [qrdata]="'http://localhost:4200/lobby/786'" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+  <qrcode [qrdata]="'http://localhost:4200/lobby/786'" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+  <qrcode  [qrdata]="'http://localhost:4200/lobby/786'" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
 </div>
 
-<hr/>
+</section>
 
-
-<mat-card class="col col-6">
-  <mat-card-header>
-    Riepilogo
-  </mat-card-header>
-  <mat-card-content>
-    <h2>Gruppo : {{tipologiaGruppo}}</h2>
-
-    <h2>Fascia di età : {{fasciaEta}}</h2> <br>
-    <span *ngIf="traccia!=-1"> <h2>traccia: {{traccia}}</h2> <br>
-      <qrcode [qrdata]="'http://localhost:4200/player/'+tipologiaGruppo+'/'+fasciaEta" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
-
-    </span>
-
-  </mat-card-content>
-</mat-card>
-
-<div>
-  <button mat-mini-fab color="warn">
-    <mat-icon>play_arrow</mat-icon>
-  </button>
-</div>
