@@ -18,11 +18,17 @@
   margin:auto;
 }
 
+.fixedLowRight{
+  right: 10px;
+    bottom: 10px;
+    position: fixed;
+
+}
 h2 {
   text-align: center;
 }
 
-button {
+.my-fab-button {
   width: 100px;
   height: 100px;
   float: right;

@@ -9,6 +9,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule} from '@angular/material/select';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +27,7 @@ import { PlayerComponent } from './components/player/player.component';
 import { NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QRCodeModule } from 'angularx-qrcode';
 import { LobbyComponent } from './components/lobby/lobby.component';
+import { SquadreNamePipe } from './pipes/squadre-name.pipe';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,8 @@ import { LobbyComponent } from './components/lobby/lobby.component';
     ModificaComponent,
     HeaderComponent,
     PlayerComponent,
-    LobbyComponent
+    LobbyComponent,
+    SquadreNamePipe
   ],
   imports: [
     BrowserModule,
@@ -56,7 +59,8 @@ import { LobbyComponent } from './components/lobby/lobby.component';
     MatRadioModule,
     NgbModule,
     NgbAlertModule,
-    QRCodeModule
+    QRCodeModule,
+    MatSelectModule
 
   ],
   providers: [],
