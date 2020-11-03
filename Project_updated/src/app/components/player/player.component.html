@@ -73,7 +73,7 @@
   </mat-form-field> -->
   </div>
 
-  <section [style]="{ border: ' 1px solid black' }">
+  <section *ngIf="nPartecipanti != -1"  [style]="{ border: ' 1px solid black' }">
     <p>Partecipanti : {{ nPartecipantiAggiunti }} / {{ nPartecipanti }}</p>
 
     <p>
