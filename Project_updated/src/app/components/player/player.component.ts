@@ -5,6 +5,7 @@ import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { Squadra } from "../../interfaces/squadra";
 
 const MAXPARTECIPANTI = 5;
+const MINPARTECIPANTI = 2;
 
 const myAlert = {
   type: 'danger',
@@ -87,6 +88,8 @@ export class PlayerComponent implements OnInit {
 
     let minNGruppi = this.nPartecipanti / MAXPARTECIPANTI
     this.nSquadre = Math.trunc(minNGruppi + 1)
+    let maxNGruppi = Math.trunc(this.nPartecipanti / MINPARTECIPANTI)
+    console.log(maxNGruppi)
     this.azzeraSquadre()
     for(let i = 0; i < this.nSquadre ;i++){
       this.aggiungiSquadra()
