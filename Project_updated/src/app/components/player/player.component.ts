@@ -80,19 +80,26 @@ export class PlayerComponent implements OnInit {
     )
   }
 
+  aggiungiPartecipanti(numPartecipanti, idS){
+for (let index = 0; index < numPartecipanti; index++) {
+  this.aggiungiPlayer(idS)
+
+}
+
+  }
+
   nPartecipantiChanged() {
     // if(!this.nDimensionePreferita) return;
 
-
-
-
     let minNGruppi = this.nPartecipanti / MAXPARTECIPANTI
     this.nSquadre = Math.trunc(minNGruppi + 1)
+
     let maxNGruppi = Math.trunc(this.nPartecipanti / MINPARTECIPANTI)
     console.log(maxNGruppi)
     this.azzeraSquadre()
     for(let i = 0; i < this.nSquadre ;i++){
       this.aggiungiSquadra()
+      this.aggiungiPartecipanti(MINPARTECIPANTI, i)
     }
 
 
