@@ -2,7 +2,7 @@
 <mat-accordion multi="true" *ngIf="storie.length > 0; else error">
   <mat-expansion-panel *ngFor="let storia of storie; index as i">
     <mat-expansion-panel-header>
-      {{ storia.nome }}
+      {{ storia.title  }}
     </mat-expansion-panel-header>
     <img
       [src]="storia.urlBackground"
@@ -31,7 +31,16 @@
   </mat-expansion-panel>
 </mat-accordion>
 
-<button mat-raised-button color="accent">aggiunta</button>
+<swal #mioAlert confirmButtonText="Salva" (confirm)="aggiungiStoria()" >
+  <div *swalPortal>
+    <h1>name :</h1> <input [(ngModel)]="this.myTempName" class="form-control" id="name" type="text" />
+    <h1>didascalia :</h1> <input [(ngModel)]="this.myTempDidascalia" class="form-control" id="didascalia" type="text" />
+    <!-- <button (click)="aggiungiStoria()"> salva </button> -->
+  </div>
+</swal>
+
+<button [swal]="mioAlert" mat-raised-button color="accent">aggiunta</button>
+<mat-spinner *ngIf="isLoading"></mat-spinner>
 
 <ng-template #error>
   <div>

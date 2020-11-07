@@ -10,6 +10,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule} from '@angular/material/select';
+import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -28,6 +29,8 @@ import { NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QRCodeModule } from 'angularx-qrcode';
 import { LobbyComponent } from './components/lobby/lobby.component';
 import { SquadreNamePipe } from './pipes/squadre-name.pipe';
+
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 @NgModule({
   declarations: [
@@ -60,7 +63,9 @@ import { SquadreNamePipe } from './pipes/squadre-name.pipe';
     NgbModule,
     NgbAlertModule,
     QRCodeModule,
-    MatSelectModule
+    MatSelectModule,
+    MatProgressSpinnerModule,
+    SweetAlert2Module.forRoot()
 
   ],
   providers: [],
