@@ -45,8 +45,8 @@ export class PlayerComponent implements OnInit {
   nPartecipantiAggiunti = 0;
   personeSquadra = -1;
   getStories() {
-    this.apiDb.getStories().subscribe((storietemp) => {
-      this.storie = storietemp
+    this.apiDb.getStories().subscribe((risultato) => {
+      this.storie = risultato.posts
     })
   }
 

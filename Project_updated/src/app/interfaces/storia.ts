@@ -18,6 +18,7 @@ export interface Answer{
 
 export interface Storia {
   id: number,
+  title? : string,
   nome: string,
   fasciaEta: string,
   urlBackground: string,
