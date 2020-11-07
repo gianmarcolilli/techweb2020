@@ -37,20 +37,26 @@ router.post(
       title: req.body.title,
       didascalia: req.body.didascalia
     });
+    let findQry = Story.find()
+    findQry.then((documents)=>{
 
+     return Story.count()
+    }).then(( conteggio )=>{
 
-
-    story.save().then(createdStory => {
-      res.status(201).json({
-        message: "Storia added successfully",
-        story: {
-          ...createdStory,
-          id: createdStory._id
-        }
+      story.save().then(createdStory => {
+        res.status(201).json({
+          message: "Storia added successfully",
+          story: {
+            ...createdStory  ,
+          id: conteggio      }
+        });
+      }).catch((e)=>{
+        console.log(e.message)
+        res.status(500).json();
       });
-    }).catch((e)=>{
-      res.status(500).json();
-    });
+
+    })
+
   }
 );
 

@@ -41,5 +41,4 @@ app.use("/api/stories", storiesRoutes);
 app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
 
-
 module.exports = app;
