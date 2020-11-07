@@ -1,6 +1,6 @@
 const express = require("express");
 const multer = require("multer");
-const { create } = require("../models/story");
+const { create, db } = require("../models/story");
 
 const Story = require("../models/story");
 // const checkAuth = require("../middleware/check-auth");
@@ -26,6 +26,10 @@ const router = express.Router();
 //     cb(null, name + "-" + Date.now() + "." + ext);
 //   }
 // });
+
+
+
+
 
 router.post(
   "",
@@ -86,28 +90,27 @@ router.post(
 //     });
 //   }
 // );
-
-// router.get("", (req, res, next) => {
-//   const pageSize = +req.query.pagesize;
-//   const currentPage = +req.query.page;
-//   const postQuery = Post.find();
-//   let fetchedPosts;
-//   if (pageSize && currentPage) {
-//     postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
-//   }
-//   postQuery
-//     .then(documents => {
-//       fetchedPosts = documents;
-//       return Post.count();
-//     })
-//     .then(count => {
-//       res.status(200).json({
-//         message: "Posts fetched successfully!",
-//         posts: fetchedPosts,
-//         maxPosts: count
-//       });
-//     });
-// });
+router.get("", (req, res, next) => {
+  // const pageSize = +req.query.pagesize;
+  // const currentPage = +req.query.page;
+  const postQuery = Story.find();
+  let fetchedStories;
+  // if (pageSize && currentPage) {
+  //   postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
+  // }
+  postQuery
+    .then(documents => {
+      fetchedStories = documents;
+      return Story.count();
+    })
+    .then(count => {
+      res.status(200).json({
+        message: "Posts fetched successfully!",
+        posts: fetchedStories,
+        maxPosts: count
+      });
+    });
+});
 
 // router.get("/:id", (req, res, next) => {
 //   Post.findById(req.params.id).then(post => {
