@@ -92,22 +92,16 @@ export class DummyApiService {
     return this.http.post('http://localhost:3000/api/stories/',
                           {
                             "title":storiaDaInviare.nome,
-                            "didascalia":storiaDaInviare.didascalia
+                            "didascalia":storiaDaInviare.didascalia,
+                            "fasciaEta":storiaDaInviare.fasciaEta
                           }
     );
   }
 
   // get
   getStories(): Observable<any> {
-    // return of(this.storie)
-    // return this.http.get("https://sheet.best/api/sheets/8993a7e2-11f8-476b-8495-98e00fcfd75e")
-    return this.http.get('http://localhost:3000/api/stories/')
-    //.pipe(map((Storia)=>{
-     // return {nome: Storia.title }
-    //}))
-    ;
+    return this.http.get('http://localhost:3000/api/stories/');
   }
-
 
   getStoria(id:number): Observable<any>{
     return this.http.get("https://sheet.best/api/sheets/8993a7e2-11f8-476b-8495-98e00fcfd75e")
