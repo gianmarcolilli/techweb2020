@@ -37,16 +37,18 @@ router.post(
   // multer({ storage: storage }).single("image"),
   (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
-    const story = new Story({
-      title: req.body.title,
-      didascalia: req.body.didascalia
-    });
+
     let findQry = Story.find()
     findQry.then((documents)=>{
 
      return Story.count()
     }).then(( conteggio )=>{
-
+      const story = new Story({
+        title: req.body.title,
+        didascalia: req.body.didascalia,
+        fasciaEta: req.body.fasciaEta,
+        id:conteggio
+      });
       story.save().then(createdStory => {
         res.status(201).json({
           message: "Storia added successfully",
