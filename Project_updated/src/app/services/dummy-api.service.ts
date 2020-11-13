@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Storia } from '../interfaces/storia';
 import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class DummyApiService {
 
 
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, private router:Router) { }
 
   storie = [
     {
@@ -88,15 +89,31 @@ export class DummyApiService {
     }
   ]
 
-  addNewStory(storiaDaInviare):Observable<any> {
-    return this.http.post('http://localhost:3000/api/stories/',
-                          {
-                            "title":storiaDaInviare.nome,
-                            "didascalia":storiaDaInviare.didascalia,
-                            "fasciaEta":storiaDaInviare.fasciaEta
-                          }
-    );
-  }
+  // addNewStory(storiaDaInviare):Observable<any> {
+  //   return this.http.post('http://localhost:3000/api/stories/',
+  //                         {
+  //                           "title":storiaDaInviare.nome,
+  //                           "didascalia":storiaDaInviare.didascalia,
+  //                           "fasciaEta":storiaDaInviare.fasciaEta
+  //                         }
+  //   );
+  // }
+
+  addNewStory(title:string, didascalia:string, fasciaEta:string, image:File) {
+    const storyData = new FormData();
+    storyData.append("title", title);
+    storyData.append("didascalia", didascalia);
+    storyData.append("fasciaEta", fasciaEta);
+    storyData.append("image", image, title);
+    this.http
+      .post<{message:string, storia: Storia}>(
+        "http://localhost:3000/api/posts/",
+        storyData
+      )
+      .subscribe(responseData=>{
+        this.router.navigate(["/"]);
+      });
+}
 
   // get
   getStories(): Observable<any> {

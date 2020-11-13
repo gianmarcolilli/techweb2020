@@ -2,7 +2,9 @@ import { Component, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular
 import { DummyApiService } from '../../services/dummy-api.service';
 import { Storia } from '../../interfaces/storia';
 import { SweetAlert2LoaderService } from '@sweetalert2/ngx-sweetalert2';
-import { FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { mimeType } from "./mime-type.validator";
 
 @Component({
   selector: 'app-autore',
@@ -17,6 +19,7 @@ import { FormGroup } from '@angular/forms';
 export class AutoreComponent implements OnInit {
   titolo: string = "Menu' Autore";
   storie: Storia[] = [];
+  storia: Storia;
   myTempName : string = "";
   myTempDidascalia : string ="";
   myTempFasciaEta : string ="";
@@ -24,21 +27,22 @@ export class AutoreComponent implements OnInit {
   isLoading:boolean = false;
   form:FormGroup;
   imagePreview : string;
+  dummyApi: DummyApiService;
 
-    constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService) {
+  constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService) {}
 
-    }
 
-    onImagePicked(event:Event){
-      const file = (event.target as HTMLInputElement).files[0];
-      this.form.patchValue({image: file});
-      this.form.get('image').updateValueAndValidity();
-      const reader = new FileReader();
-      reader.onload = () => {
-        this.imagePreview = reader.result as string;
-      };
-      reader.readAsDataURL(file);
-    }
+
+  onImagePicked(event:Event){
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({image: file});
+    this.form.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
 
   showAlert(testo:string){
     let promiseDiSwal  =  this.swalLoader.swal;
@@ -54,28 +58,43 @@ export class AutoreComponent implements OnInit {
   aggiungiStoria() {
     this.isLoading = true;
     console.log("wohoo devo aggiungere una storia !")
-    let storiaDaInviare = {
-      nome : this.myTempName ,
-      didascalia : this.myTempDidascalia,
-      fasciaEta: this.myTempFasciaEta
-   }
 
-    this.myTempDidascalia = ""
-    this.myTempName = ""
-    this.myTempFasciaEta = ""
-
-
-    console.log(" sto per inviiaare questa roba :"+ JSON.stringify(storiaDaInviare))
-    if (storiaDaInviare.nome != "" &&  storiaDaInviare.didascalia != "") {
-      this.api.addNewStory(storiaDaInviare).subscribe( () => {
-        this.showAlert( "Aggiunta avvenuta con successo" );
-        this.isLoading = false
-      });
-    } else {
-        this.showAlert( "Non hai inserito i dati" );
+    if(this.form.invalid){
+      return;
     }
+    this.isLoading = true;
 
+    this.dummyApi.addNewStory(
+      this.form.value.myTempName,
+      this.form.value.myTempDidascalia,
+      this.form.value.myTempFasciaEta,
+      this.form.value.imagePreview
+    );
+
+    this.form.reset();
   }
+
+
+    // let storiaDaInviare = {
+    //   nome : this.myTempName ,
+    //   didascalia : this.myTempDidascalia,
+    //   fasciaEta: this.myTempFasciaEta,
+    //   image: this.imagePreview
+    // }
+
+
+
+    // console.log(" sto per inviiaare questa roba :"+ JSON.stringify(storiaDaInviare))
+    // if (storiaDaInviare.nome != "" &&  storiaDaInviare.didascalia != "" && storiaDaInviare.image!="") {
+    //   this.api.addNewStory(storiaDaInviare).subscribe( () => {
+    //     this.showAlert( "Aggiunta avvenuta con successo" );
+    //     this.isLoading = false
+    //   });
+    // } else {
+    //     this.showAlert( "Non hai inserito i dati" );
+    // }
+
+  //  }
 
   modificaStoria() {
   }
@@ -99,6 +118,19 @@ export class AutoreComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.form = new FormGroup({
+      'myTempDidascalia': new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]
+        }),
+      'myTempName': new FormControl(null, {validators: [Validators.required]
+        }),
+      'myTempFasciaEta': new FormControl(null, {validators: [Validators.required]
+        }),
+      'image': new FormControl(null, {
+        validators: [Validators.required],
+        asyncValidators: [mimeType]
+        })
+      });
 
 
     this.api.getStories().subscribe(
