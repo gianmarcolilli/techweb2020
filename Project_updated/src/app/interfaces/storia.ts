@@ -18,14 +18,13 @@ export interface Answer{
 
 export interface Storia {
   id: number,
-  title? : string,
   nome: string,
   fasciaEta: string,
-  urlBackground: string,
-  steps: Step[],
-  didascalia: string,
-  startText : string,
-  entryId : number
+  urlBackground?: string,
+  steps?: Step[],
+  didascalia?: string,
+  startText ?: string,
+  entryId ?: number
 
 }
 

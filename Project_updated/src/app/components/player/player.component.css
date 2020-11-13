@@ -3,6 +3,10 @@
   margin-left: 50px;
 }
 
+.mat-card{
+  margin: auto;
+}
+
 .formOne .mat-card {
   width: 200px;
   height: 300px;
@@ -40,3 +44,5 @@ button .mat-icon {
   display: block;
   margin:auto;
 }
+
+
