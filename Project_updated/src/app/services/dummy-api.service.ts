@@ -14,7 +14,7 @@ export class DummyApiService {
 
 
 
-  constructor(public http: HttpClient, private router:Router) { }
+  constructor(public http: HttpClient) { }
 
   storie = [
     {
@@ -99,20 +99,15 @@ export class DummyApiService {
   //   );
   // }
 
-  addNewStory(title:string, didascalia:string, fasciaEta:string, image:File) {
-    const storyData = new FormData();
-    storyData.append("title", title);
-    storyData.append("didascalia", didascalia);
-    storyData.append("fasciaEta", fasciaEta);
-    storyData.append("image", image, title);
-    this.http
-      .post<{message:string, storia: Storia}>(
-        "http://localhost:3000/api/posts/",
-        storyData
-      )
-      .subscribe(responseData=>{
-        this.router.navigate(["/"]);
-      });
+  addNewStory(title:string, didascalia:string, fasciaEta:string, image:string) {
+    const storyData = {
+      title:title,
+      didascalia:didascalia,
+      fasciaEta:fasciaEta,
+      image:image
+    }
+
+    return this.http.post<{message:string, storia: Storia}>("http://localhost:3000/api/stories/",storyData)
 }
 
   // get

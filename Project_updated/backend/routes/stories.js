@@ -1,3 +1,4 @@
+const { ViewEncapsulation } = require("@angular/core");
 const express = require("express");
 const multer = require("multer");
 const { create, db } = require("../models/story");
@@ -29,8 +30,6 @@ const router = express.Router();
 
 
 
-
-
 router.post(
   "",
   // checkAuth,
@@ -47,7 +46,8 @@ router.post(
         title: req.body.title,
         didascalia: req.body.didascalia,
         fasciaEta: req.body.fasciaEta,
-        id:conteggio
+        id:conteggio,
+        image:req.body.image
       });
       story.save().then(createdStory => {
         res.status(201).json({
