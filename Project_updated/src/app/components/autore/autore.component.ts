@@ -5,6 +5,7 @@ import { SweetAlert2LoaderService } from '@sweetalert2/ngx-sweetalert2';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { mimeType } from "./mime-type.validator";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-autore',
@@ -27,9 +28,8 @@ export class AutoreComponent implements OnInit {
   isLoading:boolean = false;
   form:FormGroup;
   imagePreview : string;
-  dummyApi: DummyApiService;
 
-  constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService) {}
+  constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService, private router: Router) {}
 
 
 
@@ -64,39 +64,28 @@ export class AutoreComponent implements OnInit {
     }
     this.isLoading = true;
 
-    this.dummyApi.addNewStory(
+    this.api.addNewStory(
       this.form.value.myTempName,
       this.form.value.myTempDidascalia,
       this.form.value.myTempFasciaEta,
-      this.form.value.imagePreview
-    );
+      this.imagePreview
+    )
+    .subscribe(responseData=>{
+      this.router.navigate(["/"]);
+    });;
 
     this.form.reset();
   }
 
 
-    // let storiaDaInviare = {
-    //   nome : this.myTempName ,
-    //   didascalia : this.myTempDidascalia,
-    //   fasciaEta: this.myTempFasciaEta,
-    //   image: this.imagePreview
-    // }
-
-
-
-    // console.log(" sto per inviiaare questa roba :"+ JSON.stringify(storiaDaInviare))
-    // if (storiaDaInviare.nome != "" &&  storiaDaInviare.didascalia != "" && storiaDaInviare.image!="") {
-    //   this.api.addNewStory(storiaDaInviare).subscribe( () => {
-    //     this.showAlert( "Aggiunta avvenuta con successo" );
-    //     this.isLoading = false
-    //   });
-    // } else {
-    //     this.showAlert( "Non hai inserito i dati" );
-    // }
-
-  //  }
-
+  configuraStoria(id:number){
+    this.router.navigateByUrl("configura/"+id)
+  }
   modificaStoria() {
+  }
+
+  eliminaStoria(id:string){
+
   }
 
   reMap(element):Storia {
@@ -105,7 +94,7 @@ export class AutoreComponent implements OnInit {
       id: element.id,
       didascalia : element.didascalia,
       fasciaEta: element.fasciaEta,
-      // urlBackground: ,
+      urlBackground: element.image,
       // steps: ,
       // didascalia: string,
       // startText : string,
