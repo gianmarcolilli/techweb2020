@@ -69,6 +69,7 @@ export class AutoreComponent implements OnInit {
       this.form.value.myTempDidascalia,
       this.form.value.myTempFasciaEta,
       this.imagePreview
+
     )
     .subscribe(responseData=>{
       this.router.navigate(["/"]);
@@ -88,22 +89,6 @@ export class AutoreComponent implements OnInit {
 
   }
 
-  reMap(element):Storia {
-    let miaStoriaDaRitornare =  {
-      nome:element.title,
-      id: element.id,
-      didascalia : element.didascalia,
-      fasciaEta: element.fasciaEta,
-      urlBackground: element.image,
-      // steps: ,
-      // didascalia: string,
-      // startText : string,
-      // entryId : number
-     }
-
-
-     return miaStoriaDaRitornare;
-  }
 
 
   ngOnInit(): void {
@@ -129,7 +114,7 @@ export class AutoreComponent implements OnInit {
           risultato.posts.forEach(element => {
 
 
-            this.storie.push(this.reMap(element));
+            this.storie.push(this.api.reMap(element));
             console.log()
           });
           // this.storie.push(element)

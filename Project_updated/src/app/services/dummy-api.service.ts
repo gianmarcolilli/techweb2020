@@ -99,12 +99,33 @@ export class DummyApiService {
   //   );
   // }
 
+
+
+  reMap(element):Storia {
+    let miaStoriaDaRitornare =  {
+      nome:element.title,
+      id: element.id,
+      didascalia : element.didascalia,
+      fasciaEta: element.fasciaEta,
+      urlBackground: element.image,
+      steps: element.attivita
+      // didascalia: string,
+      // startText : string,
+      // entryId : number
+     }
+
+
+     return miaStoriaDaRitornare;
+  }
+
+
   addNewStory(title:string, didascalia:string, fasciaEta:string, image:string) {
     const storyData = {
       title:title,
       didascalia:didascalia,
       fasciaEta:fasciaEta,
-      image:image
+      image:image,
+      attivita : []
     }
 
     return this.http.post<{message:string, storia: Storia}>("http://localhost:3000/api/stories/",storyData)
