@@ -114,15 +114,30 @@ router.get("", (req, res, next) => {
     });
 });
 
-// router.get("/:id", (req, res, next) => {
-//   Post.findById(req.params.id).then(post => {
-//     if (post) {
-//       res.status(200).json(post);
-//     } else {
-//       res.status(404).json({ message: "Post not found!" });
-//     }
-//   });
-// });
+router.get("/:id", (req, res, next) => {
+  Story.findOne({
+    id:req.params.id
+  }).then(story => {
+    if (story) {
+      res.status(200).json(story);
+    } else {
+      res.status(404).json({ message: "Post not found!" });
+    }
+  });
+});
+
+
+router.get("/t/:title", (req, res, next) => {
+  Story.findOne({
+    title:req.params.title
+  }).then(story => {
+    if (story) {
+      res.status(200).json(story);
+    } else {
+      res.status(404).json({ message: "Post not found!" });
+    }
+  });
+});
 
 // router.delete("/:id", checkAuth, (req, res, next) => {
 //   Post.deleteOne({ _id: req.params.id, creator:req.userData.userId }).then(result => {
