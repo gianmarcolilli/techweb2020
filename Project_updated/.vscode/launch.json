@@ -6,7 +6,7 @@
     "configurations": [
 
       {
-        "name": "Debug frontend",
+        "name": "Attach debug to frontend",
         "request": "launch",
         "type": "chrome",
         "url": "http://localhost:4200",
