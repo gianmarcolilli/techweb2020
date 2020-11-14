@@ -1,6 +1,6 @@
 export interface Step {
-  numeroStep: number,
-  titleStep: string,
+  activityId: number,
+  activityTitle: string,
   action: string,
   backImg: string,
   actionImg: string,
