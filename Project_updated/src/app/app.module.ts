@@ -31,6 +31,7 @@ import { LobbyComponent } from './components/lobby/lobby.component';
 import { SquadreNamePipe } from './pipes/squadre-name.pipe';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import { ConfiguraComponent } from './components/configura/configura.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
     HeaderComponent,
     PlayerComponent,
     LobbyComponent,
-    SquadreNamePipe
+    SquadreNamePipe,
+    ConfiguraComponent
   ],
   imports: [
     BrowserModule,
