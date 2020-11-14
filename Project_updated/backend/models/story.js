@@ -5,7 +5,13 @@ const storySchema = mongoose.Schema({
   didascalia : { type:String,required:true},
   id: { type:String},
   fasciaEta: { type: String },
-  image: {type:String}
-});
+  image: {type:String},
+  attivita: [
+    {
+      activityId : { type: String},
+      activityTitle : { type: String}
+    }
+  ]}
+);
 
 module.exports = mongoose.model('Story', storySchema);

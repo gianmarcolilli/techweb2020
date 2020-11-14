@@ -47,7 +47,8 @@ router.post(
         didascalia: req.body.didascalia,
         fasciaEta: req.body.fasciaEta,
         id:conteggio,
-        image:req.body.image
+        image:req.body.image,
+        attivita:req.body.attivita
       });
       story.save().then(createdStory => {
         res.status(201).json({
