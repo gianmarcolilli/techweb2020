@@ -1,6 +1,18 @@
 <app-header [my-title]="'Configura'"> </app-header>
-
-
-<section>
-
-</section>
+<mat-accordion multi="true" *ngIf="storia">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      {{ storia.nome }}
+    </mat-expansion-panel-header>
+    <img
+      [src]="storia.urlBackground"
+      [alt]="'  immagine sfondo di  ' + storia.nome"
+    />
+    <p *ngFor="let act of storia.steps">
+      {{act.activityTitle}}
+    </p>
+    <p *ngIf="(!storia.steps) || (storia.steps.length == 0)">
+      Nessuna attività presnte
+    </p>
+  </mat-expansion-panel>
+</mat-accordion>

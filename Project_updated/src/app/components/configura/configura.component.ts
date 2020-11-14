@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 
 
@@ -10,14 +11,14 @@ import { DummyApiService } from 'src/app/services/dummy-api.service';
 })
 export class ConfiguraComponent implements OnInit {
   id: number;
-
-  constructor(private activeRoute: ActivatedRoute, private apiDB: DummyApiService) { }
+  storia: Storia;
+  constructor(private activeRoute: ActivatedRoute, private api: DummyApiService) { }
 
   ngOnInit(): void {
     this.id = this.activeRoute.snapshot.params.id;
-    this.apiDB.getStoria(this.id).subscribe((singleStory)=>
+    this.api.getStoria(this.id).subscribe((singleStory)=>
       {
-        console.log(singleStory);
+        this.storia = this.api.reMap(singleStory)
       }
 
     )
