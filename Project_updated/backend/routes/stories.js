@@ -59,7 +59,9 @@ router.post(
         });
       }).catch((e)=>{
         console.log(e.message)
-        res.status(500).json();
+        res.status(500).json({
+          message: "Error!"
+        });
       });
 
     })
@@ -140,14 +142,14 @@ router.get("/t/:title", (req, res, next) => {
   });
 });
 
-// router.delete("/:id", checkAuth, (req, res, next) => {
-//   Post.deleteOne({ _id: req.params.id, creator:req.userData.userId }).then(result => {
-//     if (result.n > 0) {
-//       res.status(200).json({ message: "Deletion successful!" });
-//      } else {
-//       res.status(401).json({ message: "Not Authorized!" });
-//      }
-//   });
-// });
+router.delete("/:id", (req, res, next) => {
+  Story.deleteOne({ id: req.params.id }).then(result => {
+    if (result.n > 0) {
+      res.status(200).json({ message: "Deletion successful!" });
+     } else {
+      res.status(404).json({ message: "Not found!" });
+     }
+  });
+});
 
 module.exports = router;

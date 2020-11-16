@@ -1,18 +1,56 @@
 <app-header [my-title]="'Configura'"> </app-header>
-<mat-accordion multi="true" *ngIf="storia">
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
+<mat-card *ngIf="storia">
+    <mat-card-header>
       {{ storia.nome }}
-    </mat-expansion-panel-header>
-    <img
-      [src]="storia.urlBackground"
-      [alt]="'  immagine sfondo di  ' + storia.nome"
-    />
-    <p *ngFor="let act of storia.steps">
-      {{act.activityTitle}}
-    </p>
-    <p *ngIf="(!storia.steps) || (storia.steps.length == 0)">
-      Nessuna attività presnte
-    </p>
-  </mat-expansion-panel>
-</mat-accordion>
+    </mat-card-header>
+    <mat-card-content>
+      <img
+        [src]="storia.urlBackground"
+        [alt]="'  immagine sfondo di  ' + storia.nome"
+      />
+      <p *ngFor="let act of storia.steps">
+        {{act.activityTitle}}
+      </p>
+      <p *ngIf="(!storia.steps) || (storia.steps.length == 0)">
+        Nessuna attività presente
+      </p>
+      <button (click)="showConfiguraDomanda=true" > aggiungi attivita di domande </button>
+      <button (click)="aggiungiAttivita('clickToObject')" > aggiungi attivita di clicca su immagine </button>
+
+    </mat-card-content>
+</mat-card>
+
+
+<div *ngIf="showConfiguraDomanda">
+
+  <input [(ngModel)]="tempDomanda" class="form-control" type="text" placeholder=" Inserisci la tua domanda " >
+
+  <button (click)="aggiungiAttivita('domande')" > aggiungi attivita di domande </button>
+
+</div>
+
+
+{{ storia.steps | json}}
+
+<!--
+<form>
+
+  <div class="example-container">
+    <mat-form-field appearance="fill">
+      <mat-label>Input</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Select</mat-label>
+      <mat-select>
+        <mat-option value="option">Option</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <br>
+    <mat-form-field appearance="fill">
+      <mat-label>Textarea</mat-label>
+      <textarea matInput></textarea>
+    </mat-form-field>
+  </div>
+</form> -->

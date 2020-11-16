@@ -117,6 +117,11 @@ export class DummyApiService {
 
      return miaStoriaDaRitornare;
   }
+// delete
+deleteStory(id:number){
+  return this.http.delete('http://localhost:3000/api/stories/' +id);
+}
+
 
 
   addNewStory(title:string, didascalia:string, fasciaEta:string, image:string) {
@@ -130,6 +135,7 @@ export class DummyApiService {
 
     return this.http.post<{message:string, storia: Storia}>("http://localhost:3000/api/stories/",storyData)
 }
+
 
   // get
   getStories(): Observable<any> {
