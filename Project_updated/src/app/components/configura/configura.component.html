@@ -1,18 +1,58 @@
 <app-header [my-title]="'Configura'"> </app-header>
-<mat-accordion multi="true" *ngIf="storia">
-  <mat-expansion-panel>
-    <mat-expansion-panel-header>
-      {{ storia.nome }}
-    </mat-expansion-panel-header>
+<mat-card *ngIf="storia">
+  {{storia.nome}}
+  <mat-card-content>
     <img
       [src]="storia.urlBackground"
       [alt]="'  immagine sfondo di  ' + storia.nome"
     />
     <p *ngFor="let act of storia.steps">
-      {{act.activityTitle}}
+      {{ act.activityTitle }}
     </p>
-    <p *ngIf="(!storia.steps) || (storia.steps.length == 0)">
+    <p *ngIf="!storia.steps || storia.steps.length == 0">
       Nessuna attività presnte
     </p>
-  </mat-expansion-panel>
-</mat-accordion>
+  </mat-card-content>
+</mat-card>
+<!-- <div>
+  <mat-card>
+    <mat-spinner *ngIf="isLoading"></mat-spinner>
+    <form [formGroup]="form" (submit)="onSaveStory()" *ngIf="!isLoading">
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          formControlName="activityTitle"
+          placeholder="titolo step"
+        />
+        <mat-error *ngIf="form.get('activityTitle').invalid"
+          >Perfavore inserisci titolo</mat-error
+        >
+      </mat-form-field>
+      <div>
+        <button mat-stroked-button type="button" (click)="filePicker.click()">
+          Pick Image
+        </button>
+        <input type="file" #filePicker (change)="onImagePicked($event)" />
+      </div>
+      <div
+        class="image-preview"
+        *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid"
+      >
+        <img [src]="imagePreview" [alt]="form.value.activityTitle" />
+      </div>
+      <mat-form-field>
+        <textarea
+          matInput
+          rows="6"
+          formControlName="activityId"
+          placeholder="activityId area"
+        ></textarea>
+        <mat-error *ngIf="form.get('activityId').invalid"
+          >Perfavore inserisci contenuto</mat-error
+        >
+      </mat-form-field>
+      <button mat-raised-button color="primary" type="submit">Save Post</button>
+    </form>
+  </mat-card>
+</div> -->

@@ -11,6 +11,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule} from '@angular/material/select';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -63,6 +64,7 @@ import { ConfiguraComponent } from './components/configura/configura.component';
     MatChipsModule,
     MatIconModule,
     MatRadioModule,
+    MatDialogModule,
     NgbModule,
     NgbAlertModule,
     QRCodeModule,
