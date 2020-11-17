@@ -26,7 +26,7 @@ export class ConfiguraComponent implements OnInit {
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
-
+  quizFormGroup:FormGroup;
   constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder) { }
 
 
@@ -116,6 +116,9 @@ export class ConfiguraComponent implements OnInit {
     });
     this.thirdFormGroup = this._formBuilder.group({
       thirdCtrl: ['', Validators.required, mimeType]
+    });
+    this.quizFormGroup = this._formBuilder.group({
+      quizCtrl: ['', Validators.required, ]
     });
   }
 

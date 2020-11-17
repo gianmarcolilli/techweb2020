@@ -32,6 +32,7 @@
             <mat-option>None</mat-option>
             <mat-option value="domanda" >Domanda</mat-option>
             <mat-option value="informazione" >Testo Infromativo</mat-option>
+            <mat-option value="quiz" >Quiz</mat-option>
           </mat-select>
           <input matInput formControlName="firstCtrl" required>
         </mat-form-field>
@@ -40,6 +41,33 @@
         </div>
       </form>
     </mat-step>
+
+
+    <mat-step [stepControl]="quizFormGroup">
+      <form [formGroup]="quizFormGroup">
+        <ng-template matStepLabel>Inserisci il numero di risposte possibili(se sceglie quiz)</ng-template>
+        <mat-form-field>
+          <mat-label>Numero</mat-label>
+          <mat-select [(value)]="tipologiaAttivita">
+            <mat-option>None</mat-option>
+            <mat-option value="option" >2</mat-option>
+            <mat-option value="option" >3 </mat-option>
+            <mat-option value="option" >4 </mat-option>
+          </mat-select>
+          <input matInput formControlName="quizCtrl" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+
+
+
+
+
+
     <mat-step [stepControl]="secondFormGroup">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>Inserisci {{tipologiaAttivita}}</ng-template>
