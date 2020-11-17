@@ -14,8 +14,8 @@
       <p *ngIf="(!storia.steps) || (storia.steps.length == 0)">
         Nessuna attività presente
       </p>
-      <button (click)="showConfiguraDomanda=true" > aggiungi attivita di domande </button>
-      <button (click)="aggiungiAttivita('clickToObject')" > aggiungi attivita di clicca su immagine </button>
+      <button (click)="showConfiguraDomanda=true" > inserisci attivita di domande </button>
+      <button (click)="showConfiguraClickToObject=true" > inserisci attivita di clicca su immagine </button>
 
     </mat-card-content>
 </mat-card>
@@ -28,6 +28,15 @@
   <button (click)="aggiungiAttivita('domande')" > aggiungi attivita di domande </button>
 
 </div>
+
+<div *ngIf="showConfiguraClickToObject">
+
+  <input [(ngModel)]="tempClickToObject" class="form-control" type="text" placeholder=" scegli opzione " >
+
+  <button (click)="aggiungiAttivita('clickToObject')" > aggiungi attivita di clicca su immagine </button>
+
+</div>
+
 
 
 {{ storia.steps | json}}

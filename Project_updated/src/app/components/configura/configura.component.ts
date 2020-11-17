@@ -13,7 +13,9 @@ export class ConfiguraComponent implements OnInit {
   id: number;
   storia: Storia;
   tempDomanda: '';
+  tempClickToObject: '';
   showConfiguraDomanda: false;
+  showConfiguraClickToObject:false;
   constructor(private activeRoute: ActivatedRoute, private api: DummyApiService) { }
 
 
@@ -32,13 +34,31 @@ export class ConfiguraComponent implements OnInit {
         chatMessages: []
       })
     }
+    if (type=="clickToObject"){
+      this.storia.steps.push({
+        action: '',
+        actionImg: '',
+        activityId: 0,
+        activityTitle: this.tempDomanda,
+        backImg: '',
+        correctId: 0,
+        wrongId: 9,
+        answers: [],
+        chatMessages: []
+      })
+    }
 
-    this.resettaForm()
+      this.resettaForm()
   }
 
   resettaForm() {
     this.tempDomanda = ''
+    this.tempClickToObject=''
   }
+
+
+
+
 
   // generaAttivita(tipoDiAttività){
 
