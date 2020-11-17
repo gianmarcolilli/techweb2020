@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
+import { mimeType } from '../autore/mime-type.validator';
 
 
 @Component({
@@ -16,7 +18,16 @@ export class ConfiguraComponent implements OnInit {
   tempClickToObject: '';
   showConfiguraDomanda: false;
   showConfiguraClickToObject:false;
-  constructor(private activeRoute: ActivatedRoute, private api: DummyApiService) { }
+  tipologiaAttivita:'';
+  numeroRisposte: number;
+  imagePreview : string;
+  form: any;
+
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
+
+  constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder) { }
 
 
 
@@ -77,16 +88,35 @@ export class ConfiguraComponent implements OnInit {
 
 
   // }
+  onImagePicked(event: Event) {
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({ image: file });
+    this.form.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  salvaAttivita(){}
 
 
   ngOnInit(): void {
     this.id = this.activeRoute.snapshot.params.id;
     this.api.getStoria(this.id).subscribe((singleStory) => {
       this.storia = this.api.reMap(singleStory)
-    }
+    });
 
-    )
-
+    this.firstFormGroup = this._formBuilder.group({
+      firstCtrl: ['', Validators.required]
+    });
+    this.secondFormGroup = this._formBuilder.group({
+      secondCtrl: ['', Validators.required]
+    });
+    this.thirdFormGroup = this._formBuilder.group({
+      thirdCtrl: ['', Validators.required, mimeType]
+    });
   }
 
 }
