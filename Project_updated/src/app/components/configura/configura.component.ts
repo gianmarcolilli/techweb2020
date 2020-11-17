@@ -39,7 +39,7 @@ export class ConfiguraComponent implements OnInit {
         action: '',
         actionImg: '',
         activityId: 0,
-        activityTitle: this.tempDomanda,
+        activityTitle: this.tempClickToObject,
         backImg: '',
         correctId: 0,
         wrongId: 9,
