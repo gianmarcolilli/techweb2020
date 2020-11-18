@@ -18,137 +18,52 @@
       <button (click)="showConfiguraClickToObject=true" > inserisci attivita di clicca su immagine </button>
 
     </mat-card-content>
+
 </mat-card>
+
 
 <mat-card>
-  <mat-vertical-stepper #stepper>
-    <mat-step [stepControl]="firstFormGroup">
-      <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Inserisci la tipologia dell'attività</ng-template>
-        <mat-form-field>
-          <mat-label>Tipologia</mat-label>
-          <mat-select [(value)]="tipologiaAttivita">
-            <mat-option>None</mat-option>
-            <mat-option value="domanda" >Domanda</mat-option>
-            <mat-option value="quiz" >Quiz</mat-option>
-            <mat-option value="informazione" >Testo Infromativo</mat-option>
-          </mat-select>
-          <input matInput formControlName="firstCtrl" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Inserisci {{tipologiaAttivita}}</ng-template>
-        <mat-form-field>
-          <mat-label>{{tipologiaAttivita}}</mat-label>
-          <input matInput formControlName="secondCtrl" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="formGroupAnswers">
-      <form [formGroup]="formGroupAnswers">
-        <ng-template matStepLabel>Inserisci risposte</ng-template>
-        <mat-form-field>
-          <mat-label>Risposta</mat-label>
-          <input matInput formControlName="answerCtrl" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="quizFormGroup">
-      <form [formGroup]="quizFormGroup">
-        <ng-template matStepLabel>Inserisci il numero di risposte possibili ( se la domanda è un quiz )</ng-template>
-        <mat-form-field>
-          <mat-label>Numero</mat-label>
-          <mat-select [(value)]="tipologiaAttivita">
-            <mat-option>None</mat-option>
-            <mat-option value="option" >2</mat-option>
-            <mat-option value="option" >3 </mat-option>
-            <mat-option value="option" >4 </mat-option>
-          </mat-select>
-          <input matInput formControlName="quizCtrl" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="thirdFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Inserisci immagine</ng-template>
-        <mat-form-field>
-
-          <mat-label>Nome Immagine</mat-label>
-          <input matInput formControlName="thirdCtrl" required>
-          <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
-          <input type="file" #filePicker (change)="onImagePicked($event)">
-
-          <div class="image-preview" *ngIf="imagePreview!=='' && imagePreview && form.get('image').valid">
-            <img [src]="imagePreview" alt="prova">
-          </div>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="salvaAttivita()">Reset</button>
-      </div>
-    </mat-step>
-  </mat-vertical-stepper>
-</mat-card>
-
-<!-- <mat-card>
-  <form class="example-form">
-    <h4>Basic mat-select</h4>
-    <mat-form-field appearance="fill">
+  <form [formGroup]="form">
+    <mat-form-field>
       <mat-label>Tipologia Attività</mat-label>
-      <mat-select [(value)]="tipologiaAttivita">
-        <mat-option>None</mat-option>
-        <mat-option value="domanda" >Domanda</mat-option>
-        <mat-option value="informazione" >Testo Infromativo</mat-option>
+      <mat-select matNativeControl [(value)]="tipologiaAttivita" required (change)="onTipologiaPicked($event)">
+        <mat-option value="informazione">Testo Informativo</mat-option>
+        <mat-option value="domanda">Domanda</mat-option>
+        <mat-option value="quiz">Quiz</mat-option>
       </mat-select>
+
+      <mat-error *ngIf="form.get('tipologiaAttivita').invalid">Perfavore inserisci tipologia</mat-error>
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
-      <mat-label>Inserisci {{tipologiaAttivita}}</mat-label>
-      <textarea matInput></textarea>
-    </mat-form-field>
+    <div *ngIf="form.get('tipologiaAttivita').value=='quiz'">
+      <mat-form-field>
+        <mat-label>Numero Risposte</mat-label>
+        <mat-select matNativeControl [(value)]="numeroRisposte">
+          <mat-option value="2">2</mat-option>
+          <mat-option value="3">3</mat-option>
+          <mat-option value="4">4</mat-option>
+        </mat-select>
 
-    <mat-form-field appearance="fill">
-      <mat-label>Quante risposte può avere questa domanda?</mat-label>
-      <mat-select [(value)]="numeroRisposte">
-        <mat-option>None</mat-option>
-        <mat-option *ngFor="let number of [1,2,3,4,5,6]" [value]=number>{{number}}</mat-option>
-      </mat-select>
-    </mat-form-field>
+        <mat-error *ngIf="form.get('numeroRisposte').invalid">Perfavore inserisci un nu numero</mat-error>
+      </mat-form-field>
+    </div>
 
-    <mat-form-field appearance="fill">
+    <div>
       <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
       <input type="file" #filePicker (change)="onImagePicked($event)">
-      <div class="image-preview" *ngIf="imagePreview!=='' && imagePreview && form.get('image').valid">
-        <img [src]="imagePreview" [alt]="form.value.title">
-      </div>
-    </mat-form-field>
+    </div>
+    <div class="image-preview" *ngIf="imagePreview!=='' && imagePreview && form.get('image').valid">
+      <img [src]="imagePreview" [alt]="form.value.title">
+    </div>
+
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit">Save Post
+    </button>
+
   </form>
-</mat-card> -->
+</mat-card>
 
 
 
@@ -173,26 +88,3 @@
 
   {{ storia.steps | json}}
 </p> -->
-
-<!--
-<form>
-
-  <div class="example-container">
-    <mat-form-field appearance="fill">
-      <mat-label>Input</mat-label>
-      <input matInput>
-    </mat-form-field>
-    <br>
-    <mat-form-field appearance="fill">
-      <mat-label>Select</mat-label>
-      <mat-select>
-        <mat-option value="option">Option</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <br>
-    <mat-form-field appearance="fill">
-      <mat-label>Textarea</mat-label>
-      <textarea matInput></textarea>
-    </mat-form-field>
-  </div>
-</form> -->

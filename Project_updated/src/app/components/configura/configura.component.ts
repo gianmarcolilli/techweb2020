@@ -21,16 +21,11 @@ export class ConfiguraComponent implements OnInit {
   tempClickToObject: '';
   showConfiguraDomanda: false;
   showConfiguraClickToObject:false;
-  tipologiaAttivita:'';
+  tipologiaAttivita:"";
   numeroRisposte: number;
   imagePreview : string;
-  form: any;
 
-  firstFormGroup: FormGroup;
-  secondFormGroup: FormGroup;
-  formGroupAnswers ?: FormGroup;
-  quizFormGroup ?: FormGroup;
-  thirdFormGroup: FormGroup;
+  form: FormGroup;
   constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder) { }
 
 
@@ -71,30 +66,19 @@ export class ConfiguraComponent implements OnInit {
     this.tempClickToObject=''
   }
 
-
-
-
-
   // generaAttivita(tipoDiAttività){
-
   //   if(tipoDiAttività=="4answers"){
-
   //     return {
   //       title : myTempTitle,
   //       answers : myTempRisposte,
-
   //     }
   //   }
-
-
-
   //   resetVariabiliDiAppoggio()
-
-
   // }
-  onImagePicked(event: Event) {
+
+  onImagePicked(event:Event){
     const file = (event.target as HTMLInputElement).files[0];
-    this.form.patchValue({ image: file });
+    this.form.patchValue({image: file});
     this.form.get('image').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
@@ -103,8 +87,9 @@ export class ConfiguraComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  salvaAttivita(){}
-
+  onTipologiaPicked(event:Event){
+    this.form.get('tipologiaAttivita').updateValueAndValidity();
+  }
 
   ngOnInit(): void {
     this.id = this.activeRoute.snapshot.params.id;
@@ -113,17 +98,17 @@ export class ConfiguraComponent implements OnInit {
 
     });
 
-    this.firstFormGroup = this._formBuilder.group({
-      firstCtrl: ['', Validators.required]
-    });
-    this.secondFormGroup = this._formBuilder.group({
-      secondCtrl: ['', Validators.required]
-    });
-    this.formGroupAnswers = this._formBuilder.group({
-      answerCtrl: ['', Validators.required]
-    });
-    this.quizFormGroup = this._formBuilder.group({
-      quizCtrl: ['', Validators.required]
+
+    this.form = new FormGroup({
+      'tipologiaAttivita': new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]
+      }),
+      'numeroRisposte': new FormControl(null, {validators: [Validators.required]
+      }),
+      'image': new FormControl(null, {
+        validators: [Validators.required],
+        asyncValidators: [mimeType]
+      })
+
     });
     this.thirdFormGroup = this._formBuilder.group({
       thirdCtrl: ['', Validators.required, mimeType]
