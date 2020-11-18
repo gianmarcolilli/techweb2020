@@ -15,7 +15,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatInputModule } from "@angular/material/input";
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
-
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -73,6 +73,12 @@ import { ConfiguraComponent } from './components/configura/configura.component';
     MatChipsModule,
     MatIconModule,
     MatRadioModule,
+
+    MatDialogModule,
+    NgbModule,
+    NgbAlertModule,
+    QRCodeModule,
+
     MatSelectModule,
     MatProgressSpinnerModule,
     MatInputModule,
