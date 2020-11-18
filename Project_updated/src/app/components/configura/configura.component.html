@@ -20,7 +20,6 @@
     </mat-card-content>
 </mat-card>
 
-
 <mat-card>
   <mat-vertical-stepper #stepper>
     <mat-step [stepControl]="firstFormGroup">
@@ -31,8 +30,8 @@
           <mat-select [(value)]="tipologiaAttivita">
             <mat-option>None</mat-option>
             <mat-option value="domanda" >Domanda</mat-option>
-            <mat-option value="informazione" >Testo Infromativo</mat-option>
             <mat-option value="quiz" >Quiz</mat-option>
+            <mat-option value="informazione" >Testo Infromativo</mat-option>
           </mat-select>
           <input matInput formControlName="firstCtrl" required>
         </mat-form-field>
@@ -41,8 +40,32 @@
         </div>
       </form>
     </mat-step>
-
-
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Inserisci {{tipologiaAttivita}}</ng-template>
+        <mat-form-field>
+          <mat-label>{{tipologiaAttivita}}</mat-label>
+          <input matInput formControlName="secondCtrl" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="formGroupAnswers">
+      <form [formGroup]="formGroupAnswers">
+        <ng-template matStepLabel>Inserisci risposte</ng-template>
+        <mat-form-field>
+          <mat-label>Risposta</mat-label>
+          <input matInput formControlName="answerCtrl" required>
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
     <mat-step [stepControl]="quizFormGroup">
       <form [formGroup]="quizFormGroup">
         <ng-template matStepLabel>Inserisci il numero di risposte possibili(se sceglie quiz)</ng-template>
@@ -57,26 +80,6 @@
           <input matInput formControlName="quizCtrl" required>
         </mat-form-field>
         <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-
-
-
-
-
-
-
-    <mat-step [stepControl]="secondFormGroup">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Inserisci {{tipologiaAttivita}}</ng-template>
-        <mat-form-field>
-          <mat-label>{{tipologiaAttivita}}</mat-label>
-          <input matInput formControlName="secondCtrl" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
           <button mat-button matStepperNext>Next</button>
         </div>
       </form>
