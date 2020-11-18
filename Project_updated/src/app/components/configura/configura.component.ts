@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+
 import { ActivatedRoute } from '@angular/router';
 import { Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
@@ -14,6 +16,7 @@ import { mimeType } from '../autore/mime-type.validator';
 export class ConfiguraComponent implements OnInit {
   id: number;
   storia: Storia;
+
   tempDomanda: '';
   tempClickToObject: '';
   showConfiguraDomanda: false;
@@ -23,7 +26,6 @@ export class ConfiguraComponent implements OnInit {
   imagePreview : string;
 
   form: FormGroup;
-
   constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder) { }
 
 
@@ -93,7 +95,9 @@ export class ConfiguraComponent implements OnInit {
     this.id = this.activeRoute.snapshot.params.id;
     this.api.getStoria(this.id).subscribe((singleStory) => {
       this.storia = this.api.reMap(singleStory)
+
     });
+
 
     this.form = new FormGroup({
       'tipologiaAttivita': new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]
@@ -104,7 +108,24 @@ export class ConfiguraComponent implements OnInit {
         validators: [Validators.required],
         asyncValidators: [mimeType]
       })
+
     });
+    this.thirdFormGroup = this._formBuilder.group({
+      thirdCtrl: ['', Validators.required, mimeType]
+    });
+  }
+
+  onSaveStory(){}
+
+  onImagePicked(event:Event){
+    const file = (event.target as HTMLInputElement).files[0];
+    this.form.patchValue({image: file});
+    this.form.get('image').updateValueAndValidity();
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imagePreview = reader.result as string;
+    };
+    reader.readAsDataURL(file);
   }
 
 }
