@@ -26,6 +26,7 @@ export class ConfiguraComponent implements OnInit {
   imagePreview : string;
 
   form: FormGroup;
+  arrayRisposte: any[];
   constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder) { }
 
 
@@ -60,6 +61,14 @@ export class ConfiguraComponent implements OnInit {
 
       this.resettaForm()
   }
+
+   aggiornaArrayRisposte(){
+     this.arrayRisposte = [];
+     for(let i = 0; i < this.numeroRisposte ; i++ ){
+        this.arrayRisposte.push("")
+     }
+   }
+
 
   resettaForm() {
     this.tempDomanda = ''
