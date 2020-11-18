@@ -35,7 +35,7 @@
       <mat-error *ngIf="form.get('tipologiaAttivita').invalid">Perfavore inserisci tipologia</mat-error>
     </mat-form-field>
 
-    <div *ngIf="form.get('tipologiaAttivita').value=='quiz'">
+    <div *ngIf="tipologiaAttivita=='quiz'">
       <mat-form-field>
         <mat-label>Numero Risposte</mat-label>
         <mat-select matNativeControl [(value)]="numeroRisposte">
