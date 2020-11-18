@@ -87,10 +87,6 @@ export class ConfiguraComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  onTipologiaPicked(event:Event){
-    this.form.get('tipologiaAttivita').updateValueAndValidity();
-  }
-
   ngOnInit(): void {
     this.id = this.activeRoute.snapshot.params.id;
     this.api.getStoria(this.id).subscribe((singleStory) => {
