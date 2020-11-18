@@ -37,6 +37,8 @@ export class VisualizzaComponent implements OnInit {
         },
         {
           numeroStep: 1,
+          correct: 9,
+          wrong:1,
           titleStep: 'siamo nello step due ?',
           action: '4answers',
           backImg: "string",

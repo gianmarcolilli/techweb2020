@@ -4,14 +4,15 @@ import { Storia } from '../../interfaces/storia';
 import { SweetAlert2LoaderService } from '@sweetalert2/ngx-sweetalert2';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { mimeType } from "./mime-type.validator";
+import { mimeType } from './mime-type.validator';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-autore',
   templateUrl: './autore.component.html',
   styleUrls: ['./autore.component.css'],
-  encapsulation:ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None
 
 })
 
@@ -21,21 +22,22 @@ export class AutoreComponent implements OnInit {
   titolo: string = "Menu' Autore";
   storie: Storia[] = [];
   storia: Storia;
-  myTempName : string = "";
-  myTempDidascalia : string ="";
-  myTempFasciaEta : string ="";
-  statoMod : boolean[] = [];
-  isLoading:boolean = false;
-  form:FormGroup;
-  imagePreview : string;
+  myTempName: string = "";
+  myTempDidascalia: string = "";
+  myTempFasciaEta: string = "";
+  statoMod: boolean[] = [];
+  isLoading: boolean = false;
+  form: FormGroup;
+  imagePreview: string;
+  getStorySubscription: Subscription;
 
-  constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService, private router: Router) {}
+  constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService, private router: Router) { }
 
 
 
-  onImagePicked(event:Event){
+  onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
-    this.form.patchValue({image: file});
+    this.form.patchValue({ image: file });
     this.form.get('image').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
@@ -44,22 +46,24 @@ export class AutoreComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  showAlert(testo:string){
-    let promiseDiSwal  =  this.swalLoader.swal;
+  showAlert(testo: string) {
+    let promiseDiSwal = this.swalLoader.swal;
     console.log(testo)
 
-    promiseDiSwal.then((istanzadellaClasseSwal)=>{
+    promiseDiSwal.then((istanzadellaClasseSwal) => {
       istanzadellaClasseSwal.fire(
         testo
       )
     });
   }
 
-  aggiungiStoria() {
+  aggiungiStoria(): void {
     this.isLoading = true;
     console.log("wohoo devo aggiungere una storia !")
 
-    if(this.form.invalid){
+    if (this.form.invalid) {
+      alert("errore compila i tutti i campi")
+      this.isLoading = false;
       return;
     }
     this.isLoading = true;
@@ -71,22 +75,29 @@ export class AutoreComponent implements OnInit {
       this.imagePreview
 
     )
-    .subscribe(responseData=>{
-      this.router.navigate(["/"]);
-    });;
+      .subscribe(responseData => {
+        alert("fatto: " + responseData.message)
+        this.isLoading = false;
+        this.refreshData();
+      });
 
     this.form.reset();
   }
 
 
-  configuraStoria(id:number){
-    this.router.navigateByUrl("configura/"+id)
+  configuraStoria(id: number): void {
+    this.router.navigateByUrl('configura/' + id);
   }
-  modificaStoria() {
+  modificaStoria(): void {
   }
 
-  eliminaStoria(id:string){
-
+  eliminaStoria(id: number): void {
+    this.api.deleteStory(id).subscribe(
+      (responseData: any) => {
+        alert(responseData.message)
+        this.refreshData()
+      }
+    )
   }
 
 
@@ -94,41 +105,54 @@ export class AutoreComponent implements OnInit {
   ngOnInit(): void {
 
     this.form = new FormGroup({
-      'myTempDidascalia': new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]
-        }),
-      'myTempName': new FormControl(null, {validators: [Validators.required]
-        }),
-      'myTempFasciaEta': new FormControl(null, {validators: [Validators.required]
-        }),
-      'image': new FormControl(null, {
+      myTempDidascalia: new FormControl(null, {
+        validators: [Validators.required, Validators.minLength(3)]
+      }),
+      myTempName: new FormControl(null, {
+        validators: [Validators.required]
+      }),
+      myTempFasciaEta: new FormControl(null, {
+        validators: [Validators.required]
+      }),
+      image: new FormControl(null, {
         validators: [Validators.required],
         asyncValidators: [mimeType]
-        })
-      });
+      })
+    });
 
 
-    this.api.getStories().subscribe(
+    this.refreshData()
+
+  }
+
+
+
+
+  refreshData() {
+    if (this.getStorySubscription) {
+      this.getStorySubscription.unsubscribe()
+    }
+
+    this.getStorySubscription = this.api.getStories().subscribe(
       (risultato) => {
-        this.storie = []
-        if(risultato && risultato.posts){
+        this.storie = [];
+        if (risultato && risultato.posts) {
           risultato.posts.forEach(element => {
 
 
             this.storie.push(this.api.reMap(element));
-            console.log()
+            console.log();
           });
           // this.storie.push(element)
 
         }
 
 
-        for(var i=0;i<this.storie.length;i++){
-          this.statoMod.push(false)
+        for (let i = 0; i < this.storie.length; i++) {
+          this.statoMod.push(false);
         }
       }
     );
-
-
   }
 
 }

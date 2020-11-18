@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
 import { MatToolbarModule } from "@angular/material/toolbar";
@@ -9,8 +10,11 @@ import { MatListModule } from '@angular/material/list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
 import { MatRadioModule } from '@angular/material/radio';
-import { MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
+import { MatInputModule } from "@angular/material/input";
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatStepperModule } from '@angular/material/stepper';
 import {MatDialogModule} from '@angular/material/dialog';
 
 
@@ -55,22 +59,31 @@ import { ConfiguraComponent } from './components/configura/configura.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    FontAwesomeModule,
+    NgbModule,
+    NgbAlertModule,
+    QRCodeModule,
+    SweetAlert2Module.forRoot(),
+
     MatCardModule,
     MatButtonModule,
     MatToolbarModule,
     MatExpansionModule,
     MatListModule,
-    FontAwesomeModule,
     MatChipsModule,
     MatIconModule,
     MatRadioModule,
+
     MatDialogModule,
     NgbModule,
     NgbAlertModule,
     QRCodeModule,
+
     MatSelectModule,
     MatProgressSpinnerModule,
-    SweetAlert2Module.forRoot()
+    MatInputModule,
+    MatFormFieldModule,
+    MatStepperModule
 
   ],
   providers: [],
