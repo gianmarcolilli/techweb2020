@@ -25,19 +25,19 @@
 <mat-card>
   <form [formGroup]="form">
     <mat-form-field>
-      <mat-label>Tipologia SuperAttività</mat-label>
+      <mat-label>Tipologia Attività</mat-label>
       <mat-select matNativeControl [(value)]="tipologiaAttivita" required >
         <mat-option value="informazione">Testo a caso Informativo</mat-option>
         <mat-option value="domanda">Domanda</mat-option>
         <mat-option value="quiz">Quiz</mat-option>
       </mat-select>
 
-      <mat-error *ngIf="form.get('tipologiaAttivita').invalid">Perfavore inserisci tipologia</mat-error>
+      <mat-error *ngIf="form.get('tipologiaAttivita').invalid">Per favore inserisci tipologia</mat-error>
     </mat-form-field>
 
     <div *ngIf="tipologiaAttivita=='quiz'">
       <mat-form-field>
-        <mat-label>Numero Risposte</mat-label>
+        <mat-label>Numero Rispostone</mat-label>
         <mat-select matNativeControl [(value)]="numeroRisposte">
           <mat-option value="2">2</mat-option>
           <mat-option value="3">3</mat-option>
