@@ -68,7 +68,7 @@
     </mat-step>
     <mat-step [stepControl]="quizFormGroup">
       <form [formGroup]="quizFormGroup">
-        <ng-template matStepLabel>Inserisci il numero di risposte possibili</ng-template>
+        <ng-template matStepLabel>Inserisci il numero di risposte possibili ( se la domanda è un quiz )</ng-template>
         <mat-form-field>
           <mat-label>Numero</mat-label>
           <mat-select [(value)]="tipologiaAttivita">
