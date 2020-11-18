@@ -17,11 +17,11 @@ export class ConfiguraComponent implements OnInit {
   id: number;
   storia: Storia;
 
-  tempDomanda: '';
-  tempClickToObject: '';
-  showConfiguraDomanda: false;
-  showConfiguraClickToObject:false;
-  tipologiaAttivita:"";
+  tempDomanda:string = '';
+  tempClickToObject:string = '';
+  showConfiguraDomanda:boolean = false;
+  showConfiguraClickToObject:boolean = false;
+  tipologiaAttivita:string ="";
   numeroRisposte: number;
   imagePreview : string;
 
