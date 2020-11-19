@@ -42,19 +42,21 @@
       <mat-error *ngIf="form.get('numeroRisposte').invalid">Perfavore so pazzo inserisci un nu numero</mat-error>
     </mat-form-field>
 
-    numRisposte:{{numeroRisposte | json}}
-    array: {{ arrayRisposte | json}}
-
-    <mat-form-field  *ngIf="tipologiaAttivita!=''" class="example-full-width">
+    <mat-form-field *ngIf="tipologiaAttivita!=''" class="example-full-width">
       <mat-label>Contenuto</mat-label>
-      <input matInput [placeholder]="'Inserisci qui '+ (tipologiaAttivita=='informazione'?' il contenuto':' la domanda')">
+      <input matInput
+        [placeholder]="'Inserisci qui '+ (tipologiaAttivita=='informazione'?' il contenuto':' la domanda')">
     </mat-form-field>
 
-    <div *ngFor="let item of arrayRisposte; index as i">
-     inserisci la risposta {{i+1}} <input>
+    <div *ngIf="tipologiaAttivita=='quiz'">
+      <mat-radio-group aria-label="Select an option">
+        <div *ngFor="let item of arrayRisposte; index as i">
+          <mat-label>Inserisci la risposta {{i+1}} </mat-label>
+          <input matInput placeholder="Ex. Pizza">
+          <mat-radio-button [value]="i+1">True</mat-radio-button>
+        </div>
+      </mat-radio-group>
     </div>
-
-
 
     <div>
       <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>

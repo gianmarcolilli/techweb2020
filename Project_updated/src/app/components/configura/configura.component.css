@@ -20,3 +20,7 @@ mat-card {
 input[type="file"]{
   visibility: hidden;
 }
+
+mat-radio-button {
+  margin-left: 1rem;
+}
