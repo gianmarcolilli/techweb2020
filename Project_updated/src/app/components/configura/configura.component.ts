@@ -24,6 +24,7 @@ export class ConfiguraComponent implements OnInit {
   tipologiaAttivita:string ="";
   numeroRisposte: number;
   imagePreview : string;
+  rispostaGiusta: string ="";
 
   form: FormGroup;
   arrayRisposte: any[];
@@ -112,6 +113,8 @@ export class ConfiguraComponent implements OnInit {
       'image': new FormControl(null, {
         validators: [Validators.required],
         asyncValidators: [mimeType]
+      }),
+      'rispostaGiusta': new FormControl(null, {validators: [Validators.required]
       })
 
     });

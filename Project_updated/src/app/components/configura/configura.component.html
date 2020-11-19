@@ -52,7 +52,7 @@
       <mat-radio-group aria-label="Select an option">
         <div *ngFor="let item of arrayRisposte; index as i">
           <mat-label>Inserisci la risposta {{i+1}} </mat-label>
-          <input matInput placeholder="Ex. Pizza">
+          <input matInput>
           <mat-radio-button [value]="i+1">True</mat-radio-button>
         </div>
       </mat-radio-group>
