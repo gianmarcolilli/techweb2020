@@ -65,7 +65,7 @@ export class ConfiguraComponent implements OnInit {
    aggiornaArrayRisposte(){
      this.arrayRisposte = [];
      for(let i = 0; i < this.numeroRisposte ; i++ ){
-        this.arrayRisposte.push("")
+        this.arrayRisposte[i]="";
      }
    }
 
