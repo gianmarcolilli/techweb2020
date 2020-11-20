@@ -37,6 +37,7 @@ import { SquadreNamePipe } from './pipes/squadre-name.pipe';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ConfiguraComponent } from './components/configura/configura.component';
+import { PuzzleComponent } from './components/puzzle/puzzle.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { ConfiguraComponent } from './components/configura/configura.component';
     PlayerComponent,
     LobbyComponent,
     SquadreNamePipe,
-    ConfiguraComponent
+    ConfiguraComponent,
+    PuzzleComponent
   ],
   imports: [
     BrowserModule,
