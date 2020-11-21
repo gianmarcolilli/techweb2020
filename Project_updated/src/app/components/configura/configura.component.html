@@ -6,7 +6,7 @@
   <mat-card-content>
     <img [src]="storia.urlBackground" [alt]="'  immagine sfondo di  ' + storia.nome" />
     <p *ngFor="let act of storia.steps">
-      {{act.activityTitle}}
+      Attivita n. {{act.activityId + act.activityTitle}} <b>Tipologia : </b>({{ act.action}})   <button> edit </button>
     </p>
     <p *ngIf="(!storia.steps) || (storia.steps.length == 0)">
       Nessuna attività presente
@@ -91,8 +91,7 @@
 
 <mat-card>
 
-  <input type="text" placeholder="Testo" [(ngModel)]="variabileacaso">
-  {{variabileacaso}}
+
   <form [formGroup]="form" class="example-form">
     <mat-form-field class="example-full-width">
       <mat-label>Tipologia Attività</mat-label>
@@ -125,7 +124,7 @@
 
     <mat-form-field *ngIf="tipologiaAttivita=='domanda'" class="example-full-width">
       <mat-label>Risposta</mat-label>
-      <input matInput
+      <input matInput formControlName="tempRisposta" [(ngModel)]="tempRisposta"
         placeholder="Inserisci qui la risposta corretta">
     </mat-form-field>
 

@@ -3,11 +3,12 @@ export interface Step {
   activityTitle: string,
   action: string,
   backImg: string,
-  actionImg: string,
+  actionImg ?: string,
   answers? : Answer[],
   chatMessages? : string[],
   correctId :  number,
-  wrongId: number
+  wrongId: number,
+  risposta ?: string
 }
 
 
