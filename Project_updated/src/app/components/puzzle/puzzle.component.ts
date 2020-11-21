@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, AfterViewInit } from '@angular/core';
-import $ from 'jquery';
+import * as $ from 'jquery';
+import 'jqueryui';
 import 'jquery-ui/ui/widgets/sortable.js';
 import 'jquery-ui/ui/widgets/draggable.js';
 import 'jquery-ui/ui/widgets/droppable.js';
@@ -43,12 +44,12 @@ export class PuzzleComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
 
-    $('.draggable').draggable({ snap: '.grid' });
+    (<any>$('.draggable')).draggable({ snap: '.grid' });
 
     const self = this;
     let z = 1;
 
-    $('.droppable').droppable({
+    (<any>$('.droppable')).droppable({
       drop: function (event, ui) {
 
         self.state[event.target.id] = event.originalEvent.target.id;
@@ -67,7 +68,7 @@ export class PuzzleComponent implements OnInit, AfterViewInit {
       }
     });
 
-    $('.draggable').draggable({
+    (<any>$('.draggable')).draggable({
       start: function (e) {
         $(this).css('z-index', z++);
       },
