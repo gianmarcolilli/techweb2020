@@ -17,7 +17,9 @@ export class ConfiguraComponent implements OnInit {
   id: number;
   storia: Storia;
 
-  tempDomanda:string = '';
+
+  variabileacaso = "";
+  tempDomanda = "";
   tempClickToObject:string = '';
   showConfiguraDomanda:boolean = false;
   showConfiguraClickToObject:boolean = false;
@@ -33,6 +35,7 @@ export class ConfiguraComponent implements OnInit {
 
 
   aggiungiAttivita(type: string) {
+    console.log("sono stato chiamato con tipo ="+type)
     if (type == "domande") {
       this.storia.steps.push({
         action: '',
@@ -108,8 +111,11 @@ export class ConfiguraComponent implements OnInit {
     this.form = new FormGroup({
       'tipologiaAttivita': new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]
       }),
+      'tempDomanda': new FormControl(null, {validators: [Validators.required]
+      }),
       'numeroRisposte': new FormControl(null, {validators: [Validators.required]
       }),
+
       'image': new FormControl(null, {
         validators: [Validators.required],
         asyncValidators: [mimeType]

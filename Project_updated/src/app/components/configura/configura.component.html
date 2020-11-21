@@ -90,6 +90,9 @@
  -->
 
 <mat-card>
+
+  <input type="text" placeholder="Testo" [(ngModel)]="variabileacaso">
+  {{variabileacaso}}
   <form [formGroup]="form" class="example-form">
     <mat-form-field class="example-full-width">
       <mat-label>Tipologia Attività</mat-label>
@@ -112,9 +115,11 @@
       <mat-error *ngIf="form.get('numeroRisposte').invalid">Perfavore so pazzo inserisci un nu numero</mat-error>
     </mat-form-field>
 
+
+
     <mat-form-field *ngIf="tipologiaAttivita!=''" class="example-full-width">
       <mat-label>Contenuto</mat-label>
-      <input matInput
+      <input matInput  type="text" formControlName="tempDomanda" [(ngModel)]="tempDomanda"
         [placeholder]="'Inserisci qui '+ (tipologiaAttivita=='informazione'?' il contenuto':' la domanda')">
     </mat-form-field>
 
@@ -133,7 +138,6 @@
         </div>
       </mat-radio-group>
     </div>
-
     <mat-form-field class="example-full-width">
       <mat-label>Nome immagine</mat-label>
       <input matInput
@@ -152,13 +156,16 @@
       <img [src]="imagePreview" [alt]="form.value.title">
     </div>
 
-    <button mat-raised-button color="primary" type="submit">Save Post
+    <button mat-raised-button color="primary" (click)="aggiungiAttivita(tipologiaAttivita)">Aggiungi Attività
     </button>
 
   </form>
+
+
+
 </mat-card>
 
-<app-puzzle></app-puzzle>
+<!-- <app-puzzle></app-puzzle> -->
 
 <!-- <div *ngIf="showConfiguraDomanda">
 
@@ -181,3 +188,4 @@
 
   {{ storia.steps | json}}
 </p> -->
+
