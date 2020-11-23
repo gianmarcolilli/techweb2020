@@ -48,17 +48,26 @@ export class ConfiguraComponent implements OnInit {
 
       })
     }
-    if (type=="clickToObject"){
+    if (type=="quiz"){
       this.storia.steps.push({
-        action: '',
-        actionImg: '',
-        activityId: 0,
-        activityTitle: this.tempClickToObject,
+        action: 'quiz',
+        activityId: this.storia.steps.length,
+        activityTitle: this.tempDomanda,
         backImg: '',
         correctId: 0,
         wrongId: 9,
         answers: [],
-        chatMessages: []
+      })
+    }
+    if (type == "informazione") {
+      this.storia.steps.push({
+        action: 'informazione',
+        activityId: this.storia.steps.length,
+        activityTitle: this.tempDomanda,
+        backImg: '',
+        correctId: 0,
+        wrongId: 9
+
       })
     }
 
