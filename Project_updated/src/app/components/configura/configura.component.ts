@@ -18,7 +18,7 @@ export class ConfiguraComponent implements OnInit {
   storia: Storia;
 
 
-  tempDomanda = "";
+  tempContenuto = "";
   tempRisposta = " ";
   tempClickToObject:string = '';
   showConfiguraDomanda:boolean = false;
@@ -40,7 +40,7 @@ export class ConfiguraComponent implements OnInit {
       this.storia.steps.push({
         action: 'domanda',
         activityId: this.storia.steps.length,
-        activityTitle: this.tempDomanda,
+        activityTitle: this.tempContenuto,
         risposta : this.tempRisposta,
         backImg: '',
         correctId: 0,
@@ -52,7 +52,7 @@ export class ConfiguraComponent implements OnInit {
       this.storia.steps.push({
         action: 'quiz',
         activityId: this.storia.steps.length,
-        activityTitle: this.tempDomanda,
+        activityTitle: this.tempContenuto,
         backImg: '',
         correctId: 0,
         wrongId: 9,
@@ -63,7 +63,7 @@ export class ConfiguraComponent implements OnInit {
       this.storia.steps.push({
         action: 'informazione',
         activityId: this.storia.steps.length,
-        activityTitle: this.tempDomanda,
+        activityTitle: this.tempContenuto,
         backImg: '',
         correctId: 0,
         wrongId: 9
@@ -83,7 +83,7 @@ export class ConfiguraComponent implements OnInit {
 
 
   resettaForm() {
-    this.tempDomanda = ''
+    this.tempContenuto = ''
     this.tempClickToObject=''
   }
 
@@ -119,7 +119,7 @@ export class ConfiguraComponent implements OnInit {
     this.form = new FormGroup({
       'tipologiaAttivita': new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]
       }),
-      'tempDomanda': new FormControl(null, {validators: [Validators.required]
+      'tempContenuto': new FormControl(null, {validators: [Validators.required]
       }),
       'tempRisposta': new FormControl(null, {validators: [Validators.required]
       }),
