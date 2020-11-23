@@ -6,13 +6,13 @@
   <mat-card-content>
     <img [src]="storia.urlBackground" [alt]="'  immagine sfondo di  ' + storia.nome" />
     <p *ngFor="let act of storia.steps">
-      Attivita n. {{act.activityId + act.activityTitle}} <b>Tipologia : </b>({{ act.action}})   <button> edit </button>
+    <b> Attivita n. </b> {{act.activityId}} <b> Domanda : </b> {{act.activityTitle}} <b>Tipologia : </b>({{ act.action}})   <button> edit </button> <button>delete</button>
     </p>
     <p *ngIf="(!storia.steps) || (storia.steps.length == 0)">
       Nessuna attività presente
     </p>
-    <button (click)="showConfiguraDomanda=true"> Inserisci attività di domande </button>
-    <button (click)="showConfiguraClickToObject=true"> Inserisci attività di clicca su immagine </button>
+    <!-- <button (click)="showConfiguraDomanda=true"> Inserisci attività di domande </button>
+    <button (click)="showConfiguraClickToObject=true"> Inserisci attività di clicca su immagine </button> -->
 
   </mat-card-content>
 
