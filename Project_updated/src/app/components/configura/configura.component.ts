@@ -18,8 +18,8 @@ export class ConfiguraComponent implements OnInit {
   storia: Storia;
 
 
-  variabileacaso = "";
   tempDomanda = "";
+  tempRisposta = " ";
   tempClickToObject:string = '';
   showConfiguraDomanda:boolean = false;
   showConfiguraClickToObject:boolean = false;
@@ -36,30 +36,38 @@ export class ConfiguraComponent implements OnInit {
 
   aggiungiAttivita(type: string) {
     console.log("sono stato chiamato con tipo ="+type)
-    if (type == "domande") {
+    if (type == "domanda") {
       this.storia.steps.push({
-        action: '',
-        actionImg: '',
-        activityId: 0,
+        action: 'domanda',
+        activityId: this.storia.steps.length,
+        activityTitle: this.tempDomanda,
+        risposta : this.tempRisposta,
+        backImg: '',
+        correctId: 0,
+        wrongId: 9
+
+      })
+    }
+    if (type=="quiz"){
+      this.storia.steps.push({
+        action: 'quiz',
+        activityId: this.storia.steps.length,
         activityTitle: this.tempDomanda,
         backImg: '',
         correctId: 0,
         wrongId: 9,
         answers: [],
-        chatMessages: []
       })
     }
-    if (type=="clickToObject"){
+    if (type == "informazione") {
       this.storia.steps.push({
-        action: '',
-        actionImg: '',
-        activityId: 0,
-        activityTitle: this.tempClickToObject,
+        action: 'informazione',
+        activityId: this.storia.steps.length,
+        activityTitle: this.tempDomanda,
         backImg: '',
         correctId: 0,
-        wrongId: 9,
-        answers: [],
-        chatMessages: []
+        wrongId: 9
+
       })
     }
 
@@ -112,6 +120,8 @@ export class ConfiguraComponent implements OnInit {
       'tipologiaAttivita': new FormControl(null, {validators: [Validators.required, Validators.minLength(3)]
       }),
       'tempDomanda': new FormControl(null, {validators: [Validators.required]
+      }),
+      'tempRisposta': new FormControl(null, {validators: [Validators.required]
       }),
       'numeroRisposte': new FormControl(null, {validators: [Validators.required]
       }),
