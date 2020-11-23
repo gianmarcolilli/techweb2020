@@ -4,6 +4,15 @@ mat-card {
   margin-right: 1rem;
 }
 
+mat-icon{
+  padding-left: 4rem;
+}
+
+td {
+  width: max-content;
+  text-align: left;
+}
+
 form {
   margin: auto ;
 }

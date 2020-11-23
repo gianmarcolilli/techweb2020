@@ -5,9 +5,28 @@
   </mat-card-header>
   <mat-card-content>
     <img [src]="storia.urlBackground" [alt]="'  immagine sfondo di  ' + storia.nome" />
-    <p *ngFor="let act of storia.steps">
-    <b> Attivita n. </b> {{act.activityId}} <b> Domanda : </b> {{act.activityTitle}} <b>Tipologia : </b>({{ act.action}})   <button> edit </button> <button>delete</button>
-    </p>
+
+    <!-- FUNZIONANTE -->
+    <!-- <p *ngFor="let act of storia.steps">
+      <mat-list>
+        <mat-list-item>
+          <b> Attivita n. </b> {{act.activityId}} <b> Contenuto : </b> {{act.activityTitle}} <b>Tipologia : </b>({{ act.action}})  <span class="icone"><mat-icon>edit</mat-icon> <mat-icon>delete</mat-icon></span>
+        </mat-list-item>
+      </mat-list>
+    </p> -->
+
+
+    <table>
+      <tr  *ngFor="let act of storia.steps">
+        <td>
+          <b> Attivita n. </b> {{act.activityId}} <b> Contenuto : </b> {{act.activityTitle}} <b>Tipologia : </b>({{ act.action}})
+        </td>
+        <td>
+          <mat-icon>edit</mat-icon> <mat-icon>delete</mat-icon>
+        </td>
+      </tr>
+    </table>
+
     <p *ngIf="(!storia.steps) || (storia.steps.length == 0)">
       Nessuna attività presente
     </p>
@@ -118,7 +137,7 @@
 
     <mat-form-field *ngIf="tipologiaAttivita!=''" class="example-full-width">
       <mat-label>Contenuto</mat-label>
-      <input matInput  type="text" formControlName="tempDomanda" [(ngModel)]="tempDomanda"
+      <input matInput  type="text" formControlName="tempContenuto" [(ngModel)]="tempContenuto"
         [placeholder]="'Inserisci qui '+ (tipologiaAttivita=='informazione'?' il contenuto':' la domanda')">
     </mat-form-field>
 
@@ -168,7 +187,7 @@
 
 <!-- <div *ngIf="showConfiguraDomanda">
 
-  <input [(ngModel)]="tempDomanda" class="form-control" type="text" placeholder=" Inserisci la tua domanda " >
+  <input [(ngModel)]="tempContenuto" class="form-control" type="text" placeholder=" Inserisci la tua domanda " >
 
   <button (click)="aggiungiAttivita('domande')" > aggiungi attivita di domande </button>
 
