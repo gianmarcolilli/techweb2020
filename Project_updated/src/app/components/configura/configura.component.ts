@@ -59,6 +59,17 @@ export class ConfiguraComponent implements OnInit {
         answers: [],
       })
     }
+    if (type == "informazione") {
+      this.storia.steps.push({
+        action: 'informazione',
+        activityId: this.storia.steps.length,
+        activityTitle: this.tempDomanda,
+        backImg: '',
+        correctId: 0,
+        wrongId: 9
+
+      })
+    }
 
       this.resettaForm()
   }
