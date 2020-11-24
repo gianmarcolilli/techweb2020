@@ -38,6 +38,7 @@ import { SquadreNamePipe } from './pipes/squadre-name.pipe';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ConfiguraComponent } from './components/configura/configura.component';
 import { PuzzleComponent } from './components/puzzle/puzzle.component';
+import { ImagePuzzleComponent } from './components/image-puzzle/image-puzzle.component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { PuzzleComponent } from './components/puzzle/puzzle.component';
     LobbyComponent,
     SquadreNamePipe,
     ConfiguraComponent,
-    PuzzleComponent
+    PuzzleComponent,
+    ImagePuzzleComponent
   ],
   imports: [
     BrowserModule,
