@@ -21,6 +21,9 @@
         <td>
           <b> Attivita n. </b> {{act.activityId}} <b> Contenuto : </b> {{act.activityTitle}} <b>Tipologia : </b>({{ act.action}})
         </td>
+        <td *ngIf="act.action=='domanda'">
+          <b> Risposta : </b>{{act.risposta}}
+        </td>
         <td>
           <mat-icon>edit</mat-icon> <mat-icon>delete</mat-icon>
         </td>
@@ -105,6 +108,9 @@
 
     <button mat-raised-button color="primary" (click)="aggiungiAttivita(tipologiaAttivita)">Aggiungi Attività
     </button>
+    <button mat-raised-button color="primary" (click)="salvaModifiche()">Salva modifiche
+    </button>
+
 
   </form>
 
