@@ -82,6 +82,11 @@ export class ConfiguraComponent implements OnInit {
    }
 
 
+   salvaModifiche(){
+    //chiamare una update , passando dal nostro apidb, dove gli passeremo la nostr storia
+    console.log("sto per chiamare l'update passandogli "+ JSON.stringify(this.storia))
+   }
+
   resettaForm() {
     this.tempContenuto = ''
     this.tempClickToObject=''
@@ -112,7 +117,7 @@ export class ConfiguraComponent implements OnInit {
     this.id = this.activeRoute.snapshot.params.id;
     this.api.getStoria(this.id).subscribe((singleStory) => {
       this.storia = this.api.reMap(singleStory)
-
+      console.log("ho questa storia appena entro "+JSON.stringify(this.storia))
     });
 
 
