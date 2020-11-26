@@ -102,6 +102,13 @@
           >
             Add
           </button>
+          <button *ngIf="squadra.players.length>2"
+            mat-button
+            color="primary"
+            (click)="rimuoviPlayer(squadra.id)"
+          >
+            Remove
+          </button>
         </mat-card>
       </div>
     </div>

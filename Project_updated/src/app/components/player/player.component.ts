@@ -62,6 +62,12 @@ export class PlayerComponent implements OnInit {
     this.nPartecipantiAggiunti+=1
 
   }
+  rimuoviPlayer(idSquadra){
+
+    let delPlayer = (this.squadre[idSquadra+1].players.length);
+
+    this.squadre[idSquadra].players.pop();
+  }
 
   azzeraSquadre(){
     this.squadre = []
@@ -92,7 +98,11 @@ for (let index = 0; index < numPartecipanti; index++) {
     // if(!this.nDimensionePreferita) return;
 
     let minNGruppi = this.nPartecipanti / MAXPARTECIPANTI
-    this.nSquadre = Math.trunc(minNGruppi + 1)
+    if(minNGruppi>Math.trunc(minNGruppi)){
+      this.nSquadre = Math.trunc(minNGruppi + 1)
+    }else{
+      this.nSquadre = minNGruppi
+    }
 
     let maxNGruppi = Math.trunc(this.nPartecipanti / MINPARTECIPANTI)
     console.log(maxNGruppi)
