@@ -62,6 +62,12 @@ export class PlayerComponent implements OnInit {
     this.nPartecipantiAggiunti+=1
 
   }
+  rimuoviPlayer(idSquadra){
+
+    let delPlayer = (this.squadre[idSquadra+1].players.length);
+
+    this.squadre[idSquadra].players.pop();
+  }
 
   azzeraSquadre(){
     this.squadre = []
