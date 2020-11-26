@@ -5,6 +5,9 @@ import { PlayerComponent } from './components/player/player.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { VisualizzaComponent } from './components/visualizza/visualizza.component';
 import { ConfiguraComponent } from './components/configura/configura.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { AuthGuard } from "./components/auth/auth.guard";
+import { SignupComponent } from './components/auth/signup/signup.component';
 
 const routes: Routes = [
   { path: "home" , component:HomePageComponent},
@@ -13,13 +16,15 @@ const routes: Routes = [
   { path: "visualizza/:id" , component:VisualizzaComponent},
   { path: "" , component:HomePageComponent},
   { path: "player/:tipo/:fascia/:traccia", component:PlayerComponent},
-  { path: "configura/:id", component: ConfiguraComponent}
-
+  { path: "configura/:id", component: ConfiguraComponent},
+  { path: "login", component: LoginComponent},
+  { path: "signup", component: SignupComponent }
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule {
 
