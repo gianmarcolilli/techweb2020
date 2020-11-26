@@ -1,6 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+
 
 import { MatCardModule } from "@angular/material/card";
 import { MatButtonModule } from "@angular/material/button";
@@ -39,6 +41,10 @@ import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ConfiguraComponent } from './components/configura/configura.component';
 import { PuzzleComponent } from './components/puzzle/puzzle.component';
 import { ImagePuzzleComponent } from './components/image-puzzle/image-puzzle.component';
+import { LoginComponent } from './components/auth/login/login.component';
+import { SignupComponent } from './components/auth/signup/signup.component';
+import { AuthInterceptor } from "./components/auth/auth-interceptor";
+
 
 @NgModule({
   declarations: [
@@ -54,7 +60,9 @@ import { ImagePuzzleComponent } from './components/image-puzzle/image-puzzle.com
     SquadreNamePipe,
     ConfiguraComponent,
     PuzzleComponent,
-    ImagePuzzleComponent
+    ImagePuzzleComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +99,7 @@ import { ImagePuzzleComponent } from './components/image-puzzle/image-puzzle.com
 
 
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
