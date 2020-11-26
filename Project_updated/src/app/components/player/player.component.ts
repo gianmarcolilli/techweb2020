@@ -112,19 +112,16 @@ for (let index = 0; index < numPartecipanti; index++) {
   }
 
   playClick() {
-    if (this.fasciaEta != '' && this.traccia != -1 && this.tipologiaGruppo != "") {//check campi
-
-
-      if (this.tipologiaGruppo == 'classe') { //check aggiuntivi se classe
-
-
-      }
-
-      this.playClicked = true
-    } else {
+     if (this.fasciaEta == '' || this.traccia == -1 || this.tipologiaGruppo == "" ) {//check campi
       this.showFormError()
+    } else if(this.tipologiaGruppo == "classe" && this.nPartecipantiAggiunti<this.nPartecipanti){
+      this.showFormError()
+    }else{
+      this.playClicked=true;
     }
-  }
+
+    }
+
 
   constructor(private apiDb: DummyApiService, private activeRoute: ActivatedRoute) {
     for (let i = 15; i <= 25; i++) {
