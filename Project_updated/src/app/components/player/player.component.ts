@@ -63,17 +63,14 @@ export class PlayerComponent implements OnInit {
 
   }
   rimuoviPlayer(idSquadra){
-
-    let delPlayer = (this.squadre[idSquadra+1].players.length);
-
     this.squadre[idSquadra].players.pop();
+    this.nPartecipantiAggiunti--
   }
 
   azzeraSquadre(){
     this.squadre = []
     this.nPartecipantiAggiunti = 0
   }
-
 
   aggiungiSquadra(){
     let lastIdx = this.squadre.length
@@ -84,6 +81,18 @@ export class PlayerComponent implements OnInit {
         // nome : " squadra" + lastIdx
       }
     )
+  }
+
+  aggiungiNuovaSquadra(){
+    let lastIdx = this.squadre.length
+    this.squadre.push(
+      {
+        id: lastIdx,
+        players : []
+        // nome : " squadra" + lastIdx
+      }
+    )
+    this.aggiungiPartecipanti(MINPARTECIPANTI,lastIdx);
   }
 
   aggiungiPartecipanti(numPartecipanti, idS){
@@ -105,7 +114,6 @@ for (let index = 0; index < numPartecipanti; index++) {
     }
 
     let maxNGruppi = Math.trunc(this.nPartecipanti / MINPARTECIPANTI)
-    console.log(maxNGruppi)
     this.azzeraSquadre()
     for(let i = 0; i < this.nSquadre ;i++){
       this.aggiungiSquadra()
