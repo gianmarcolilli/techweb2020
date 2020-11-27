@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { Squadra } from "../../interfaces/squadra";
-
+import { Router } from '@angular/router';
 const MAXPARTECIPANTI = 5;
 const MINPARTECIPANTI = 2;
 
@@ -139,9 +139,12 @@ for (let index = 0; index < numPartecipanti; index++) {
     }
 
     }
+    iniziaPartita(id: number): void {
+      this.router.navigateByUrl('visualizza/' + id);
+    }
 
 
-  constructor(private apiDb: DummyApiService, private activeRoute: ActivatedRoute) {
+  constructor(private apiDb: DummyApiService, private activeRoute: ActivatedRoute, private router: Router) {
     for (let i = 15; i <= 25; i++) {
       this.dimensioni.push(i)
 
