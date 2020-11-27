@@ -180,7 +180,9 @@
           "
           [width]="256"
           [errorCorrectionLevel]="'M'"
-        ></qrcode>
+  ></qrcode>
+  <button mat-raised-button color="info" (click)="iniziaPartita()">Inizia Parita</button>
+
       </span>
     </mat-card-content>
   </mat-card>
@@ -196,8 +198,8 @@
 </section>
 
 <section *ngIf="playClicked">
-  <h3>Ecco i vostri qr code !</h3>
-  <div *ngIf="tipologiaGruppo == 'classe'">
+ <div *ngIf="tipologiaGruppo == 'classe'">
+    <h3> Ecco i vostri QR Code!</h3>
     Squadra 1
     <qrcode
       [qrdata]="'http://localhost:4200/lobby/786'"
@@ -223,4 +225,25 @@
       [errorCorrectionLevel]="'M'"
     ></qrcode>
   </div>
+  <div *ngIf="tipologiaGruppo == 'individuale'">
+   <h3>Ecco il tuo QR code!</h3>
+   <qrcode
+   [qrdata]="'http://localhost:4200/lobby/786'"
+   [width]="256"
+   [errorCorrectionLevel]="'M'"
+ ></qrcode>
+ <button mat-raised-button color="info" (click)="iniziaPartita()">Inizia Parita</button>
+
+ </div>
+ <div *ngIf="tipologiaGruppo =='gruppo'">
+   <h3>Ecco il vostro QR code!</h3>
+   <qrcode
+   [qrdata]="'http://localhost:4200/lobby/786'"
+   [width]="256"
+   [errorCorrectionLevel]="'M'"
+ ></qrcode>
+ <button mat-raised-button color="info" (click)="iniziaPartita()">Inizia Parita</button>
+
+
+ </div>
 </section>
