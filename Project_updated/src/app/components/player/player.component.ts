@@ -31,7 +31,7 @@ export class PlayerComponent implements OnInit {
   alerts = [
   ];
 
-  squadre : Squadra[] = [
+  squadre: Squadra[] = [
 
   ]
 
@@ -44,6 +44,8 @@ export class PlayerComponent implements OnInit {
   nPartecipanti = -1;
   nPartecipantiAggiunti = 0;
   personeSquadra = -1;
+  checkPartecipanti: boolean[] = [];
+
   getStories() {
     this.apiDb.getStories().subscribe((risultato) => {
       this.storie = risultato.posts
@@ -51,71 +53,91 @@ export class PlayerComponent implements OnInit {
   }
 
 
-  aggiungiPlayer(idSquadra){
-    if(this.nPartecipantiAggiunti + 1 > this.nPartecipanti) return;
-    if(this.squadre[idSquadra].players.length +1 >MAXPARTECIPANTI) return;
+  aggiungiPlayer(idSquadra) {
+    if (this.nPartecipantiAggiunti + 1 > this.nPartecipanti) return;
+    if (this.squadre[idSquadra].players.length + 1 > MAXPARTECIPANTI) return;
 
 
-    this.squadre[idSquadra].players.push(
-      'playo' + this.nPartecipantiAggiunti
-    )
-    this.nPartecipantiAggiunti+=1
+    for (let i = 0; i < this.checkPartecipanti.length; i++) {
+      if (this.checkPartecipanti[i] == false) {
+        this.squadre[idSquadra].players.push(
+          'playo' + i
+        )
+        this.checkPartecipanti[i] = true;
+        i = this.checkPartecipanti.length
+      }
+    }
+
+    // this.squadre[idSquadra].players.push(
+    //   'playo' + this.nPartecipantiAggiunti
+    // )
+
+    console.log(this.checkPartecipanti)
+    this.nPartecipantiAggiunti += 1
 
   }
-  rimuoviPlayer(idSquadra){
-    this.squadre[idSquadra].players.pop();
+  rimuoviPlayer(idSquadra) {
+    var posDaRimuovere = this.squadre[idSquadra].players.pop();
     this.nPartecipantiAggiunti--
+    this.checkPartecipanti[(posDaRimuovere.substring(5, 7))] = false
+    console.log(this.checkPartecipanti);
+
+
   }
 
-  azzeraSquadre(){
+  azzeraSquadre() {
     this.squadre = []
     this.nPartecipantiAggiunti = 0
   }
 
-  aggiungiSquadra(){
+  aggiungiSquadra() {
     let lastIdx = this.squadre.length
     this.squadre.push(
       {
         id: lastIdx,
-        players : []
+        players: []
         // nome : " squadra" + lastIdx
       }
     )
   }
 
-  aggiungiNuovaSquadra(){
+  aggiungiNuovaSquadra() {
     let lastIdx = this.squadre.length
     this.squadre.push(
       {
         id: lastIdx,
-        players : []
+        players: []
         // nome : " squadra" + lastIdx
       }
     )
-    this.aggiungiPartecipanti(MINPARTECIPANTI,lastIdx);
+    this.aggiungiPartecipanti(MINPARTECIPANTI, lastIdx);
   }
 
-  aggiungiPartecipanti(numPartecipanti, idS){
-for (let index = 0; index < numPartecipanti; index++) {
-  this.aggiungiPlayer(idS)
-
-}
+  aggiungiPartecipanti(numPartecipanti, idS) {
+    for (let index = 0; index < numPartecipanti; index++) {
+      this.aggiungiPlayer(idS)
+    }
 
   }
 
   nPartecipantiChanged() {
     // if(!this.nDimensionePreferita) return;
 
+    for (let i = 0; i < this.nPartecipanti; i++) {
+      this.checkPartecipanti[i]=false;
+
+    }
+
     let minNGruppi = this.nPartecipanti / MAXPARTECIPANTI
-    if(minNGruppi>Math.trunc(minNGruppi)){
+    if (minNGruppi > Math.trunc(minNGruppi)) {
       this.nSquadre = Math.trunc(minNGruppi + 1)
-    }else{
+    } else {
       this.nSquadre = minNGruppi
     }
 
     let maxNGruppi = Math.trunc(this.nPartecipanti / MINPARTECIPANTI)
     this.azzeraSquadre()
-    for(let i = 0; i < this.nSquadre ;i++){
+    for (let i = 0; i < this.nSquadre; i++) {
       this.aggiungiSquadra()
       this.aggiungiPartecipanti(MINPARTECIPANTI, i)
     }
@@ -130,15 +152,15 @@ for (let index = 0; index < numPartecipanti; index++) {
   }
 
   playClick() {
-     if (this.fasciaEta == '' || this.traccia == -1 || this.tipologiaGruppo == "" ) {//check campi
+    if (this.fasciaEta == '' || this.traccia == -1 || this.tipologiaGruppo == "") {//check campi
       this.showFormError()
-    } else if(this.tipologiaGruppo == "classe" && this.nPartecipantiAggiunti<this.nPartecipanti){
+    } else if (this.tipologiaGruppo == "classe" && this.nPartecipantiAggiunti < this.nPartecipanti) {
       this.showFormError()
-    }else{
-      this.playClicked=true;
+    } else {
+      this.playClicked = true;
     }
 
-    }
+  }
 
 
   constructor(private apiDb: DummyApiService, private activeRoute: ActivatedRoute) {
@@ -172,6 +194,8 @@ for (let index = 0; index < numPartecipanti; index++) {
 
     this.getStories();
   }
+
+
 
 
 
