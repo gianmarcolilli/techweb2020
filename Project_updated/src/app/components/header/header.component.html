@@ -1,14 +1,18 @@
-<!-- <mat-toolbar color="primary"></mat-toolbar> -->
-
-<mat-toolbar color="primary" style="flex:auto;">
+<mat-toolbar color="primary">
   <button mat-icon-button (click)="navigateToHome()" class="example-icon" aria-label="Example icon-button with home icon" style="margin-right: 10px;">
     <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
   </button>
   <span>{{  myTitle  }}</span>
   <span class="spacer"></span>
   <ul>
-    <li>
-      <a mat-button routerLink="/autore" routerLinkActive="mat-accent">Autore</a>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/signup" routerLinkActive="mat-accent">Signup Autore</a>
+    </li>
+    <li *ngIf="!userIsAuthenticated">
+      <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login Autore</a>
+    </li>
+    <li *ngIf="userIsAuthenticated">
+      <button mat-button (click)="onLogout()">Logout</button>
     </li>
   </ul>
 </mat-toolbar>
