@@ -119,9 +119,6 @@ this.storia =  {"nome":"gio","id":"7","didascalia":"vanni","fasciaEta":"fasciaTr
   iniziaStep() {
     this.currentStepId = 0
 
-
-
-
   }
 
 

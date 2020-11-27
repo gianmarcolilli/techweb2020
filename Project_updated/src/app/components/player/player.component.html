@@ -71,9 +71,8 @@
   <section *ngIf="nPartecipanti != -1 && tipologiaGruppo=='classe'"  [style]="{ border: ' 1px solid black' }">
     <p>Partecipanti : {{ nPartecipantiAggiunti }} / {{ nPartecipanti }}</p>
 
-    <p>
-      <b>Squadre</b> <input [(ngModel)]="nSquadre" />
-      <button mat-button>Aggiungi squadre</button>
+    <p *ngIf="(nPartecipanti-nPartecipantiAggiunti>=2)">
+      <button mat-button (click) = "aggiungiNuovaSquadra()">Aggiungi squadra</button>
     </p>
     <div class="row">
       <div class="col col-3" *ngFor="let squadra of squadre">
@@ -101,6 +100,13 @@
             (click)="aggiungiPlayer(squadra.id)"
           >
             Add
+          </button>
+          <button *ngIf="squadra.players.length>2"
+            mat-button
+            color="primary"
+            (click)="rimuoviPlayer(squadra.id)"
+          >
+            Remove
           </button>
         </mat-card>
       </div>
@@ -204,11 +210,13 @@
       [width]="256"
       [errorCorrectionLevel]="'M'"
     ></qrcode>
+    Squadra 3
     <qrcode
       [qrdata]="'http://localhost:4200/lobby/786'"
       [width]="256"
       [errorCorrectionLevel]="'M'"
     ></qrcode>
+    Squadra 4
     <qrcode
       [qrdata]="'http://localhost:4200/lobby/786'"
       [width]="256"

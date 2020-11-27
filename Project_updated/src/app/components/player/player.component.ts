@@ -62,12 +62,15 @@ export class PlayerComponent implements OnInit {
     this.nPartecipantiAggiunti+=1
 
   }
+  rimuoviPlayer(idSquadra){
+    this.squadre[idSquadra].players.pop();
+    this.nPartecipantiAggiunti--
+  }
 
   azzeraSquadre(){
     this.squadre = []
     this.nPartecipantiAggiunti = 0
   }
-
 
   aggiungiSquadra(){
     let lastIdx = this.squadre.length
@@ -78,6 +81,18 @@ export class PlayerComponent implements OnInit {
         // nome : " squadra" + lastIdx
       }
     )
+  }
+
+  aggiungiNuovaSquadra(){
+    let lastIdx = this.squadre.length
+    this.squadre.push(
+      {
+        id: lastIdx,
+        players : []
+        // nome : " squadra" + lastIdx
+      }
+    )
+    this.aggiungiPartecipanti(MINPARTECIPANTI,lastIdx);
   }
 
   aggiungiPartecipanti(numPartecipanti, idS){
@@ -92,10 +107,13 @@ for (let index = 0; index < numPartecipanti; index++) {
     // if(!this.nDimensionePreferita) return;
 
     let minNGruppi = this.nPartecipanti / MAXPARTECIPANTI
-    this.nSquadre = Math.trunc(minNGruppi + 1)
+    if(minNGruppi>Math.trunc(minNGruppi)){
+      this.nSquadre = Math.trunc(minNGruppi + 1)
+    }else{
+      this.nSquadre = minNGruppi
+    }
 
     let maxNGruppi = Math.trunc(this.nPartecipanti / MINPARTECIPANTI)
-    console.log(maxNGruppi)
     this.azzeraSquadre()
     for(let i = 0; i < this.nSquadre ;i++){
       this.aggiungiSquadra()
@@ -112,19 +130,16 @@ for (let index = 0; index < numPartecipanti; index++) {
   }
 
   playClick() {
-    if (this.fasciaEta != '' && this.traccia != -1 && this.tipologiaGruppo != "") {//check campi
-
-
-      if (this.tipologiaGruppo == 'classe') { //check aggiuntivi se classe
-
-
-      }
-
-      this.playClicked = true
-    } else {
+     if (this.fasciaEta == '' || this.traccia == -1 || this.tipologiaGruppo == "" ) {//check campi
       this.showFormError()
+    } else if(this.tipologiaGruppo == "classe" && this.nPartecipantiAggiunti<this.nPartecipanti){
+      this.showFormError()
+    }else{
+      this.playClicked=true;
     }
-  }
+
+    }
+
 
   constructor(private apiDb: DummyApiService, private activeRoute: ActivatedRoute) {
     for (let i = 15; i <= 25; i++) {
