@@ -8,10 +8,6 @@ mat-icon{
   padding-left: 4rem;
 }
 
-td {
-  width: max-content;
-  text-align: left;
-}
 
 form {
   margin: auto ;
@@ -36,10 +32,10 @@ mat-radio-button {
   margin-left: 1rem;
 }
 
-input {
+/* input.quiz{
   margin: 1rem;
   min-width: 200px;
-}
+} */
 
 .image-preview {
   height: 5rem;
@@ -49,3 +45,18 @@ input {
 .image-preview img{
   height: 100%;
 }
+
+.difficulty-levels {
+  display: flex;
+  justify-content: space-around;
+}
+
+input[type="radio"]{
+  padding:1rem;
+  margin:1rem;
+}
+
+.input-group {
+  align-items: baseline;
+}
+
