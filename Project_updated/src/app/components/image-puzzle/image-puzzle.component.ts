@@ -1,6 +1,5 @@
 // import { isNullOrUndefined } from 'util';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { Observable } from 'rxjs';
 import { timer } from 'rxjs';
 
 @Component({
@@ -10,7 +9,9 @@ import { timer } from 'rxjs';
   styleUrls: ['./image-puzzle.component.css']
 })
 export class ImagePuzzleComponent implements OnInit {
-  imageUrl: string = '../assets/images/taj.jpg';
+  @Input('puzzleUrl') imageUrl: string = "";
+  @Input('difficulty') difficulty: string = '2';
+
   imageSize: number = 500;
   gridsize: number = 2;
   boxSize: number = 100 / (this.gridsize - 1);
@@ -18,7 +19,6 @@ export class ImagePuzzleComponent implements OnInit {
   totalBoxes: number = this.gridsize * this.gridsize;
   Image: any[] = [];
   imageName: string = this.imageUrl.substr(this.imageUrl.lastIndexOf('/') + 1).split('.')[0];
-  difficulty: string = '2';
   steps: number = 0;
   ticks: string = '0:00';
   timer: any = timer(0, 1000);
@@ -27,7 +27,19 @@ export class ImagePuzzleComponent implements OnInit {
 
   indexes: number[] = [];
   position: number[] = [];
+
+
+  initImageUrl() {
+    if (this.imageUrl.startsWith("http")) {
+      this.imageUrl = this.imageUrl
+    } else if (this.imageUrl.startsWith("data:image/")) {
+      this.imageUrl = this.imageUrl
+    } else {
+      this.imageUrl = "./assets/images/" + this.imageUrl
+    }
+  }
   ngOnInit() {
+    this.initImageUrl()
     this.startGame();
   }
 

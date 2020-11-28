@@ -43,7 +43,15 @@
         </p> -->
       </ng-container>
     </div>
+    <div *ngIf="steps[currentStepId].action == 'puzzle'">
+        <!-- <app-image-puzzle [puzzleUrl]=steps[currentStepId].puzzleUrl>
 
+        </app-image-puzzle> -->
+
+        <app-image-puzzle  [difficulty]="'4'" [puzzleUrl]="'taj.jpg'">
+
+        </app-image-puzzle>
+    </div>
 
 
 
@@ -52,13 +60,23 @@
           {{ steps[currentStepId].activityTitle}}
 
           <input [(ngModel)]="tempRisposta" class="form-control" type="text" placeholder="Inserisci qui la risposta ">
-          <button (click)="rispondiDomanda()"> verifica </button>
+          <button (click)="rispondiDomanda()"> Avanti </button>
 
     </div>
   </div>
 </section>
 
-<button mat-raised-button color="primary" (click)="iniziaStep()">
+<button *ngIf="this.currentStepId<0" mat-raised-button color="primary" (click)="iniziaStep()">
   {{ startText ? startText : "Inizia" }}
 </button>
 <img [src]="urlIconaPrincip" />
+
+
+
+
+
+
+
+
+
+
