@@ -4,7 +4,10 @@
     {{ storia.nome }}
   </mat-card-header>
   <mat-card-content>
-    <img [src]="storia.urlBackground" [alt]="'  immagine sfondo di  ' + storia.nome" />
+    <img
+      [src]="storia.urlBackground"
+      [alt]="'  immagine sfondo di  ' + storia.nome"
+    />
 
     <!-- FUNZIONANTE -->
     <!-- <p *ngFor="let act of storia.steps">
@@ -15,34 +18,28 @@
       </mat-list>
     </p> -->
 
-
     <table>
-      <tr  *ngFor="let act of storia.steps">
+      <tr *ngFor="let act of storia.steps">
         <td>
-          <b> Attivita n. </b> {{act.activityId}} <b> Contenuto : </b> {{act.activityTitle}} <b>Tipologia : </b>({{ act.action}})
+          <b> Attivita n. </b> {{ act.activityId }} <b> Contenuto : </b>
+          {{ act.activityTitle }} <b>Tipologia : </b>({{ act.action }})
         </td>
-        <td *ngIf="act.action=='domanda'">
-          <b> Risposta : </b>{{act.risposta}}
+        <td *ngIf="act.action == 'domanda'">
+          <b> Risposta : </b>{{ act.risposta }}
         </td>
-        <td>
-          <mat-icon>edit</mat-icon> <mat-icon>delete</mat-icon>
-        </td>
+        <td><mat-icon>edit</mat-icon> <mat-icon>delete</mat-icon></td>
       </tr>
     </table>
 
-    <p *ngIf="(!storia.steps) || (storia.steps.length == 0)">
+    <p *ngIf="!storia.steps || storia.steps.length == 0">
       Nessuna attività presente
     </p>
     <!-- <button (click)="showConfiguraDomanda=true"> Inserisci attività di domande </button>
     <button (click)="showConfiguraClickToObject=true"> Inserisci attività di clicca su immagine </button> -->
-
   </mat-card-content>
-
 </mat-card>
 
 <mat-card>
-
-
   <form [formGroup]="form" class="example-form">
     <mat-form-field class="example-full-width">
       <mat-label>Tipologia Attività</mat-label>
@@ -50,72 +47,161 @@
         <mat-option value="informazione">Testo a caso Informativo</mat-option>
         <mat-option value="domanda">Domanda</mat-option>
         <mat-option value="quiz">Quiz</mat-option>
+        <mat-option value="puzzle">Puzzle</mat-option>
       </mat-select>
-      <mat-error *ngIf="form.get('tipologiaAttivita').invalid">Per favore inserisci tipologia</mat-error>
+      <mat-error *ngIf="form.get('tipologiaAttivita').invalid"
+        >Per favore inserisci tipologia</mat-error
+      >
     </mat-form-field>
 
-    <mat-form-field *ngIf="tipologiaAttivita=='quiz'" class="example-full-width">
+    <mat-form-field
+      *ngIf="tipologiaAttivita == 'quiz'"
+      class="example-full-width"
+    >
       <mat-label>Numero Risposte</mat-label>
-      <mat-select matNativeControl (selectionChange)="aggiornaArrayRisposte()" [(value)]="numeroRisposte">
+      <mat-select
+        matNativeControl
+        (selectionChange)="aggiornaArrayRisposte()"
+        [(value)]="numeroRisposte"
+      >
         <mat-option value="2">2</mat-option>
         <mat-option value="3">3</mat-option>
         <mat-option value="4">4</mat-option>
       </mat-select>
 
-      <mat-error *ngIf="form.get('numeroRisposte').invalid">Perfavore so pazzo inserisci un nu numero</mat-error>
+      <mat-error *ngIf="form.get('numeroRisposte').invalid"
+        >Perfavore so pazzo inserisci un nu numero</mat-error
+      >
     </mat-form-field>
 
-
-
-    <mat-form-field *ngIf="tipologiaAttivita!=''" class="example-full-width">
-      <mat-label>Contenuto</mat-label>
-      <input matInput  type="text" formControlName="tempContenuto" [(ngModel)]="tempContenuto"
-        [placeholder]="'Inserisci qui '+ (tipologiaAttivita=='informazione'?' il contenuto':' la domanda')">
+    <mat-form-field *ngIf="tipologiaAttivita != ''" class="example-full-width">
+      <mat-label> {{getTitleTranslation(tipologiaAttivita) | titlecase}}</mat-label>
+      <input
+        matInput
+        type="text"
+        formControlName="tempContenuto"
+        [(ngModel)]="tempContenuto"
+        [placeholder]="
+          'Inserisci ' + getTitleTranslation(tipologiaAttivita) "
+      />
     </mat-form-field>
 
-    <mat-form-field *ngIf="tipologiaAttivita=='domanda'" class="example-full-width">
+    <mat-form-field
+      *ngIf="tipologiaAttivita == 'domanda'"
+      class="example-full-width"
+    >
       <mat-label>Risposta</mat-label>
-      <input matInput formControlName="tempRisposta" [(ngModel)]="tempRisposta"
-        placeholder="Inserisci qui la risposta corretta">
+      <input
+        matInput
+        formControlName="tempRisposta"
+        [(ngModel)]="tempRisposta"
+        placeholder="Inserisci qui la risposta corretta"
+      />
     </mat-form-field>
 
-    <div *ngIf="tipologiaAttivita=='quiz'">
+    <div *ngIf="tipologiaAttivita == 'quiz'">
       <mat-radio-group aria-label="Select an option">
         <div *ngFor="let item of arrayRisposte; index as i">
-          <mat-label>Inserisci la risposta {{i+1}} </mat-label>
-          <input>
-          <mat-radio-button [value]="i+1">True</mat-radio-button>
+          <mat-label>Inserisci la risposta {{ i + 1 }} </mat-label>
+          <input />
+          <mat-radio-button [value]="i + 1">True</mat-radio-button>
         </div>
       </mat-radio-group>
     </div>
+
+
+
+    <section *ngIf="tipologiaAttivita == 'puzzle'">
+      <h3>Immagine</h3>
+      <div class="difficulty-levels">
+        <div class="input-group">
+          <input type="radio" [(ngModel)]="tempTipoUpload" name="upload" value="web" checked [ngModelOptions]="{standalone: true}">Risorsa Web
+        </div>
+        <div class="input-group">
+          <input type="radio" [(ngModel)]="tempTipoUpload" name="upload" value="locale" [ngModelOptions]="{standalone: true}">File Locale
+        </div>
+      </div>
+
+      <div class="image-url" *ngIf="tempTipoUpload=='web'">
+        <div class="input-group">
+          <span class="input-group-btn">
+            <div class="btn btn-default">Image Url!</div>
+          </span>
+          <input
+            type="url"
+            class="form-control"
+            placeholder="Image Url..."
+            [(ngModel)]="tempImgPuzzle"
+            [ngModelOptions]="{standalone: true}"
+          />
+        </div>
+      </div>
+      <div *ngIf="tempTipoUpload=='locale'">
+        <div>
+          <button mat-stroked-button type="button" (click)="puzzlePicker.click()">
+            Pick Image
+          </button>
+          <input type="file" #puzzlePicker (change)="onImagePicked($event,'puzzle')" />
+        </div>
+        <div
+          class="puzzle-preview"
+          *ngIf="tempImgPuzzle !== '' && tempImgPuzzle"
+        >
+          <img [src]="tempImgPuzzle" alt="puzzleImg" />
+        </div>
+      </div>
+
+      <h3>Difficulty Level</h3>
+      <div class="difficulty-levels">
+        <div class="input-group">
+          <input type="radio" [(ngModel)]="tempDifficulty" name="difficulty" value="2" checked [ngModelOptions]="{standalone: true}">Low
+        </div>
+        <div class="input-group">
+          <input type="radio" [(ngModel)]="tempDifficulty" name="difficulty" value="3" [ngModelOptions]="{standalone: true}">Medium
+        </div>
+        <div class="input-group">
+          <input type="radio" [(ngModel)]="tempDifficulty" name="difficulty" value="4" [ngModelOptions]="{standalone: true}">High
+        </div>
+      </div>
+
+
+    </section>
+
     <mat-form-field class="example-full-width">
       <mat-label>Nome immagine</mat-label>
-      <input matInput
-        placeholder="Inserisci qui il nome dell'immagine">
+      <input matInput placeholder="Inserisci qui il nome dell'immagine" />
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Alt immagine</mat-label>
-      <input matInput
-        placeholder="Inserisci qui il testo alternativo per il'immagine">
+      <input
+        matInput
+        placeholder="Inserisci qui il testo alternativo per il'immagine"
+      />
     </mat-form-field>
     <div>
-      <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
-      <input type="file" #filePicker (change)="onImagePicked($event)">
+      <button mat-stroked-button type="button" (click)="filePicker.click()">
+        Pick Image
+      </button>
+      <input type="file" #filePicker (change)="onImagePicked($event)" />
     </div>
-    <div class="image-preview" *ngIf="imagePreview!=='' && imagePreview && form.get('image').valid">
-      <img [src]="imagePreview" [alt]="form.value.title">
+    <div
+      class="image-preview"
+      *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid"
+    >
+      <img [src]="imagePreview" [alt]="form.value.title" />
     </div>
 
-    <button mat-raised-button color="primary" (click)="aggiungiAttivita(tipologiaAttivita)">Aggiungi Attività
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="aggiungiAttivita(tipologiaAttivita)"
+    >
+      Aggiungi Attività
     </button>
-    <button mat-raised-button color="primary" (click)="salvaModifiche()">Salva modifiche
+    <button mat-raised-button color="primary" (click)="salvaModifiche()">
+      Salva modifiche
     </button>
-
-
   </form>
-
-
-
 </mat-card>
 
 <!-- <app-puzzle></app-puzzle> -->
@@ -141,4 +227,3 @@
 
   {{ storia.steps | json}}
 </p> -->
-
