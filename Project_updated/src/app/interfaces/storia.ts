@@ -4,6 +4,8 @@ export interface Step {
   action: string,
   backImg: string,
   actionImg ?: string,
+  puzzleImg ?: string,
+  difficulty ?: string,
   answers? : Answer[],
   chatMessages? : string[],
   correctId :  number,
