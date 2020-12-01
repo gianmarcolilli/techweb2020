@@ -121,6 +121,9 @@ export class DummyApiService {
 deleteStory(id:number){
   return this.http.delete('http://localhost:3000/api/stories/' +id);
 }
+deleteActivity(activityId:number){
+  return this.http.delete('http://localhost:3000/api/stories/' +activityId);
+}
 
 
 
