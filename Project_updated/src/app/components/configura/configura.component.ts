@@ -112,6 +112,14 @@ export class ConfiguraComponent implements OnInit {
         this.arrayRisposte[i]="";
      }
    }
+   eliminaAttivita(activityId: number): void {
+    this.api.deleteActivity(activityId).subscribe(
+      (responseData: any) => {
+        alert(responseData.message)
+
+      }
+    )
+  }
 
 
    salvaModifiche(){
