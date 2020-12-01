@@ -4,6 +4,7 @@ import { Router } from "@angular/router";
 import { Subject } from "rxjs";
 
 import { AuthData } from "./auth-data.model";
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -12,7 +13,7 @@ export class AuthService {
   private tokenTimer: any;
   private authStatusListener = new Subject<boolean>();
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router, private _snackBar: MatSnackBar) {}
 
   getToken() {
     return this.token;
@@ -31,7 +32,12 @@ export class AuthService {
     this.http
       .post("http://localhost:3000/api/user/signup", authData)
       .subscribe(response => {
-        console.log(response);
+
+        this._snackBar.open("Utente Creato Correttamente", "OK", {
+          duration: 10000,
+        });
+      }, error => {
+        this.authStatusListener.next(false);
       });
   }
 

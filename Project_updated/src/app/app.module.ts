@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -92,6 +93,7 @@ import { AuthInterceptor } from "./components/auth/auth-interceptor";
     MatInputModule,
     MatFormFieldModule,
     MatStepperModule,
+    MatSnackBarModule,
 
     NgbModule,
     NgbAlertModule,
