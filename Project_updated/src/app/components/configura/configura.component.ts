@@ -113,13 +113,12 @@ export class ConfiguraComponent implements OnInit {
      }
    }
    eliminaAttivita(activityId: number): void {
-    this.api.deleteActivity(activityId).subscribe(
-      (responseData: any) => {
-        alert(responseData.message)
+    this.storia.steps.splice(activityId-1, 1);
 
-      }
-    )
   }
+
+
+
 
 
    salvaModifiche(){
