@@ -45,4 +45,10 @@ button .mat-icon {
   margin:auto;
 }
 
+.mat-card-title {
+  margin-top: 1rem;
+}
 
+.cstmCard {
+  padding-right: 0px;
+}
