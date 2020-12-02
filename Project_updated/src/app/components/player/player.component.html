@@ -96,7 +96,7 @@
             </ul>
           </mat-card-content>
 
-          <button
+          <button *ngIf="this.nPartecipantiAggiunti<this.nPartecipanti"
             mat-button
             color="primary"
             (click)="aggiungiPlayer(squadra.id)"
@@ -183,7 +183,7 @@
           [width]="256"
           [errorCorrectionLevel]="'M'"
   ></qrcode>
-  <button mat-raised-button color="info" (click)="iniziaPartita()">Inizia Parita</button>
+  <button mat-raised-button color="info" (click)="iniziaPartita(this.traccia)">Inizia Parita</button>
 
       </span>
     </mat-card-content>
@@ -234,7 +234,7 @@
    [width]="256"
    [errorCorrectionLevel]="'M'"
  ></qrcode>
- <button mat-raised-button color="info" (click)="iniziaPartita()">Inizia Parita</button>
+ <button mat-raised-button color="info" (click)="iniziaPartita(this.traccia)">Inizia Parita</button>
 
  </div>
  <div *ngIf="tipologiaGruppo =='gruppo'">
@@ -244,7 +244,7 @@
    [width]="256"
    [errorCorrectionLevel]="'M'"
  ></qrcode>
- <button mat-raised-button color="info" (click)="iniziaPartita()">Inizia Parita</button>
+ <button mat-raised-button color="info" (click)="iniziaPartita(this.traccia)">Inizia Parita</button>
 
 
  </div>
