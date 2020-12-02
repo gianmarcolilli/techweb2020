@@ -19,8 +19,10 @@
 
     <button mat-raised-button color="info" (click)="configuraStoria(storia.id)">Configura</button>
 
-    <button mat-raised-button color="warn" (click)="eliminaStoria(storia.id)">Elimina</button>
+    <button [swal]="mioAlert1" mat-raised-button color="warn">Elimina</button>
 
+    <swal #mioAlert1 confirmButtonText="Elimina" (confirm)="eliminaStoria(storia.id)" >
+    </swal>
     <!-- <a
       [routerLink]="['/visualizza/:storia']"
       routerLinkActive="router-link-active"
