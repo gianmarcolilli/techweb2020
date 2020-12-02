@@ -84,7 +84,7 @@
                 <!-- {{squadra.id}} -->
               </mat-card-title>
             </mat-card-title-group>
-            <button mat-button style=" padding-right: 0px;" (click)="eliminaSquadra(squadra.id)"><span class="material-icons" style="float: right;">clear</span></button>
+            <button *ngIf="this.squadre.length>this.nSquadre" mat-button style=" padding-right: 0px;" (click)="eliminaSquadra(squadra.id)"><span class="material-icons" style="float: right;">clear</span></button>
           </mat-card-header>
 
           <mat-card-content>

@@ -39,6 +39,7 @@ export class PlayerComponent implements OnInit {
   nPartecipantiAggiunti = 0;
   personeSquadra = -1;
   checkPartecipanti: boolean[] = [];
+  contatore = 0;
 
   getStories() {
     this.apiDb.getStories().subscribe((risultato) => {
@@ -90,9 +91,10 @@ export class PlayerComponent implements OnInit {
       {
         id: lastIdx,
         players: [],
-        name: " squadra" + lastIdx
+        name: " squadra" + this.contatore
       }
-    )
+      )
+    this.contatore++;
   }
 
   eliminaSquadra(idSquadra) {
@@ -113,9 +115,10 @@ export class PlayerComponent implements OnInit {
       {
         id: lastIdx,
         players: [],
-        name: " squadra aggiunta" + lastIdx
+        name: " squadra" + this.contatore
       }
     )
+    this.contatore++
     this.aggiungiPartecipanti(MINPARTECIPANTI, lastIdx);
   }
 
@@ -128,6 +131,7 @@ export class PlayerComponent implements OnInit {
 
   nPartecipantiChanged() {
     // if(!this.nDimensionePreferita) return;
+    this.contatore=0;
 
     for (let i = 0; i < this.nPartecipanti; i++) {
       this.checkPartecipanti[i] = false;
