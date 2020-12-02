@@ -1,3 +1,5 @@
+<app-header [my-title]="'Visualizza'"> </app-header>
+
 <button (click)="refresh()">aggiorna</button>
 
 <h1>
@@ -69,6 +71,7 @@
 <button *ngIf="this.currentStepId<0" mat-raised-button color="primary" (click)="iniziaStep()">
   {{ startText ? startText : "Inizia" }}
 </button>
+
 <img [src]="urlIconaPrincip" />
 
 
