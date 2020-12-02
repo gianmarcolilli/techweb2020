@@ -1,4 +1,5 @@
 export interface Squadra {
   id: number,
-  players : any []
+  players : any [],
+  name: string
 }
