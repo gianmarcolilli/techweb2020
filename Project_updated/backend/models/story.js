@@ -8,8 +8,19 @@ const storySchema = mongoose.Schema({
   image: {type:String},
   attivita: [
     {
-      activityId : { type: String},
-      activityTitle : { type: String}
+      activityId : { type: String,required:true},
+      activityTitle : { type: String,required:true},
+      action: { type: String,required:true},
+      backImg: { type: String,required:true},
+      actionImg : { type: String},
+      puzzleImg : { type: String},
+      difficulty : { type: String},
+      answers : {type: Array},
+      chatMessages : {type: Array},
+      correctId :  {type: Number,required:true},
+      wrongId: {type: Number,required:true},
+      risposta : { type: String}
+
     }
   ]}
 );

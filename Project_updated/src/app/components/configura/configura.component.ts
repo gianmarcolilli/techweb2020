@@ -19,7 +19,11 @@ export class ConfiguraComponent implements OnInit {
 
 
   tempContenuto = "";
-  tempRisposta = " ";
+  tempRisposta = "";
+  tempDifficulty = "";
+  tempImgPuzzle = "";
+  tempTipoUpload = "";
+
   tempClickToObject:string = '';
   showConfiguraDomanda:boolean = false;
   showConfiguraClickToObject:boolean = false;
@@ -30,8 +34,23 @@ export class ConfiguraComponent implements OnInit {
 
   form: FormGroup;
   arrayRisposte: any[];
-  constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder) { }
+  constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder) {}
 
+
+
+  getTitleTranslation(type){
+    if(type=="domanda"){
+      return "domanda"
+    }
+    if(type=="informazione"){
+      return "contenuto"
+    }
+    if(type=="puzzle"){
+      return "messaggio introduttivo"
+    }
+
+    return "titolo"
+  }
 
 
   aggiungiAttivita(type: string) {
@@ -70,6 +89,19 @@ export class ConfiguraComponent implements OnInit {
 
       })
     }
+    if (type == "puzzle") {
+      this.storia.steps.push({
+        action: 'puzzle',
+        activityId: this.storia.steps.length,
+        activityTitle: this.tempContenuto,
+        backImg: '',
+        puzzleImg: this.tempImgPuzzle,
+        difficulty: this.tempDifficulty,
+        correctId: 0,
+        wrongId: 9
+
+      })
+    }
 
       this.resettaForm()
   }
@@ -80,6 +112,14 @@ export class ConfiguraComponent implements OnInit {
         this.arrayRisposte[i]="";
      }
    }
+   eliminaAttivita(activityId: number): void {
+    this.api.deleteActivity(activityId).subscribe(
+      (responseData: any) => {
+        alert(responseData.message)
+
+      }
+    )
+  }
 
 
    salvaModifiche(){
@@ -102,13 +142,18 @@ export class ConfiguraComponent implements OnInit {
   //   resetVariabiliDiAppoggio()
   // }
 
-  onImagePicked(event:Event){
+  onImagePicked(event:Event,type?){
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({image: file});
     this.form.get('image').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
-      this.imagePreview = reader.result as string;
+      if(type && type=='puzzle'){
+      this.tempImgPuzzle = reader.result as string;
+      }else{
+        this.imagePreview = reader.result as string;
+
+      }
     };
     reader.readAsDataURL(file);
   }

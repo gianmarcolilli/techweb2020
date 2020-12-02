@@ -12,9 +12,12 @@
 			Game Complete. <br>
 			You completed the game in time = {{ticks}} & {{steps }} steps.
 		</div>
-
+    <h3 class="score-detail">
+			<span>Time Spent: {{ ticks }}        </span>
+			<span>  Steps : {{steps}}</span>
+		</h3>
 	</div>
-	<div class="scoreboard">
+	<div [hidden]=true class="scoreboard">
 		<h1 class="sectionName">Scoreboard</h1>
 		<h3 class="score-detail">
 			<span>Time Spent: {{ ticks }}        </span>

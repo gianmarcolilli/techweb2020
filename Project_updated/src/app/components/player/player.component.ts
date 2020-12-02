@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { Squadra } from "../../interfaces/squadra";
-
+import { Router } from '@angular/router';
 const MAXPARTECIPANTI = 5;
 const MINPARTECIPANTI = 2;
 
@@ -25,15 +25,9 @@ export class PlayerComponent implements OnInit {
   traccia = -1;
   playClicked = false;
   formError = false;
-  dimensioni = [
-
-  ];
-  alerts = [
-  ];
-
-  squadre: Squadra[] = [
-
-  ]
+  dimensioni = [];
+  alerts = [];
+  squadre: Squadra[] = []
 
   // dimensioniPreferite = [2, 3, 4, 5
   // ];
@@ -95,10 +89,22 @@ export class PlayerComponent implements OnInit {
     this.squadre.push(
       {
         id: lastIdx,
-        players: []
-        // nome : " squadra" + lastIdx
+        players: [],
+        name: " squadra" + lastIdx
       }
     )
+  }
+
+  eliminaSquadra(idSquadra) {
+    var playerRemoved = this.squadre[idSquadra].players.length;
+    for (let index = 0; index < playerRemoved; index++) {
+      this.rimuoviPlayer(idSquadra);
+    }
+
+    this.squadre.splice(idSquadra, 1);
+    for (let index = idSquadra; index < this.squadre.length; index++) {
+      this.squadre[index].id = this.squadre[index].id - 1;
+    }
   }
 
   aggiungiNuovaSquadra() {
@@ -106,8 +112,8 @@ export class PlayerComponent implements OnInit {
     this.squadre.push(
       {
         id: lastIdx,
-        players: []
-        // nome : " squadra" + lastIdx
+        players: [],
+        name: " squadra aggiunta" + lastIdx
       }
     )
     this.aggiungiPartecipanti(MINPARTECIPANTI, lastIdx);
@@ -124,7 +130,7 @@ export class PlayerComponent implements OnInit {
     // if(!this.nDimensionePreferita) return;
 
     for (let i = 0; i < this.nPartecipanti; i++) {
-      this.checkPartecipanti[i]=false;
+      this.checkPartecipanti[i] = false;
 
     }
 
@@ -161,9 +167,12 @@ export class PlayerComponent implements OnInit {
     }
 
   }
+  iniziaPartita(id: number): void {
+    this.router.navigateByUrl('visualizza/' + id);
+  }
 
 
-  constructor(private apiDb: DummyApiService, private activeRoute: ActivatedRoute) {
+  constructor(private apiDb: DummyApiService, private activeRoute: ActivatedRoute, private router: Router) {
     for (let i = 15; i <= 25; i++) {
       this.dimensioni.push(i)
 
