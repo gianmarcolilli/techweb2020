@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Storia } from '../interfaces/storia';
+import { Step, Storia } from '../interfaces/storia';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -11,10 +11,11 @@ import { Router } from '@angular/router';
 
 
 export class DummyApiService {
+  [x: string]: any;
 
 
 
-  constructor(public http: HttpClient) { }
+  constructor(public http: HttpClient, private router: Router) { }
 
   storie = [
     {
@@ -101,43 +102,43 @@ export class DummyApiService {
 
 
 
-  reMap(element):Storia {
-    let miaStoriaDaRitornare =  {
-      nome:element.title,
+  reMap(element): Storia {
+    let miaStoriaDaRitornare = {
+      nome: element.title,
       id: element.id,
-      didascalia : element.didascalia,
+      didascalia: element.didascalia,
       fasciaEta: element.fasciaEta,
       urlBackground: element.image,
       steps: element.attivita
       // didascalia: string,
       // startText : string,
       // entryId : number
-     }
-
-
-     return miaStoriaDaRitornare;
-  }
-// delete
-deleteStory(id:number){
-  return this.http.delete('http://localhost:3000/api/stories/' +id);
-}
-deleteActivity(activityId:number){
-  return this.http.delete('http://localhost:3000/api/stories/' +activityId);
-}
-
-
-
-  addNewStory(title:string, didascalia:string, fasciaEta:string, image:string) {
-    const storyData = {
-      title:title,
-      didascalia:didascalia,
-      fasciaEta:fasciaEta,
-      image:image,
-      attivita : []
     }
 
-    return this.http.post<{message:string, storia: Storia}>("http://localhost:3000/api/stories/",storyData)
-}
+
+    return miaStoriaDaRitornare;
+  }
+  // delete
+  deleteStory(id: number) {
+    return this.http.delete('http://localhost:3000/api/stories/' + id);
+  }
+  deleteActivity(activityId: number) {
+    return this.http.delete('http://localhost:3000/api/stories/' + activityId);
+  }
+
+
+
+  addNewStory(title: string, didascalia: string, fasciaEta: string, image: string) {
+    const storyData = {
+      title: title,
+      didascalia: didascalia,
+      fasciaEta: fasciaEta,
+      image: image,
+      attivita: []
+    }
+
+    return this.http.post<{ message: string, storia: Storia }>("http://localhost:3000/api/stories/", storyData)
+  }
 
 
   // get
@@ -145,16 +146,26 @@ deleteActivity(activityId:number){
     return this.http.get('http://localhost:3000/api/stories/');
   }
 
-  getStoria(id:number): Observable<any>{
-    return this.http.get("http://localhost:3000/api/stories/"+ id)
+  getStoria(id: number): Observable<any> {
+    return this.http.get("http://localhost:3000/api/stories/" + id)
   }
 
 
   //put
 
-  updateStoria(storia:Storia):Observable<any>{
-    return this.http.put("",storia)
+  // updateStoria(storia:Storia):Observable<any>{
+  //   return this.http.put("http://localhost:3000/api/stories/",storia)
+  // }
+  updateStoria(storia:Storia){
+  this.http
+    .put("http://localhost:3000/api/stories/"+storia.id, storia)
+    .subscribe(response => {
+      this.router.navigate(["/"]);
+    });
+
+
   }
+
 
 
 

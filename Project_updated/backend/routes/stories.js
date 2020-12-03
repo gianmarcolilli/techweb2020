@@ -69,6 +69,33 @@ router.post(
   }
 );
 
+router.put("/:id",  (req, res, next) => {
+
+  const story = new Story({
+    id: req.body.id,
+    nome: req.body.nome,
+    fasciaEta: req.body.fasciaEta,
+    urlBackground: req.body.urlBackground,
+    steps:req.body.steps,
+    didascalia: req.body.didascalia,
+    startText: req.body.startText,
+    entryId: req.body.entryId
+
+  });
+  Story.updateOne( {id: req.params.id} , story).then(result => {
+     if (result.n > 0) {
+      res.status(200).json({ message: "Update successful!" });
+     } else {
+      res.status(401).json({ message: "Not Authorized!" });
+     }
+  })
+  .catch (error => {
+    res.status(500).json({
+      message:"Couldn't update story"
+    });
+  })
+});
+
 // router.put(
 //   "/:id",
 //   checkAuth,
