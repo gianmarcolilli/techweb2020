@@ -67,7 +67,6 @@ export class PlayerComponent implements OnInit {
     //   'playo' + this.nPartecipantiAggiunti
     // )
 
-    console.log(this.checkPartecipanti)
     this.nPartecipantiAggiunti += 1
 
   }
@@ -75,9 +74,6 @@ export class PlayerComponent implements OnInit {
     var posDaRimuovere = this.squadre[idSquadra].players.pop();
     this.nPartecipantiAggiunti--
     this.checkPartecipanti[(posDaRimuovere.substring(5, 7))] = false
-    console.log(this.checkPartecipanti);
-
-
   }
 
   azzeraSquadre() {
