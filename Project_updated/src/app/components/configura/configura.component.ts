@@ -121,10 +121,19 @@ export class ConfiguraComponent implements OnInit {
 
 
 
-   salvaModifiche(){
-    //chiamare una update , passando dal nostro apidb, dove gli passeremo la nostr storia
-    console.log("sto per chiamare l'update passandogli "+ JSON.stringify(this.storia))
-   }
+  //  salvaModifiche(){
+  //   //chiamare una update , passando dal nostro apidb, dove gli passeremo la nostr storia
+  //   console.log("sto per chiamare l'update passandogli "+ JSON.stringify(this.storia))
+  //   this.api.updateStoria(this.storia.id,this.storia.steps);
+
+  //  }
+
+  onSaveStory() {
+    this.api.updateStoria(
+      this.storia
+    );
+    this.form.reset();
+  }
 
   resettaForm() {
     this.tempContenuto = ''
@@ -185,9 +194,4 @@ export class ConfiguraComponent implements OnInit {
     });
 
   }
-
-  onSaveStory(){}
-
-
-
 }
