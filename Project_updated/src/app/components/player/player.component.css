@@ -1,15 +1,17 @@
 .formOne , .formTwo, .formThree {
-  margin-top: 50px;
-  margin-left: 50px;
+  margin-top: 3em;
+  margin-left: 3em;
 }
 
 .mat-card{
   margin: auto;
+  background-color: whitesmoke;
+  opacity: 88%;
 }
 
 .formOne .mat-card {
-  width: 200px;
-  height: 300px;
+  width: 15em;
+  height: 18em;
   display: flex;
   flex-wrap: wrap;
   align-content: center;
@@ -51,4 +53,10 @@ button .mat-icon {
 
 .cstmCard {
   padding-right: 0px;
+}
+
+body{
+  background-repeat: no-repeat;
+  min-height: 65em;
+
 }
