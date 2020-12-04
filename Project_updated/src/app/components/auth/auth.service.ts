@@ -5,6 +5,7 @@ import { Subject } from "rxjs";
 
 import { AuthData } from "./auth-data.model";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Message } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Injectable({ providedIn: "root" })
 export class AuthService {
@@ -62,6 +63,9 @@ export class AuthService {
           this.saveAuthData(token, expirationDate);
           this.router.navigate(["/autore"]);
         }
+      },error=>{  this.authStatusListener.next(false);
+        alert("Email o password non sono corretti,riprova!")
+
       });
   }
 
