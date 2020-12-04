@@ -7,6 +7,7 @@
   margin: auto;
   background-color: whitesmoke;
   opacity: 88%;
+
 }
 
 .formOne .mat-card {
@@ -49,10 +50,7 @@ button .mat-icon {
 
 .mat-card-title {
   margin-top: 1rem;
-}
-
-.cstmCard {
-  padding-right: 0px;
+  font-size: 2em;
 }
 
 body{
@@ -60,3 +58,23 @@ body{
   min-height: 65em;
 
 }
+
+mat-grid-tile {
+  background:none;
+}
+
+mat-form-field{
+  border-radius: 4px;
+}
+
+mat-button{
+  color: lightgrey;
+
+}
+
+p{
+  font-size: 1.4em;
+  color: darkslategrey;
+  align-content: center;
+}
+
