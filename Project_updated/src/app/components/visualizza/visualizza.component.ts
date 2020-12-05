@@ -147,6 +147,10 @@ export class VisualizzaComponent implements OnInit {
 
     if (this.steps[this.currentStepId].action == "clickToGo") {
       this.currentStepId = this.steps[this.currentStepId].correctId
+
+      if (this.steps[this.currentStepId].action == "puzzle") {
+        this.currentStepId = this.steps[this.currentStepId].correctId
+      }
     }
   }
 
