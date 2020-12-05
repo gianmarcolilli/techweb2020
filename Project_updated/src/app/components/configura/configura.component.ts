@@ -61,12 +61,12 @@ export class ConfiguraComponent implements OnInit {
         activityId: this.storia.steps.length,
         activityTitle: this.tempContenuto,
         risposta : this.tempRisposta,
-        backImg: '',
+        backImg: ' ',
         correctId: 0,
         wrongId: 9
-
       })
     }
+    console.log("storia aggiornata: "+this.storia);
     if (type=="quiz"){
       this.storia.steps.push({
         action: 'quiz',
@@ -121,10 +121,19 @@ export class ConfiguraComponent implements OnInit {
 
 
 
-   salvaModifiche(){
-    //chiamare una update , passando dal nostro apidb, dove gli passeremo la nostr storia
-    console.log("sto per chiamare l'update passandogli "+ JSON.stringify(this.storia))
-   }
+  //  salvaModifiche(){
+  //   //chiamare una update , passando dal nostro apidb, dove gli passeremo la nostr storia
+  //   console.log("sto per chiamare l'update passandogli "+ JSON.stringify(this.storia))
+  //   this.api.updateStoria(this.storia.id,this.storia.steps);
+
+  //  }
+
+  onSaveStory() {
+    this.api.updateStoria(
+      this.storia
+    );
+    this.form.reset();
+  }
 
   resettaForm() {
     this.tempContenuto = ''
@@ -185,9 +194,4 @@ export class ConfiguraComponent implements OnInit {
     });
 
   }
-
-  onSaveStory(){}
-
-
-
 }

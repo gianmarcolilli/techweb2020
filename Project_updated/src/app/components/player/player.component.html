@@ -4,36 +4,45 @@
   (close)="close(alert)"
   >{{ alert.message }}</ngb-alert
 >
+<body background="/assets/logo5.png">
 
-<section *ngIf="!playClicked" class="mainSection">
-  <div class="formOne">
-    <mat-radio-group
-      [(ngModel)]="tipologiaGruppo"
-      aria-label="Select an option"
-    >
-      <form>
+<section  *ngIf="!playClicked" class="mainSection">
+  <mat-grid-list cols="3" rowHeight="30em">
+    <div class="formOne">
+      <mat-radio-group
+        [(ngModel)]="tipologiaGruppo"
+        aria-label="Select an option"
+      >
+        <form>
+          <mat-grid-tile>
+            <mat-radio-button value="individuale">
+              <mat-card>
+                <mat-icon aria-hidden="false" aria-label="person icon">person</mat-icon>
+              </mat-card>
+                <h2>Individuale</h2>
+            </mat-radio-button>
+          </mat-grid-tile>
 
-        <mat-radio-button value="individuale">
-          <mat-card>
-            <mat-icon aria-hidden="false" aria-label="person icon">person</mat-icon>
-          </mat-card>
-          <h2>Individuale</h2>
-        </mat-radio-button>
-        <mat-radio-button value="gruppo">
-          <mat-card>
-            <mat-icon aria-hidden="false" aria-label="group icon">group</mat-icon>
-          </mat-card>
-          <h2>Gruppo (2-5 persone)</h2>
-        </mat-radio-button>
-        <mat-radio-button value="classe" >
-          <mat-card>
-            <mat-icon aria-hidden="false" aria-label="groups icon">groups</mat-icon>
-          </mat-card>
-          <h2>Classe (15-25 persone)</h2>
-        </mat-radio-button>
-      </form>
-    </mat-radio-group>
-  </div>
+          <mat-grid-tile>
+            <mat-radio-button value="gruppo">
+              <mat-card>
+                <mat-icon aria-hidden="false" aria-label="group icon">group</mat-icon>
+              </mat-card>
+              <h2>Gruppo (2-5 persone)</h2>
+            </mat-radio-button>
+          </mat-grid-tile>
+          <mat-grid-tile>
+            <mat-radio-button value="classe" >
+              <mat-card>
+                <mat-icon aria-hidden="false" aria-label="person icon">groups</mat-icon>
+              </mat-card>
+              <h2>Classe (15-25 persone)</h2>
+            </mat-radio-button>
+          </mat-grid-tile>
+        </form>
+      </mat-radio-group>
+    </div>
+  </mat-grid-list>
 
   <div class="formTwo">
     <mat-form-field
@@ -68,51 +77,48 @@
   </mat-form-field> -->
   </div>
 
-  <section *ngIf="nPartecipanti != -1 && tipologiaGruppo=='classe'"  [style]="{ border: ' 1px solid black' }">
+  <section *ngIf="nPartecipanti != -1 && tipologiaGruppo=='classe'" >
     <p>Partecipanti : {{ nPartecipantiAggiunti }} / {{ nPartecipanti }}</p>
 
     <p *ngIf="(nPartecipanti-nPartecipantiAggiunti>=2)">
       <button mat-button (click) = "aggiungiNuovaSquadra()">Aggiungi squadra</button>
     </p>
-    <div class="row">
-      <div class="col col-3" *ngFor="let squadra of squadre">
-        <mat-card class="cstmCard">
-          <mat-card-header>
-            <mat-card-title-group>
+
+      <mat-grid-list cols="4"  >
+        <mat-grid-tile *ngFor="let squadra of squadre">
+          <mat-card>
               <mat-card-title>
                 {{ squadra.name }}
                 <!-- {{squadra.id}} -->
               </mat-card-title>
-            </mat-card-title-group>
             <button *ngIf="this.squadre.length>this.nSquadre" mat-button style=" padding-right: 0px;" (click)="eliminaSquadra(squadra.id)"><span class="material-icons" style="float: right;">clear</span></button>
-          </mat-card-header>
 
-          <mat-card-content>
-            Giocatori:
-            <ul>
-              <li *ngFor="let player of squadra.players">
-                {{ player }}
-              </li>
-            </ul>
-          </mat-card-content>
+            <mat-card-content>
+              <p >Giocatori:</p>
+              <ul>
+                <li *ngFor="let player of squadra.players">
+                  {{ player }}
+                </li>
+              </ul>
+            </mat-card-content>
 
-          <button *ngIf="this.nPartecipantiAggiunti<this.nPartecipanti"
-            mat-button
-            color="primary"
-            (click)="aggiungiPlayer(squadra.id)"
-          >
-            Add
-          </button>
-          <button *ngIf="squadra.players.length>2"
-            mat-button
-            color="primary"
-            (click)="rimuoviPlayer(squadra.id)"
-          >
-            Remove
-          </button>
-        </mat-card>
-      </div>
-    </div>
+            <button *ngIf="this.nPartecipantiAggiunti<this.nPartecipanti"
+              mat-button
+              color="primary"
+              (click)="aggiungiPlayer(squadra.id)"
+            >
+              Add
+            </button>
+            <button *ngIf="squadra.players.length>2"
+              mat-button
+              color="primary"
+              (click)="rimuoviPlayer(squadra.id)"
+            >
+              Remove
+            </button>
+          </mat-card>
+        </mat-grid-tile>
+      </mat-grid-list>
   </section>
 
   <!-- personeSquadra = {{ personeSquadra }} -->
@@ -249,3 +255,4 @@
 
  </div>
 </section>
+</body>
