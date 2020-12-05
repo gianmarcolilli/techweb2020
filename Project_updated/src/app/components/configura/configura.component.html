@@ -27,8 +27,18 @@
         <td *ngIf="act.action == 'domanda'">
           <b> Risposta : </b>{{ act.risposta }}
         </td>
-        <td><mat-icon>edit</mat-icon></td>
-        <td><mat-icon (click)="eliminaAttivita(act.activityId)">delete</mat-icon></td>
+        <td>{{ act.wrongId }}</td>
+        <td>{{ act.correctId }}</td>
+        <td>
+          <button mat-icon-button>
+            <mat-icon>edit</mat-icon>
+          </button>
+        </td>
+        <td>
+          <button (click)="eliminaAttivita(act.activityId)" mat-icon-button>
+            <mat-icon>delete</mat-icon>
+          </button>
+        </td>
       </tr>
     </table>
 
