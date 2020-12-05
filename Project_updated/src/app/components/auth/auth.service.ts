@@ -34,9 +34,11 @@ export class AuthService {
       .post("http://localhost:3000/api/user/signup", authData)
       .subscribe(response => {
 
-        this._snackBar.open("Utente Creato Correttamente", "OK", {
+        this._snackBar.open("Utente Creato Correttamente , ora esegui il Login", "OK", {
           duration: 10000,
         });
+        this.router.navigate(["/login"]);
+
       }, error => {
         this.authStatusListener.next(false);
       });
