@@ -86,14 +86,15 @@
     </mat-form-field>
 
     <mat-form-field *ngIf="tipologiaAttivita != ''" class="example-full-width">
-      <mat-label> {{getTitleTranslation(tipologiaAttivita) | titlecase}}</mat-label>
+      <mat-label>
+        {{ getTitleTranslation(tipologiaAttivita) | titlecase }}</mat-label
+      >
       <input
         matInput
         type="text"
         formControlName="tempContenuto"
         [(ngModel)]="tempContenuto"
-        [placeholder]="
-          'Inserisci ' + getTitleTranslation(tipologiaAttivita) "
+        [placeholder]="'Inserisci ' + getTitleTranslation(tipologiaAttivita)"
       />
     </mat-form-field>
 
@@ -120,20 +121,31 @@
       </mat-radio-group>
     </div>
 
-
-
     <section *ngIf="tipologiaAttivita == 'puzzle'">
       <h3>Immagine</h3>
       <div class="difficulty-levels">
         <div class="input-group">
-          <input type="radio" [(ngModel)]="tempTipoUpload" name="upload" value="web" checked [ngModelOptions]="{standalone: true}">Risorsa Web
+          <input
+            type="radio"
+            [(ngModel)]="tempTipoUpload"
+            name="upload"
+            value="web"
+            checked
+            [ngModelOptions]="{ standalone: true }"
+          />Risorsa Web
         </div>
         <div class="input-group">
-          <input type="radio" [(ngModel)]="tempTipoUpload" name="upload" value="locale" [ngModelOptions]="{standalone: true}">File Locale
+          <input
+            type="radio"
+            [(ngModel)]="tempTipoUpload"
+            name="upload"
+            value="locale"
+            [ngModelOptions]="{ standalone: true }"
+          />File Locale
         </div>
       </div>
 
-      <div class="image-url" *ngIf="tempTipoUpload=='web'">
+      <div class="image-url" *ngIf="tempTipoUpload == 'web'">
         <div class="input-group">
           <span class="input-group-btn">
             <div class="btn btn-default">Image Url!</div>
@@ -143,16 +155,24 @@
             class="form-control"
             placeholder="Image Url..."
             [(ngModel)]="tempImgPuzzle"
-            [ngModelOptions]="{standalone: true}"
+            [ngModelOptions]="{ standalone: true }"
           />
         </div>
       </div>
-      <div *ngIf="tempTipoUpload=='locale'">
+      <div *ngIf="tempTipoUpload == 'locale'">
         <div>
-          <button mat-stroked-button type="button" (click)="puzzlePicker.click()">
+          <button
+            mat-stroked-button
+            type="button"
+            (click)="puzzlePicker.click()"
+          >
             Pick Image
           </button>
-          <input type="file" #puzzlePicker (change)="onImagePicked($event,'puzzle')" />
+          <input
+            type="file"
+            #puzzlePicker
+            (change)="onImagePicked($event, 'puzzle')"
+          />
         </div>
         <div
           class="puzzle-preview"
@@ -165,17 +185,34 @@
       <h3>Difficulty Level</h3>
       <div class="difficulty-levels">
         <div class="input-group">
-          <input type="radio" [(ngModel)]="tempDifficulty" name="difficulty" value="2" checked [ngModelOptions]="{standalone: true}">Low
+          <input
+            type="radio"
+            [(ngModel)]="tempDifficulty"
+            name="difficulty"
+            value="2"
+            checked
+            [ngModelOptions]="{ standalone: true }"
+          />Low
         </div>
         <div class="input-group">
-          <input type="radio" [(ngModel)]="tempDifficulty" name="difficulty" value="3" [ngModelOptions]="{standalone: true}">Medium
+          <input
+            type="radio"
+            [(ngModel)]="tempDifficulty"
+            name="difficulty"
+            value="3"
+            [ngModelOptions]="{ standalone: true }"
+          />Medium
         </div>
         <div class="input-group">
-          <input type="radio" [(ngModel)]="tempDifficulty" name="difficulty" value="4" [ngModelOptions]="{standalone: true}">High
+          <input
+            type="radio"
+            [(ngModel)]="tempDifficulty"
+            name="difficulty"
+            value="4"
+            [ngModelOptions]="{ standalone: true }"
+          />High
         </div>
       </div>
-
-
     </section>
 
     <mat-form-field class="example-full-width">
