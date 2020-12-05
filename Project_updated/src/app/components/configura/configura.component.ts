@@ -62,8 +62,8 @@ export class ConfiguraComponent implements OnInit {
         activityTitle: this.tempContenuto,
         risposta: this.tempRisposta,
         backImg: "immagine",
-        correctId: 0,
-        wrongId: 9
+        correctId: -1,
+        wrongId: -1
       })
   }
   console.log("storia aggiornata: " + this.storia);

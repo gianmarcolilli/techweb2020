@@ -10,7 +10,10 @@
 		</ul>
 		<div class="successMessage" *ngIf="gameComplete">
 			Game Complete. <br>
-			You completed the game in time = {{ticks}} & {{steps }} steps.
+      You completed the game in time = {{ticks}} & {{steps }} steps.
+      <button mat-fab color="primary" class="my-fab-button" >
+        <mat-icon>play_arrow</mat-icon>
+      </button>
 		</div>
     <h3 class="score-detail">
 			<span>Time Spent: {{ ticks }}        </span>
