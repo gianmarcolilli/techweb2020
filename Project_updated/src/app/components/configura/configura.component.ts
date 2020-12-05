@@ -61,12 +61,12 @@ export class ConfiguraComponent implements OnInit {
         activityId: this.storia.steps.length,
         activityTitle: this.tempContenuto,
         risposta : this.tempRisposta,
-        backImg: '',
+        backImg: ' ',
         correctId: 0,
         wrongId: 9
-
       })
     }
+    console.log("storia aggiornata: "+this.storia);
     if (type=="quiz"){
       this.storia.steps.push({
         action: 'quiz',
