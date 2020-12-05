@@ -11,8 +11,7 @@
 }
 
 .formOne .mat-card {
-  width: 15em;
-  height: 18em;
+
   display: flex;
   flex-wrap: wrap;
   align-content: center;
@@ -31,9 +30,7 @@
     position: fixed;
 
 }
-h2 {
-  text-align: center;
-}
+
 
 .my-fab-button {
   width: 100px;
@@ -78,3 +75,13 @@ p{
   align-content: center;
 }
 
+.card-qr{
+  align-content: center;
+  padding: 3px;
+}
+
+.img-qr{
+  width:14em;
+  height: auto;
+
+}
