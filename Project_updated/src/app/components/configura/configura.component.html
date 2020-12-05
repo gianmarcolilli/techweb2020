@@ -30,7 +30,7 @@
         <td>{{ act.wrongId }}</td>
         <td>{{ act.correctId }}</td>
         <td>
-          <button mat-icon-button>
+          <button (click)="editAttivita(act)" mat-icon-button>
             <mat-icon>edit</mat-icon>
           </button>
         </td>
@@ -54,19 +54,19 @@
   <form [formGroup]="form" class="example-form">
     <mat-form-field class="example-full-width">
       <mat-label>Tipologia Attività</mat-label>
-      <mat-select matNativeControl [(value)]="tipologiaAttivita" required>
+      <mat-select matNativeControl [(value)]="tempTipologiaAttivita" required>
         <mat-option value="informazione">Testo a caso Informativo</mat-option>
         <mat-option value="domanda">Domanda</mat-option>
         <mat-option value="quiz">Quiz</mat-option>
         <mat-option value="puzzle">Puzzle</mat-option>
       </mat-select>
-      <mat-error *ngIf="form.get('tipologiaAttivita').invalid"
+      <mat-error *ngIf="form.get('tempTipologiaAttivita').invalid"
         >Per favore inserisci tipologia</mat-error
       >
     </mat-form-field>
 
     <mat-form-field
-      *ngIf="tipologiaAttivita == 'quiz'"
+      *ngIf="tempTipologiaAttivita == 'quiz'"
       class="example-full-width"
     >
       <mat-label>Numero Risposte</mat-label>
@@ -85,21 +85,21 @@
       >
     </mat-form-field>
 
-    <mat-form-field *ngIf="tipologiaAttivita != ''" class="example-full-width">
+    <mat-form-field *ngIf="tempTipologiaAttivita != ''" class="example-full-width">
       <mat-label>
-        {{ getTitleTranslation(tipologiaAttivita) | titlecase }}</mat-label
+        {{ getTitleTranslation(tempTipologiaAttivita) | titlecase }}</mat-label
       >
       <input
         matInput
         type="text"
         formControlName="tempContenuto"
         [(ngModel)]="tempContenuto"
-        [placeholder]="'Inserisci ' + getTitleTranslation(tipologiaAttivita)"
+        [placeholder]="'Inserisci ' + getTitleTranslation(tempTipologiaAttivita)"
       />
     </mat-form-field>
 
     <mat-form-field
-      *ngIf="tipologiaAttivita == 'domanda'"
+      *ngIf="tempTipologiaAttivita == 'domanda'"
       class="example-full-width"
     >
       <mat-label>Risposta</mat-label>
@@ -111,7 +111,7 @@
       />
     </mat-form-field>
 
-    <div *ngIf="tipologiaAttivita == 'quiz'">
+    <div *ngIf="tempTipologiaAttivita == 'quiz'">
       <mat-radio-group aria-label="Select an option">
         <div *ngFor="let item of arrayRisposte; index as i">
           <mat-label>Inserisci la risposta {{ i + 1 }} </mat-label>
@@ -121,7 +121,7 @@
       </mat-radio-group>
     </div>
 
-    <section *ngIf="tipologiaAttivita == 'puzzle'">
+    <section *ngIf="tempTipologiaAttivita == 'puzzle'">
       <h3>Immagine</h3>
       <div class="difficulty-levels">
         <div class="input-group">
@@ -215,6 +215,18 @@
       </div>
     </section>
 
+    <mat-form-field class="example-full-width" >
+      <mat-label>Corretto</mat-label>
+      <input [(ngModel)]="tempCorrect" matInput placeholder="Inserisci qui l'id Corretto" [ngModelOptions]="{ standalone: true }"
+      />
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width" >
+      <mat-label>Sbagliato</mat-label>
+      <input [(ngModel)]="tempWrong" matInput placeholder="Inserisci qui l'id Sbagliato" [ngModelOptions]="{ standalone: true }"
+      />
+    </mat-form-field>
+
     <mat-form-field class="example-full-width">
       <mat-label>Nome immagine</mat-label>
       <input matInput placeholder="Inserisci qui il nome dell'immagine" />
@@ -242,7 +254,7 @@
     <button
       mat-raised-button
       color="primary"
-      (click)="aggiungiAttivita(tipologiaAttivita)"
+      (click)="aggiungiAttivita(tempTipologiaAttivita)"
     >
       Aggiungi Attività
     </button>

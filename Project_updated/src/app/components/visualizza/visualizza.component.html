@@ -11,7 +11,7 @@
 
 
 
-<section id="step" (click)="gestisciAvanzamento()">
+<section id="step">
   <div *ngIf="currentStepId != -1">
     <!-- {{ this.steps[currentStepId]. }} -->
 
@@ -65,6 +65,16 @@
           <button (click)="rispondiDomanda()"> Avanti </button>
 
     </div>
+
+    <div *ngIf="steps[currentStepId].action == 'informazione'">
+      step corrente {{ currentStepId }}
+      Lo sapevi che ?
+      {{ steps[currentStepId].activityTitle}}
+
+      <!-- <input [(ngModel)]="tempRisposta" class="form-control" type="text" placeholder="Inserisci qui la risposta "> -->
+      <button (click)="gestisciAvanzamento()"> Avanti </button>
+
+</div>
   </div>
 </section>
 
@@ -77,7 +87,7 @@
 
 
 
-
+{{ steps | json}}
 
 
 
