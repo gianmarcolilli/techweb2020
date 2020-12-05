@@ -160,7 +160,7 @@ export class DummyApiService {
   this.http
     .put("http://localhost:3000/api/stories/"+storia.id, storia)
     .subscribe(response => {
-      this.router.navigate(["/"]);
+      this.router.navigate(["/configura/"+storia.id]);
     });
 
 
