@@ -71,15 +71,14 @@ router.post(
 
 router.put("/:id",  (req, res, next) => {
 
-  const story = new Story({
+  Story.updateOne( {id: req.params.id} , {
     id: req.body.id,
     title: req.body.nome,
     fasciaEta: req.body.fasciaEta,
     urlBackground: req.body.urlBackground,
     attivita:req.body.steps,
     didascalia: req.body.didascalia,
-  });
-  Story.updateOne( {id: req.params.id} , story).then(result => {
+  }).then(result => {
      if (result.n > 0) {
       res.status(200).json({ message: "Update successful!" });
      } else {
