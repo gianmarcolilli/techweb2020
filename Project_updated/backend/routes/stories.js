@@ -76,7 +76,7 @@ router.put("/:id",  (req, res, next) => {
     title: req.body.nome,
     fasciaEta: req.body.fasciaEta,
     urlBackground: req.body.urlBackground,
-    steps:req.body.steps,
+    attivita:req.body.steps,
     didascalia: req.body.didascalia,
   });
   Story.updateOne( {id: req.params.id} , story).then(result => {
@@ -88,7 +88,7 @@ router.put("/:id",  (req, res, next) => {
   })
   .catch (error => {
     res.status(500).json({
-      message:"Couldn't update story"+error
+      message:"Couldn't update story"+"ERRORE: "+error
     });
   })
 });
