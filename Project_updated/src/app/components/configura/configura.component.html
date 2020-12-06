@@ -1,4 +1,8 @@
 <app-header [my-title]="'Configura'"> </app-header>
+
+<!-- **************** -->
+<!-- RIEPILOGO STORIA -->
+<!-- **************** -->
 <mat-card *ngIf="storia">
   <mat-card-header>
     {{ storia.nome }}
@@ -8,34 +12,29 @@
       [src]="storia.urlBackground"
       [alt]="'  immagine sfondo di  ' + storia.nome"
     />
-
-    <!-- FUNZIONANTE -->
-    <!-- <p *ngFor="let act of storia.steps">
-      <mat-list>
-        <mat-list-item>
-          <b> Attivita n. </b> {{act.activityId}} <b> Contenuto : </b> {{act.activityTitle}} <b>Tipologia : </b>({{ act.action}})  <span class="icone"><mat-icon>edit</mat-icon> <mat-icon>delete</mat-icon></span>
-        </mat-list-item>
-      </mat-list>
-    </p> -->
-
     <table>
-      <tr *ngFor="let act of storia.steps">
+      <tr *ngFor="let act of storia.steps; index as j">
         <td>
-          <b> Attivita n. </b> {{ act.activityId }} <b> Contenuto : </b>
-          {{ act.activityTitle }} <b>Tipologia : </b>({{ act.action }})
+          # {{ j }} <b> Attivita n. </b> {{ act.activityId }}
+          <b> Contenuto : </b> {{ act.activityTitle }} <b>Tipologia : </b>
+          ({{
+            act.action
+          }})
         </td>
         <td *ngIf="act.action == 'domanda'">
           <b> Risposta : </b>{{ act.risposta }}
         </td>
         <td>{{ act.wrongId }}</td>
         <td>{{ act.correctId }}</td>
+
+        <td > {{ act.quizCorrectIdx ?act.quizCorrectIdx:""}}</td>
         <td>
           <button (click)="editAttivita(act)" mat-icon-button>
             <mat-icon>edit</mat-icon>
           </button>
         </td>
         <td>
-          <button (click)="eliminaAttivita(act.activityId)" mat-icon-button>
+          <button (click)="eliminaAttivita(j)" mat-icon-button>
             <mat-icon>delete</mat-icon>
           </button>
         </td>
@@ -45,13 +44,15 @@
     <p *ngIf="!storia.steps || storia.steps.length == 0">
       Nessuna attività presente
     </p>
-    <!-- <button (click)="showConfiguraDomanda=true"> Inserisci attività di domande </button>
-    <button (click)="showConfiguraClickToObject=true"> Inserisci attività di clicca su immagine </button> -->
   </mat-card-content>
 </mat-card>
 
+<!-- ****************** -->
+<!-- CREAZIONE ATTIVITA -->
+<!-- ****************** -->
 <mat-card>
   <form [formGroup]="form" class="example-form">
+    <!-- TIPOLOGIA -->
     <mat-form-field class="example-full-width">
       <mat-label>Tipologia Attività</mat-label>
       <mat-select matNativeControl [(value)]="tempTipologiaAttivita" required>
@@ -65,6 +66,7 @@
       >
     </mat-form-field>
 
+    <!-- TIPOLOGIA : QUIZ | Numero Risposte -->
     <mat-form-field
       *ngIf="tempTipologiaAttivita == 'quiz'"
       class="example-full-width"
@@ -85,7 +87,11 @@
       >
     </mat-form-field>
 
-    <mat-form-field *ngIf="tempTipologiaAttivita != ''" class="example-full-width">
+    <!-- CONTENUTO PER QUALSIASI TIPOLOGIA -->
+    <mat-form-field
+      *ngIf="tempTipologiaAttivita != ''"
+      class="example-full-width"
+    >
       <mat-label>
         {{ getTitleTranslation(tempTipologiaAttivita) | titlecase }}</mat-label
       >
@@ -94,10 +100,13 @@
         type="text"
         formControlName="tempContenuto"
         [(ngModel)]="tempContenuto"
-        [placeholder]="'Inserisci ' + getTitleTranslation(tempTipologiaAttivita)"
+        [placeholder]="
+          'Inserisci ' + getTitleTranslation(tempTipologiaAttivita)
+        "
       />
     </mat-form-field>
 
+    <!-- TIPOLOGIA : DOMANDA | Risposta Corretta-->
     <mat-form-field
       *ngIf="tempTipologiaAttivita == 'domanda'"
       class="example-full-width"
@@ -111,18 +120,26 @@
       />
     </mat-form-field>
 
+    <!-- TIPOLOGIA : QUIZ | Array Risposte -->
     <div *ngIf="tempTipologiaAttivita == 'quiz'">
-      <mat-radio-group aria-label="Select an option">
-        <div *ngFor="let item of arrayRisposte; index as i">
-          <mat-label>Inserisci la risposta {{ i + 1 }} </mat-label>
-          <input />
-          <mat-radio-button [value]="i + 1">True</mat-radio-button>
+      <mat-radio-group #tempQuizCorrectIdx ngmodelaria-label="Select an option">
+
+        <div>
+          <mat-label>Inserisci la risposta</mat-label>
+          <div *ngFor="let item of arrayRisposte; let i = index; trackBy: trackByFn">
+            <mat-radio-button [value]="i"> </mat-radio-button>
+            <input [(ngModel)]="arrayRisposte[i]" [ngModelOptions]="{ standalone: true }" />
+          </div>
         </div>
+
       </mat-radio-group>
     </div>
 
+    <!-- TIPOLOGIA : PUZZLE -->
     <section *ngIf="tempTipologiaAttivita == 'puzzle'">
       <h3>Immagine</h3>
+
+      <!-- Risorsa Web o Locale -->
       <div class="difficulty-levels">
         <div class="input-group">
           <input
@@ -182,6 +199,7 @@
         </div>
       </div>
 
+      <!-- Difficolta -->
       <h3>Difficulty Level</h3>
       <div class="difficulty-levels">
         <div class="input-group">
@@ -215,18 +233,28 @@
       </div>
     </section>
 
-    <mat-form-field class="example-full-width" >
+    <!-- Scelta attività successiva in caso di risposta corretta/errata -->
+    <mat-form-field class="example-full-width">
       <mat-label>Corretto</mat-label>
-      <input [(ngModel)]="tempCorrect" matInput placeholder="Inserisci qui l'id Corretto" [ngModelOptions]="{ standalone: true }"
+      <input
+        [(ngModel)]="tempCorrect"
+        matInput
+        placeholder="Inserisci qui l'id Corretto"
+        [ngModelOptions]="{ standalone: true }"
       />
     </mat-form-field>
 
-    <mat-form-field class="example-full-width" >
+    <mat-form-field class="example-full-width">
       <mat-label>Sbagliato</mat-label>
-      <input [(ngModel)]="tempWrong" matInput placeholder="Inserisci qui l'id Sbagliato" [ngModelOptions]="{ standalone: true }"
+      <input
+        [(ngModel)]="tempWrong"
+        matInput
+        placeholder="Inserisci qui l'id Sbagliato"
+        [ngModelOptions]="{ standalone: true }"
       />
     </mat-form-field>
 
+    <!-- Associazione immagine ad attività -->
     <mat-form-field class="example-full-width">
       <mat-label>Nome immagine</mat-label>
       <input matInput placeholder="Inserisci qui il nome dell'immagine" />
@@ -287,3 +315,17 @@
 
   {{ storia.steps | json}}
 </p> -->
+
+{{ tempQuizCorrectIdx}}
+ciao
+{{ arrayRisposte | json }}
+
+<!-- <form ngNoForm>
+  <div>
+    <mat-label>Inserisci la risposta</mat-label>
+    <div *ngFor="let item of arrayRisposte; let i = index; trackBy: trackByFn">
+      <mat-radio-button [value]="i"> </mat-radio-button>
+      <input [(ngModel)]="arrayRisposte[i]" />
+    </div>
+  </div>
+</form> -->

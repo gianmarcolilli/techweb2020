@@ -23,7 +23,7 @@ export class ConfiguraComponent implements OnInit {
   tempDifficulty = "";
   tempImgPuzzle = "";
   tempTipoUpload = "";
-
+  tempQuizCorrectIdx = -1;
   tempCorrect=-1;
   tempWrong=-1;
 
@@ -79,6 +79,7 @@ if (type == "quiz") {
     correctId: this.tempCorrect,
     wrongId: this.tempWrong,
     answers: [],
+    quizCorrectIdx: this.tempQuizCorrectIdx.valueOf()
   })
 }
 if (type == "informazione") {
@@ -141,7 +142,7 @@ editAttivita(attivita: Step){
 
 }
 eliminaAttivita(activityId: number): void {
-  this.storia.steps.splice(activityId - 1, 1);
+  this.storia.steps.splice(activityId, 1);
 
 }
 
@@ -178,7 +179,11 @@ resettaForm() {
 //   }
 //   resetVariabiliDiAppoggio()
 // }
-
+inputChanged(ev:Event,idx){
+  console.log(idx+" : " )
+  console.log(ev.returnValue)
+  // this.arrayRisposte[idx] = "risposy"+idx
+}
 onImagePicked(event: Event, type ?) {
   const file = (event.target as HTMLInputElement).files[0];
   this.form.patchValue({ image: file });
@@ -195,6 +200,9 @@ onImagePicked(event: Event, type ?) {
   reader.readAsDataURL(file);
 }
 
+trackByFn(index:any,item:any){
+  return index;
+}
 ngOnInit(): void {
   this.id = this.activeRoute.snapshot.params.id;
   this.api.getStoria(this.id).subscribe((singleStory) => {
