@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RESOURCE_CACHE_PROVIDER } from '@angular/platform-browser-dynamic';
 import { ActivatedRoute } from '@angular/router';
+import { Step } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 
 @Component({
@@ -143,12 +144,16 @@ export class VisualizzaComponent implements OnInit {
     if (this.currentStepId == -1) return
 
     if (this.steps[this.currentStepId].action == "informazione") {
-      this.currentStepId = this.steps[this.currentStepId].correctId
+      let mystep = parseInt(this.currentStepId.toString())
+      console.log("sto per far diventare lo step corrente " + this.steps[mystep].correctId)
 
+      this.currentStepId = this.steps[mystep].correctId
+      return
+    }
       if (this.steps[this.currentStepId].action == "puzzle") {
         this.currentStepId = this.steps[this.currentStepId].correctId
       }
-    }
+
   }
 
 

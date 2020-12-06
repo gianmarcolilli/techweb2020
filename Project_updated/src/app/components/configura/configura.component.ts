@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import { ActivatedRoute } from '@angular/router';
-import { Storia } from 'src/app/interfaces/storia';
+import { Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { mimeType } from '../autore/mime-type.validator';
 
@@ -24,10 +24,13 @@ export class ConfiguraComponent implements OnInit {
   tempImgPuzzle = "";
   tempTipoUpload = "";
 
+  tempCorrect=-1;
+  tempWrong=-1;
+
   tempClickToObject: string = '';
   showConfiguraDomanda: boolean = false;
   showConfiguraClickToObject: boolean = false;
-  tipologiaAttivita: string = "";
+  tempTipologiaAttivita: string = "";
   numeroRisposte: number;
   imagePreview: string;
   rispostaGiusta: string = "";
@@ -62,8 +65,8 @@ export class ConfiguraComponent implements OnInit {
         activityTitle: this.tempContenuto,
         risposta: this.tempRisposta,
         backImg: "immagine",
-        correctId: -1,
-        wrongId: -1
+        correctId: this.tempCorrect,
+        wrongId: this.tempWrong
       })
   }
   console.log("storia aggiornata: " + this.storia);
@@ -73,8 +76,8 @@ if (type == "quiz") {
     activityId: this.storia.steps.length,
     activityTitle: this.tempContenuto,
     backImg: '',
-    correctId: 0,
-    wrongId: 9,
+    correctId: this.tempCorrect,
+    wrongId: this.tempWrong,
     answers: [],
   })
 }
@@ -84,9 +87,8 @@ if (type == "informazione") {
     activityId: this.storia.steps.length,
     activityTitle: this.tempContenuto,
     backImg: '',
-    correctId: 0,
-    wrongId: 9
-
+    correctId: this.tempCorrect,
+    wrongId: this.tempWrong
   })
 }
 if (type == "puzzle") {
@@ -97,9 +99,8 @@ if (type == "puzzle") {
     backImg: '',
     puzzleImg: this.tempImgPuzzle,
     difficulty: this.tempDifficulty,
-    correctId: 0,
-    wrongId: 9
-
+    correctId: this.tempCorrect,
+    wrongId: this.tempWrong
   })
 }
 
@@ -111,6 +112,33 @@ aggiornaArrayRisposte() {
   for (let i = 0; i < this.numeroRisposte; i++) {
     this.arrayRisposte[i] = "";
   }
+}
+
+editAttivita(attivita: Step){
+  this.form.reset();
+
+  //generale
+  this.tempContenuto = attivita.activityTitle;
+  this.tempTipologiaAttivita = attivita.action;
+  this.tempCorrect = attivita.correctId;
+  this.tempWrong = attivita.wrongId;
+
+  //specifica
+  if(attivita.action=="domanda"){
+    this.tempRisposta = attivita.risposta;
+  }
+  if(attivita.action=="quiz"){
+
+  }
+  if(attivita.action=="puzzle"){
+    this.tempDifficulty = "";
+    this.tempImgPuzzle = "";
+  }
+
+
+
+
+
 }
 eliminaAttivita(activityId: number): void {
   this.storia.steps.splice(activityId - 1, 1);
@@ -138,6 +166,7 @@ onSaveStory() {
 resettaForm() {
   this.tempContenuto = ''
   this.tempClickToObject = ''
+
 }
 
 // generaAttivita(tipoDiAttività){
@@ -175,7 +204,7 @@ ngOnInit(): void {
 
 
   this.form = new FormGroup({
-    'tipologiaAttivita': new FormControl(null, {
+    'tempTipologiaAttivita': new FormControl(null, {
       validators: [Validators.required, Validators.minLength(3)]
     }),
     'tempContenuto': new FormControl(null, {
