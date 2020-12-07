@@ -4,9 +4,18 @@ mat-card {
   margin-right: 1rem;
 }
 
+.correct.mat-select-panel {
+  background: rgba(0, 255, 0, 0.5);
+}
 
 
+.wrong.mat-select-panel {
+  background: rgba(255, 0, 0, 0.5);
+}
 
+.f-r{
+  float: right;
+}
 form {
   margin: auto ;
 }
