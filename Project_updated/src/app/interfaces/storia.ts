@@ -8,7 +8,7 @@ export interface Step {
   difficulty ?: string,
   //QUIZ
   quizCorrectIdx?:number,
-  answers? : Answer[],
+  answers? : String[],
 
 
   chatMessages? : string[],
