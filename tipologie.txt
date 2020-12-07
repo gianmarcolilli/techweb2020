@@ -1,0 +1,6 @@
+domanda risposta aperta
+quiz
+puzzle
+informazione
+clickToObject
+dragndrop
