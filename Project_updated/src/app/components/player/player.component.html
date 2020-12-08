@@ -7,60 +7,39 @@
 <body background="/assets/logo5.png">
 
 <section  *ngIf="!playClicked" class="mainSection">
-  <mat-grid-list cols="3" rowHeight="30em">
+  <div class="container1">
     <div class="formOne">
       <mat-radio-group
         [(ngModel)]="tipologiaGruppo"
         aria-label="Select an option"
       >
         <form>
-          <mat-grid-tile>
-            <mat-card class="card-qr" >
-                <mat-card-header>
-                  <mat-card-title><h2>Individuale</h2></mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <img class="img-qr"  src="/assets/user.png">
-                </mat-card-content>
-                <mat-card-actions>
-                  <mat-radio-button  mat-button value="individuale"></mat-radio-button>
-                </mat-card-actions>
+          <mat-radio-button value="individuale">
+              <mat-card>
+                <mat-icon aria-hidden="false" aria-label="person icon">person</mat-icon>
               </mat-card>
-        </mat-grid-tile>
+                <h3>Individuale</h3>
+            </mat-radio-button>
 
-          <mat-grid-tile>
-              <mat-card class="card-qr" >
-                  <mat-card-header>
-                    <mat-card-title><h2>Gruppo (2-5 persone)</h2></mat-card-title>
-                  </mat-card-header>
-                  <mat-card-content>
-                    <img class="img-qr"  src="/assets/group.png">
-                  </mat-card-content>
-                  <mat-card-actions>
-                    <mat-radio-button  mat-button value="gruppo"></mat-radio-button>
-                  </mat-card-actions>
-                </mat-card>
-          </mat-grid-tile>
-
-          <mat-grid-tile>
-            <mat-card class="card-qr" >
-                <mat-card-header>
-                  <mat-card-title><h2>Gruppo (15-25 persone)</h2></mat-card-title>
-                </mat-card-header>
-                <mat-card-content>
-                  <img class="img-qr"  src="/assets/classe.png">
-                </mat-card-content>
-                <mat-card-actions>
-                  <mat-radio-button  mat-button value="classe"></mat-radio-button>
-                </mat-card-actions>
+            <mat-radio-button value="gruppo">
+              <mat-card>
+                <mat-icon aria-hidden="false" aria-label="group icon">group</mat-icon>
               </mat-card>
-        </mat-grid-tile>
+              <h3>Gruppo (2-5 persone)</h3>
+            </mat-radio-button>
+
+          <mat-radio-button value="classe" >
+              <mat-card>
+                <mat-icon aria-hidden="false" aria-label="person icon">groups</mat-icon>
+              </mat-card>
+              <h3>Classe (15-25 persone)</h3>
+            </mat-radio-button>
         </form>
       </mat-radio-group>
-    </div>
-  </mat-grid-list>
+   </div>
+  </div>
 
-  <div class="formTwo">
+  <div class="container2">
     <mat-form-field
       appearance="fill"
       *ngIf="tipologiaGruppo == 'classe'"
@@ -100,7 +79,7 @@
       <button mat-button (click) = "aggiungiNuovaSquadra()">Aggiungi squadra</button>
     </p>
 
-      <mat-grid-list cols="4"  >
+      <div class="container-3" >
         <mat-grid-tile *ngFor="let squadra of squadre">
           <mat-card>
               <mat-card-title>
@@ -134,7 +113,7 @@
             </button>
           </mat-card>
         </mat-grid-tile>
-      </mat-grid-list>
+      </div>
   </section>
 
   <!-- personeSquadra = {{ personeSquadra }} -->
@@ -142,7 +121,7 @@
   numer partecipanti {{this.nPartecipanti}} -->
   <!-- siamo tutti in squadra ? {{ personeSquadra * this.nSquadre == this.nPartecipanti }} -->
 
-  <div class="formTwo">
+  <div class="container-4">
     <mat-radio-group
       [(ngModel)]="fasciaEta"
       aria-label="Select an option"
@@ -150,13 +129,19 @@
     >
       <form>
         <mat-radio-button value="fasciaUno">
-          <mat-card> 7 - 10 anni </mat-card>
+          <mat-card>
+            <mat-card-subtitle>7 - 10 anni</mat-card-subtitle>
+          </mat-card>
         </mat-radio-button>
         <mat-radio-button value="fasciaDue">
-          <mat-card> 11 - 14 anni </mat-card>
+          <mat-card>
+            <mat-card-subtitle>11 - 14 anni</mat-card-subtitle>
+          </mat-card>
         </mat-radio-button>
         <mat-radio-button value="fasciaTre">
-          <mat-card> 15 - 18 anni </mat-card>
+          <mat-card>
+            <mat-card-subtitle>15 - 18 anni</mat-card-subtitle>
+          </mat-card>
         </mat-radio-button>
       </form>
     </mat-radio-group>
