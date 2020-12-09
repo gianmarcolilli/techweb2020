@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { RESOURCE_CACHE_PROVIDER } from '@angular/platform-browser-dynamic';
 import { ActivatedRoute } from '@angular/router';
-import { Step } from 'src/app/interfaces/storia';
+import { Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 
 @Component({
@@ -119,7 +118,18 @@ export class VisualizzaComponent implements OnInit {
     this.currentStepId = 0
 
   }
+  gestisciQuiz(id){
+     let correctQuizResp = this.steps[this.currentStepId].quizCorrectIdx
 
+     if(id==correctQuizResp){
+       console.log("grande fratello");
+       this.currentStepId=this.steps[this.currentStepId].correctId
+     } else {
+       console.log("sei una lota");
+       this.currentStepId=this.steps[this.currentStepId].wrongId
+
+     }
+  }
 
   rispondiDomanda(){
 
@@ -134,7 +144,7 @@ export class VisualizzaComponent implements OnInit {
       // this.currentStepId = this.steps[this.currentStepId].correctId;
     }else{
     alert("hai dato la risposta sbagliata")
-    // this.currentStepId == this.steps[this.currentStepId].wrongId
+       this.currentStepId = this.steps[this.currentStepId].wrongId
     }
 
      this.tempRisposta = ""

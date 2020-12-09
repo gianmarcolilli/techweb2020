@@ -1,38 +1,21 @@
-.formOne , .formTwo, .formThree {
-  margin-top: 3em;
-  margin-left: 3em;
-}
-
 .mat-card{
-  margin: auto;
   background-color: whitesmoke;
   opacity: 88%;
-
 }
 
-.formOne .mat-card {
-  width: 15em;
-  height: 18em;
-  display: flex;
-  flex-wrap: wrap;
-  align-content: center;
-  margin:auto;
+.mat-card-title {
+  margin-top: 1rem;
+  font-size: 2rem;
 }
 
-.formOne .mat-card .mat-icon {
-  transform: scale(5);
-  display: block;
-  margin:auto;
+.mat-card-subtitle{
+  color: darkslategray;
 }
 
 .fixedLowRight{
   right: 10px;
     bottom: 10px;
     position: fixed;
-
-}
-h2 {
-  text-align: center;
 }
 
 .my-fab-button {
@@ -42,25 +25,9 @@ h2 {
   margin-right: 50px;
 }
 
-button .mat-icon {
-  transform: scale(5);
-  display: block;
-  margin:auto;
-}
-
-.mat-card-title {
-  margin-top: 1rem;
-  font-size: 2em;
-}
-
-body{
-  background-repeat: no-repeat;
-  min-height: 65em;
-
-}
-
-mat-grid-tile {
-  background:none;
+.mat-icon{
+  transform: scale(3);
+  align-self: center;
 }
 
 mat-form-field{
@@ -68,13 +35,96 @@ mat-form-field{
 }
 
 mat-button{
-  color: lightgrey;
-
+  color: lightgreen;
+  border: solid;
 }
 
 p{
-  font-size: 1.4em;
+  font-size: 1.6rem;
   color: darkslategrey;
-  align-content: center;
+  align-content: left;
 }
 
+.card-qr{
+  align-content: center;
+  padding: 3px;
+}
+
+.mainSection{
+  background-image: url(/assets/logo5.png);
+  background-repeat: no-repeat;
+  min-height: 65rem;
+  padding: 10px;
+}
+
+.container1{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
+.container1 .mat-card{
+  align-items: center;
+  margin: 15px;
+  padding: 10px;
+  min-width: 10rem;
+  min-height: 12rem;
+}
+
+.container2{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+}
+
+.container3{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+.container3 .mat-card{
+  margin: 5px;
+  padding: 4px;
+  min-width: 10rem;
+  background-color: grey;
+}
+
+.container4{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+}
+.container4 .mat-card{
+  margin: 5px;
+  padding: 4px;
+  min-width: 10rem;
+  background-color: lightgrey;
+  font-size: 1em;
+}
+
+.container5{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+}
+
+.container6{
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+}
+.container6 .mat-card-title{
+  color: grey;
+  font-size: 1em;
+}

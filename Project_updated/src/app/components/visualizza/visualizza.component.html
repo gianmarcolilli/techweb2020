@@ -15,7 +15,7 @@
   <div *ngIf="currentStepId != -1">
     <!-- {{ this.steps[currentStepId]. }} -->
 
-    <div *ngIf="this.steps[currentStepId].action == '4answers'">
+    <div *ngIf="this.steps[currentStepId].action == 'quiz'">
       <ng-container
         *ngIf="
           this.steps[currentStepId].answers &&
@@ -28,10 +28,10 @@
         </mat-list-option>
       </mat-selection-list> -->
 
-      <mat-list role="list" *ngFor="let answ of this.steps[currentStepId].answers">
+      <mat-list role="list" *ngFor="let answ of this.steps[currentStepId].answers;let i = index" (click)="gestisciQuiz(i)">
         <button
         mat-raised-button
-        color="accent" role="listitem">{{ answ.content }} {{ answ.correct }}</button>
+        color="accent" role="listitem">{{ answ }}</button>
       </mat-list>
 
         <!-- <p  style="padding-left: 20px;" *ngFor="let answ of this.steps[currentStepId].answers">
@@ -70,11 +70,9 @@
       step corrente {{ currentStepId }}
       Lo sapevi che ?
       {{ steps[currentStepId].activityTitle}}
-
       <!-- <input [(ngModel)]="tempRisposta" class="form-control" type="text" placeholder="Inserisci qui la risposta "> -->
       <button (click)="gestisciAvanzamento()"> Avanti </button>
-
-</div>
+    </div>
   </div>
 </section>
 
@@ -85,9 +83,6 @@
 <img [src]="urlIconaPrincip" />
 
 
-
-
-{{ steps | json}}
 
 
 

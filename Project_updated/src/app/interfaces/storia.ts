@@ -6,7 +6,11 @@ export interface Step {
   actionImg ?: string,
   puzzleImg ?: string,
   difficulty ?: string,
-  answers? : Answer[],
+  //QUIZ
+  quizCorrectIdx?:number,
+  answers? : String[],
+
+
   chatMessages? : string[],
   correctId :  number,
   wrongId: number,
