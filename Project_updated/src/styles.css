@@ -9,5 +9,6 @@ body {
 
 .container{
   display: flex;
+  min-height: max-content;
 }
 
