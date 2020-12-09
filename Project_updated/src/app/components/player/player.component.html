@@ -155,7 +155,7 @@
             *ngIf="storia.fasciaEta == fasciaEta"
           >
             <mat-card>
-              {{ storia.nome }}
+              {{ storia.title}}
             </mat-card>
           </mat-radio-button>
         </ng-container>
@@ -181,10 +181,11 @@
             tipologiaGruppo == 'individuale' || tipologiaGruppo == 'gruppo'
           "
           [qrdata]="
-            'http://localhost:4200/visualizza/' +
+            'http://localhost:4200/player/'+
             tipologiaGruppo +
             '/' +
-            fasciaEta
+            fasciaEta +
+            '/' + traccia + '/autoplay'
           "
           [width]="256"
           [errorCorrectionLevel]="'M'"
@@ -257,3 +258,6 @@
  </div>
 </section>
 <!--</div>-->
+
+
+
