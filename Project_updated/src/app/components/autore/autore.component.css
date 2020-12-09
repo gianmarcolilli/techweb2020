@@ -6,3 +6,11 @@ input[type="file"]{
   visibility: hidden;
 }
 
+.img-story{
+  max-width: 100%;
+}
+
+.container1{
+  display: flex;
+  margin: 5px;
+}

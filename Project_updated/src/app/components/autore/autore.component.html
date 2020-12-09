@@ -1,46 +1,56 @@
 <app-header [my-title]="titolo"> </app-header>
-<mat-accordion multi="true" *ngIf="storie.length > 0; else error">
-  <mat-expansion-panel *ngFor="let storia of storie; index as i">
-    <mat-expansion-panel-header>
-      {{ storia.nome  }}
-    </mat-expansion-panel-header>
-    <img
-      [src]="storia.urlBackground"
-      [alt]="'  immagine sfondo di  ' + storia.nome"
-    />
-    <p>
-    <button
-      mat-raised-button
-      color="primary"
-      (click)="statoMod[i] = !statoMod[i]"
-    >
-      modifica
-    </button>
+<div class="container1">
+  <mat-accordion multi="true" *ngIf="storie.length > 0; else error">
+    <mat-expansion-panel  hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Elenco delle storie presenti nel database
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+    </mat-expansion-panel>
 
-    <button mat-raised-button color="info" (click)="configuraStoria(storia.id)">Configura</button>
+    <mat-expansion-panel *ngFor="let storia of storie; index as i">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          {{ storia.nome  }}
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <img class="img-story"
+        [src]="storia.urlBackground"
+        [alt]="'  immagine sfondo di  ' + storia.nome"
+      />
 
-    <button [swal]="mioAlert1" mat-raised-button color="warn">Elimina</button>
+      <button
+        mat-raised-button
+        color="primary"
+        (click)="statoMod[i] = !statoMod[i]"
+      >
+        modifica
+      </button>
 
-    <swal #mioAlert1 confirmButtonText="Elimina" (confirm)="eliminaStoria(storia.id)" >
-    </swal>
-    <!-- <a
-      [routerLink]="['/visualizza/:storia']"
-      routerLinkActive="router-link-active"
-    >
-      Anteprima</a
-    > -->
+      <button mat-raised-button color="info" (click)="configuraStoria(storia.id)">Configura</button>
 
-    <app-modifica
-      *ngIf="statoMod[i]"
-      [id]="storia.id"
-      [nome]="storia.nome"
-      [sfondo]="storia.urlBackground"
-    >
-    </app-modifica>
+      <button [swal]="mioAlert1" mat-raised-button color="warn">Elimina</button>
 
-  </p>
-  </mat-expansion-panel>
-</mat-accordion>
+      <swal #mioAlert1 confirmButtonText="Elimina" (confirm)="eliminaStoria(storia.id)" >
+      </swal>
+      <!-- <a
+        [routerLink]="['/visualizza/:storia']"
+        routerLinkActive="router-link-active"
+      >
+        Anteprima</a
+      > -->
+      <app-modifica
+        *ngIf="statoMod[i]"
+        [id]="storia.id"
+        [nome]="storia.nome"
+        [sfondo]="storia.urlBackground"
+      >
+      </app-modifica>
+
+    </mat-expansion-panel>
+  </mat-accordion>
+</div>
 
 <swal #mioAlert confirmButtonText="Salva" (confirm)="aggiungiStoria()" >
 
