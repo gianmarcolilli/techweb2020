@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
+import { mimeType } from '../visualizza/mime-type.validator';
 
 @Component({
   selector: 'app-visualizza',
@@ -66,8 +67,6 @@ export class VisualizzaComponent implements OnInit {
 
   refresh() {
     let valore = this.id;
-
-
     this.apiDb.getStoria(valore).subscribe(
       (storia)=>{
         this.storia=storia
@@ -76,7 +75,6 @@ export class VisualizzaComponent implements OnInit {
         this.title = this.storia.title
         this.didascalia = this.storia.didascalia
         this.steps = this.storia.attivita
-
       }
     )
 

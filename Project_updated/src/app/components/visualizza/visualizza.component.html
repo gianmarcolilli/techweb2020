@@ -50,7 +50,7 @@
 
         </app-image-puzzle> -->
 
-        <app-image-puzzle  [difficulty]="'4'" [puzzleUrl]="'taj.jpg'">
+        <app-image-puzzle  [difficulty]="this.steps[this.currentStepId].difficulty" [puzzleUrl]="this.steps[this.currentStepId].puzzleImg">
 
         </app-image-puzzle>
     </div>

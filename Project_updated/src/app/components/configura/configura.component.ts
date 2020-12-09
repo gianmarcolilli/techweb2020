@@ -65,7 +65,7 @@ export class ConfiguraComponent implements OnInit {
         activityId: id == -1 ? this.storia.steps.length : id,
         activityTitle: this.tempContenuto,
         risposta: this.tempRisposta,
-        backImg: "immagine",
+        backImg: this.imagePreview,
         correctId: this.tempCorrect,
         wrongId: this.tempWrong
       }
@@ -81,7 +81,7 @@ export class ConfiguraComponent implements OnInit {
         action: 'quiz',
         activityId: id == -1 ? this.storia.steps.length : id,
         activityTitle: this.tempContenuto,
-        backImg: '',
+        backImg: this.imagePreview,
         correctId: this.tempCorrect,
         wrongId: this.tempWrong,
         answers: this.arrayRisposte,
@@ -98,7 +98,7 @@ export class ConfiguraComponent implements OnInit {
         action: 'informazione',
         activityId: id == -1 ? this.storia.steps.length : id,
         activityTitle: this.tempContenuto,
-        backImg: '',
+        backImg: this.imagePreview,
         correctId: this.tempCorrect,
         wrongId: this.tempWrong
       }
@@ -113,7 +113,7 @@ export class ConfiguraComponent implements OnInit {
         action: 'puzzle',
         activityId: id == -1 ? this.storia.steps.length : id,
         activityTitle: this.tempContenuto,
-        backImg: '',
+        backImg: this.imagePreview,
         puzzleImg: this.tempImgPuzzle,
         difficulty: this.tempDifficulty,
         correctId: this.tempCorrect,

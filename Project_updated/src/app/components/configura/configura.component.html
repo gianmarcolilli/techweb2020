@@ -254,12 +254,6 @@
     <!-- Scelta attività successiva in caso di risposta corretta/errata -->
     <mat-form-field class="example-full-width">
       <mat-label>Corretto</mat-label>
-      <!-- <input
-        [(ngModel)]="tempCorrect"
-        matInput
-        placeholder="Inserisci qui l'id Corretto"
-        [ngModelOptions]="{ standalone: true }"
-      /> -->
       <mat-select
         [(ngModel)]="tempCorrect"
         formControlName="tempCorrect"
@@ -277,12 +271,6 @@
 
     <mat-form-field class="example-full-width">
       <mat-label>Sbagliato</mat-label>
-      <!-- <input
-        [(ngModel)]="tempWrong"
-        matInput
-        placeholder="Inserisci qui l'id Sbagliato"
-        [ngModelOptions]="{ standalone: true }"
-      /> -->
       <mat-select
         [(ngModel)]="tempWrong"
         formControlName="tempWrong"
@@ -345,38 +333,3 @@
     </div>
   </form>
 </mat-card>
-
-<!-- <app-puzzle></app-puzzle> -->
-
-<!-- <div *ngIf="showConfiguraDomanda">
-
-  <input [(ngModel)]="tempContenuto" class="form-control" type="text" placeholder=" Inserisci la tua domanda " >
-
-  <button (click)="aggiungiAttivita('domande')" > aggiungi attivita di domande </button>
-
-</div>
-
-<div *ngIf="showConfiguraClickToObject">
-
-  <input [(ngModel)]="tempClickToObject" class="form-control" type="text" placeholder=" scegli opzione " >
-
-  <button (click)="aggiungiAttivita('clickToObject')" > aggiungi attivita di clicca su immagine </button>
-
-</div>
-
-
-<p *ngIf="storia">
-
-  {{ storia.steps | json}}
-</p> -->
-
-
-<!-- <form ngNoForm>
-  <div>
-    <mat-label>Inserisci la risposta</mat-label>
-    <div *ngFor="let item of arrayRisposte; let i = index; trackBy: trackByFn">
-      <mat-radio-button [value]="i"> </mat-radio-button>
-      <input [(ngModel)]="arrayRisposte[i]" />
-    </div>
-  </div>
-</form> -->

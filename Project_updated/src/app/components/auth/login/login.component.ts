@@ -16,22 +16,18 @@ export class LoginComponent {
 
   onLogin(form: NgForm) {
     if (form.invalid) {
-
       return;
     }
     this.isLoading = true;
     this.authService.login(form.value.email, form.value.password);
   }
+
   ngOnInit(): void {
-    this.authStatusSub = this.authService.getAuthStatusListener().subscribe(
-      authStatus=>{
+    this.authStatusSub = this.authService.getAuthStatusListener()
+      .subscribe(authStatus => {
         this.isLoading= false
-
-
       }
-
     )
-
   }
 }
 
