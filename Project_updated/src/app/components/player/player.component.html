@@ -4,47 +4,41 @@
   (close)="close(alert)"
   >{{ alert.message }}</ngb-alert
 >
-<body background="/assets/logo5.png">
+<!-- <div class="containerMain"> -->
 
 <section  *ngIf="!playClicked" class="mainSection">
-  <mat-grid-list cols="3" rowHeight="30em">
-    <div class="formOne">
+  <div class="container1">
       <mat-radio-group
         [(ngModel)]="tipologiaGruppo"
         aria-label="Select an option"
       >
         <form>
-          <mat-grid-tile>
-            <mat-radio-button value="individuale">
+          <mat-radio-button value="individuale">
               <mat-card>
                 <mat-icon aria-hidden="false" aria-label="person icon">person</mat-icon>
               </mat-card>
-                <h2>Individuale</h2>
+                <h3>Individuale</h3>
             </mat-radio-button>
-          </mat-grid-tile>
 
-          <mat-grid-tile>
             <mat-radio-button value="gruppo">
               <mat-card>
                 <mat-icon aria-hidden="false" aria-label="group icon">group</mat-icon>
               </mat-card>
-              <h2>Gruppo (2-5 persone)</h2>
+              <h3>Gruppo (2-5 persone)</h3>
             </mat-radio-button>
-          </mat-grid-tile>
-          <mat-grid-tile>
-            <mat-radio-button value="classe" >
+
+          <mat-radio-button value="classe" >
               <mat-card>
                 <mat-icon aria-hidden="false" aria-label="person icon">groups</mat-icon>
               </mat-card>
-              <h2>Classe (15-25 persone)</h2>
+              <h3>Classe (15-25 persone)</h3>
             </mat-radio-button>
-          </mat-grid-tile>
         </form>
       </mat-radio-group>
-    </div>
-  </mat-grid-list>
+   </div>
 
-  <div class="formTwo">
+
+  <div class="container2">
     <mat-form-field
       appearance="fill"
       *ngIf="tipologiaGruppo == 'classe'"
@@ -84,14 +78,15 @@
       <button mat-button (click) = "aggiungiNuovaSquadra()">Aggiungi squadra</button>
     </p>
 
-      <mat-grid-list cols="4"  >
-        <mat-grid-tile *ngFor="let squadra of squadre">
-          <mat-card>
+      <div class="container3"  >
+          <mat-card *ngFor="let squadra of squadre">
               <mat-card-title>
                 {{ squadra.name }}
                 <!-- {{squadra.id}} -->
+                <button *ngIf="this.squadre.length>this.nSquadre" mat-button style=" padding-right: 0px;"
+                  (click)="eliminaSquadra(squadra.id)"><span class="material-icons" style="float: right;">clear</span>
+                </button>
               </mat-card-title>
-            <button *ngIf="this.squadre.length>this.nSquadre" mat-button style=" padding-right: 0px;" (click)="eliminaSquadra(squadra.id)"><span class="material-icons" style="float: right;">clear</span></button>
 
             <mat-card-content>
               <p >Giocatori:</p>
@@ -117,8 +112,7 @@
               Remove
             </button>
           </mat-card>
-        </mat-grid-tile>
-      </mat-grid-list>
+      </div>
   </section>
 
   <!-- personeSquadra = {{ personeSquadra }} -->
@@ -126,7 +120,7 @@
   numer partecipanti {{this.nPartecipanti}} -->
   <!-- siamo tutti in squadra ? {{ personeSquadra * this.nSquadre == this.nPartecipanti }} -->
 
-  <div class="formTwo">
+  <div class="container4">
     <mat-radio-group
       [(ngModel)]="fasciaEta"
       aria-label="Select an option"
@@ -134,19 +128,25 @@
     >
       <form>
         <mat-radio-button value="fasciaUno">
-          <mat-card> 7 - 10 anni </mat-card>
+          <mat-card>
+            <mat-card-subtitle>7 - 10 anni</mat-card-subtitle>
+          </mat-card>
         </mat-radio-button>
         <mat-radio-button value="fasciaDue">
-          <mat-card> 11 - 14 anni </mat-card>
+          <mat-card>
+            <mat-card-subtitle>11 - 14 anni</mat-card-subtitle>
+          </mat-card>
         </mat-radio-button>
         <mat-radio-button value="fasciaTre">
-          <mat-card> 15 - 18 anni </mat-card>
+          <mat-card>
+            <mat-card-subtitle>15 - 18 anni</mat-card-subtitle>
+          </mat-card>
         </mat-radio-button>
       </form>
     </mat-radio-group>
   </div>
 
-  <div class="formThree" *ngIf="fasciaEta != ''">
+  <div class="container5" *ngIf="fasciaEta != ''">
     <mat-radio-group [(ngModel)]="traccia" aria-label="Select an option">
       <form>
         <ng-container *ngFor="let storia of storie">
@@ -164,16 +164,16 @@
   </div>
 
   <hr />
-
-  <mat-card class="col col-6">
-    <mat-card-header> Riepilogo </mat-card-header>
+<div class="container6">
+  <mat-card>
+    <mat-card-title> Riepilogo </mat-card-title>
     <mat-card-content>
-      <h2>Gruppo : {{ tipologiaGruppo }}</h2>
+      <h4>Gruppo : {{ tipologiaGruppo }}</h4>
 
-      <h2>Fascia di età : {{ fasciaEta }}</h2>
+      <h4>Fascia di età : {{ fasciaEta }}</h4>
       <br />
       <span *ngIf="traccia != -1">
-        <h2>traccia: {{ traccia }}</h2>
+        <h4>Traccia: {{ traccia }}</h4>
         <br />
 
         <qrcode
@@ -189,11 +189,12 @@
           [width]="256"
           [errorCorrectionLevel]="'M'"
   ></qrcode>
-  <button mat-raised-button color="info" (click)="iniziaPartita(this.traccia)">Inizia Parita</button>
+  <button mat-raised-button color="success" (click)="iniziaPartita(this.traccia)">Inizia Partita</button>
 
       </span>
     </mat-card-content>
   </mat-card>
+</div>
 
   <div class="fixedLowRight" (click)="playClick()">
     <button mat-fab color="warn" class="my-fab-button">
@@ -255,4 +256,4 @@
 
  </div>
 </section>
-</body>
+<!--</div>-->

@@ -6,6 +6,14 @@
 <mat-card *ngIf="storia">
   <mat-card-header>
     {{ storia.nome }}
+    <button
+      class="f-r"
+      mat-raised-button
+      color="primary"
+      (click)="onSaveStory()"
+    >
+      Salva storia
+    </button>
   </mat-card-header>
   <mat-card-content>
     <img
@@ -16,8 +24,7 @@
       <tr *ngFor="let act of storia.steps; index as j">
         <td>
           # {{ j }} <b> Attivita n. </b> {{ act.activityId }}
-          <b> Contenuto : </b> {{ act.activityTitle }} <b>Tipologia : </b>
-          ({{
+          <b> Contenuto : </b> {{ act.activityTitle }} <b>Tipologia : </b> ({{
             act.action
           }})
         </td>
@@ -27,7 +34,7 @@
         <td>{{ act.wrongId }}</td>
         <td>{{ act.correctId }}</td>
 
-        <td > {{ act.quizCorrectIdx ?act.quizCorrectIdx:""}}</td>
+        <td>{{ act.quizCorrectIdx ? act.quizCorrectIdx : "" }}</td>
         <td>
           <button (click)="editAttivita(act)" mat-icon-button>
             <mat-icon>edit</mat-icon>
@@ -50,7 +57,7 @@
 <!-- ****************** -->
 <!-- CREAZIONE ATTIVITA -->
 <!-- ****************** -->
-<mat-card>
+<mat-card *ngIf="storia">
   <form [formGroup]="form" class="example-form">
     <!-- TIPOLOGIA -->
     <mat-form-field class="example-full-width">
@@ -122,16 +129,27 @@
 
     <!-- TIPOLOGIA : QUIZ | Array Risposte -->
     <div *ngIf="tempTipologiaAttivita == 'quiz'">
-      <mat-radio-group #tempQuizCorrectIdx ngmodelaria-label="Select an option">
-
+      <mat-radio-group
+        [(ngModel)]="tempQuizCorrectIdx"
+        [ngModelOptions]="{ standalone: true }"
+        ngmodelaria-label="Select an option"
+      >
         <div>
           <mat-label>Inserisci la risposta</mat-label>
-          <div *ngFor="let item of arrayRisposte; let i = index; trackBy: trackByFn">
+          <div
+            *ngFor="
+              let item of arrayRisposte;
+              let i = index;
+              trackBy: trackByFn
+            "
+          >
             <mat-radio-button [value]="i"> </mat-radio-button>
-            <input [(ngModel)]="arrayRisposte[i]" [ngModelOptions]="{ standalone: true }" />
+            <input
+              [(ngModel)]="arrayRisposte[i]"
+              [ngModelOptions]="{ standalone: true }"
+            />
           </div>
         </div>
-
       </mat-radio-group>
     </div>
 
@@ -236,22 +254,48 @@
     <!-- Scelta attività successiva in caso di risposta corretta/errata -->
     <mat-form-field class="example-full-width">
       <mat-label>Corretto</mat-label>
-      <input
+      <!-- <input
         [(ngModel)]="tempCorrect"
         matInput
         placeholder="Inserisci qui l'id Corretto"
         [ngModelOptions]="{ standalone: true }"
-      />
+      /> -->
+      <mat-select
+        [(ngModel)]="tempCorrect"
+        formControlName="tempCorrect"
+        [(value)]="tempCorrect"
+        panelClass="correct"
+      >
+        <mat-option *ngFor="let act of storia.steps" [value]="act.activityId">
+          {{ act.activityId }} : {{ act.activityTitle }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('tempCorrect').invalid"
+        >Per favore inserisci idcoretto</mat-error
+      >
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
       <mat-label>Sbagliato</mat-label>
-      <input
+      <!-- <input
         [(ngModel)]="tempWrong"
         matInput
         placeholder="Inserisci qui l'id Sbagliato"
         [ngModelOptions]="{ standalone: true }"
-      />
+      /> -->
+      <mat-select
+        [(ngModel)]="tempWrong"
+        formControlName="tempWrong"
+        [(value)]="tempWrong"
+        panelClass="wrong"
+      >
+        <mat-option *ngFor="let act of storia.steps" [value]="act.activityId">
+          {{ act.activityId }} : {{ act.activityTitle }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="form.get('tempWrong').invalid"
+        >Per favore inserisci iderrato</mat-error
+      >
     </mat-form-field>
 
     <!-- Associazione immagine ad attività -->
@@ -280,15 +324,25 @@
     </div>
 
     <button
+      *ngIf="this.tempActivityId == -1"
       mat-raised-button
       color="primary"
       (click)="aggiungiAttivita(tempTipologiaAttivita)"
     >
       Aggiungi Attività
     </button>
-    <button mat-raised-button color="primary" (click)="onSaveStory()">
-      Salva modifiche
-    </button>
+    <div *ngIf="this.tempActivityId != -1">
+      <button mat-raised-button color="primary" (click)="onSaveActivity()">
+        Salva modifiche
+      </button>
+      <button
+        mat-raised-button
+        color="danger"
+        (click)="tempActivityId = -1; this.form.reset()"
+      >
+        ESCI
+      </button>
+    </div>
   </form>
 </mat-card>
 
@@ -316,9 +370,6 @@
   {{ storia.steps | json}}
 </p> -->
 
-{{ tempQuizCorrectIdx}}
-ciao
-{{ arrayRisposte | json }}
 
 <!-- <form ngNoForm>
   <div>
