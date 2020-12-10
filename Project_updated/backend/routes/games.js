@@ -19,16 +19,13 @@ router.post(
         return Game.count();
       })
       .then((lunghezza) => {
-          const Game = new Game({
+          const game = new Game({
             idPartita: lunghezza,
             idClasse: req.body.idClasse,
             idSquadra: req.body.idSquadra,
             currentStepId: -1,
             statoStep: "unresolved"
           });
-
-          idClassi++
-          idPartite++
 
           game
             .save()
@@ -37,7 +34,7 @@ router.post(
                 message: "Game added successfully",
                 game: {
                   ...createdGame,
-                  id: 0,
+                  idPartita: lunghezza,
                 },
               });
             })
@@ -51,13 +48,13 @@ router.post(
   }
 );
 
-router.put("/:id", (req, res, next) => {
+router.put("/:idPartita", (req, res, next) => {
 
   // se risposta data
   Game.updateOne(
-    { id: req.params.id },
+    { idPartita: req.params.idPartita },
     {
-      id: req.body.id,
+      idPartita: req.params.idPartita,
       idClasse: req.body.idClasse,
       idSquadra: req.body.idSquadra,
       currentStepId: req.body.currentStepId,

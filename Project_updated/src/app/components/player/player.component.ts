@@ -169,7 +169,9 @@ export class PlayerComponent implements OnInit {
 
     if(this.tipologiaGruppo!="individuale"){
       for (let i = 0; i < this.squadre.length; i++) {
-        this.apiDb.addNewGame(this.squadre[i].id, this.idClasseUsati)
+        this.apiDb.addNewGame(this.squadre[i].id, this.idClasseUsati).subscribe((res)=> {
+          console.log(res);
+        })
       }
       this.idClasseUsati++
     }
