@@ -10,12 +10,13 @@
 </h2>
 
 
-
 <section id="step">
   <div *ngIf="currentStepId != -1">
     <!-- {{ this.steps[currentStepId]. }} -->
 
     <div *ngIf="this.steps[currentStepId].action == 'quiz'">
+  Ecco la domanda a cui rispondere :
+     <b>  {{ steps[currentStepId].activityTitle}}</b>
       <ng-container
         *ngIf="
           this.steps[currentStepId].answers &&
@@ -58,18 +59,18 @@
 
 
     <div *ngIf="steps[currentStepId].action == 'domanda'">
-          Ecco la domanda a cui rispondere :
-          {{ steps[currentStepId].activityTitle}}
+       Ecco la domanda a cui rispondere :
+         <b> {{ steps[currentStepId].activityTitle}}</b>
 
           <input [(ngModel)]="tempRisposta" class="form-control" type="text" placeholder="Inserisci qui la risposta ">
           <button (click)="rispondiDomanda()"> Avanti </button>
-
+<img >
     </div>
 
     <div *ngIf="steps[currentStepId].action == 'informazione'">
       step corrente {{ currentStepId }}
-      Lo sapevi che ?
-      {{ steps[currentStepId].activityTitle}}
+
+    <b> {{ steps[currentStepId].activityTitle}}</b>
       <!-- <input [(ngModel)]="tempRisposta" class="form-control" type="text" placeholder="Inserisci qui la risposta "> -->
       <button (click)="gestisciAvanzamento()"> Avanti </button>
     </div>
