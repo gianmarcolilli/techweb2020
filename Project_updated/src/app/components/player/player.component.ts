@@ -22,7 +22,7 @@ export class PlayerComponent implements OnInit {
   tipologiaGruppo = "";
   fasciaEta = "";
   storie = [];
-  traccia = -1;
+  traccia:any = -1;
   playClicked = false;
   formError = false;
   dimensioni = [];
@@ -199,6 +199,9 @@ export class PlayerComponent implements OnInit {
     }
     if (this.activeRoute.snapshot.params.traccia) {
       this.traccia = parseInt(this.activeRoute.snapshot.params.traccia)
+    }
+    if(this.activeRoute.snapshot.params.mode == 'autoplay'){
+      this.iniziaPartita(this.traccia)
     }
 
     this.getStories();

@@ -40,7 +40,6 @@ import { SquadreNamePipe } from './pipes/squadre-name.pipe';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ConfiguraComponent } from './components/configura/configura.component';
-import { PuzzleComponent } from './components/puzzle/puzzle.component';
 import { ImagePuzzleComponent } from './components/image-puzzle/image-puzzle.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
@@ -60,7 +59,6 @@ import { AuthInterceptor } from "./components/auth/auth-interceptor";
     LobbyComponent,
     SquadreNamePipe,
     ConfiguraComponent,
-    PuzzleComponent,
     ImagePuzzleComponent,
     LoginComponent,
     SignupComponent
