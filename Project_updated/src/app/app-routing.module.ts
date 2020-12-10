@@ -15,7 +15,9 @@ const routes: Routes = [
   { path: "player" , component:PlayerComponent},
   { path: "visualizza/:id" , component:VisualizzaComponent},
   { path: "" , component:HomePageComponent},
+  { path: "player/:tipo/:fascia/:traccia/:mode", component:PlayerComponent},
   { path: "player/:tipo/:fascia/:traccia", component:PlayerComponent},
+
   { path: "configura/:id", component: ConfiguraComponent},
   { path: "login", component: LoginComponent},
   { path: "signup", component: SignupComponent }
