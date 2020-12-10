@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Step, Storia } from '../interfaces/storia';
+import {  Storia } from '../interfaces/storia';
+import { Game } from '../interfaces/game';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -148,6 +149,14 @@ export class DummyApiService {
       attivita: []
     }
     return this.http.post<{ message: string, storia: Storia }>("http://localhost:3000/api/stories/", storyData)
+  }
+
+  addNewGame(idSquadra:Number, idClasse:Number){
+    const gameData = {
+      idSquadra : idSquadra,
+      idClasse : idClasse
+    }
+    return this.http.post<{ message: string, game:Game }>("http://localhost:3000/api/games/", gameData)
   }
 
 }
