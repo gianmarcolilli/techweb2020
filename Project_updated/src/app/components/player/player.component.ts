@@ -28,6 +28,7 @@ export class PlayerComponent implements OnInit {
   dimensioni = [];
   alerts = [];
   squadre: Squadra[] = []
+  idClasseUsati = 0;
 
   // dimensioniPreferite = [2, 3, 4, 5
   // ];
@@ -164,6 +165,13 @@ export class PlayerComponent implements OnInit {
       this.showFormError()
     } else {
       this.playClicked = true;
+    }
+
+    if(this.tipologiaGruppo!="individuale"){
+      for (let i = 0; i < this.squadre.length; i++) {
+        this.apiDb.addNewGame(this.squadre[i].id, this.idClasseUsati)
+      }
+      this.idClasseUsati++
     }
 
   }

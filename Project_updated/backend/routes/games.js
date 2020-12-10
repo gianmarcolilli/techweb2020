@@ -7,8 +7,6 @@ const Game = require("../models/game");
 
 const router = express.Router();
 
-let listaId = [Boolean];
-
 router.post(
   "",
   (req, res, next) => {
@@ -21,16 +19,17 @@ router.post(
         return Game.count();
       })
       .then((lunghezza) => {
-        if (lunghezza == 0) {
-          listaId[0] = true;
-          listaId[1] = false;
           const Game = new Game({
-            id: 0,
+            idPartita: lunghezza,
             idClasse: req.body.idClasse,
             idSquadra: req.body.idSquadra,
             currentStepId: -1,
             statoStep: "unresolved"
           });
+
+          idClassi++
+          idPartite++
+
           game
             .save()
             .then((createdGame) => {
@@ -48,42 +47,6 @@ router.post(
                 message: "Error!",
               });
             });
-        } else {
-          for (let i = 0; i <= lunghezza; i++) {
-            if (listaId[i] == false) {
-              //pushamo il game con id=i
-              listaId[i] = true;
-              if (listaId[i+1] != false && listaId[i+1] != true) {
-                listaId[i+1]=false;
-              }
-              const game = new Game({
-                id: i,
-                idClasse: req.body.idClasse,
-                idSquadra: req.body.idSquadra,
-                currentStepId: -1,
-                statoStep: "unresolved"
-
-              });
-              story
-                .save()
-                .then((createdGame) => {
-                  res.status(201).json({
-                    message: "Game added successfully",
-                    story: {
-                      ...createdGame,
-                      id: i,
-                    },
-                  });
-                })
-                .catch((e) => {
-                  console.log(e.message);
-                  res.status(500).json({
-                    message: "Error!",
-                  });
-                });
-            }
-          }
-        }
       });
   }
 );
