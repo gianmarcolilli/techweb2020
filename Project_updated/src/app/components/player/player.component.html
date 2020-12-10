@@ -208,33 +208,23 @@
 </section>
 
 <section *ngIf="playClicked">
+
  <div *ngIf="tipologiaGruppo == 'classe'">
     <h3> Ecco i vostri QR Code!</h3>
-    Squadra 1
-    <qrcode
+    <mat-card *ngFor="let s of squadre" class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{s.name}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <qrcode
       [qrdata]="'http://localhost:4200/lobby/786'"
       [width]="256"
       [errorCorrectionLevel]="'M'"
     ></qrcode>
-    Squadra 2
-    <qrcode
-      [qrdata]="'http://localhost:4200/lobby/786'"
-      [width]="256"
-      [errorCorrectionLevel]="'M'"
-    ></qrcode>
-    Squadra 3
-    <qrcode
-      [qrdata]="'http://localhost:4200/lobby/786'"
-      [width]="256"
-      [errorCorrectionLevel]="'M'"
-    ></qrcode>
-    Squadra 4
-    <qrcode
-      [qrdata]="'http://localhost:4200/lobby/786'"
-      [width]="256"
-      [errorCorrectionLevel]="'M'"
-    ></qrcode>
+      </mat-card-content>
+    </mat-card>
   </div>
+
   <div *ngIf="tipologiaGruppo == 'individuale'">
    <h3>Ecco il tuo QR code!</h3>
    <qrcode
@@ -258,6 +248,3 @@
  </div>
 </section>
 <!--</div>-->
-
-
-
