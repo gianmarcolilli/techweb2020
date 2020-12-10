@@ -31,8 +31,20 @@
         <td *ngIf="act.action == 'domanda'">
           <b> Risposta : </b>{{ act.risposta }}
         </td>
-        <td>{{ act.wrongId }}</td>
-        <td>{{ act.correctId }}</td>
+
+        <td *ngIf="act.action == 'quiz'">
+          <b>Id Risposta : </b>{{ act.quizCorrectIdx }}
+        </td>
+
+
+        <td>
+          <b>
+            Id errato :
+          </b>{{ act.wrongId }}</td>
+        <td>
+          <b>
+            Id corretto :
+          </b>{{ act.correctId }}</td>
 
         <td>{{ act.quizCorrectIdx ? act.quizCorrectIdx : "" }}</td>
         <td>
