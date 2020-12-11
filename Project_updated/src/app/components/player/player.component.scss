@@ -12,7 +12,7 @@ $primary-color: #357045;
 
   h2 {
     font-weight: 200;
-    font-size: 30px;
+    font-size: 2rem;
     color: $primary-color;
   }
 
@@ -47,7 +47,7 @@ $primary-color: #357045;
         width: 25px;
       }
       input[type='radio'] + label {
-        font-size: 2.6em;
+        font-size: 2.6rem;
         display: block;
         cursor: pointer;
         transition: color .3s;
@@ -66,7 +66,7 @@ $primary-color: #357045;
       h3 {
         color: darken($font-color, 20%);
         display: inline-block;
-        font-size: 24px;
+        font-size: 1.6rem;
         font-weight: 100;
         transition: color .3s;
         &:after {
@@ -86,10 +86,76 @@ $primary-color: #357045;
         color: $font-color;
         text-align: left;
         text-indent: 1em;
-        font-size: 16px;
+        font-size: 1rem;
         line-height: 26px;
         transition: color .3s;
       }
     }
   }
+}
+
+#sec2{
+
+    .container3{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    h1 {
+      margin: 0;
+      padding: 0;
+      font-size: 2rem;
+    }
+    p {
+      margin: 0.8em 0;
+      padding: 0;
+      font-size: 1rem;
+    }
+    .cards-set {
+      font-size: 0;
+    }
+    .card {
+      display: inline-block;
+      margin: 8px;
+      width: 30%;
+      min-height: max-content;
+      background-color: #ffffff;
+      border-radius: 10px;
+      box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
+    }
+    .card .heading {
+      position: relative;
+      height: 3.5rem;
+      align-content: center;
+      background-color: #2a34bbe5;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+    .card .heading h1 {
+      position: absolute;
+      font-size: 1.9rem;
+      text-transform: uppercase;
+      color: white;
+      padding-left: 1rem;
+      align-items: center;
+    }
+    .card .heading button {
+      color: white;
+      justify-content: flex-end;
+      margin-right: 1px;
+      margin-left: 23rem;
+    }
+    .card .content {
+      padding: 16px;
+    }
+    .card .content h3 {
+      font-size: 1.5rem;
+    }
+    .card .content p {
+      font-size: 1rem;
+    }
+
 }
