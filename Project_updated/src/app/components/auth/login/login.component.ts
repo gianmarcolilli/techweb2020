@@ -11,6 +11,7 @@ import { AuthService } from "../auth.service";
 })
 export class LoginComponent {
   isLoading = false;
+  titolo: string = "Login";
   private authStatusSub : Subscription;
   constructor(public authService: AuthService) {}
 

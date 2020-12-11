@@ -10,6 +10,7 @@ import { AuthService } from '../auth.service';
 
 export class SignupComponent implements OnInit, OnDestroy{
   isLoading=false;
+  titolo: string = "SignUp";
   private authStatusSub: Subscription;
 
   constructor(public authService:AuthService){}

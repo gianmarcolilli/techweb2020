@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { Step, Storia } from '../interfaces/storia';
+import {  Storia } from '../interfaces/storia';
+import { Game } from '../interfaces/game';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
@@ -90,17 +91,6 @@ export class DummyApiService {
     }
   ]
 
-  // addNewStory(storiaDaInviare):Observable<any> {
-  //   return this.http.post('http://localhost:3000/api/stories/',
-  //                         {
-  //                           "title":storiaDaInviare.nome,
-  //                           "didascalia":storiaDaInviare.didascalia,
-  //                           "fasciaEta":storiaDaInviare.fasciaEta
-  //                         }
-  //   );
-  // }
-
-
 
   reMap(element): Storia {
     let miaStoriaDaRitornare = {
@@ -127,20 +117,6 @@ export class DummyApiService {
   }
 
 
-
-  addNewStory(title: string, didascalia: string, fasciaEta: string, image: string) {
-    const storyData = {
-      title: title,
-      didascalia: didascalia,
-      fasciaEta: fasciaEta,
-      image: image,
-      attivita: []
-    }
-
-    return this.http.post<{ message: string, storia: Storia }>("http://localhost:3000/api/stories/", storyData)
-  }
-
-
   // get
   getStories(): Observable<any> {
     return this.http.get('http://localhost:3000/api/stories/');
@@ -152,10 +128,6 @@ export class DummyApiService {
 
 
   //put
-
-  // updateStoria(storia:Storia):Observable<any>{
-  //   return this.http.put("http://localhost:3000/api/stories/",storia)
-  // }
   updateStoria(storia:Storia){
   this.http
     .put("http://localhost:3000/api/stories/"+storia.id, storia)
@@ -167,21 +139,24 @@ export class DummyApiService {
   }
 
 
-
-
-
-
   //post
-  // mockup del metodo ancora da implementare a fondo .. aggiungere nuove storie
-  // addNewStory(storia : any){
+  addNewStory(title: string, didascalia: string, fasciaEta: string, image: string) {
+    const storyData = {
+      title: title,
+      didascalia: didascalia,
+      fasciaEta: fasciaEta,
+      image: image,
+      attivita: []
+    }
+    return this.http.post<{ message: string, storia: Storia }>("http://localhost:3000/api/stories/", storyData)
+  }
 
-
-  //     let body = {
-  //       id : storia.id ,
-  //       name : storia.nome,
-  //       sfondo : storia.sfondo
-  //     }
-  //       this.http.post("localhost:3000/story/"+body.id,  body )
-  // }
+  addNewGame(idSquadra:Number, idClasse:Number){
+    const gameData = {
+      idSquadra : idSquadra,
+      idClasse : idClasse
+    }
+    return this.http.post<{ message: string, game:Game }>("http://localhost:3000/api/games/", gameData)
+  }
 
 }

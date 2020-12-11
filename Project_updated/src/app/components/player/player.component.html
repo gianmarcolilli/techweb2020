@@ -4,38 +4,40 @@
   (close)="close(alert)"
   >{{ alert.message }}</ngb-alert
 >
-<!-- <div class="containerMain"> -->
 
-<section  *ngIf="!playClicked" class="mainSection">
+<section *ngIf="!playClicked" class="mainSection" id="sec">
+  <h2>Seleziona la storia che preferisci e inizia a giocare</h2>
+
   <div class="container1">
-      <mat-radio-group
-        [(ngModel)]="tipologiaGruppo"
-        aria-label="Select an option"
-      >
-        <form>
-          <mat-radio-button value="individuale">
-              <mat-card>
-                <mat-icon aria-hidden="false" aria-label="person icon">person</mat-icon>
-              </mat-card>
-                <h3>Individuale</h3>
-            </mat-radio-button>
+    <ul >
+      <form >
+      <li>
+        <input type="radio" name="tipologiaGruppo" id="Individuale" value="individuale" [(ngModel)]="tipologiaGruppo">
+        <label class="fa fa-code"  for="Individuale">
+            <mat-icon aria-hidden="false" aria-label="person icon">person</mat-icon> <br>
+        <h3>Individuale</h3>
+        </label>
+      </li>
 
-            <mat-radio-button value="gruppo">
-              <mat-card>
-                <mat-icon aria-hidden="false" aria-label="group icon">group</mat-icon>
-              </mat-card>
-              <h3>Gruppo (2-5 persone)</h3>
-            </mat-radio-button>
+      <li>
+        <input type="radio" name="tipologiaGruppo" id="Gruppo" value="gruppo" [(ngModel)]="tipologiaGruppo">
+        <label class="fa fa-code"  for="Gruppo">
+            <mat-icon aria-hidden="false" aria-label="group icon">group</mat-icon> <br>
+        <h3>Gruppo </h3><h5>(2-5 persone)</h5>
+        </label>
+      </li>
 
-          <mat-radio-button value="classe" >
-              <mat-card>
-                <mat-icon aria-hidden="false" aria-label="person icon">groups</mat-icon>
-              </mat-card>
-              <h3>Classe (15-25 persone)</h3>
-            </mat-radio-button>
-        </form>
-      </mat-radio-group>
-   </div>
+      <li>
+        <input type="radio" name="tipologiaGruppo" id="Classe" value="classe" [(ngModel)]="tipologiaGruppo">
+        <label class="fa fa-code"  for="Classe">
+            <mat-icon aria-hidden="false" aria-label="person icon">groups</mat-icon> <br>
+        <h3>Classe</h3><h5>(15-25 persone)</h5>
+        </label>
+      </li>
+
+      </form>
+    </ul>
+  </div>
 
 
   <div class="container2">
@@ -205,36 +207,26 @@
       <!-- <button type="button" class="btn btn-primary" (click)="reset()">Reset</button> -->
     </p>
   </div>
-</section>
+</section> <!-- fine MainSection -->
 
 <section *ngIf="playClicked">
+
  <div *ngIf="tipologiaGruppo == 'classe'">
     <h3> Ecco i vostri QR Code!</h3>
-    Squadra 1
-    <qrcode
+    <mat-card *ngFor="let s of squadre" class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{s.name}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <qrcode
       [qrdata]="'http://localhost:4200/lobby/786'"
       [width]="256"
       [errorCorrectionLevel]="'M'"
     ></qrcode>
-    Squadra 2
-    <qrcode
-      [qrdata]="'http://localhost:4200/lobby/786'"
-      [width]="256"
-      [errorCorrectionLevel]="'M'"
-    ></qrcode>
-    Squadra 3
-    <qrcode
-      [qrdata]="'http://localhost:4200/lobby/786'"
-      [width]="256"
-      [errorCorrectionLevel]="'M'"
-    ></qrcode>
-    Squadra 4
-    <qrcode
-      [qrdata]="'http://localhost:4200/lobby/786'"
-      [width]="256"
-      [errorCorrectionLevel]="'M'"
-    ></qrcode>
+      </mat-card-content>
+    </mat-card>
   </div>
+
   <div *ngIf="tipologiaGruppo == 'individuale'">
    <h3>Ecco il tuo QR code!</h3>
    <qrcode
@@ -258,6 +250,3 @@
  </div>
 </section>
 <!--</div>-->
-
-
-
