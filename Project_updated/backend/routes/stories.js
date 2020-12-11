@@ -8,26 +8,8 @@ const Story = require("../models/story");
 
 const router = express.Router();
 
-let listaId = [Boolean];
-
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     const isValid = MIME_TYPE_MAP[file.mimetype];
-//     let error = new Error("Invalid mime type");
-//     if (isValid) {
-//       error = null;
-//     }
-//     cb(error, "backend/images");
-//   },
-//   filename: (req, file, cb) => {
-//     const name = file.originalname
-//       .toLowerCase()
-//       .split(" ")
-//       .join("-");
-//     const ext = MIME_TYPE_MAP[file.mimetype];
-//     cb(null, name + "-" + Date.now() + "." + ext);
-//   }
-// });
+//quando lo occupo lo metto a true, quando lo libero lo metto a false
+let listaId = [];
 
 router.post(
   "",
@@ -37,13 +19,15 @@ router.post(
     const url = req.protocol + "://" + req.get("host");
 
     let findQry = Story.find();
-    // let lunghezza =  Story.count();
+    let fetchedStories;
 
     findQry
       .then((documents) => {
+        fetchedStories = documents;
         return Story.count();
       })
       .then((lunghezza) => {
+
         if (lunghezza == 0) {
           listaId[0] = true;
           listaId[1] = false;
@@ -73,12 +57,12 @@ router.post(
               });
             });
         } else {
-          for (let i = 0; i <= lunghezza; i++) {
+          for (let i = 0; i < listaId.length; i++) {
             if (listaId[i] == false) {
               //pushamo la storia con id=i
               listaId[i] = true;
-              if (listaId[i+1] != false && listaId[i+1] != true) {
-                listaId[i+1]=false;
+              if (listaId[i + 1] != false && listaId[i + 1] != true) {
+                listaId[i + 1] = false;
               }
               const story = new Story({
                 title: req.body.title,
@@ -88,6 +72,8 @@ router.post(
                 image: req.body.image,
                 attivita: req.body.attivita,
               });
+              let x = i;
+              i=listaId.length
               story
                 .save()
                 .then((createdStory) => {
@@ -95,9 +81,10 @@ router.post(
                     message: "Storia added successfully",
                     story: {
                       ...createdStory,
-                      id: i,
+                      id: x,
                     },
                   });
+
                 })
                 .catch((e) => {
                   console.log(e.message);
@@ -109,38 +96,6 @@ router.post(
           }
         }
       });
-
-    // findQry
-    //   .then((documents) => {
-    //     return Story.count();
-    //   })
-    //   .then((conteggio) => {
-    //     const story = new Story({
-    //       title: req.body.title,
-    //       didascalia: req.body.didascalia,
-    //       fasciaEta: req.body.fasciaEta,
-    //       id: conteggio,
-    //       image: req.body.image,
-    //       attivita: req.body.attivita,
-    //     });
-    //     story
-    //       .save()
-    //       .then((createdStory) => {
-    //         res.status(201).json({
-    //           message: "Storia added successfully",
-    //           story: {
-    //             ...createdStory,
-    //             id: conteggio,
-    //           },
-    //         });
-    //       })
-    //       .catch((e) => {
-    //         console.log(e.message);
-    //         res.status(500).json({
-    //           message: "Error!",
-    //         });
-    //       });
-    //   });
   }
 );
 
@@ -170,40 +125,10 @@ router.put("/:id", (req, res, next) => {
     });
 });
 
-// router.put(
-//   "/:id",
-//   checkAuth,
-//   multer({ storage: storage }).single("image"),
-//   (req, res, next) => {
-//     let imagePath = req.body.imagePath;
-//     if (req.file) {
-//       const url = req.protocol + "://" + req.get("host");
-//       imagePath = url + "/images/" + req.file.filename;
-//     }
-//     const post = new Post({
-//       _id: req.body.id,
-//       title: req.body.title,
-//       content: req.body.content,
-//       imagePath: imagePath,
-//       creator:req.userData.userId
-//     });
-//     Post.updateOne({ _id: req.params.id, creator:req.userData.userId }, post).then(result => {
-//        if (result.nModified > 0) {
-//         res.status(200).json({ message: "Update successful!" });
-//        } else {
-//         res.status(401).json({ message: "Not Authorized!" });
-//        }
-//     });
-//   }
-// );
+
 router.get("", (req, res, next) => {
-  // const pageSize = +req.query.pagesize;
-  // const currentPage = +req.query.page;
   const postQuery = Story.find();
   let fetchedStories;
-  // if (pageSize && currentPage) {
-  //   postQuery.skip(pageSize * (currentPage - 1)).limit(pageSize);
-  // }
   postQuery
     .then((documents) => {
       fetchedStories = documents;
@@ -215,6 +140,13 @@ router.get("", (req, res, next) => {
         posts: fetchedStories,
         maxPosts: count,
       });
+      for (let i = 0; i <= count; i++) {
+        if (i < count) {
+          listaId[fetchedStories[i].id] = true;
+        } else {
+          listaId[i] = false;
+        }
+      }
     });
 });
 
@@ -230,17 +162,17 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
-router.get("/t/:title", (req, res, next) => {
-  Story.findOne({
-    title: req.params.title,
-  }).then((story) => {
-    if (story) {
-      res.status(200).json(story);
-    } else {
-      res.status(404).json({ message: "Post not found!" });
-    }
-  });
-});
+// router.get("/t/:title", (req, res, next) => {
+//   Story.findOne({
+//     title: req.params.title,
+//   }).then((story) => {
+//     if (story) {
+//       res.status(200).json(story);
+//     } else {
+//       res.status(404).json({ message: "Post not found!" });
+//     }
+//   });
+// });
 
 router.delete("/:id", (req, res, next) => {
   listaId[req.params.id] = false;
