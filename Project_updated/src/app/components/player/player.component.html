@@ -73,7 +73,7 @@
   </mat-form-field> -->
   </div>
 
-  <section *ngIf="nPartecipanti != -1 && tipologiaGruppo=='classe'" >
+  <section id="sec2" *ngIf="nPartecipanti != -1 && tipologiaGruppo=='classe'" >
     <p>Partecipanti : {{ nPartecipantiAggiunti }} / {{ nPartecipanti }}</p>
 
     <p *ngIf="(nPartecipanti-nPartecipantiAggiunti>=2)">
@@ -81,10 +81,38 @@
     </p>
 
       <div class="container3"  >
-          <mat-card *ngFor="let squadra of squadre">
+        <div class="card" *ngFor="let squadra of squadre">
+          <div class="heading" >
+            <h1 >{{ squadra.name }}</h1>
+            <button *ngIf="this.squadre.length>this.nSquadre" mat-button
+              (click)="eliminaSquadra(squadra.id)"><span class="material-icons" >clear</span>
+            </button>
+          </div>
+          <div class="content">
+            <h3>Giocatori: </h3>
+              <p *ngFor="let player of squadra.players">
+                {{ player }}
+              </p>
+          </div>
+          <button *ngIf="this.nPartecipantiAggiunti<this.nPartecipanti"
+              mat-button
+              color="primary"
+              (click)="aggiungiPlayer(squadra.id)"
+            >
+              Add
+            </button>
+            <button *ngIf="squadra.players.length>2"
+              mat-button
+              color="primary"
+              (click)="rimuoviPlayer(squadra.id)"
+            >
+              Remove
+            </button>
+        </div>
+          <!-- <mat-card *ngFor="let squadra of squadre">
               <mat-card-title>
                 {{ squadra.name }}
-                <!-- {{squadra.id}} -->
+
                 <button *ngIf="this.squadre.length>this.nSquadre" mat-button style=" padding-right: 0px;"
                   (click)="eliminaSquadra(squadra.id)"><span class="material-icons" style="float: right;">clear</span>
                 </button>
@@ -113,7 +141,7 @@
             >
               Remove
             </button>
-          </mat-card>
+          </mat-card> -->
       </div>
   </section>
 
