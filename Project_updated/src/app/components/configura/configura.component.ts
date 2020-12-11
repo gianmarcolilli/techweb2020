@@ -35,6 +35,7 @@ export class ConfiguraComponent implements OnInit {
   numeroRisposte: number;
   imagePreview: string;
   rispostaGiusta: string = "";
+  flagSalvataggio=false;
 
   form: FormGroup;
   arrayRisposte: any[];
@@ -58,6 +59,7 @@ export class ConfiguraComponent implements OnInit {
 
 
   aggiungiAttivita(type: string, id: number = -1) {
+    this.flagSalvataggio=true;
     console.log("sono stato chiamato con tipo =" + type)
     if (type == "domanda") {
       let myActivity = {
@@ -144,6 +146,7 @@ export class ConfiguraComponent implements OnInit {
     this.tempCorrect = attivita.correctId;
     this.tempWrong = attivita.wrongId;
     this.tempActivityId = attivita.activityId
+
     console.log("corretto = " + this.tempCorrect + " sbagliato = " + this.tempWrong);
 
     //specifica
@@ -165,7 +168,7 @@ export class ConfiguraComponent implements OnInit {
   }
   eliminaAttivita(activityId: number): void {
     this.storia.steps.splice(activityId, 1);
-
+    this.flagSalvataggio=true;
   }
 
 
@@ -188,6 +191,7 @@ export class ConfiguraComponent implements OnInit {
     this.api.updateStoria(
       this.storia
     );
+    this.flagSalvataggio=false;
     this.resettaForm()
   }
 
