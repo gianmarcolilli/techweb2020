@@ -41,6 +41,10 @@ export class AuthService {
 
       }, error => {
         this.authStatusListener.next(false);
+        this._snackBar.open("Profilo già esistente, cambia l'email ", "OK", {
+          duration: 10000,
+
+        })
       });
   }
 
