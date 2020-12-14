@@ -22,7 +22,7 @@ router.post(
       })
       .then((lunghezza) => {
           const game = new Game({
-            idPartita: lunghezza,
+            idPartita: req.body.idPartita,
             idClasse: req.body.idClasse,
             idSquadra: req.body.idSquadra,
             currentStepId: -1,
@@ -36,7 +36,7 @@ router.post(
                 message: "Game added successfully",
                 game: {
                   ...createdGame,
-                  idPartita: lunghezza,
+                  idPartita: req.body.idPartita,
                 },
               });
             })
@@ -52,6 +52,26 @@ router.post(
 
 router.put("/:idPartita", (req, res, next) => {
 
+
+// la fa il primo che vuole andare avanti
+
+if(currentStepIdCheVorrebbe)
+    let gameIdentificato = undefined //invece di undefined si recupera in mongoose;
+      gameIdentificato.nextStepId = req.body.currentStepId,
+      gameIdentificato.variabileOk = 1
+
+
+      // fino a qui
+      //gameIdentificat.save()
+
+    // devi
+    if( mi incrementi variabile ok del req.body)
+    gameIdentificato.variabileOk = req.variabileok
+    if ( gameIdentificato.variabileOk  == numGio){
+      gameIdentificato.currentStepId = gameIdentificato.nextStepId
+      gameIdentificato.nextStepId = -1
+      gameIdentificato.variabileOk = 0
+    }
   // se risposta data
   Game.updateOne(
     { idPartita: req.params.idPartita },
@@ -60,6 +80,8 @@ router.put("/:idPartita", (req, res, next) => {
       idClasse: req.body.idClasse,
       idSquadra: req.body.idSquadra,
       currentStepId: req.body.currentStepId,
+      nextStepId:
+      variabileOk:0,
       statoStep: "resolved"
     }
 
@@ -109,9 +131,9 @@ router.get("", (req, res, next) => {
     });
 });
 
-router.get("/:id", (req, res, next) => {
+router.get("/:idPartita", (req, res, next) => {
   Game.findOne({
-    id: req.params.id,
+    idPartita: req.params.idPartita,
   }).then((game) => {
     if (game) {
       res.status(200).json(game);

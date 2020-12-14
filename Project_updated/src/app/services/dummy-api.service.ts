@@ -126,6 +126,14 @@ export class DummyApiService {
     return this.http.get("http://localhost:3000/api/stories/" + id)
   }
 
+  getGames(): Observable<any> {
+    return this.http.get('http://localhost:3000/api/games/');
+  }
+
+  getGame(id: number): Observable<any> {
+    return this.http.get("http://localhost:3000/api/games/" + id)
+  }
+
 
   //put
   updateStoria(storia:Storia){
@@ -134,9 +142,17 @@ export class DummyApiService {
     .subscribe(response => {
       this.router.navigate(["/configura/"+storia.id]);
     });
-
-
   }
+
+  updateGame(currentStepId){
+    this.http
+      .put("http://localhost:3000/api/stories/"+storia.id, storia)
+      .subscribe(response => {
+        this.router.navigate(["/configura/"+storia.id]);
+      });
+    }
+
+
 
 
   //post
@@ -151,10 +167,11 @@ export class DummyApiService {
     return this.http.post<{ message: string, storia: Storia }>("http://localhost:3000/api/stories/", storyData)
   }
 
-  addNewGame(idSquadra:Number, idClasse:Number){
+  addNewGame(idSquadra:Number, idClasse:Number, idPartita:Number){
     const gameData = {
       idSquadra : idSquadra,
-      idClasse : idClasse
+      idClasse : idClasse,
+      idPartita: idPartita
     }
     return this.http.post<{ message: string, game:Game }>("http://localhost:3000/api/games/", gameData)
   }

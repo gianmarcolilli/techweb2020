@@ -168,17 +168,31 @@ export class PlayerComponent implements OnInit {
     }
 
     if(this.tipologiaGruppo!="individuale"){
-      for (let i = 0; i < this.squadre.length; i++) {
-        this.apiDb.addNewGame(this.squadre[i].id, this.idClasseUsati).subscribe((res)=> {
-          console.log(res);
-        })
-      }
-      this.idClasseUsati++
+
+      this.apiDb.getGames().subscribe( conta => {
+        let numeroGame = conta.maxPosts
+        for (let i = 0; i < this.squadre.length; i++) {
+          this.apiDb.addNewGame(this.squadre[i].id, this.idClasseUsati, numeroGame).subscribe((res)=> {
+            console.log(res);
+          })
+          this.squadre[i].idPartita=numeroGame
+          numeroGame++;
+        }
+        this.idClasseUsati++
+      })
     }
 
   }
-  iniziaPartita(id: number): void {
-    this.router.navigateByUrl('visualizza/' + id);
+  iniziaPartita(id: number, idPartita:number = -1): void {
+
+    if(idPartita!=-1){
+      console.log('anche qua arrivati siamo con id partita '+ idPartita);
+      this.router.navigateByUrl('visualizza/'+id+'/'+idPartita);
+
+    }else {
+      this.router.navigateByUrl('visualizza/' + id);
+    }
+
   }
 
 
@@ -209,6 +223,12 @@ export class PlayerComponent implements OnInit {
     }
     if (this.activeRoute.snapshot.params.traccia) {
       this.traccia = parseInt(this.activeRoute.snapshot.params.traccia)
+    }
+    if(this.activeRoute.snapshot.params.partita){
+      console.log('arrivati siamo');
+
+      this.iniziaPartita(this.traccia, this.activeRoute.snapshot.params.partita)
+      return
     }
     if(this.activeRoute.snapshot.params.mode == 'autoplay'){
       this.iniziaPartita(this.traccia)
