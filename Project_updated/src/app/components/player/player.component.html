@@ -201,7 +201,13 @@
       </mat-card-header>
       <mat-card-content>
         <qrcode
-      [qrdata]="'http://localhost:4200/lobby/786'"
+      [qrdata]="
+      'http://localhost:4200/player/'+
+      tipologiaGruppo +
+      '/' +
+      fasciaEta +
+      '/' + traccia + '/autoplay/'+
+      s.idPartita"
       [width]="256"
       [errorCorrectionLevel]="'M'"
     ></qrcode>
