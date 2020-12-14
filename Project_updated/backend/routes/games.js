@@ -21,6 +21,7 @@ router.post("", (req, res, next) => {
         idPartita: req.body.idPartita,
         idClasse: req.body.idClasse,
         idSquadra: req.body.idSquadra,
+        numeroPlayer: req.body.numeroPlayer,
         currentStepId: -1,
         statoStep: "unresolved",
       });
@@ -47,9 +48,7 @@ router.post("", (req, res, next) => {
 
 router.put("/:idPartita", (req, res, next) => {
 
-  var numGio; //mi devo recuperare numero giocatori
-
-  if (req.body.prossimoId) {
+  if (req.body.prossimoId && variabileOk==0) {
     let gameIdentificato = Game.find({ idPartita: idPartita });
     gameIdentificato.nextStepId = req.body.prossimoId,
     gameIdentificato.variabileOk = 1;
@@ -57,15 +56,17 @@ router.put("/:idPartita", (req, res, next) => {
     // fino a qui
     gameIdentificato.save();
 
-    // devi
-    // if( mi incrementi variabile ok del req.body)
-    gameIdentificato.variabileOk = req.variabileok;
-    if (gameIdentificato.variabileOk == numGio) {
+  } else if (req.body.prossimoId && gameIdentificato.variabileOk>0 && gameIdentificato.variabileOk<gameIdentificato.numeroPlayer) {
+    gameIdentificato.variabileOk++
+  }
+
+    // gameIdentificato.variabileOk = req.variabileok;
+
+    if (gameIdentificato.variabileOk == gameIdentificato.numeroPlayer) {
       gameIdentificato.currentStepId = gameIdentificato.nextStepId;
       gameIdentificato.nextStepId = -1;
       gameIdentificato.variabileOk = 0;
-    }
-    // se risposta data
+
     Game.updateOne(
       { idPartita: req.params.idPartita },
       {
@@ -73,9 +74,9 @@ router.put("/:idPartita", (req, res, next) => {
         idClasse: req.body.idClasse,
         idSquadra: req.body.idSquadra,
         currentStepId: req.body.currentStepId,
-        // nextStepId:,
+        nextStepId:-1,
         variabileOk: 0,
-        statoStep: "resolved",
+        statoStep: "unresolved",
       }
 
       //qui deve fare il polling
@@ -103,7 +104,7 @@ router.put("/:idPartita", (req, res, next) => {
           message: "Couldn't update game" + "ERRORE: " + error,
         });
       });
-  }
+    }
 });
 
 router.get("", (req, res, next) => {

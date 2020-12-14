@@ -143,8 +143,6 @@ export class VisualizzaComponent implements OnInit {
       this.apiDb.updateGame(this.idPartita, this.currentStepId)
     }
 
-
-
   }
 
   gestisciAvanzamento() {
