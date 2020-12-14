@@ -108,8 +108,12 @@ export class ImagePuzzleComponent implements OnInit {
         this.timeVar.unsubscribe();
       }
     }
+  }
 
-
+  avanzamentoStep(){
+    if(this.gameComplete){
+      //qui deve notificare gli altri
+    }
   }
 
   allowDrop(event): void {
