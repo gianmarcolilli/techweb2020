@@ -172,7 +172,7 @@ export class PlayerComponent implements OnInit {
       this.apiDb.getGames().subscribe( conta => {
         let numeroGame = conta.maxPosts
         for (let i = 0; i < this.squadre.length; i++) {
-          this.apiDb.addNewGame(this.squadre[i].id, this.idClasseUsati, numeroGame).subscribe((res)=> {
+          this.apiDb.addNewGame(this.squadre[i].id, this.idClasseUsati, numeroGame, this.squadre[i].players.length).subscribe((res)=> {
             console.log(res);
           })
           this.squadre[i].idPartita=numeroGame

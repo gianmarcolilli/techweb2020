@@ -20,7 +20,7 @@ export class VisualizzaComponent implements OnInit {
   startText: string = "";
   steps: any[] = [];
   currentStepId = -1;
-  storia = null;
+  storia:Storia = null;
 
 
   //form
@@ -35,9 +35,9 @@ export class VisualizzaComponent implements OnInit {
         this.storia = storia
         console.log("la mia storia è " + JSON.stringify(storia))
         this.id = this.storia.id
-        this.title = this.storia.title
+        this.title = this.storia.nome
         this.didascalia = this.storia.didascalia
-        this.steps = this.storia.attivita
+        this.steps = this.storia.steps
       }
     )
 
@@ -138,10 +138,11 @@ export class VisualizzaComponent implements OnInit {
 // step 1 :
 
   notificaAvanzamento(){
-    // if((!notificaInformazione) && this.steps[this.currentStepId].action=="informazione")  return;
-      //
-      // this.apiDb.updateGame()
-      //
+
+    if(this.steps[this.currentStepId].action=="informazione"){
+      this.apiDb.updateGame(this.idPartita, this.currentStepId)
+    }
+
   }
 
   gestisciAvanzamento() {

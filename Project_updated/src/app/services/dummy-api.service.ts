@@ -144,13 +144,14 @@ export class DummyApiService {
     });
   }
 
-  updateGame(currentStepId){
+  updateGame(idPartita:number, prossimoId:number){
+
     this.http
-      .put("http://localhost:3000/api/stories/"+storia.id, storia)
+      .put("http://localhost:3000/api/games/"+idPartita, prossimoId)
       .subscribe(response => {
-        this.router.navigate(["/configura/"+storia.id]);
+        // this.router.navigate(["/visualizza/"+storia.id]);
       });
-    }
+   }
 
 
 
@@ -167,11 +168,12 @@ export class DummyApiService {
     return this.http.post<{ message: string, storia: Storia }>("http://localhost:3000/api/stories/", storyData)
   }
 
-  addNewGame(idSquadra:Number, idClasse:Number, idPartita:Number){
+  addNewGame(idSquadra:Number, idClasse:Number, idPartita:Number, numeroPlayer:Number){
     const gameData = {
       idSquadra : idSquadra,
       idClasse : idClasse,
-      idPartita: idPartita
+      idPartita: idPartita,
+      numeroPlayer: numeroPlayer
     }
     return this.http.post<{ message: string, game:Game }>("http://localhost:3000/api/games/", gameData)
   }
