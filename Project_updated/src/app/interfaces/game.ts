@@ -4,5 +4,6 @@ export interface Game {
   idSquadra: number,
   numeroPlayer: number,
   currentStepId: number,
-  statoStep: string
+  nextStepId:number,
+  variabileOk:number
 }
