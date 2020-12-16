@@ -6,7 +6,8 @@ const gameSchema = mongoose.Schema({
   idSquadra: {type:Number, required:true},
   numeroPlayer: {type:Number},
   currentStepId: {type:Number, required:true},
-  statoStep: {type:String}
+  nextStepId: {type:Number},
+  variabileOk: {type:Number}
 });
 
 module.exports = mongoose.model('Game', gameSchema);

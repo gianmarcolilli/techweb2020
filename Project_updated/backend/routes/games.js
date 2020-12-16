@@ -23,7 +23,8 @@ router.post("", (req, res, next) => {
         idSquadra: req.body.idSquadra,
         numeroPlayer: req.body.numeroPlayer,
         currentStepId: -1,
-        statoStep: "unresolved",
+        nextStepId: -1,
+        variabileOk: 0,
       });
 
       game
@@ -47,52 +48,73 @@ router.post("", (req, res, next) => {
 });
 
 router.put("/:idPartita", (req, res, next) => {
+  // if (req.body.prossimoId && variabileOk == 0) {
+  //   let gameIdentificato = Game.find({ idPartita: idPartita });
+  //   gameIdentificato.nextStepId = req.body.prossimoId
+  //   gameIdentificato.variabileOk = 1
 
-  if (req.body.prossimoId && variabileOk==0) {
-    let gameIdentificato = Game.find({ idPartita: idPartita });
-    gameIdentificato.nextStepId = req.body.prossimoId,
-    gameIdentificato.variabileOk = 1;
+  //   // fino a qui
+  //   gameIdentificato.save();
+  // } else if (req.body.prossimoId && gameIdentificato.variabileOk > 1 && gameIdentificato.variabileOk < gameIdentificato.numeroPlayer) {
+  //   gameIdentificato.variabileOk++;
+  // }
+  Game.findOne({
+    idPartita: req.params.idPartita,
+  }).then((game) => {
+    if (game) {
+      res.status(200).json(game);
+    } else {
+      res.status(404).json({ message: "Game not found!" });
+    }
+  });
 
-    // fino a qui
-    gameIdentificato.save();
-
-  } else if (req.body.prossimoId && gameIdentificato.variabileOk>0 && gameIdentificato.variabileOk<gameIdentificato.numeroPlayer) {
-    gameIdentificato.variabileOk++
+  if (req.body.prossimoId && game.variabileOk >= 0 && game.variabileOk < game.numeroPlayer) {
+    if (game.variabileOk > 0) {
+      Game.updateOne(
+        { idPartita: req.params.idPartita },
+        {
+          variabileOk: variabileOk + 1,
+        }).then((result) => {
+          if (result.n > 0) {
+            res.status(200).json({ message: "Update successful!" });
+          } else {
+            res.status(401).json({ message: "Cannot find game" });
+          }
+        })
+        .catch((error) => {
+          res.status(500).json({
+            message: "Couldn't update game" + "ERRORE: " + error,
+          });
+        });
+    } else {
+      Game.updateOne(
+        { idPartita: req.params.idPartita },
+        {
+          nextStepId: req.body.prossimoId,
+          variabileOk: 1,
+        }).then((result) => {
+          if (result.n > 0) {
+            res.status(200).json({ message: "Update successful!" });
+          } else {
+            res.status(401).json({ message: "Cannot find game" });
+          }
+        })
+        .catch((error) => {
+          res.status(500).json({
+            message: "Couldn't update game" + "ERRORE: " + error,
+          });
+        });
+    }
   }
 
-    // gameIdentificato.variabileOk = req.variabileok;
-
-    if (gameIdentificato.variabileOk == gameIdentificato.numeroPlayer) {
-      gameIdentificato.currentStepId = gameIdentificato.nextStepId;
-      gameIdentificato.nextStepId = -1;
-      gameIdentificato.variabileOk = 0;
-
+  if (game.variabileOk == game.numeroPlayer) {
     Game.updateOne(
       { idPartita: req.params.idPartita },
       {
-        idPartita: req.params.idPartita,
-        idClasse: req.body.idClasse,
-        idSquadra: req.body.idSquadra,
-        currentStepId: req.body.currentStepId,
-        nextStepId:-1,
+        currentStepId: game.nextStepId,
+        nextStepId: -1,
         variabileOk: 0,
-        statoStep: "unresolved",
-      }
-
-      //qui deve fare il polling
-      //tutti gli altri procedono allo step successivo
-      //un volta fatto cio
-      // Game.updateOne(
-      //   { id: req.params.id },
-      //   {
-      //     id: req.body.id,
-      //     idClasse: req.body.idClasse,
-      //     idSquadra: req.body.idSquadra,
-      //     currentStepId: qui ci va il correct o il wrongId,
-      //     statoStep: "unresolved"
-      //   }
-    )
-      .then((result) => {
+      }).then((result) => {
         if (result.n > 0) {
           res.status(200).json({ message: "Update successful!" });
         } else {
@@ -104,7 +126,7 @@ router.put("/:idPartita", (req, res, next) => {
           message: "Couldn't update game" + "ERRORE: " + error,
         });
       });
-    }
+  }
 });
 
 router.get("", (req, res, next) => {
