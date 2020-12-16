@@ -147,7 +147,9 @@ export class DummyApiService {
   updateGame(idPartita:number, prossimoId:number, storia:Storia){
 
     this.http
-      .put("http://localhost:3000/api/games/"+idPartita, prossimoId)
+      .put("http://localhost:3000/api/games/"+idPartita, {
+        prossimoId: prossimoId
+      })
       .subscribe(response => {
         this.router.navigate(["/visualizza/"+storia.id+"/"+idPartita]);
       });
