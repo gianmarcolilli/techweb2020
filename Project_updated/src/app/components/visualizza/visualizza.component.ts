@@ -4,6 +4,7 @@ import { interval, of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 import { Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
+import { mimeType } from '../visualizza/mime-type.validator';
 
 @Component({
   selector: 'app-visualizza',
@@ -18,9 +19,9 @@ export class VisualizzaComponent implements OnInit {
   urlIconaPrincip: string = "";
   didascalia: string = "";
   startText: string = "";
-  steps: any[] = [];
+  steps: Step[] = [];
   currentStepId = -1;
-  storia:Storia = null;
+  storia:Storia;
 
 
   //form
@@ -29,44 +30,23 @@ export class VisualizzaComponent implements OnInit {
   constructor(private activeRoute: ActivatedRoute, private apiDb: DummyApiService) { }
 
   refresh() {
-    let valore = this.id;
-    this.apiDb.getStoria(valore).subscribe(
-      (storia) => {
-        this.storia = storia
-        console.log("la mia storia è " + JSON.stringify(storia))
-        this.id = this.storia.id
-        this.title = this.storia.nome
-        this.didascalia = this.storia.didascalia
-        this.steps = this.storia.steps
+    this.apiDb.getStoria(this.id).subscribe(
+      // (storia) => {
+      //   this.storia = storia
+      //   console.log("la mia storia è " + JSON.stringify(storia))
+      //   this.id = this.storia.id
+      //   this.title = this.storia.nome
+      //   this.didascalia = this.storia.didascalia
+      //   this.steps = this.storia.steps
+      //   this.urlIconaPrincip = this.storia.urlBackground
+      // }
+      (singleStory) => {
+        this.storia = this.apiDb.reMap(singleStory);
+        this.steps=this.storia.steps
+        console.log("la mia storia è" + JSON.stringify(this.storia))
       }
     )
-
-
-
-
-    // this.avviaLoading()
-    // this.apiDb.getStories().subscribe(
-    //    (res) => {
-    //    if( res && res.length > 0){
-    // this.storie.forEach((element) => {
-    //   if (element.id == valore) {
-    //     //element è la nostra storia
-    //     this.id = element.id
-    //     this.title = element.nome
-    //     this.urlIconaPrincip = element.urlBackground
-    //     this.didascalia = element.didascalia
-    //     this.steps = element.steps
-    //     this.startText = element.startText
-    //   }
-    // });
   }
-  // this.stoppaLoading()
-  //   }
-  // );
-
-  // chiamata,
-  // sottoscrizione
-  // assegnamo il risultato alla nostra proprietà di classe
 
   ngOnInit(): void {
     if (this.activeRoute.snapshot.params.partita) {
@@ -84,9 +64,17 @@ export class VisualizzaComponent implements OnInit {
         .subscribe(
           res => {
             if(!res) return;
-            if(res.currentStepId && this.currentStepId!=res.currentStepId){
+            // if(res.currentStepId && this.currentStepId!=res.currentStepId){
+            //   alert('Compagno andato avanti')
+            //   this.currentStepId=res.currentStepId
+            // }
+            if(res.nextStepId != -1){
               alert('Compagno andato avanti')
-              this.currentStepId=res.currentStepId
+              this.apiDb.updateGame(this.idPartita, res.nextStepId, this.storia)
+              //forse era meglio metter qui la conta
+              //if(conta=numGiocatori){
+              //   avanti
+              // }
             }
           },
           error => { }
@@ -100,8 +88,11 @@ export class VisualizzaComponent implements OnInit {
 
 
   iniziaStep() {
-    this.currentStepId = 0
-
+    if(this.idPartita!=-1){
+      this.apiDb.updateGame(this.idPartita, 0, this.storia)
+    } else {
+      this.currentStepId=0
+    }
   }
   gestisciQuiz(id) {
     let correctQuizResp = this.steps[this.currentStepId].quizCorrectIdx
@@ -138,9 +129,8 @@ export class VisualizzaComponent implements OnInit {
 // step 1 :
 
   notificaAvanzamento(){
-
     if(this.steps[this.currentStepId].action=="informazione"){
-      this.apiDb.updateGame(this.idPartita, this.currentStepId)
+      this.apiDb.updateGame(this.idPartita, this.steps[this.currentStepId].correctId, this.storia)
     }
 
   }
@@ -148,15 +138,16 @@ export class VisualizzaComponent implements OnInit {
   gestisciAvanzamento() {
     if (this.currentStepId == -1) return
 
-    if (this.steps[this.currentStepId].action == "informazione") {
-      let mystep = parseInt(this.currentStepId.toString())
-      console.log("sto per far diventare lo step corrente " + this.steps[mystep].correctId)
-
-      this.currentStepId = this.steps[mystep].correctId
-      this.notificaAvanzamento()
+    if (this.storia.steps[this.currentStepId].action == "informazione") {
+      if(this.idPartita==-1){
+        this.currentStepId = this.steps[this.currentStepId].correctId
+      } else {
+        console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
+        this.notificaAvanzamento()
+      }
       return
     }
-    if (this.steps[this.currentStepId].action == "puzzle") {
+    if (this.storia.steps[this.currentStepId].action == "puzzle") {
       this.currentStepId = this.steps[this.currentStepId].correctId
     }
 
