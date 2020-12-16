@@ -34,7 +34,7 @@
               let answ of this.storia.steps[currentStepId].answers;
               let i = index
             "
-            (click)="gestisciQuiz(i)"
+            (click)="gestisciAvanzamento(i)"
           >
             <button mat-raised-button color="accent" role="listitem">
               {{ answ }}
@@ -75,7 +75,7 @@
           type="text"
           placeholder="Inserisci qui la risposta "
         />
-        <button (click)="rispondiDomanda()">Avanti</button>
+        <button (click)="gestisciAvanzamento()">Avanti</button>
         <img />
       </div>
 
@@ -97,5 +97,5 @@
     {{ startText ? startText : "Inizia" }}
   </button>
 
-  <img [src]="this.storia.urlBackground" />
+  <img *ngIf="this.currentStepId < 0" [src]="this.storia.urlBackground" />
 </section>
