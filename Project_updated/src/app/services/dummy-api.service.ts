@@ -144,12 +144,12 @@ export class DummyApiService {
     });
   }
 
-  updateGame(idPartita:number, prossimoId:number){
+  updateGame(idPartita:number, prossimoId:number, storia:Storia){
 
     this.http
       .put("http://localhost:3000/api/games/"+idPartita, prossimoId)
       .subscribe(response => {
-        // this.router.navigate(["/visualizza/"+storia.id]);
+        this.router.navigate(["/visualizza/"+storia.id+"/"+idPartita]);
       });
    }
 
