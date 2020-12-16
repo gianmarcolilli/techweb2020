@@ -1,41 +1,47 @@
 <app-header [my-title]="'Visualizza'"> </app-header>
 
 <button (click)="refresh()">aggiorna</button>
+<section *ngIf="this.storia">
+  <h1>
+    {{ title }}
+  </h1>
+  <h2>
+    {{ didascalia }}
+  </h2>
 
-<h1>
-  {{ title }}
-</h1>
-<h2>
-  {{ didascalia }}
-</h2>
+  <section *ngIf="this.storia.steps">
+    <div *ngIf="this.currentStepId != -1">
+      <!-- {{ this.steps[currentStepId]. }} -->
 
-
-<section id="step">
-  <div *ngIf="currentStepId != -1">
-    <!-- {{ this.steps[currentStepId]. }} -->
-
-    <div *ngIf="this.steps[currentStepId].action == 'quiz'">
-  Ecco la domanda a cui rispondere :
-     <b>  {{ steps[currentStepId].activityTitle}}</b>
-      <ng-container
-        *ngIf="
-          this.steps[currentStepId].answers &&
-          this.steps[currentStepId].answers.length > 0
-        ">
-
-      <!-- <mat-selection-list #answers>
+      <div *ngIf="this.storia.steps[currentStepId].action == 'quiz'">
+        Ecco la domanda a cui rispondere :
+        <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+        <ng-container
+          *ngIf="
+            this.storia.steps[currentStepId].answers &&
+            this.storia.steps[currentStepId].answers.length > 0
+          "
+        >
+          <!-- <mat-selection-list #answers>
         <mat-list-option *ngFor="let answ of this.steps[currentStepId].answers">
           {{ answ.content }} {{ answ.correct }}
         </mat-list-option>
       </mat-selection-list> -->
 
-      <mat-list role="list" *ngFor="let answ of this.steps[currentStepId].answers;let i = index" (click)="gestisciQuiz(i)">
-        <button
-        mat-raised-button
-        color="accent" role="listitem">{{ answ }}</button>
-      </mat-list>
+          <mat-list
+            role="list"
+            *ngFor="
+              let answ of this.storia.steps[currentStepId].answers;
+              let i = index
+            "
+            (click)="gestisciAvanzamento(i)"
+          >
+            <button mat-raised-button color="accent" role="listitem">
+              {{ answ }}
+            </button>
+          </mat-list>
 
-        <!-- <p  style="padding-left: 20px;" *ngFor="let answ of this.steps[currentStepId].answers">
+          <!-- <p  style="padding-left: 20px;" *ngFor="let answ of this.steps[currentStepId].answers">
           <button
             mat-raised-button
             color="primary"
@@ -44,49 +50,52 @@
             {{ answ.content }} {{ answ.correct }}
           </button>
         </p> -->
-      </ng-container>
-    </div>
-    <img [src]="this.steps[this.currentStepId].backImg">
-    <div *ngIf="steps[currentStepId].action == 'puzzle'">
+        </ng-container>
+      </div>
+      <img *ngIf="this.storia.steps[this.currentStepId].backImg!=''"[src]="this.storia.steps[this.currentStepId].backImg" />
+      <div *ngIf="this.storia.steps[currentStepId].action == 'puzzle'">
         <!-- <app-image-puzzle [puzzleUrl]=steps[currentStepId].puzzleUrl>
 
         </app-image-puzzle> -->
 
-        <app-image-puzzle  [difficulty]="this.steps[this.currentStepId].difficulty" [puzzleUrl]="this.steps[this.currentStepId].puzzleImg">
-
+        <app-image-puzzle
+          [difficulty]="this.storia.steps[this.currentStepId].difficulty"
+          [puzzleUrl]="this.storia.steps[this.currentStepId].puzzleImg"
+        >
         </app-image-puzzle>
+      </div>
+
+      <div *ngIf="this.storia.steps[currentStepId].action == 'domanda'">
+        Ecco la domanda a cui rispondere :
+        <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+
+        <input
+          [(ngModel)]="tempRisposta"
+          class="form-control"
+          type="text"
+          placeholder="Inserisci qui la risposta "
+        />
+        <button (click)="gestisciAvanzamento()">Avanti</button>
+        <img />
+      </div>
+
+      <div *ngIf="this.storia.steps[currentStepId].action == 'informazione'">
+        step corrente {{ this.currentStepId }}
+
+        <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+        <button (click)="gestisciAvanzamento()">Avanti</button>
+      </div>
     </div>
+  </section>
 
+  <button
+    *ngIf="this.currentStepId < 0"
+    mat-raised-button
+    color="primary"
+    (click)="iniziaStep()"
+  >
+    {{ startText ? startText : "Inizia" }}
+  </button>
 
-
-    <div *ngIf="steps[currentStepId].action == 'domanda'">
-       Ecco la domanda a cui rispondere :
-         <b> {{ steps[currentStepId].activityTitle}}</b>
-
-          <input [(ngModel)]="tempRisposta" class="form-control" type="text" placeholder="Inserisci qui la risposta ">
-          <button (click)="rispondiDomanda()"> Avanti </button>
-<img >
-    </div>
-
-    <div *ngIf="steps[currentStepId].action == 'informazione'">
-      step corrente {{ currentStepId }}
-
-    <b> {{ steps[currentStepId].activityTitle}}</b>
-      <!-- <input [(ngModel)]="tempRisposta" class="form-control" type="text" placeholder="Inserisci qui la risposta "> -->
-      <button (click)="gestisciAvanzamento()"> Avanti </button>
-    </div>
-  </div>
+  <img *ngIf="this.currentStepId < 0" [src]="this.storia.urlBackground" />
 </section>
-
-<button *ngIf="this.currentStepId<0" mat-raised-button color="primary" (click)="iniziaStep()">
-  {{ startText ? startText : "Inizia" }}
-</button>
-
-<img [src]="urlIconaPrincip" />
-
-
-
-
-
-
-
