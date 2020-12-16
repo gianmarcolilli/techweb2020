@@ -64,11 +64,12 @@ export class VisualizzaComponent implements OnInit {
         .subscribe(
           res => {
             if (!res) return;
+
             // if(res.currentStepId && this.currentStepId!=res.currentStepId){
             //   alert('Compagno andato avanti')
             //   this.currentStepId=res.currentStepId
             // }
-            if (res.nextStepId != -1) {
+            if (res.nextStepId != -1) { // modifica con -> currnt della risposta deve essere diverso del tuo current locale, allora entri
               alert('Compagno andato avanti')
               this.apiDb.updateGame(this.idPartita, res.nextStepId, this.storia)
               //forse era meglio metter qui la conta
@@ -89,9 +90,9 @@ export class VisualizzaComponent implements OnInit {
 
   iniziaStep() {
     if (this.idPartita != -1) {
-      this.apiDb.updateGame(this.idPartita, 0, this.storia)
-    } else {
       this.currentStepId = 0
+    } else {
+      this.apiDb.updateGame(this.idPartita, 0, this.storia)
     }
   }
   // gestisciQuiz(id) {
