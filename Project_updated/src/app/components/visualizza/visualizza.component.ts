@@ -21,7 +21,7 @@ export class VisualizzaComponent implements OnInit {
   startText: string = "";
   steps: Step[] = [];
   currentStepId = -1;
-  storia:Storia;
+  storia: Storia;
 
 
   //form
@@ -42,7 +42,7 @@ export class VisualizzaComponent implements OnInit {
       // }
       (singleStory) => {
         this.storia = this.apiDb.reMap(singleStory);
-        this.steps=this.storia.steps
+        this.steps = this.storia.steps
         console.log("la mia storia è" + JSON.stringify(this.storia))
       }
     )
@@ -63,12 +63,12 @@ export class VisualizzaComponent implements OnInit {
         )
         .subscribe(
           res => {
-            if(!res) return;
+            if (!res) return;
             // if(res.currentStepId && this.currentStepId!=res.currentStepId){
             //   alert('Compagno andato avanti')
             //   this.currentStepId=res.currentStepId
             // }
-            if(res.nextStepId != -1){
+            if (res.nextStepId != -1) {
               alert('Compagno andato avanti')
               this.apiDb.updateGame(this.idPartita, res.nextStepId, this.storia)
               //forse era meglio metter qui la conta
@@ -88,67 +88,117 @@ export class VisualizzaComponent implements OnInit {
 
 
   iniziaStep() {
-    if(this.idPartita!=-1){
+    if (this.idPartita != -1) {
       this.apiDb.updateGame(this.idPartita, 0, this.storia)
     } else {
-      this.currentStepId=0
+      this.currentStepId = 0
     }
   }
-  gestisciQuiz(id) {
-    let correctQuizResp = this.steps[this.currentStepId].quizCorrectIdx
+  // gestisciQuiz(id) {
+  //   let correctQuizResp = this.steps[this.currentStepId].quizCorrectIdx
 
-    if (id == correctQuizResp) {
-      console.log("grande fratello");
-      this.currentStepId = this.steps[this.currentStepId].correctId
-    } else {
-      console.log("sei una lota");
-      this.currentStepId = this.steps[this.currentStepId].wrongId
+  //   if (id == correctQuizResp) {
+  //     console.log("grande fratello");
+  //     this.currentStepId = this.steps[this.currentStepId].correctId
+  //   } else {
+  //     console.log("sei una lota");
+  //     this.currentStepId = this.steps[this.currentStepId].wrongId
 
-    }
+  //   }
+  // }
+
+  // rispondiDomanda() {
+
+  //   console.log("sto confrontando questo :" + this.tempRisposta)
+  //   console.log("con questo  :" + this.steps[this.currentStepId].risposta)
+
+
+
+  //   if (this.tempRisposta.trim() == this.steps[this.currentStepId].risposta.trim()) {
+  //     alert("hai dato la risposta corretta")
+  //     this.currentStepId = this.steps[this.currentStepId].correctId
+  //     // this.currentStepId = this.steps[this.currentStepId].correctId;
+  //   } else {
+  //     alert("hai dato la risposta sbagliata")
+  //     this.currentStepId = this.steps[this.currentStepId].wrongId
+  //   }
+
+  //   this.tempRisposta = ""
+  // }
+
+  // step 1 :
+
+  notificaAvanzamento(nextStepId) {
+    this.apiDb.updateGame(this.idPartita, nextStepId, this.storia)
   }
 
-  rispondiDomanda() {
-
-    console.log("sto confrontando questo :" + this.tempRisposta)
-    console.log("con questo  :" + this.steps[this.currentStepId].risposta)
-
-
-
-    if (this.tempRisposta.trim() == this.steps[this.currentStepId].risposta.trim()) {
-      alert("hai dato la risposta corretta")
-      this.currentStepId = this.steps[this.currentStepId].correctId
-      // this.currentStepId = this.steps[this.currentStepId].correctId;
-    } else {
-      alert("hai dato la risposta sbagliata")
-      this.currentStepId = this.steps[this.currentStepId].wrongId
-    }
-
-    this.tempRisposta = ""
-  }
-
-// step 1 :
-
-  notificaAvanzamento(){
-    if(this.steps[this.currentStepId].action=="informazione"){
-      this.apiDb.updateGame(this.idPartita, this.steps[this.currentStepId].correctId, this.storia)
-    }
-
-  }
-
-  gestisciAvanzamento() {
+  gestisciAvanzamento(idQuiz) {
     if (this.currentStepId == -1) return
 
-    if (this.storia.steps[this.currentStepId].action == "informazione") {
-      if(this.idPartita==-1){
+    if (this.storia.steps[this.currentStepId].action == "informazione" || this.storia.steps[this.currentStepId].action == "puzzle") {
+      //Avanzamento in gioco modalità singolo
+      if (this.idPartita == -1) {
         this.currentStepId = this.steps[this.currentStepId].correctId
       } else {
+        //Avanzamento gioco in modalità squadre
         console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
-        this.notificaAvanzamento()
+        this.notificaAvanzamento(this.steps[this.currentStepId].correctId)
       }
       return
     }
-    if (this.storia.steps[this.currentStepId].action == "puzzle") {
-      this.currentStepId = this.steps[this.currentStepId].correctId
+    if (this.storia.steps[this.currentStepId].action == "domanda" || this.storia.steps[this.currentStepId].action == "quiz") {
+      //Avanzamento in gioco modalità singolo
+      if (this.storia.steps[this.currentStepId].action == "domanda") {
+        console.log("sto confrontando questo :" + this.tempRisposta)
+        console.log("con questo  :" + this.steps[this.currentStepId].risposta)
+
+
+
+        if (this.tempRisposta.trim() == this.steps[this.currentStepId].risposta.trim()) {
+          alert("hai dato la risposta corretta")
+          if (this.idPartita == -1) {
+            this.currentStepId = this.steps[this.currentStepId].correctId
+          } else {
+            console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
+            this.notificaAvanzamento(this.steps[this.currentStepId].correctId)
+          }
+
+        } else {
+          alert("hai dato la risposta sbagliata")
+          if (this.idPartita == -1) {
+            this.currentStepId = this.steps[this.currentStepId].wrongId
+          } else {
+            console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
+            this.notificaAvanzamento(this.steps[this.currentStepId].wrongId)
+          }
+        }
+
+        this.tempRisposta = ""
+      }
+      if (this.storia.steps[this.currentStepId].action == "quiz") {
+        let correctQuizResp = this.steps[this.currentStepId].quizCorrectIdx
+
+        if (idQuiz == correctQuizResp) {
+          console.log("grande fratello");
+          if (this.idPartita == -1) {
+            this.currentStepId = this.steps[this.currentStepId].correctId
+          } else {
+            console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
+            this.notificaAvanzamento(this.steps[this.currentStepId].correctId)
+          }
+        } else {
+          console.log("sei una lota");
+          if (this.idPartita == -1) {
+            this.currentStepId = this.steps[this.currentStepId].wrongId
+          } else {
+            console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
+            this.notificaAvanzamento(this.steps[this.currentStepId].wrongId)
+          }
+
+        }
+      }
+
+      return
     }
 
   }
