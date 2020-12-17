@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { interval, of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
 import { Step, Storia } from 'src/app/interfaces/storia';
@@ -21,13 +21,15 @@ export class VisualizzaComponent implements OnInit {
   startText: string = "";
   steps: Step[] = [];
   currentStepId = -1;
+  nextStepId = -1;
   storia: Storia;
+  hoDatoOk=false;
 
 
   //form
   tempRisposta: string = ""
   idPartita = -1;
-  constructor(private activeRoute: ActivatedRoute, private apiDb: DummyApiService) { }
+  constructor(private activeRoute: ActivatedRoute, private apiDb: DummyApiService, private router: Router) { }
 
   refresh() {
     this.apiDb.getStoria(this.id).subscribe(
@@ -65,17 +67,24 @@ export class VisualizzaComponent implements OnInit {
           res => {
             if (!res) return;
 
-            // if(res.currentStepId && this.currentStepId!=res.currentStepId){
-            //   alert('Compagno andato avanti')
-            //   this.currentStepId=res.currentStepId
-            // }
-            if (res.nextStepId != -1) { // modifica con -> currnt della risposta deve essere diverso del tuo current locale, allora entri
+            if (res.nextStepId != this.nextStepId && this.hoDatoOk==false) { // modifica con -> currnt della risposta deve essere diverso del tuo current locale, allora entri
               alert('Compagno andato avanti')
-              this.apiDb.updateGame(this.idPartita, res.nextStepId, this.storia)
-              //forse era meglio metter qui la conta
-              //if(conta=numGiocatori){
-              //   avanti
-              // }
+              this.hoDatoOk=true;
+              this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe(response => {
+                this.router.navigate(["/visualizza/"+this.storia.id+"/"+this.idPartita]);
+              });
+            }
+
+            if(res.nextStepId == this.nextStepId && this.hoDatoOk==false && this.nextStepId!=-1) {
+              alert('io sono andato avanti')
+              this.hoDatoOk=true;
+              this.apiDb.updateGame(this.idPartita, this.nextStepId).subscribe(response => {
+                this.router.navigate(["/visualizza/"+this.storia.id+"/"+this.idPartita]);
+              });
+            }
+
+            if(res.numeroPlayer==res.variabileOk){
+              this.hoDatoOk=false
             }
           },
           error => { }
@@ -84,7 +93,6 @@ export class VisualizzaComponent implements OnInit {
 
     this.id = this.activeRoute.snapshot.params.id;
     this.refresh()
-    // effettuare la chiamata al db( passando dal servizio dummy-api)
   }
 
 
@@ -92,45 +100,17 @@ export class VisualizzaComponent implements OnInit {
     if (this.idPartita != -1) {
       this.currentStepId = 0
     } else {
-      this.apiDb.updateGame(this.idPartita, 0, this.storia)
+      this.apiDb.updateGame(this.idPartita, 0).subscribe(response => {
+        this.router.navigate(["/visualizza/"+this.storia.id+"/"+this.idPartita]);
+      });
     }
   }
-  // gestisciQuiz(id) {
-  //   let correctQuizResp = this.steps[this.currentStepId].quizCorrectIdx
 
-  //   if (id == correctQuizResp) {
-  //     console.log("grande fratello");
-  //     this.currentStepId = this.steps[this.currentStepId].correctId
-  //   } else {
-  //     console.log("sei una lota");
-  //     this.currentStepId = this.steps[this.currentStepId].wrongId
-
-  //   }
-  // }
-
-  // rispondiDomanda() {
-
-  //   console.log("sto confrontando questo :" + this.tempRisposta)
-  //   console.log("con questo  :" + this.steps[this.currentStepId].risposta)
-
-
-
-  //   if (this.tempRisposta.trim() == this.steps[this.currentStepId].risposta.trim()) {
-  //     alert("hai dato la risposta corretta")
-  //     this.currentStepId = this.steps[this.currentStepId].correctId
-  //     // this.currentStepId = this.steps[this.currentStepId].correctId;
-  //   } else {
-  //     alert("hai dato la risposta sbagliata")
-  //     this.currentStepId = this.steps[this.currentStepId].wrongId
-  //   }
-
-  //   this.tempRisposta = ""
-  // }
-
-  // step 1 :
 
   notificaAvanzamento(nextStepId) {
-    this.apiDb.updateGame(this.idPartita, nextStepId, this.storia)
+    this.apiDb.updateGame(this.idPartita, nextStepId).subscribe(response => {
+      this.router.navigate(["/visualizza/"+this.storia.id+"/"+this.idPartita]);
+    });
   }
 
   gestisciAvanzamento(idQuiz) {
@@ -143,7 +123,8 @@ export class VisualizzaComponent implements OnInit {
       } else {
         //Avanzamento gioco in modalità squadre
         console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
-        this.notificaAvanzamento(this.steps[this.currentStepId].correctId)
+        this.nextStepId=this.steps[this.currentStepId].correctId;
+        this.notificaAvanzamento(this.nextStepId)
       }
       return
     }
@@ -161,7 +142,8 @@ export class VisualizzaComponent implements OnInit {
             this.currentStepId = this.steps[this.currentStepId].correctId
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
-            this.notificaAvanzamento(this.steps[this.currentStepId].correctId)
+            this.nextStepId=this.steps[this.currentStepId].correctId;
+            this.notificaAvanzamento(this.nextStepId)
           }
 
         } else {
@@ -170,7 +152,8 @@ export class VisualizzaComponent implements OnInit {
             this.currentStepId = this.steps[this.currentStepId].wrongId
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
-            this.notificaAvanzamento(this.steps[this.currentStepId].wrongId)
+            this.nextStepId=this.steps[this.currentStepId].wrongId;
+            this.notificaAvanzamento(this.nextStepId)
           }
         }
 
@@ -185,7 +168,8 @@ export class VisualizzaComponent implements OnInit {
             this.currentStepId = this.steps[this.currentStepId].correctId
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
-            this.notificaAvanzamento(this.steps[this.currentStepId].correctId)
+            this.nextStepId=this.steps[this.currentStepId].correctId;
+            this.notificaAvanzamento(this.nextStepId)
           }
         } else {
           console.log("sei una lota");
@@ -193,17 +177,13 @@ export class VisualizzaComponent implements OnInit {
             this.currentStepId = this.steps[this.currentStepId].wrongId
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
-            this.notificaAvanzamento(this.steps[this.currentStepId].wrongId)
+            this.nextStepId=this.steps[this.currentStepId].wrongId;
+            this.notificaAvanzamento(this.nextStepId)
           }
-
         }
       }
-
       return
     }
-
   }
-
-
 }
 // 'clickToGo' 'clickToObject', 'yOnAnswer','dragToRightPos','question"
