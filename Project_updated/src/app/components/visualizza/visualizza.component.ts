@@ -24,7 +24,7 @@ export class VisualizzaComponent implements OnInit {
   nextStepId = -1;
   storia: Storia;
   hoDatoOk=false;
-
+  variabileOk;
 
   //form
   tempRisposta: string = ""
@@ -67,21 +67,25 @@ export class VisualizzaComponent implements OnInit {
           res => {
             if (!res) return;
 
-            if (res.nextStepId != this.nextStepId && this.hoDatoOk==false) { // modifica con -> currnt della risposta deve essere diverso del tuo current locale, allora entri
+            if (res.nextStepId != this.nextStepId && this.hoDatoOk==false && res.variabileOk > 0) { // modifica con -> currnt della risposta deve essere diverso del tuo current locale, allora entri
               alert('Compagno andato avanti')
               this.hoDatoOk=true;
               this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe(response => {
-                this.router.navigate(["/visualizza/"+this.storia.id+"/"+this.idPartita]);
               });
             }
-
-            if(res.nextStepId == this.nextStepId && this.hoDatoOk==false && this.nextStepId!=-1) {
+            if (res.variabileOk == 0 && this.hoDatoOk==false) {
               alert('io sono andato avanti')
               this.hoDatoOk=true;
               this.apiDb.updateGame(this.idPartita, this.nextStepId).subscribe(response => {
-                this.router.navigate(["/visualizza/"+this.storia.id+"/"+this.idPartita]);
               });
             }
+
+            // if(res.nextStepId == this.nextStepId && this.hoDatoOk==false && this.nextStepId!=-1) {
+            //   alert('io sono andato avanti')
+            //   this.hoDatoOk=true;
+            //   this.apiDb.updateGame(this.idPartita, this.nextStepId).subscribe(response => {
+            //   });
+            // }
 
             if(res.numeroPlayer==res.variabileOk){
               this.hoDatoOk=false
@@ -97,19 +101,29 @@ export class VisualizzaComponent implements OnInit {
 
 
   iniziaStep() {
-    if (this.idPartita != -1) {
+    if (this.idPartita == -1) {
       this.currentStepId = 0
     } else {
-      this.apiDb.updateGame(this.idPartita, 0).subscribe(response => {
-        this.router.navigate(["/visualizza/"+this.storia.id+"/"+this.idPartita]);
-      });
+      this.apiDb.getGame(this.idPartita).subscribe(
+        response => {
+          this.variabileOk=response.variabileOk;
+          if (this.variabileOk==0) {
+            this.apiDb.updateGame(this.idPartita, 0).subscribe(res => {
+            });
+            this.nextStepId=0;
+          }else{
+            this.nextStepId=response.nextStepId;
+            this.apiDb.updateGame(this.idPartita, this.nextStepId).subscribe(res => {
+            });
+          }
+        }
+      )
     }
   }
 
 
   notificaAvanzamento(nextStepId) {
     this.apiDb.updateGame(this.idPartita, nextStepId).subscribe(response => {
-      this.router.navigate(["/visualizza/"+this.storia.id+"/"+this.idPartita]);
     });
   }
 
