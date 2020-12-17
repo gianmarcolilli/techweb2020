@@ -152,9 +152,6 @@ export class DummyApiService {
       })
    }
 
-
-
-
   //post
   addNewStory(title: string, didascalia: string, fasciaEta: string, image: string) {
     const storyData = {
