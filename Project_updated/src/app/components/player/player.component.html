@@ -61,16 +61,22 @@
   <section id="sec2" *ngIf="nPartecipanti != -1 && tipologiaGruppo=='classe'" >
     <p>Partecipanti : {{ nPartecipantiAggiunti }} / {{ nPartecipanti }}</p>
 
-    <h5 *ngIf="(nPartecipanti-nPartecipantiAggiunti>=2)">
-      <button mat-button (click) = "aggiungiNuovaSquadra()">Aggiungi squadra</button>
-    </h5>
+      <button *ngIf="(nPartecipanti-nPartecipantiAggiunti>=2)" (click) = "aggiungiNuovaSquadra()"
+        mat-raised-button>
+        <h3>
+          <i class="material-icons mdc-button__icon" aria-hidden="true"
+          >add</i>
+          Aggiungi squadra
+        </h3>
+        </button>
 
       <div class="container3"  >
         <div class="card" *ngFor="let squadra of squadre">
           <div class="heading" >
             <h1>{{ squadra.name }}</h1>
-            <button *ngIf="this.squadre.length>this.nSquadre" mat-button
-              (click)="eliminaSquadra(squadra.id)"><span class="material-icons" >clear</span>
+            <button *ngIf="this.squadre.length>this.nSquadre"
+              (click)="eliminaSquadra(squadra.id)">
+              <span class="material-icons" >clear</span>
             </button>
           </div>
           <div class="content">
@@ -82,15 +88,13 @@
           <button *ngIf="this.nPartecipantiAggiunti<this.nPartecipanti"
               mat-button
               color="primary"
-              (click)="aggiungiPlayer(squadra.id)"
-            >
-              Add
+              (click)="aggiungiPlayer(squadra.id)">
+             + Add
             </button>
             <button *ngIf="squadra.players.length>2"
               mat-button
               color="primary"
-              (click)="rimuoviPlayer(squadra.id)"
-            >
+              (click)="rimuoviPlayer(squadra.id)">
               Remove
             </button>
         </div>
@@ -131,20 +135,21 @@
   </div>
 
   <div class="container5" *ngIf="fasciaEta != ''">
-    <mat-radio-group [(ngModel)]="traccia" aria-label="Select an option">
-      <form>
-        <ng-container *ngFor="let storia of storie">
-          <mat-radio-button
+      <form aria-label="Select an option" *ngFor="let storia of storie">
+        <div class="card"  >
+          <input
+            [id]="storia.id"
+            name="traccia"
+            type="radio"
             [value]="storia.id"
             *ngIf="storia.fasciaEta == fasciaEta"
-          >
-            <mat-card>
-              {{ storia.title}}
-            </mat-card>
-          </mat-radio-button>
-        </ng-container>
+            [(ngModel)]="traccia">
+            <label [for]="storia.id">
+              <h4>{{ storia.title}}</h4>
+              <img [src]="storia.urlBackground">
+            </label>
+        </div>
       </form>
-    </mat-radio-group>
   </div>
 </section>
   <hr />
@@ -153,17 +158,14 @@
     <mat-card-title> Riepilogo </mat-card-title>
     <mat-card-content>
       <h4>Gruppo : {{ tipologiaGruppo }}</h4>
-
       <h4>Fascia di età : {{ fasciaEta }}</h4>
       <br />
       <span *ngIf="traccia != -1">
         <h4>Traccia: {{ traccia }}</h4>
         <br />
-
         <qrcode
           *ngIf="
-            tipologiaGruppo == 'individuale' || tipologiaGruppo == 'gruppo'
-          "
+            tipologiaGruppo == 'individuale' || tipologiaGruppo == 'gruppo'"
           [qrdata]="
             'http://localhost:4200/player/'+
             tipologiaGruppo +
@@ -173,7 +175,7 @@
           "
           [width]="256"
           [errorCorrectionLevel]="'M'"
-  ></qrcode>
+        ></qrcode>
   <button mat-raised-button color="success" (click)="iniziaPartita(this.traccia)">Inizia Partita</button>
 
       </span>
@@ -192,8 +194,27 @@
 </section> <!-- fine MainSection -->
 
 <section *ngIf="playClicked">
+  <div *ngIf="tipologiaGruppo == 'individuale'">
+    <h3>Ecco il tuo QR code!</h3>
+    <qrcode
+    [qrdata]="'http://localhost:4200/lobby/786'"
+    [width]="256"
+    [errorCorrectionLevel]="'M'"
+  ></qrcode>
+  <button mat-raised-button color="info" (click)="iniziaPartita(this.traccia)">Inizia Parita</button>
 
- <div *ngIf="tipologiaGruppo == 'classe'">
+  </div>
+  <div *ngIf="tipologiaGruppo =='gruppo'">
+    <h3>Ecco il vostro QR code!</h3>
+    <qrcode
+    [qrdata]="'http://localhost:4200/lobby/786'"
+    [width]="256"
+    [errorCorrectionLevel]="'M'"
+  ></qrcode>
+  <button mat-raised-button color="info" (click)="iniziaPartita(this.traccia)">Inizia Parita</button>
+  </div>
+
+  <div *ngIf="tipologiaGruppo == 'classe'">
     <h3> Ecco i vostri QR Code!</h3>
     <mat-card *ngFor="let s of squadre" class="example-card">
       <mat-card-header>
@@ -215,26 +236,5 @@
     </mat-card>
   </div>
 
-  <div *ngIf="tipologiaGruppo == 'individuale'">
-   <h3>Ecco il tuo QR code!</h3>
-   <qrcode
-   [qrdata]="'http://localhost:4200/lobby/786'"
-   [width]="256"
-   [errorCorrectionLevel]="'M'"
- ></qrcode>
- <button mat-raised-button color="info" (click)="iniziaPartita(this.traccia)">Inizia Parita</button>
-
- </div>
- <div *ngIf="tipologiaGruppo =='gruppo'">
-   <h3>Ecco il vostro QR code!</h3>
-   <qrcode
-   [qrdata]="'http://localhost:4200/lobby/786'"
-   [width]="256"
-   [errorCorrectionLevel]="'M'"
- ></qrcode>
- <button mat-raised-button color="info" (click)="iniziaPartita(this.traccia)">Inizia Parita</button>
-
-
- </div>
 </section>
 <!--</div>-->

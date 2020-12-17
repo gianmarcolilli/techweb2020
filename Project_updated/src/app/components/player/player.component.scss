@@ -1,4 +1,4 @@
-$font-color: #817f7f;
+$font-color: #5c5f66;
 $primary-color: #3b3a99;
 #sec {
   font-family: 'Raleway', sans-serif;
@@ -67,6 +67,7 @@ $primary-color: #3b3a99;
       }
       input[type='radio']:checked + label{
         border-style: $primary-color;
+        color: $primary-color;
         border: solid 3px;
         border-radius: 5px;
        /* border-top-left-radius: 40px;
@@ -74,7 +75,6 @@ $primary-color: #3b3a99;
       }
 
       h3 {
-        color: darken($font-color, 20%);
         display: inline-block;
         font-size: 1.6rem;
         font-weight: 100;
@@ -82,6 +82,7 @@ $primary-color: #3b3a99;
         &:after {
           content: '';
           position: relative;
+          color: $primary-color;
           left: 50%;
           top: 40px;
           transform: translateX(-50%);
@@ -111,19 +112,34 @@ $primary-color: #3b3a99;
     flex-wrap: nowrap;
     padding: 30px;
 
+    button{
+      background-color: $primary-color;
+      h3{
+        color: $primary-color;
+      }
+    }
+
     mat-form-field{
       width: max-content;
       border-radius: 4px;
     }
     mat-label{
       padding: 5px;
+      color: $font-color;
+    }
+    mat-option{
+      color: $primary-color;
     }
 
   }
 }
 /* fine sec */
 #sec2{
-
+    button{
+      background-color: #51be6383;
+      margin: 5px;
+      padding: 3px;
+    }
     .container3{
       display: flex;
       flex-direction: row;
@@ -167,12 +183,12 @@ $primary-color: #3b3a99;
       font-size: 1.9rem;
       text-transform: uppercase;
       color: white;
-      padding-left: 1rem;
+      padding-left: 0.5rem;
 
     }
     .card .heading button {
       color: white;
-      justify-content: flex-end;
+      background-color: transparent;
       margin-right: 1px;
       margin-left: 15rem;
     }
@@ -195,7 +211,6 @@ $primary-color: #3b3a99;
     justify-content: space-evenly;
     align-items: flex-end;
     flex-wrap: nowrap;
-
 
     input[type='radio']{
     position: absolute;
@@ -248,6 +263,7 @@ $primary-color: #3b3a99;
         }
         input[type='radio']:checked + label{
           border-style: $primary-color;
+          color: $primary-color;
           border: solid 3px;
           border-radius: 5px;
           padding: 10px;
@@ -256,10 +272,8 @@ $primary-color: #3b3a99;
         }
 
         h5 {
-          color: darken($font-color, 20%);
           display: inline-block;
           font-size: 1.3rem;
-
           transition: color .3s;
           &:after {
             content: '';
@@ -282,6 +296,104 @@ $primary-color: #3b3a99;
           line-height: 26px;
           transition: color .3s;
         }
+    }
+  }
+  .container5{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    flex-wrap: nowrap;
+
+    input[type='radio']{
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+    .card {
+      background-color: #ffffff93;
+      padding: 10px;
+      margin: 10px;
+      display: flex;
+      float: left;
+      flex-flow: row wrap;
+      justify-content: space-evenly;
+      list-style: none;
+      width: max-content;
+
+        transition: box-shadow .3s;
+
+        &:hover {
+          box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        &:hover label {
+          color: $primary-color;
+        }
+        &:hover p {
+          color: #555;
+        }
+        &:hover h4  {
+          color: $primary-color;
+        }
+        &:hover h5  {
+          color: $primary-color;
+        }
+        &:hover mat-icon {
+          color: $primary-color;
+        }
+        &:hover h4:after{
+          width: 25px;
+
+        }
+        input[type='radio'] + label {
+          font-size: 2rem;
+          display: block;
+          cursor: pointer;
+          transition: color .3s;
+          color: $font-color;
+          &:before, &:after {
+            position: static;
+          }
+        }
+        input[type='radio']:checked + label{
+          border-style: $primary-color;
+          color: $primary-color;
+          border: solid 3px;
+          border-radius: 5px;
+          padding: 10px;
+         /* border-top-left-radius: 40px;
+          border-top-right-radius: 40px;*/
+        }
+        h4{
+          text-transform: uppercase;
+        }
+
+        h5 {
+          display: inline-block;
+          font-size: 1.3rem;
+          transition: color .3s;
+          &:after {
+            content: '';
+            position: relative;
+            left: 50%;
+            top: 40px;
+            transform: translateX(-50%);
+            display: block;
+            width: 40px;
+            height: 1.4px;
+            background: darken($font-color, 20%);
+            transition: width .3s;
+          }
+        }
+        p {
+          color: $font-color;
+          text-align: left;
+          text-indent: 1em;
+          font-size: 1rem;
+          line-height: 26px;
+          transition: color .3s;
+        }
+
     }
   }
 }

@@ -1,6 +1,5 @@
 const { ViewEncapsulation } = require("@angular/core");
 const express = require("express");
-const game = require("../models/game");
 const { create, db } = require("../models/game");
 
 const Game = require("../models/game");
@@ -58,75 +57,98 @@ router.put("/:idPartita", (req, res, next) => {
   // } else if (req.body.prossimoId && gameIdentificato.variabileOk > 1 && gameIdentificato.variabileOk < gameIdentificato.numeroPlayer) {
   //   gameIdentificato.variabileOk++;
   // }
-  Game.findOne({
+  const game = Game.findOne({
     idPartita: req.params.idPartita,
   }).then((game) => {
     if (game) {
-      res.status(200).json(game);
+      if (
+        req.body.prossimoId &&
+        game.variabileOk >= 0 &&
+        game.variabileOk < game.numeroPlayer
+      ) {
+        if (game.variabileOk > 0) {
+          Game.updateOne(
+            { idPartita: req.params.idPartita },
+            {
+              idPartita: req.params.idPartita,
+              idClasse: game.idClasse,
+              idSquadra: game.idSquadra,
+              numeroPlayer: game.numeroPlayer,
+              currentStepId: game.currentStepId,
+              nextStepId: game.nextStepId,
+              variabileOk: game.variabileOk + 1,
+            }
+          )
+            .then((result) => {
+              if (result.n > 0) {
+                res.status(200).json({ message: "Update successful!" });
+              } else {
+                res.status(401).json({ message: "Cannot find game" });
+              }
+            })
+            .catch((error) => {
+              res.status(500).json({
+                message: "Couldn't update game" + "ERRORE: " + error,
+              });
+            });
+        } else {
+          Game.updateOne(
+            { idPartita: req.params.idPartita },
+            {
+              idPartita: req.params.idPartita,
+              idClasse: game.idClasse,
+              idSquadra: game.idSquadra,
+              numeroPlayer: game.numeroPlayer,
+              currentStepId: game.currentStepId,
+              nextStepId: req.body.prossimoId,
+              variabileOk: 1,
+            }
+          )
+            .then((result) => {
+              if (result.n > 0) {
+                res.status(200).json({ message: "Update successful!" });
+              } else {
+                res.status(401).json({ message: "Cannot find game" });
+              }
+            })
+            .catch((error) => {
+              res.status(500).json({
+                message: "Couldn't update game" + "ERRORE: " + error,
+              });
+            });
+        }
+      }
+
+      if (game.variabileOk == game.numeroPlayer) {
+        Game.updateOne(
+          { idPartita: req.params.idPartita },
+          {
+            idPartita: req.params.idPartita,
+            idClasse: game.idClasse,
+            idSquadra: game.idSquadra,
+            numeroPlayer: game.numeroPlayer,
+            currentStepId: game.nextStepId,
+            nextStepId: -1,
+            variabileOk: 0,
+          }
+        )
+          .then((result) => {
+            if (result.n > 0) {
+              res.status(200).json({ message: "Update successful!" });
+            } else {
+              res.status(401).json({ message: "Cannot find game" });
+            }
+          })
+          .catch((error) => {
+            res.status(500).json({
+              message: "Couldn't update game" + "ERRORE: " + error,
+            });
+          });
+      }
     } else {
       res.status(404).json({ message: "Game not found!" });
     }
   });
-
-  if (req.body.prossimoId && game.variabileOk >= 0 && game.variabileOk < game.numeroPlayer) {
-    if (game.variabileOk > 0) {
-      Game.updateOne(
-        { idPartita: req.params.idPartita },
-        {
-          variabileOk: variabileOk + 1,
-        }).then((result) => {
-          if (result.n > 0) {
-            res.status(200).json({ message: "Update successful!" });
-          } else {
-            res.status(401).json({ message: "Cannot find game" });
-          }
-        })
-        .catch((error) => {
-          res.status(500).json({
-            message: "Couldn't update game" + "ERRORE: " + error,
-          });
-        });
-    } else {
-      Game.updateOne(
-        { idPartita: req.params.idPartita },
-        {
-          nextStepId: req.body.prossimoId,
-          variabileOk: 1,
-        }).then((result) => {
-          if (result.n > 0) {
-            res.status(200).json({ message: "Update successful!" });
-          } else {
-            res.status(401).json({ message: "Cannot find game" });
-          }
-        })
-        .catch((error) => {
-          res.status(500).json({
-            message: "Couldn't update game" + "ERRORE: " + error,
-          });
-        });
-    }
-  }
-
-  if (game.variabileOk == game.numeroPlayer) {
-    Game.updateOne(
-      { idPartita: req.params.idPartita },
-      {
-        currentStepId: game.nextStepId,
-        nextStepId: -1,
-        variabileOk: 0,
-      }).then((result) => {
-        if (result.n > 0) {
-          res.status(200).json({ message: "Update successful!" });
-        } else {
-          res.status(401).json({ message: "Cannot find game" });
-        }
-      })
-      .catch((error) => {
-        res.status(500).json({
-          message: "Couldn't update game" + "ERRORE: " + error,
-        });
-      });
-  }
 });
 
 router.get("", (req, res, next) => {
