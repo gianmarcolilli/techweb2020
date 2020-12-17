@@ -1,6 +1,5 @@
 const { ViewEncapsulation } = require("@angular/core");
 const express = require("express");
-const multer = require("multer");
 const { create, db } = require("../models/story");
 
 const Story = require("../models/story");
