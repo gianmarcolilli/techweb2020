@@ -24,7 +24,7 @@ export class VisualizzaComponent implements OnInit {
   nextStepId = -1;
   storia: Storia;
   hoDatoOk=false;
-  variabileOk;
+  variabileOk=0;
 
   //form
   tempRisposta: string = ""
@@ -68,27 +68,30 @@ export class VisualizzaComponent implements OnInit {
             if (!res) return;
 
             if (res.nextStepId != this.nextStepId && this.hoDatoOk==false && res.variabileOk > 0) { // modifica con -> currnt della risposta deve essere diverso del tuo current locale, allora entri
-              alert('Compagno andato avanti')
+              alert('Compagno andato avanti');
               this.hoDatoOk=true;
               this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe(response => {
               });
             }
-            if (res.variabileOk == 0 && this.hoDatoOk==false) {
-              alert('io sono andato avanti')
+
+            if(this.nextStepId==0 && res.nextStepId==0 && this.hoDatoOk==false){
+              alert('sono stato il primo');
+              this.hoDatoOk=true
+              this.apiDb.updateGame(this.idPartita, this.nextStepId).subscribe(response => {
+              });
+            }
+
+            if (res.variabileOk == 0 && this.hoDatoOk==false && this.nextStepId==res.nextStepId &&this.nextStepId!=-1) {
+              alert('io sono andato avanti');
               this.hoDatoOk=true;
               this.apiDb.updateGame(this.idPartita, this.nextStepId).subscribe(response => {
               });
             }
 
-            // if(res.nextStepId == this.nextStepId && this.hoDatoOk==false && this.nextStepId!=-1) {
-            //   alert('io sono andato avanti')
-            //   this.hoDatoOk=true;
-            //   this.apiDb.updateGame(this.idPartita, this.nextStepId).subscribe(response => {
-            //   });
-            // }
-
             if(res.numeroPlayer==res.variabileOk){
               this.hoDatoOk=false
+              this.apiDb.updateGame(this.idPartita, this.nextStepId).subscribe(response => {
+              });
             }
           },
           error => { }
@@ -108,9 +111,10 @@ export class VisualizzaComponent implements OnInit {
         response => {
           this.variabileOk=response.variabileOk;
           if (this.variabileOk==0) {
+            this.nextStepId=0;
             this.apiDb.updateGame(this.idPartita, 0).subscribe(res => {
             });
-            this.nextStepId=0;
+
           }else{
             this.nextStepId=response.nextStepId;
             this.apiDb.updateGame(this.idPartita, this.nextStepId).subscribe(res => {
