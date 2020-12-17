@@ -144,19 +144,13 @@ export class DummyApiService {
     });
   }
 
-  updateGame(idPartita:number, prossimoId:number, storia:Storia){
+  updateGame(idPartita:number, prossimoId:number){
 
-    this.http
+    return this.http
       .put("http://localhost:3000/api/games/"+idPartita, {
         prossimoId: prossimoId
       })
-      .subscribe(response => {
-        this.router.navigate(["/visualizza/"+storia.id+"/"+idPartita]);
-      });
    }
-
-
-
 
   //post
   addNewStory(title: string, didascalia: string, fasciaEta: string, image: string) {
