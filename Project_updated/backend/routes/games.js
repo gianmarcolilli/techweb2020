@@ -67,6 +67,7 @@ router.put("/:idPartita", (req, res, next) => {
         game.variabileOk < game.numeroPlayer
       ) {
         if (game.variabileOk > 0) {
+          console.log('altriiiiiiiiiiiiiiii porcodiooooooo');
           Game.updateOne(
             { idPartita: req.params.idPartita },
             {
@@ -92,6 +93,7 @@ router.put("/:idPartita", (req, res, next) => {
               });
             });
         } else {
+          console.log('primooooooooooooooooooo');
           Game.updateOne(
             { idPartita: req.params.idPartita },
             {
@@ -117,9 +119,7 @@ router.put("/:idPartita", (req, res, next) => {
               });
             });
         }
-      }
-
-      if (game.variabileOk == game.numeroPlayer) {
+      } else if (game.variabileOk == game.numeroPlayer) {
         Game.updateOne(
           { idPartita: req.params.idPartita },
           {
