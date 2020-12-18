@@ -1,109 +1,129 @@
 $font-color: #5c5f66;
 $primary-color: #3b3a99;
+h1{
+  font-size: 4vw;
+}
+h2{
+  font-size: 3.5vw;
+}
+h3{
+  font-size: 3vw;
+}
+h4{
+  font-size: 2vw;
+}
+p{
+  font-size: 1.8vw;
+}
+button{
+  margin: 5px;
+}
+
 #sec {
   font-family: 'Raleway', sans-serif;
   padding: 50px 0;
   text-align: center;
   word-wrap:break-word;
-  input[type='radio']{
-    position: absolute;
-    clip: rect(1px, 1px, 1px, 1px);
-  }
 
-  h2 {
-    font-weight: 200;
-    font-size: 2rem;
-    color: $primary-color;
-  }
-
-  ul {
-    padding: 5px;
-    margin: 3px;
+  .container1{
     display: flex;
-    float: left;
-    flex-flow: row wrap;
+    flex-direction: row;
     justify-content: space-evenly;
-    list-style: none;
-    li {
-      background-color: #ffffff93;
-      margin: 10px;
-      float: left;
-      padding: 40px;
-      width: 300px;
-      min-height: 290px;
-      transition: box-shadow .3s;
+    flex-wrap: nowrap;
+    padding: 30px;
 
-      &:hover {
-        box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-      }
-
-      &:hover label {
-        color: $primary-color;
-      }
-      &:hover p {
-        color: #555;
-      }
-      &:hover h3  {
-        color: $primary-color;
-      }
-      &:hover h5  {
-        color: $primary-color;
-      }
-      &:hover mat-icon {
-        color: $primary-color;
-      }
-      &:hover h3:after{
-        width: 25px;
-      }
-      input[type='radio'] + label {
-        font-size: 2.6rem;
-        display: block;
-        cursor: pointer;
-        transition: color .3s;
-        color: $font-color;
-        &:before, &:after {
-          position: static;
-        }
-      }
-      input[type='radio']:checked + label{
-        border-style: $primary-color;
-        color: $primary-color;
-        border: solid 3px;
-        border-radius: 5px;
-       /* border-top-left-radius: 40px;
-        border-top-right-radius: 40px;*/
-      }
-
-      h3 {
-        display: inline-block;
-        font-size: 1.6rem;
-        font-weight: 100;
-        transition: color .3s;
-        &:after {
-          content: '';
-          position: relative;
-          color: $primary-color;
-          left: 50%;
-          top: 40px;
-          transform: translateX(-50%);
-          display: block;
-          width: 40px;
-          height: 1.4px;
-          background: darken($font-color, 20%);
-          transition: width .3s;
-        }
-      }
-      p {
-        color: $font-color;
-        text-align: left;
-        text-indent: 1em;
-        font-size: 1rem;
-        line-height: 26px;
-        transition: color .3s;
-      }
-
+    input[type='radio']{
+      position: absolute;
+      clip: rect(1px, 1px, 1px, 1px);
     }
-  }
+
+    h2 {
+      font-weight: 200;
+      color: $primary-color;
+    }
+
+    ul {
+      padding: 5px;
+      margin: 3px;
+      flex-flow: row wrap;
+      list-style: none;
+      li {
+        background-color: #ffffff93;
+        margin: 10px;
+        padding: 40px;
+        width: 300px;
+        min-height: 290px;
+        transition: box-shadow .3s;
+
+        &:hover {
+          box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        }
+
+        &:hover label {
+          color: $primary-color;
+        }
+        &:hover p {
+          color: #555;
+        }
+        &:hover h3  {
+          color: $primary-color;
+        }
+        &:hover h5  {
+          color: $primary-color;
+        }
+        &:hover mat-icon {
+          color: $primary-color;
+        }
+        &:hover h3:after{
+          width: 25px;
+        }
+        input[type='radio'] + label {
+          font-size: 2.6rem;
+          display: block;
+          cursor: pointer;
+          transition: color .3s;
+          color: $font-color;
+          &:before, &:after {
+            position: static;
+          }
+        }
+        input[type='radio']:checked + label{
+          border-style: $primary-color;
+          color: $primary-color;
+          border: solid 3px;
+          border-radius: 5px;
+        /* border-top-left-radius: 40px;
+          border-top-right-radius: 40px;*/
+        }
+
+        h3 {
+          display: inline-block;
+          font-weight: 100;
+          transition: color .3s;
+          &:after {
+            content: '';
+            position: relative;
+            color: $primary-color;
+            left: 50%;
+            top: 40px;
+            transform: translateX(-50%);
+            display: block;
+            width: 40px;
+            height: 1.4px;
+            background: darken($font-color, 20%);
+            transition: width .3s;
+          }
+        }
+        p {
+          color: $font-color;
+          text-align: left;
+          text-indent: 1em;
+          line-height: 26px;
+          transition: color .3s;
+        }
+      }
+    }
+ }
   .container2{
     display: flex;
     flex-direction: row;
@@ -135,8 +155,8 @@ $primary-color: #3b3a99;
 }
 /* fine sec */
 #sec2{
-    button{
-      background-color: #51be6383;
+    .btn-addsq{
+      color: #51be6383;
       margin: 5px;
       padding: 3px;
     }
@@ -150,12 +170,10 @@ $primary-color: #3b3a99;
     h1 {
       margin: 0;
       padding: 0;
-      font-size: 1.6rem;
     }
     p {
       color: $font-color;
       text-indent: 1em;
-      font-size: 1rem;
       line-height: 26px;
       transition: color .3s;
     }
@@ -165,41 +183,32 @@ $primary-color: #3b3a99;
     .card {
       display: inline-block;
       margin: 8px;
-      width: 30%;
+      min-width: max-content;
       min-height: max-content;
       background-color: #ffffff;
       border-radius: 10px;
       box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
     }
     .card .heading {
-      position: relative;
-      height: 3.5rem;
-      justify-content: flex-start;
+      height: 10vw;
       background-color: #2a34bbe5;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
+      padding: 5px;
     }
     .card .heading h1 {
-      font-size: 1.9rem;
       text-transform: uppercase;
       color: white;
-      padding-left: 0.5rem;
+    }
 
-    }
-    .card .heading button {
-      color: white;
-      background-color: transparent;
-      margin-right: 1px;
-      margin-left: 15rem;
-    }
     .card .content {
       padding: 1rem;
     }
     .card .content h3 {
-      font-size: 1.5rem;
+      font-size: 2vw;
     }
     .card .content p {
-      font-size: 1rem;
+      font-size: 1.8vw;
     }
   }
 } /* fine sec 2 */
@@ -273,7 +282,6 @@ $primary-color: #3b3a99;
 
         h5 {
           display: inline-block;
-          font-size: 1.3rem;
           transition: color .3s;
           &:after {
             content: '';
@@ -292,7 +300,6 @@ $primary-color: #3b3a99;
           color: $font-color;
           text-align: left;
           text-indent: 1em;
-          font-size: 1rem;
           line-height: 26px;
           transition: color .3s;
         }
@@ -361,8 +368,6 @@ $primary-color: #3b3a99;
           border: solid 3px;
           border-radius: 5px;
           padding: 10px;
-         /* border-top-left-radius: 40px;
-          border-top-right-radius: 40px;*/
         }
         h4{
           text-transform: uppercase;
@@ -370,7 +375,6 @@ $primary-color: #3b3a99;
 
         h5 {
           display: inline-block;
-          font-size: 1.3rem;
           transition: color .3s;
           &:after {
             content: '';
@@ -389,7 +393,6 @@ $primary-color: #3b3a99;
           color: $font-color;
           text-align: left;
           text-indent: 1em;
-          font-size: 1rem;
           line-height: 26px;
           transition: color .3s;
         }
