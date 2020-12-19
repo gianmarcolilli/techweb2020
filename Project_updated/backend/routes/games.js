@@ -61,13 +61,12 @@ router.put("/:idPartita", (req, res, next) => {
     idPartita: req.params.idPartita,
   }).then((game) => {
     if (game) {
-      if (
-        req.body.prossimoId &&
-        game.variabileOk >= 0 &&
-        game.variabileOk < game.numeroPlayer
-      ) {
+      if ((req.body.prossimoId!=undefined) && game.variabileOk >= 0 && game.variabileOk < game.numeroPlayer) {
+
+        //Se non sono il primo ad entrarci
         if (game.variabileOk > 0) {
-          Game.updateOne(
+          console.log('altriiiiiiiiiiiiiiii porcodiooooooo');
+          Game.findOneAndUpdate(
             { idPartita: req.params.idPartita },
             {
               idPartita: req.params.idPartita,
@@ -77,22 +76,25 @@ router.put("/:idPartita", (req, res, next) => {
               currentStepId: game.currentStepId,
               nextStepId: game.nextStepId,
               variabileOk: game.variabileOk + 1,
-            }
+            },
+            { new: true }
           )
             .then((result) => {
-              if (result.n > 0) {
-                res.status(200).json({ message: "Update successful!" });
-              } else {
-                res.status(401).json({ message: "Cannot find game" });
-              }
+              // if (result.n > 0) {
+                res.status(200).json({ message: "Update successful!" , result:result});
+              // } else {
+                // res.status(401).json({ message: "Cannot find game" });
+              // }
             })
             .catch((error) => {
               res.status(500).json({
                 message: "Couldn't update game" + "ERRORE: " + error,
               });
             });
-        } else {
-          Game.updateOne(
+        } else if(game.variabileOk==0){
+          //Se sono il primo a entrarci
+          console.log('primooooooooooooooooooo');
+          Game.findOneAndUpdate(
             { idPartita: req.params.idPartita },
             {
               idPartita: req.params.idPartita,
@@ -102,13 +104,14 @@ router.put("/:idPartita", (req, res, next) => {
               currentStepId: game.currentStepId,
               nextStepId: req.body.prossimoId,
               variabileOk: 1,
-            }
+            },
+            {new:true}
           )
             .then((result) => {
               if (result.n > 0) {
-                res.status(200).json({ message: "Update successful!" });
+                res.status(200).json({ message: "Update successful!",result : result  });
               } else {
-                res.status(401).json({ message: "Cannot find game" });
+                res.status(401).json({ message: "No modifiche applicate" ,result : result });
               }
             })
             .catch((error) => {
@@ -117,10 +120,9 @@ router.put("/:idPartita", (req, res, next) => {
               });
             });
         }
-      }
-
-      if (game.variabileOk == game.numeroPlayer) {
-        Game.updateOne(
+      } else if (game.variabileOk == game.numeroPlayer) {
+        //Se sono l'ultimo a entrarci
+        Game.findOneAndUpdate(
           { idPartita: req.params.idPartita },
           {
             idPartita: req.params.idPartita,
@@ -130,13 +132,14 @@ router.put("/:idPartita", (req, res, next) => {
             currentStepId: game.nextStepId,
             nextStepId: -1,
             variabileOk: 0,
-          }
+          },
+          {new:true}
         )
           .then((result) => {
             if (result.n > 0) {
-              res.status(200).json({ message: "Update successful!" });
+              res.status(200).json({ message: "Update successful!", result:result });
             } else {
-              res.status(401).json({ message: "Cannot find game" });
+              res.status(401).json({ message: "Cannot find game", result:result });
             }
           })
           .catch((error) => {
