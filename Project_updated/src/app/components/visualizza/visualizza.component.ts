@@ -26,10 +26,12 @@ export class VisualizzaComponent implements OnInit {
   hoDatoOk = false;
   hoProcedutoIo = false;
   variabileOk = 0;
+  numeroPlayers=0;
 
   //form
   tempRisposta: string = ""
   idPartita = -1;
+  stop: boolean = false;
   constructor(private activeRoute: ActivatedRoute, private apiDb: DummyApiService, private router: Router) { }
 
   refresh() {
@@ -57,7 +59,7 @@ export class VisualizzaComponent implements OnInit {
     }
 
     if (this.idPartita != -1) {
-      interval(1000) // run every 1 second
+      interval(5000) // run every 5000 millisecond
         .pipe(
           startWith(0),
           switchMap((res, i) => {
@@ -67,7 +69,8 @@ export class VisualizzaComponent implements OnInit {
         .subscribe(
           res => {
             if (!res) return;
-
+            this.numeroPlayers=res.numeroPlayer
+            this.variabileOk = res.variabileOk
             // if (res.nextStepId != this.nextStepId && this.hoDatoOk == false && res.variabileOk > 0) { // modifica con -> currnt della risposta deve essere diverso del tuo current locale, allora entri
             //   alert('Compagno andato avanti');
             //   this.hoDatoOk = true;
@@ -103,18 +106,29 @@ export class VisualizzaComponent implements OnInit {
               // });
             }
 
-            if(this.nextStepId!=res.nextStepId && this.hoDatoOk==false && this.hoProcedutoIo==false){
-              alert('compagno andato avanti')
-              this.hoDatoOk=true
-              this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe(risp=>{
-                this.nextStepId=res.nextStepId
+            if(this.nextStepId!=res.nextStepId && this.hoDatoOk==false && this.hoProcedutoIo==false && this.stop == false){
+              alert('compagno andato avanti! vuoi andare avanti anche tu?')
+              this.stop = true
+              this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe((risp:any)=>{
+                console.log(risp);
+                if(risp.result) {
+                  //  this.numeroPlayers=risp.result.numeroPlayer
+                  //  this.variabileOk = risp.result.variabileOk
+                console.log("ouuu"+ risp.result.numeroPlayer)}
+                this.stop = false
+                this.hoDatoOk=true
+
+
               });
+              this.nextStepId=res.nextStepId
+              // this.variabileOk
             }
 
-            if (res.numeroPlayer == res.variabileOk) {
+            if (res.currentStepId != this.currentStepId ) {
               this.hoDatoOk = false
               this.hoProcedutoIo=false
-              this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe();
+              // this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe();
+              this.currentStepId=res.currentStepId
             }
 
 
@@ -148,16 +162,15 @@ export class VisualizzaComponent implements OnInit {
       //     }
       //   }
       // )
-      this.notificaAvanzamento(this.nextStepId)
+      this.hoProcedutoIo = true
+      this.notificaAvanzamento(0)
     }
   }
 
 
-  notificaAvanzamento(nextStepId) {
-    this.apiDb.updateGame(this.idPartita, nextStepId).subscribe(response => {
-      this.hoProcedutoIo = true
-      this.nextStepId = nextStepId;
-    });
+  notificaAvanzamento(nextStepId:number) {
+    this.apiDb.updateGame(this.idPartita, nextStepId).subscribe();
+    this.nextStepId = nextStepId;
   }
 
   gestisciAvanzamento(idQuiz) {
