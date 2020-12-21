@@ -65,7 +65,7 @@ router.put("/:idPartita", (req, res, next) => {
 
         //Se non sono il primo ad entrarci
         if (game.variabileOk > 0) {
-          console.log('altriiiiiiiiiiiiiiii porcodiooooooo');
+          console.log('sono il n '+(game.variabileOk+1));
           Game.findOneAndUpdate(
             { idPartita: req.params.idPartita },
             {
@@ -93,7 +93,7 @@ router.put("/:idPartita", (req, res, next) => {
             });
         } else if(game.variabileOk==0){
           //Se sono il primo a entrarci
-          console.log('primooooooooooooooooooo');
+          console.log('sono il primo');
           Game.findOneAndUpdate(
             { idPartita: req.params.idPartita },
             {
@@ -122,6 +122,7 @@ router.put("/:idPartita", (req, res, next) => {
         }
       } else if (game.variabileOk == game.numeroPlayer) {
         //Se sono l'ultimo a entrarci
+        console.log('sono l ultimooooo');
         Game.findOneAndUpdate(
           { idPartita: req.params.idPartita },
           {

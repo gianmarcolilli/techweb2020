@@ -26,7 +26,7 @@ export class VisualizzaComponent implements OnInit {
   hoDatoOk = false;
   hoProcedutoIo = false;
   variabileOk = 0;
-  numeroPlayers=0;
+  numeroPlayers = 0;
 
   //form
   tempRisposta: string = ""
@@ -59,7 +59,7 @@ export class VisualizzaComponent implements OnInit {
     }
 
     if (this.idPartita != -1) {
-      interval(5000) // run every 5000 millisecond
+      interval(1000) // run every 1000 millisecond
         .pipe(
           startWith(0),
           switchMap((res, i) => {
@@ -69,67 +69,37 @@ export class VisualizzaComponent implements OnInit {
         .subscribe(
           res => {
             if (!res) return;
-            this.numeroPlayers=res.numeroPlayer
+            this.numeroPlayers = res.numeroPlayer
             this.variabileOk = res.variabileOk
-            // if (res.nextStepId != this.nextStepId && this.hoDatoOk == false && res.variabileOk > 0) { // modifica con -> currnt della risposta deve essere diverso del tuo current locale, allora entri
-            //   alert('Compagno andato avanti');
-            //   this.hoDatoOk = true;
-            //   this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe(response => {
-            //   });
-            // }
 
-            // if (this.nextStepId == 0 && res.nextStepId == 0 && this.hoDatoOk == false) {
-            //   alert('sono stato il primo');
-            //   this.hoDatoOk = true
-            //   this.apiDb.updateGame(this.idPartita, this.nextStepId).subscribe(response => {
-            //   });
-            // }
 
-            // if (res.variabileOk == 0 && this.hoDatoOk == false && this.nextStepId == res.nextStepId && this.nextStepId != -1) {
-            //   alert('io sono andato avanti');
-            //   this.hoDatoOk = true;
-            //   this.apiDb.updateGame(this.idPartita, this.nextStepId).subscribe(response => {
-            //   });
-            // }
-
-            // if (res.numeroPlayer == res.variabileOk) {
-            //   this.hoDatoOk = false
-            //   this.apiDb.updateGame(this.idPartita, this.nextStepId).subscribe(response => {
-            //   });
-            // }
-
-            if (this.hoProcedutoIo == true && this.nextStepId == res.nextStepId && this.hoDatoOk==false) {
+            if (this.hoProcedutoIo == true && this.nextStepId == res.nextStepId && this.hoDatoOk == false) {
               alert('ho cliccato procedi per primo')
-              this.hoDatoOk=true
-              // this.apiDb.updateGame(this.idPartita, this.nextStepId).subscribe(()=>{
-              //   console.log('fatto');
-              // });
+              this.hoDatoOk = true
             }
 
-            if(this.nextStepId!=res.nextStepId && this.hoDatoOk==false && this.hoProcedutoIo==false && this.stop == false){
+            if (res.numeroPlayer=res.variabileOk && this.hoProcedutoIo==true && this.stop == false) {
+              this.stop = true
+              this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe( ()=> {
+                this.currentStepId = res.currentStepId
+                this.hoDatoOk = false
+                this.hoProcedutoIo = false
+                this.stop = false
+              });
+            }
+
+            if (this.nextStepId != res.nextStepId && this.hoDatoOk == false && this.hoProcedutoIo == false && this.stop == false) {
               alert('compagno andato avanti! vuoi andare avanti anche tu?')
               this.stop = true
-              this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe((risp:any)=>{
+              this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe((risp: any) => {
                 console.log(risp);
-                if(risp.result) {
-                  //  this.numeroPlayers=risp.result.numeroPlayer
-                  //  this.variabileOk = risp.result.variabileOk
-                console.log("ouuu"+ risp.result.numeroPlayer)}
+                this.hoDatoOk = true
+                this.nextStepId = res.nextStepId
                 this.stop = false
-                this.hoDatoOk=true
-
-
-              });
-              this.nextStepId=res.nextStepId
+              })
               // this.variabileOk
             }
 
-            if (res.currentStepId != this.currentStepId ) {
-              this.hoDatoOk = false
-              this.hoProcedutoIo=false
-              // this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe();
-              this.currentStepId=res.currentStepId
-            }
 
 
 
@@ -147,28 +117,13 @@ export class VisualizzaComponent implements OnInit {
     if (this.idPartita == -1) {
       this.currentStepId = 0
     } else {
-      // this.apiDb.getGame(this.idPartita).subscribe(
-      //   response => {
-      //     this.variabileOk=response.variabileOk;
-      //     if (this.variabileOk==0) {
-      //       this.nextStepId=0;
-      //       this.apiDb.updateGame(this.idPartita, 0).subscribe(res => {
-      //       });
-
-      //     }else{
-      //       this.nextStepId=response.nextStepId;
-      //       this.apiDb.updateGame(this.idPartita, this.nextStepId).subscribe(res => {
-      //       });
-      //     }
-      //   }
-      // )
       this.hoProcedutoIo = true
       this.notificaAvanzamento(0)
     }
   }
 
 
-  notificaAvanzamento(nextStepId:number) {
+  notificaAvanzamento(nextStepId: number) {
     this.apiDb.updateGame(this.idPartita, nextStepId).subscribe();
     this.nextStepId = nextStepId;
   }
@@ -184,7 +139,7 @@ export class VisualizzaComponent implements OnInit {
         //Avanzamento gioco in modalità squadre
         console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
         this.nextStepId = this.steps[this.currentStepId].correctId;
-        this.hoProcedutoIo==true
+        this.hoProcedutoIo == true
         this.notificaAvanzamento(this.nextStepId)
       }
       return
@@ -204,7 +159,7 @@ export class VisualizzaComponent implements OnInit {
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
             this.nextStepId = this.steps[this.currentStepId].correctId;
-            this.hoProcedutoIo==true
+            this.hoProcedutoIo == true
             this.notificaAvanzamento(this.nextStepId)
           }
 
@@ -215,7 +170,7 @@ export class VisualizzaComponent implements OnInit {
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
             this.nextStepId = this.steps[this.currentStepId].wrongId;
-            this.hoProcedutoIo==true
+            this.hoProcedutoIo == true
             this.notificaAvanzamento(this.nextStepId)
           }
         }
@@ -232,7 +187,7 @@ export class VisualizzaComponent implements OnInit {
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
             this.nextStepId = this.steps[this.currentStepId].correctId;
-            this.hoProcedutoIo==true
+            this.hoProcedutoIo == true
             this.notificaAvanzamento(this.nextStepId)
           }
         } else {
@@ -242,7 +197,7 @@ export class VisualizzaComponent implements OnInit {
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
             this.nextStepId = this.steps[this.currentStepId].wrongId;
-            this.hoProcedutoIo==true
+            this.hoProcedutoIo == true
             this.notificaAvanzamento(this.nextStepId)
           }
         }
