@@ -73,24 +73,9 @@ export class VisualizzaComponent implements OnInit {
             this.variabileOk = res.variabileOk
 
 
-            if (this.hoProcedutoIo == true && this.nextStepId == res.nextStepId && this.hoDatoOk == false) {
-              alert('ho cliccato procedi per primo')
-              this.hoDatoOk = true
-            }
-
-            if (res.numeroPlayer=res.variabileOk && this.hoProcedutoIo==true && this.stop == false) {
-              this.stop = true
-              this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe( ()=> {
-                this.currentStepId = res.currentStepId
-                this.hoDatoOk = false
-                this.hoProcedutoIo = false
-                this.stop = false
-              });
-            }
-
             if (this.nextStepId != res.nextStepId && this.hoDatoOk == false && this.hoProcedutoIo == false && this.stop == false) {
-              alert('compagno andato avanti! vuoi andare avanti anche tu?')
               this.stop = true
+              alert('compagno andato avanti! vuoi andare avanti anche tu?')
               this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe((risp: any) => {
                 console.log(risp);
                 this.hoDatoOk = true
@@ -98,7 +83,25 @@ export class VisualizzaComponent implements OnInit {
                 this.stop = false
               })
               // this.variabileOk
+              return;
             }
+
+            if (this.hoProcedutoIo == true && this.nextStepId == res.nextStepId && this.hoDatoOk == true && this.stop == true) {
+              alert('ho cliccato procedi per primo')
+              this.stop = false
+              return;
+            }
+
+            // if (res.numeroPlayer == res.variabileOk && this.hoProcedutoIo==true && this.stop == false) {
+            //   this.stop = true
+            //   this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe( ()=> {
+            //     this.currentStepId = res.currentStepId
+            //     this.hoDatoOk = false
+            //     this.hoProcedutoIo = false
+            //     this.stop = false
+            //   });
+            // }
+
 
 
 
@@ -117,7 +120,9 @@ export class VisualizzaComponent implements OnInit {
     if (this.idPartita == -1) {
       this.currentStepId = 0
     } else {
+      this.stop = true
       this.hoProcedutoIo = true
+      this.hoDatoOk = true
       this.notificaAvanzamento(0)
     }
   }
