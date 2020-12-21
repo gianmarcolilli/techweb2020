@@ -73,6 +73,16 @@ export class VisualizzaComponent implements OnInit {
             this.variabileOk = res.variabileOk
 
 
+            if (res.numeroPlayer == res.variabileOk && this.stop == false) {
+              this.stop = true
+              this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe(() => {
+                this.currentStepId = res.currentStepId
+                this.hoDatoOk = false
+                this.hoProcedutoIo = false
+                this.stop = false
+              });
+            }
+
             if (this.nextStepId != res.nextStepId && this.hoDatoOk == false && this.hoProcedutoIo == false && this.stop == false) {
               this.stop = true
               alert('compagno andato avanti! vuoi andare avanti anche tu?')
@@ -91,16 +101,6 @@ export class VisualizzaComponent implements OnInit {
               this.stop = false
               return;
             }
-
-            // if (res.numeroPlayer == res.variabileOk && this.hoProcedutoIo==true && this.stop == false) {
-            //   this.stop = true
-            //   this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe( ()=> {
-            //     this.currentStepId = res.currentStepId
-            //     this.hoDatoOk = false
-            //     this.hoProcedutoIo = false
-            //     this.stop = false
-            //   });
-            // }
 
 
 
