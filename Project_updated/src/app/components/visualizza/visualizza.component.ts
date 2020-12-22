@@ -80,7 +80,7 @@ export class VisualizzaComponent implements OnInit {
               this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe((risp: any) => {
                 console.log(risp);
                 this.hoDatoOk = true
-                this.nextStepId = res.nextStepId
+                this.nextStepId = risp.nextStepId
                 this.stop = false
               })
               // this.variabileOk
@@ -97,13 +97,13 @@ export class VisualizzaComponent implements OnInit {
               console.log('daje');
 
               this.stop = true
-              this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe(() => {​​
-                this.currentStepId = res.currentStepId
+              this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe((risp:any) => {​​
+                this.currentStepId = risp.currentStepId
                 this.hoDatoOk = false
                 this.hoProcedutoIo = false
                 this.stop = false
               }​​);
-              return
+              return;
             }​​
 
           },
