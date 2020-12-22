@@ -114,9 +114,9 @@ export class ImagePuzzleComponent implements OnInit {
     }
   }
 
-  avanzamentoStep(id){
+  avanzamentoStep(idQ){
     if(this.gameComplete){
-      this.visComp.gestisciAvanzamento(id);
+      this.visComp.gestisciAvanzamento(undefined);
     }
   }
 
