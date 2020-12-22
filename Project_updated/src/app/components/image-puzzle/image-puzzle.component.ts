@@ -1,6 +1,8 @@
 // import { isNullOrUndefined } from 'util';
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Injectable, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { timer } from 'rxjs';
+import { VisualizzaComponent } from '../visualizza/visualizza.component';
+
 
 @Component({
   moduleId: module.id,
@@ -8,6 +10,8 @@ import { timer } from 'rxjs';
   templateUrl: './image-puzzle.component.html',
   styleUrls: ['./image-puzzle.component.css']
 })
+
+
 export class ImagePuzzleComponent implements OnInit {
   @Input('puzzleUrl') imageUrl: string = "";
   @Input('difficulty') difficulty: string = '2';
@@ -28,7 +32,7 @@ export class ImagePuzzleComponent implements OnInit {
   indexes: number[] = [];
   position: number[] = [];
 
-
+  constructor(private visComp: VisualizzaComponent){ }
   initImageUrl() {
     if (this.imageUrl.startsWith("http")) {
       this.imageUrl = this.imageUrl
@@ -110,9 +114,9 @@ export class ImagePuzzleComponent implements OnInit {
     }
   }
 
-  avanzamentoStep(){
+  avanzamentoStep(idQ){
     if(this.gameComplete){
-      //qui deve notificare gli altri
+      this.visComp.gestisciAvanzamento(undefined);
     }
   }
 
