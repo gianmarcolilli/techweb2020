@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { interval, of } from 'rxjs';
 import { startWith, switchMap } from 'rxjs/operators';
@@ -12,6 +12,7 @@ import { mimeType } from '../visualizza/mime-type.validator';
   styleUrls: ['./visualizza.component.css']
 })
 
+@Injectable()
 export class VisualizzaComponent implements OnInit {
 
   id: number;
