@@ -1,6 +1,9 @@
 const { ViewEncapsulation } = require("@angular/core");
 const express = require("express");
 const { create, db } = require("../models/game");
+const mongoose = require("mongoose");
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
 
 const Game = require("../models/game");
 
@@ -61,11 +64,14 @@ router.put("/:idPartita", (req, res, next) => {
     idPartita: req.params.idPartita,
   }).then((game) => {
     if (game) {
-      if ((req.body.prossimoId!=undefined) && game.variabileOk >= 0 && game.variabileOk < game.numeroPlayer) {
-
+      if (
+        req.body.prossimoId != undefined &&
+        game.variabileOk >= 0 &&
+        game.variabileOk < game.numeroPlayer
+      ) {
         //Se non sono il primo ad entrarci
         if (game.variabileOk > 0) {
-          console.log('sono il n '+(game.variabileOk+1));
+          console.log("sono il n " + (game.variabileOk + 1));
           Game.findOneAndUpdate(
             { idPartita: req.params.idPartita },
             {
@@ -80,20 +86,18 @@ router.put("/:idPartita", (req, res, next) => {
             { new: true }
           )
             .then((result) => {
-              // if (result.n > 0) {
-                res.status(200).json({ message: "Update successful!" , result:result});
-              // } else {
-                // res.status(401).json({ message: "Cannot find game" });
-              // }
+              res
+                .status(200)
+                .json({ message: "Update successful!", result: result });
             })
             .catch((error) => {
               res.status(500).json({
                 message: "Couldn't update game" + "ERRORE: " + error,
               });
             });
-        } else if(game.variabileOk==0){
+        } else if (game.variabileOk == 0) {
           //Se sono il primo a entrarci
-          console.log('sono il primo');
+          console.log("sono il primo");
           Game.findOneAndUpdate(
             { idPartita: req.params.idPartita },
             {
@@ -105,14 +109,12 @@ router.put("/:idPartita", (req, res, next) => {
               nextStepId: req.body.prossimoId,
               variabileOk: 1,
             },
-            {new:true}
+            { new: true }
           )
             .then((result) => {
-              if (result.n > 0) {
-                res.status(200).json({ message: "Update successful!",result : result  });
-              } else {
-                res.status(401).json({ message: "No modifiche applicate" ,result : result });
-              }
+              res
+                .status(200)
+                .json({ message: "Update successful!", result: result });
             })
             .catch((error) => {
               res.status(500).json({
@@ -122,7 +124,7 @@ router.put("/:idPartita", (req, res, next) => {
         }
       } else if (game.variabileOk == game.numeroPlayer) {
         //Se sono l'ultimo a entrarci
-        console.log('sono l ultimooooo');
+        console.log("sono l ultimooooo");
         Game.findOneAndUpdate(
           { idPartita: req.params.idPartita },
           {
@@ -134,14 +136,12 @@ router.put("/:idPartita", (req, res, next) => {
             nextStepId: -1,
             variabileOk: 0,
           },
-          {new:true}
+          { new: true }
         )
           .then((result) => {
-            if (result.n > 0) {
-              res.status(200).json({ message: "Update successful!", result:result });
-            } else {
-              res.status(401).json({ message: "Cannot find game", result:result });
-            }
+            res
+              .status(200)
+              .json({ message: "Update successful!", result: result });
           })
           .catch((error) => {
             res.status(500).json({
