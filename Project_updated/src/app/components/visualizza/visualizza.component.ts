@@ -94,15 +94,15 @@ export class VisualizzaComponent implements OnInit {
             }
 
             if (res.numeroPlayer == res.variabileOk && this.stop == false) {​​
+              console.log('daje');
 
               this.stop = true
               this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe(() => {​​
-
+                this.currentStepId = res.currentStepId
                 this.hoDatoOk = false
                 this.hoProcedutoIo = false
                 this.stop = false
               }​​);
-              this.currentStepId = res.currentStepId
               return
             }​​
 
