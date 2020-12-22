@@ -9,7 +9,7 @@ import { mimeType } from '../visualizza/mime-type.validator';
 @Component({
   selector: 'app-visualizza',
   templateUrl: './visualizza.component.html',
-  styleUrls: ['./visualizza.component.css']
+  styleUrls: ['./visualizza.component.scss']
 })
 
 export class VisualizzaComponent implements OnInit {

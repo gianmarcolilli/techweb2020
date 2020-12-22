@@ -1,13 +1,17 @@
 <app-header [my-title]="'Visualizza'"> </app-header>
 
 <button (click)="refresh()">aggiorna</button>
-<section *ngIf="this.storia">
-  <h1>
-    {{ title }}
-  </h1>
-  <h2>
-    {{ didascalia }}
-  </h2>
+<section id="mainSection" *ngIf="this.storia">
+  <div class="copertinaStoria" *ngIf="this.currentStepId < 0"  [ngStyle]="{'background-image': 'url(/assets/book.png)'}">
+    {{variabileOk }} / {{numeroPlayers}} ciao ciao
+  </div>
+
+    <h1>
+      {{ title }}
+    </h1>
+    <h2>
+      {{ didascalia }}
+    </h2>
 
   <section *ngIf="this.storia.steps">
     <div *ngIf="this.currentStepId != -1">
@@ -52,7 +56,9 @@
         </p> -->
         </ng-container>
       </div>
-      <img *ngIf="this.storia.steps[this.currentStepId].backImg!=''"[src]="this.storia.steps[this.currentStepId].backImg" />
+      <div class="container1">
+        <img *ngIf="this.storia.steps[this.currentStepId].backImg!=''"[src]="this.storia.steps[this.currentStepId].backImg" />
+      </div>
       <div *ngIf="this.storia.steps[currentStepId].action == 'puzzle'">
         <!-- <app-image-puzzle [puzzleUrl]=steps[currentStepId].puzzleUrl>
 
@@ -97,6 +103,5 @@
     {{ startText ? startText : "Inizia" }}
   </button>
 
-  <img *ngIf="this.currentStepId < 0" [src]="this.storia.urlBackground" />
-  {{variabileOk }} / {{numeroPlayers}} ciao ciao
+
 </section>
