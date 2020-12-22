@@ -72,7 +72,13 @@ export class VisualizzaComponent implements OnInit {
             this.numeroPlayers = res.numeroPlayer
             this.variabileOk = res.variabileOk
 
-
+            if (this.currentStepId != res.currentStepId) {
+              this.currentStepId = res.currentStepId
+              this.nextStepId = res.nextStepId
+              this.hoDatoOk = false
+              this.hoProcedutoIo = false
+              return;
+            }
 
             if (this.nextStepId != res.nextStepId && this.hoDatoOk == false && this.hoProcedutoIo == false && this.stop == false) {
               this.stop = true
@@ -80,7 +86,7 @@ export class VisualizzaComponent implements OnInit {
               this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe((risp: any) => {
                 console.log(risp);
                 this.hoDatoOk = true
-                this.nextStepId = risp.nextStepId
+                this.nextStepId = risp.result.nextStepId
                 this.stop = false
               })
               // this.variabileOk
@@ -93,18 +99,20 @@ export class VisualizzaComponent implements OnInit {
               return;
             }
 
-            if (res.numeroPlayer == res.variabileOk && this.stop == false) {​​
+            if (res.numeroPlayer == res.variabileOk && this.stop == false) {
               console.log('daje');
 
               this.stop = true
-              this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe((risp:any) => {​​
-                this.currentStepId = risp.currentStepId
+              this.apiDb.updateGame(this.idPartita, res.nextStepId).subscribe((risp: any) => {
+                this.currentStepId = risp.result.currentStepId
+                this.nextStepId = risp.result.nextStepId
                 this.hoDatoOk = false
                 this.hoProcedutoIo = false
                 this.stop = false
-              }​​);
+              });
+              this.refresh();
               return;
-            }​​
+            }
 
           },
           error => { }
@@ -144,7 +152,9 @@ export class VisualizzaComponent implements OnInit {
         //Avanzamento gioco in modalità squadre
         console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
         this.nextStepId = this.steps[this.currentStepId].correctId;
-        this.hoProcedutoIo == true
+        this.stop = true
+        this.hoProcedutoIo = true
+        this.hoDatoOk = true
         this.notificaAvanzamento(this.nextStepId)
       }
       return
@@ -164,7 +174,9 @@ export class VisualizzaComponent implements OnInit {
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
             this.nextStepId = this.steps[this.currentStepId].correctId;
-            this.hoProcedutoIo == true
+            this.stop = true
+            this.hoProcedutoIo = true
+            this.hoDatoOk = true
             this.notificaAvanzamento(this.nextStepId)
           }
 
@@ -175,7 +187,9 @@ export class VisualizzaComponent implements OnInit {
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
             this.nextStepId = this.steps[this.currentStepId].wrongId;
-            this.hoProcedutoIo == true
+            this.stop = true
+            this.hoProcedutoIo = true
+            this.hoDatoOk = true
             this.notificaAvanzamento(this.nextStepId)
           }
         }
@@ -192,7 +206,9 @@ export class VisualizzaComponent implements OnInit {
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
             this.nextStepId = this.steps[this.currentStepId].correctId;
-            this.hoProcedutoIo == true
+            this.stop = true
+            this.hoProcedutoIo = true
+            this.hoDatoOk = true
             this.notificaAvanzamento(this.nextStepId)
           }
         } else {
@@ -202,7 +218,9 @@ export class VisualizzaComponent implements OnInit {
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
             this.nextStepId = this.steps[this.currentStepId].wrongId;
-            this.hoProcedutoIo == true
+            this.stop = true
+            this.hoProcedutoIo = true
+            this.hoDatoOk = true
             this.notificaAvanzamento(this.nextStepId)
           }
         }
