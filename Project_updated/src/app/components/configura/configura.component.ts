@@ -174,12 +174,12 @@ export class ConfiguraComponent implements OnInit {
         desc: ""
       })
     this.numeroDnd++;
-    console.log('ciaio');
-    for (let i = 0; i < this.numeroDnd; i++) {
-      console.log('ciaio2222');
-      this.tempOrder[i].desc = "";
-      this.tempOrder[i].posizione=i;
-    }
+    // console.log('ciaio');
+    // for (let i = 0; i < this.numeroDnd; i++) {
+    //   console.log('ciaio2222');
+    //   this.tempOrder[i].desc = "";
+    //   this.tempOrder[i].posizione=i;
+    // }
   }
 
   editAttivita(attivita: Step) {
