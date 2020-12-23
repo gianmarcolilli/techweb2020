@@ -3,7 +3,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 import { ActivatedRoute } from '@angular/router';
-import { Step, Storia } from 'src/app/interfaces/storia';
+import { DragDrop, Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { mimeType } from '../autore/mime-type.validator';
 
@@ -27,6 +27,10 @@ export class ConfiguraComponent implements OnInit {
   tempQuizCorrectIdx = -1;
   tempCorrect = 0;
   tempWrong = 0;
+  tempOrder: DragDrop[]=[];
+  tempDDdescrizione = "";
+  tempDDposizione = 0;
+
 
   tempClickToObject: string = '';
   showConfiguraDomanda: boolean = false;
@@ -57,6 +61,15 @@ export class ConfiguraComponent implements OnInit {
     return "titolo"
   }
 
+  aggiungiDD(){
+    let lastIdx = this.tempOrder.length
+    this.tempOrder.push(
+      {
+        posizione: lastIdx,
+        desc: ""
+      }
+    )
+  }
 
   aggiungiAttivita(type: string, id: number = -1) {
     this.flagSalvataggio=true;
@@ -276,6 +289,12 @@ export class ConfiguraComponent implements OnInit {
         validators: [Validators.required]
       }),
       'tempWrong': new FormControl(null, {
+        validators: [Validators.required]
+      }),
+      'tempDDdrescrizione': new FormControl(null, {
+        validators: [Validators.required]
+      }),
+      'tempDDposizione': new FormControl(null, {
         validators: [Validators.required]
       })
 
