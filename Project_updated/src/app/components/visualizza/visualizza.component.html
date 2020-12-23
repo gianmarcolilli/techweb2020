@@ -65,6 +65,10 @@
         </app-image-puzzle>
       </div>
 
+      <div *ngIf="this.storia.steps[currentStepId].action == 'dnd'">
+        <app-dragndrop [order]="this.storia.steps[this.currentStepId].order"></app-dragndrop>
+      </div>
+
       <div *ngIf="this.storia.steps[currentStepId].action == 'domanda'">
         Ecco la domanda a cui rispondere :
         <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>

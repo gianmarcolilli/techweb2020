@@ -110,6 +110,10 @@
     <div *ngIf="tempTipologiaAttivita == 'dnd'" class="example-full-width">
       <mat-label>Inserisci gli elementi da ordinare</mat-label>
 
+      {{this.tempOrder | json}}
+      {{this.storia.steps | json}}
+
+
       <button (click)="aggiornaOrder()">Aggiungi elemento</button>
 
       <div *ngFor="let item of tempOrder;let i = index;trackBy: trackByFn">
