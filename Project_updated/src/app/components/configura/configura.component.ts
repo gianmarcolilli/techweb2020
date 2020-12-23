@@ -27,9 +27,10 @@ export class ConfiguraComponent implements OnInit {
   tempQuizCorrectIdx = -1;
   tempCorrect = 0;
   tempWrong = 0;
-  tempOrder: DragDrop[]=[];
-  tempDDdescrizione = "";
-  tempDDposizione = 0;
+  arrayRisposte: any[];
+  tempOrder: DragDrop[] = [];
+  // tempDDdescrizione = "";
+  // tempDDposizione = 0;
 
 
   tempClickToObject: string = '';
@@ -37,12 +38,12 @@ export class ConfiguraComponent implements OnInit {
   showConfiguraClickToObject: boolean = false;
   tempTipologiaAttivita: string = "";
   numeroRisposte: number;
+  numeroDnd:number=0;
   imagePreview: string;
   rispostaGiusta: string = "";
-  flagSalvataggio=false;
+  flagSalvataggio = false;
 
   form: FormGroup;
-  arrayRisposte: any[];
   constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder) { }
 
 
@@ -51,7 +52,7 @@ export class ConfiguraComponent implements OnInit {
     if (type == "domanda") {
       return "domanda"
     }
-    if (type == "informazione") {
+    if (type == "informazione" || type == "dnd") {
       return "contenuto"
     }
     if (type == "puzzle") {
@@ -61,18 +62,18 @@ export class ConfiguraComponent implements OnInit {
     return "titolo"
   }
 
-  aggiungiDD(){
-    let lastIdx = this.tempOrder.length
-    this.tempOrder.push(
-      {
-        posizione: lastIdx,
-        desc: ""
-      }
-    )
-  }
+  // aggiungiDD() {
+  //   let lastIdx = this.tempOrder.length
+  //   this.tempOrder.push(
+  //     {
+  //       posizione: lastIdx,
+  //       desc: ""
+  //     }
+  //   )
+  // }
 
   aggiungiAttivita(type: string, id: number = -1) {
-    this.flagSalvataggio=true;
+    this.flagSalvataggio = true;
     console.log("sono stato chiamato con tipo =" + type)
     if (type == "domanda") {
       let myActivity = {
@@ -140,7 +141,22 @@ export class ConfiguraComponent implements OnInit {
         this.storia.steps[id] = myActivity
       }
     }
-
+    if (type == "dnd") {
+      let myActivity = {
+        action: 'dnd',
+        activityId: id == -1 ? this.storia.steps.length : id,
+        activityTitle: this.tempContenuto,
+        backImg: this.imagePreview,
+        order: this.tempOrder,
+        correctId: this.tempCorrect,
+        wrongId: this.tempWrong
+      }
+      if (id == -1) {
+        this.storia.steps.push(myActivity)
+      } else {
+        this.storia.steps[id] = myActivity
+      }
+    }
     this.resettaForm()
   }
 
@@ -148,6 +164,21 @@ export class ConfiguraComponent implements OnInit {
     this.arrayRisposte = [];
     for (let i = 0; i < this.numeroRisposte; i++) {
       this.arrayRisposte[i] = "";
+    }
+  }
+
+  aggiornaOrder() {
+    this.tempOrder.push(
+      {
+        posizione: this.numeroDnd,
+        desc: ""
+      })
+    this.numeroDnd++;
+    console.log('ciaio');
+    for (let i = 0; i < this.numeroDnd; i++) {
+      console.log('ciaio2222');
+      this.tempOrder[i].desc = "";
+      this.tempOrder[i].posizione=i;
     }
   }
 
@@ -167,33 +198,21 @@ export class ConfiguraComponent implements OnInit {
       this.tempRisposta = attivita.risposta;
     }
     if (attivita.action == "quiz") {
-
+      this.arrayRisposte = attivita.answers
     }
     if (attivita.action == "puzzle") {
-      this.tempDifficulty = "";
-      this.tempImgPuzzle = "";
+      this.tempDifficulty = attivita.difficulty;
+      this.tempImgPuzzle = attivita.puzzleImg;
     }
-
-
-
-
-
+    if (attivita.action == "dnd") {
+      this.tempOrder = attivita.order;
+    }
   }
+
   eliminaAttivita(activityId: number): void {
     this.storia.steps.splice(activityId, 1);
-    this.flagSalvataggio=true;
+    this.flagSalvataggio = true;
   }
-
-
-
-
-
-  //  salvaModifiche(){
-  //   //chiamare una update , passando dal nostro apidb, dove gli passeremo la nostr storia
-  //   console.log("sto per chiamare l'update passandogli "+ JSON.stringify(this.storia))
-  //   this.api.updateStoria(this.storia.id,this.storia.steps);
-
-  //  }
 
   onSaveActivity() {
     this.aggiungiAttivita(this.tempTipologiaAttivita, this.tempActivityId)
@@ -204,7 +223,7 @@ export class ConfiguraComponent implements OnInit {
     this.api.updateStoria(
       this.storia
     );
-    this.flagSalvataggio=false;
+    this.flagSalvataggio = false;
     this.resettaForm()
   }
 
@@ -220,7 +239,14 @@ export class ConfiguraComponent implements OnInit {
     this.tempQuizCorrectIdx = -1;
     this.tempCorrect = 0;
     this.tempWrong = 0;
-    this.tempClickToObject = '';
+    this.arrayRisposte = [];
+    this.tempOrder = [];
+    // this.tempDDdescrizione = "";
+    // this.tempDDposizione = 0;
+    this.tempTipologiaAttivita = "";
+    this.numeroRisposte=0;
+    this.imagePreview="";
+    this.rispostaGiusta = "";
     this.form.reset()
   }
 
@@ -290,13 +316,8 @@ export class ConfiguraComponent implements OnInit {
       }),
       'tempWrong': new FormControl(null, {
         validators: [Validators.required]
-      }),
-      'tempDDdrescrizione': new FormControl(null, {
-        validators: [Validators.required]
-      }),
-      'tempDDposizione': new FormControl(null, {
-        validators: [Validators.required]
       })
+
 
     });
 
