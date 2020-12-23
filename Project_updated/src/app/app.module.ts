@@ -44,6 +44,7 @@ import { ImagePuzzleComponent } from './components/image-puzzle/image-puzzle.com
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { AuthInterceptor } from "./components/auth/auth-interceptor";
+import { DragndropComponent } from './components/dragndrop/dragndrop.component';
 
 
 @NgModule({
@@ -61,7 +62,8 @@ import { AuthInterceptor } from "./components/auth/auth-interceptor";
     ConfiguraComponent,
     ImagePuzzleComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    DragndropComponent
   ],
   imports: [
     BrowserModule,
