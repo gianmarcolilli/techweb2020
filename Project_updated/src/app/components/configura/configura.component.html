@@ -73,7 +73,7 @@
         <mat-option value="domanda">Domanda</mat-option>
         <mat-option value="quiz">Quiz</mat-option>
         <mat-option value="puzzle">Puzzle</mat-option>
-        <mat-option value="DD">Drag&Drop</mat-option>
+        <mat-option value="dnd">Drag&Drop</mat-option>
       </mat-select>
       <mat-error *ngIf="form.get('tempTipologiaAttivita').invalid">Per favore inserisci tipologia</mat-error>
     </mat-form-field>
@@ -107,16 +107,16 @@
     </mat-form-field>
 
     <!-- TIPOLOGIA Drag&Drop -->
-    <mat-form-field *ngIf="tempTipologiaAttivita == 'DD'" class="example-full-width">
+    <div *ngIf="tempTipologiaAttivita == 'dnd'" class="example-full-width">
       <mat-label>Inserisci gli elementi da ordinare</mat-label>
 
-      <button (click)="aggiungiDD()">Aggiungi elemento</button>
+      <button (click)="aggiornaOrder()">Aggiungi elemento</button>
 
-      <div *ngFor="let item of tempOrder">
-        <input matInput formControlName="tempDDdescrizione" [(ngModel)]="tempDDdescrizione" />
-        <input matInput formControlName="tempDDposizione" [(ngModel)]="tempDDposizione"/>
+      <div *ngFor="let item of tempOrder;let i = index;trackBy: trackByFn">
+        <input [(ngModel)]="tempOrder[i].desc" [ngModelOptions]="{ standalone: true }" />
+        <input [(ngModel)]="tempOrder[i].posizione" [ngModelOptions]="{ standalone: true }"/>
       </div>
-    </mat-form-field>
+    </div>
 
     <!-- TIPOLOGIA : QUIZ | Array Risposte -->
     <div *ngIf="tempTipologiaAttivita == 'quiz'">
