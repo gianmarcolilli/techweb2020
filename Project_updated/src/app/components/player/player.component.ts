@@ -29,12 +29,6 @@ export class PlayerComponent implements OnInit {
   alerts = [];
   squadre: Squadra[] = []
   idClasseUsati = 0;
-
-  // dimensioniPreferite = [2, 3, 4, 5
-  // ];
-
-  // nDimensionePreferita: number = -1;
-  // resto = 0;
   nSquadre = -1;
   nPartecipanti = -1;
   nPartecipantiAggiunti = 0;
@@ -48,7 +42,6 @@ export class PlayerComponent implements OnInit {
     })
   }
 
-
   aggiungiPlayer(idSquadra) {
     if (this.nPartecipantiAggiunti + 1 > this.nPartecipanti) return;
     if (this.squadre[idSquadra].players.length + 1 > MAXPARTECIPANTI) return;
@@ -57,20 +50,15 @@ export class PlayerComponent implements OnInit {
     for (let i = 0; i < this.checkPartecipanti.length; i++) {
       if (this.checkPartecipanti[i] == false) {
         this.squadre[idSquadra].players.push(
-          'playo' + i
+          'player' + i
         )
         this.checkPartecipanti[i] = true;
         i = this.checkPartecipanti.length
       }
     }
-
-    // this.squadre[idSquadra].players.push(
-    //   'playo' + this.nPartecipantiAggiunti
-    // )
-
     this.nPartecipantiAggiunti += 1
-
   }
+
   rimuoviPlayer(idSquadra) {
     var posDaRimuovere = this.squadre[idSquadra].players.pop();
     this.nPartecipantiAggiunti--
@@ -127,7 +115,6 @@ export class PlayerComponent implements OnInit {
   }
 
   nPartecipantiChanged() {
-    // if(!this.nDimensionePreferita) return;
     this.contatore=0;
 
     for (let i = 0; i < this.nPartecipanti; i++) {
@@ -142,24 +129,16 @@ export class PlayerComponent implements OnInit {
       this.nSquadre = minNGruppi
     }
 
-    let maxNGruppi = Math.trunc(this.nPartecipanti / MINPARTECIPANTI)
+    // let maxNGruppi = Math.trunc(this.nPartecipanti / MINPARTECIPANTI)
     this.azzeraSquadre()
     for (let i = 0; i < this.nSquadre; i++) {
       this.aggiungiSquadra()
       this.aggiungiPartecipanti(MINPARTECIPANTI, i)
     }
-
-
-
-    // if(this.nPartecipanti > 0) { //check aggiuntivo su n partecipanti
-    // this.nSquadre = Math.trunc(this.nPartecipanti / MAXPARTECIPANTI)
-    // let personeAssegnate = this.nSquadre * MAXPARTECIPANTI
-    // this.personeSquadra = personeAssegnate / this.nSquadre
-
   }
 
   playClick() {
-    if (this.fasciaEta == '' || this.traccia == -1 || this.tipologiaGruppo == "") {//check campi
+    if (this.fasciaEta == '' || this.traccia == -1 || this.tipologiaGruppo == "") {
       this.showFormError()
     } else if (this.tipologiaGruppo == "classe" && this.nPartecipantiAggiunti < this.nPartecipanti) {
       this.showFormError()
@@ -168,7 +147,6 @@ export class PlayerComponent implements OnInit {
     }
 
     if(this.tipologiaGruppo!="individuale"){
-
       this.apiDb.getGames().subscribe( conta => {
         let numeroGame = conta.maxPosts
         for (let i = 0; i < this.squadre.length; i++) {
@@ -181,27 +159,23 @@ export class PlayerComponent implements OnInit {
         this.idClasseUsati++
       })
     }
-
   }
+
   iniziaPartita(id: number, idPartita:number = -1): void {
 
     if(idPartita!=-1){
       console.log('anche qua arrivati siamo con id partita '+ idPartita);
       this.router.navigateByUrl('visualizza/'+id+'/'+idPartita);
-
     }else {
       this.router.navigateByUrl('visualizza/' + id);
     }
-
   }
 
 
   constructor(private apiDb: DummyApiService, private activeRoute: ActivatedRoute, private router: Router) {
     for (let i = 15; i <= 25; i++) {
       this.dimensioni.push(i)
-
     }
-
   }
 
   close() {
@@ -233,7 +207,6 @@ export class PlayerComponent implements OnInit {
     if(this.activeRoute.snapshot.params.mode == 'autoplay'){
       this.iniziaPartita(this.traccia)
     }
-
     this.getStories();
   }
 

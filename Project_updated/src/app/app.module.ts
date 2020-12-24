@@ -35,7 +35,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PlayerComponent } from './components/player/player.component';
 import { NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QRCodeModule } from 'angularx-qrcode';
-import { LobbyComponent } from './components/lobby/lobby.component';
 import { SquadreNamePipe } from './pipes/squadre-name.pipe';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
@@ -57,7 +56,6 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     ModificaComponent,
     HeaderComponent,
     PlayerComponent,
-    LobbyComponent,
     SquadreNamePipe,
     ConfiguraComponent,
     ImagePuzzleComponent,

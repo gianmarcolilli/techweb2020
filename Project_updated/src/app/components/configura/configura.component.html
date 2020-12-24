@@ -94,9 +94,9 @@
     <mat-form-field *ngIf="tempTipologiaAttivita != ''" class="example-full-width">
       <mat-label>
         {{ getTitleTranslation(tempTipologiaAttivita) | titlecase }}</mat-label>
-      <input matInput type="text" formControlName="tempContenuto" [(ngModel)]="tempContenuto" [placeholder]="
+      <textarea  matInput type="text" formControlName="tempContenuto" [(ngModel)]="tempContenuto" [placeholder]="
           'Inserisci ' + getTitleTranslation(tempTipologiaAttivita)
-        " />
+        " ></textarea>
     </mat-form-field>
 
     <!-- TIPOLOGIA : DOMANDA | Risposta Corretta-->
@@ -109,11 +109,6 @@
     <!-- TIPOLOGIA Drag&Drop -->
     <div *ngIf="tempTipologiaAttivita == 'dnd'" class="example-full-width">
       <mat-label>Inserisci gli elementi da ordinare</mat-label>
-
-      {{this.tempOrder | json}}
-      {{this.storia.steps | json}}
-
-
       <button (click)="aggiornaOrder()">Aggiungi elemento</button>
 
       <div *ngFor="let item of tempOrder;let i = index;trackBy: trackByFn">
