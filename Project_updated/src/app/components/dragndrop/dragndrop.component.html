@@ -1,3 +1,10 @@
 <div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
-  <div class="example-box" *ngFor="let timePeriod of timePeriods" cdkDrag>{{timePeriod}}</div>
+  <div class="example-box" *ngFor="let item of this.order" cdkDrag>{{item.desc}}</div>
+</div>
+<div class="successMessage" *ngIf="isCompleted">
+  Game Complete. <br>
+  You completed the game in time =  {{steps }} steps.
+  <button mat-fab color="primary" class="my-fab-button" >
+    <mat-icon (click)="avanzamentoStep()">play_arrow</mat-icon>
+  </button>
 </div>

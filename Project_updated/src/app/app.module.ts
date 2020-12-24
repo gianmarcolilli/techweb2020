@@ -45,7 +45,7 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { AuthInterceptor } from "./components/auth/auth-interceptor";
 import { DragndropComponent } from './components/dragndrop/dragndrop.component';
-
+import {DragDropModule} from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -94,6 +94,7 @@ import { DragndropComponent } from './components/dragndrop/dragndrop.component';
     MatFormFieldModule,
     MatStepperModule,
     MatSnackBarModule,
+    DragDropModule,
 
     NgbModule,
     NgbAlertModule,
