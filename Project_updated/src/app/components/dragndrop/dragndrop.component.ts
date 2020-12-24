@@ -38,7 +38,6 @@ export class DragndropComponent implements OnInit {
       }
     }
     return complete
-
   }
 
   ngOnInit(): void {

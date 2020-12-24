@@ -174,12 +174,6 @@ export class ConfiguraComponent implements OnInit {
         desc: ""
       })
     this.numeroDnd++;
-    // console.log('ciaio');
-    // for (let i = 0; i < this.numeroDnd; i++) {
-    //   console.log('ciaio2222');
-    //   this.tempOrder[i].desc = "";
-    //   this.tempOrder[i].posizione=i;
-    // }
   }
 
   editAttivita(attivita: Step) {
@@ -189,7 +183,7 @@ export class ConfiguraComponent implements OnInit {
     this.tempTipologiaAttivita = attivita.action;
     this.tempCorrect = attivita.correctId;
     this.tempWrong = attivita.wrongId;
-    this.tempActivityId = attivita.activityId
+    this.tempActivityId = attivita.activityId;
 
     console.log("corretto = " + this.tempCorrect + " sbagliato = " + this.tempWrong);
 
@@ -201,6 +195,11 @@ export class ConfiguraComponent implements OnInit {
       this.arrayRisposte = attivita.answers
     }
     if (attivita.action == "puzzle") {
+      if (attivita.puzzleImg.charAt(0)=='d') {
+        this.tempTipoUpload="locale"
+      } else if (attivita.puzzleImg.charAt(0)=='w'){
+        this.tempTipoUpload="web"
+      }
       this.tempDifficulty = attivita.difficulty;
       this.tempImgPuzzle = attivita.puzzleImg;
     }
