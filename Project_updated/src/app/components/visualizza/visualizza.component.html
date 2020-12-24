@@ -2,9 +2,43 @@
 
 <button (click)="refresh()">aggiorna</button>
 <section id="mainSection" *ngIf="this.storia">
-  <div class="copertinaStoria" *ngIf="this.currentStepId < 0"  [ngStyle]="{'background-image': 'url(/assets/book.png)'}">
-    {{variabileOk }} / {{numeroPlayers}} ciao ciao
-  </div>
+  <mat-grid-list cols="6" rowHeight="20vw" [ngStyle]="{'background-image': 'url(/assets/book.png)','background-size' : 'contain','background-repeat' : 'no-repeat'}">
+    <mat-grid-tile
+        colspan="1"
+        rowspan="1"
+        >
+        <img [src]="(this.storia.urlBackground)">
+        {{variabileOk }}
+    </mat-grid-tile>
+    <mat-grid-tile
+        colspan="4"
+        rowspan="2"
+        *ngIf="this.currentStepId < 0">
+
+        {{variabileOk }} / {{numeroPlayers}} ciao ciao
+    </mat-grid-tile>
+    <mat-grid-tile
+        colspan="1"
+        rowspan="1"
+        style="background-color: rgb(92, 0, 128);">
+        {{variabileOk }}
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list cols="4" rowHeight="25vw">
+    <mat-grid-tile
+        colspan="1"
+        rowspan="1"
+        style="background-color: green;">
+        {{variabileOk }}
+    </mat-grid-tile>
+    <mat-grid-tile
+        colspan="1"
+        rowspan="1"
+        style="background-color: rgb(92, 0, 128);">
+        {{variabileOk }}
+    </mat-grid-tile>
+  </mat-grid-list>
 
     <h1>
       {{ title }}
