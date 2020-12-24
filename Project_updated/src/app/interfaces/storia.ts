@@ -9,7 +9,8 @@ export interface Step {
   //QUIZ
   quizCorrectIdx?:number,
   answers? : String[],
-
+  //D&D
+  order?:DragDrop[],
 
   chatMessages? : string[],
   correctId :  number,
@@ -35,7 +36,10 @@ export interface Storia {
 
 }
 
-
+export interface DragDrop{
+  posizione: number,
+  desc: string
+}
 
 
 // manageClick(clickedObjiect)

@@ -145,7 +145,7 @@ export class VisualizzaComponent implements OnInit {
   gestisciAvanzamento(idQuiz) {
     if (this.currentStepId == -1) return
 
-    if (this.storia.steps[this.currentStepId].action == "informazione" || this.storia.steps[this.currentStepId].action == "puzzle") {
+    if (this.storia.steps[this.currentStepId].action == "informazione" || this.storia.steps[this.currentStepId].action == "puzzle" || this.storia.steps[this.currentStepId].action == "dnd") {
       //Avanzamento in gioco modalità singolo
       if (this.idPartita == -1) {
         this.currentStepId = this.steps[this.currentStepId].correctId

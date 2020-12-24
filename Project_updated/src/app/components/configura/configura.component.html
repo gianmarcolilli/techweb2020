@@ -6,26 +6,18 @@
 <mat-card *ngIf="storia">
   <mat-card-header>
     {{ storia.nome }}
-    <button *ngIf="flagSalvataggio==true"
-    class="f-r"
-    mat-raised-button
-    color="primary"
-    (click)="onSaveStory()"
-  >
-    Salva storia
-  </button>
+    <button *ngIf="flagSalvataggio==true" class="f-r" mat-raised-button color="primary" (click)="onSaveStory()">
+      Salva storia
+    </button>
   </mat-card-header>
   <mat-card-content>
-    <img
-      [src]="storia.urlBackground"
-      [alt]="'  immagine sfondo di  ' + storia.nome"
-    />
+    <img [src]="storia.urlBackground" [alt]="'  immagine sfondo di  ' + storia.nome" />
     <table>
       <tr *ngFor="let act of storia.steps; index as j">
         <td>
           # {{ j }} <b> Attivita n. </b> {{ act.activityId }}
           <b> Contenuto : </b> {{ act.activityTitle }} <b>Tipologia : </b> ({{
-            act.action
+          act.action
           }})
         </td>
         <td *ngIf="act.action == 'domanda'">
@@ -40,11 +32,13 @@
         <td>
           <b>
             Id errato :
-          </b>{{ act.wrongId }}</td>
+          </b>{{ act.wrongId }}
+        </td>
         <td>
           <b>
             Id corretto :
-          </b>{{ act.correctId }}</td>
+          </b>{{ act.correctId }}
+        </td>
 
         <td>{{ act.quizCorrectIdx ? act.quizCorrectIdx : "" }}</td>
         <td>
@@ -79,91 +73,73 @@
         <mat-option value="domanda">Domanda</mat-option>
         <mat-option value="quiz">Quiz</mat-option>
         <mat-option value="puzzle">Puzzle</mat-option>
+        <mat-option value="dnd">Drag&Drop</mat-option>
       </mat-select>
-      <mat-error *ngIf="form.get('tempTipologiaAttivita').invalid"
-        >Per favore inserisci tipologia</mat-error
-      >
+      <mat-error *ngIf="form.get('tempTipologiaAttivita').invalid">Per favore inserisci tipologia</mat-error>
     </mat-form-field>
 
     <!-- TIPOLOGIA : QUIZ | Numero Risposte -->
-    <mat-form-field
-      *ngIf="tempTipologiaAttivita == 'quiz'"
-      class="example-full-width"
-    >
+    <mat-form-field *ngIf="tempTipologiaAttivita == 'quiz'" class="example-full-width">
       <mat-label>Numero Risposte</mat-label>
-      <mat-select
-        matNativeControl
-        (selectionChange)="aggiornaArrayRisposte()"
-        [(value)]="numeroRisposte"
-      >
+      <mat-select matNativeControl (selectionChange)="aggiornaArrayRisposte()" [(value)]="numeroRisposte">
         <mat-option value="2">2</mat-option>
         <mat-option value="3">3</mat-option>
         <mat-option value="4">4</mat-option>
       </mat-select>
 
-      <mat-error *ngIf="form.get('numeroRisposte').invalid"
-        >Perfavore so pazzo inserisci un nu numero</mat-error
-      >
+      <mat-error *ngIf="form.get('numeroRisposte').invalid">Perfavore so pazzo inserisci un nu numero</mat-error>
     </mat-form-field>
 
     <!-- CONTENUTO PER QUALSIASI TIPOLOGIA -->
-    <mat-form-field
-      *ngIf="tempTipologiaAttivita != ''"
-      class="example-full-width"
-    >
+    <mat-form-field *ngIf="tempTipologiaAttivita != ''" class="example-full-width">
       <mat-label>
-        {{ getTitleTranslation(tempTipologiaAttivita) | titlecase }}</mat-label
-      >
-      <input
-        matInput
-        type="text"
-        formControlName="tempContenuto"
-        [(ngModel)]="tempContenuto"
-        [placeholder]="
+        {{ getTitleTranslation(tempTipologiaAttivita) | titlecase }}</mat-label>
+      <input matInput type="text" formControlName="tempContenuto" [(ngModel)]="tempContenuto" [placeholder]="
           'Inserisci ' + getTitleTranslation(tempTipologiaAttivita)
-        "
-      />
+        " />
     </mat-form-field>
 
     <!-- TIPOLOGIA : DOMANDA | Risposta Corretta-->
-    <mat-form-field
-      *ngIf="tempTipologiaAttivita == 'domanda'"
-      class="example-full-width"
-    >
+    <mat-form-field *ngIf="tempTipologiaAttivita == 'domanda'" class="example-full-width">
       <mat-label>Risposta</mat-label>
-      <input
-        matInput
-        formControlName="tempRisposta"
-        [(ngModel)]="tempRisposta"
-        placeholder="Inserisci qui la risposta corretta"
-      />
+      <input matInput formControlName="tempRisposta" [(ngModel)]="tempRisposta"
+        placeholder="Inserisci qui la risposta corretta" />
     </mat-form-field>
+
+    <!-- TIPOLOGIA Drag&Drop -->
+    <div *ngIf="tempTipologiaAttivita == 'dnd'" class="example-full-width">
+      <mat-label>Inserisci gli elementi da ordinare</mat-label>
+
+      {{this.tempOrder | json}}
+      {{this.storia.steps | json}}
+
+
+      <button (click)="aggiornaOrder()">Aggiungi elemento</button>
+
+      <div *ngFor="let item of tempOrder;let i = index;trackBy: trackByFn">
+        <input [(ngModel)]="tempOrder[i].desc" [ngModelOptions]="{ standalone: true }" />
+        <input [(ngModel)]="tempOrder[i].posizione" [ngModelOptions]="{ standalone: true }"/>
+      </div>
+    </div>
 
     <!-- TIPOLOGIA : QUIZ | Array Risposte -->
     <div *ngIf="tempTipologiaAttivita == 'quiz'">
-      <mat-radio-group
-        [(ngModel)]="tempQuizCorrectIdx"
-        [ngModelOptions]="{ standalone: true }"
-        ngmodelaria-label="Select an option"
-      >
+      <mat-radio-group [(ngModel)]="tempQuizCorrectIdx" [ngModelOptions]="{ standalone: true }"
+        ngmodelaria-label="Select an option">
         <div>
           <mat-label>Inserisci la risposta</mat-label>
-          <div
-            *ngFor="
+          <div *ngFor="
               let item of arrayRisposte;
               let i = index;
               trackBy: trackByFn
-            "
-          >
+            ">
             <mat-radio-button [value]="i"> </mat-radio-button>
-            <input
-              [(ngModel)]="arrayRisposte[i]"
-              [ngModelOptions]="{ standalone: true }"
-            />
+            <input [(ngModel)]="arrayRisposte[i]" [ngModelOptions]="{ standalone: true }" />
           </div>
         </div>
       </mat-radio-group>
     </div>
+
 
     <!-- TIPOLOGIA : PUZZLE -->
     <section *ngIf="tempTipologiaAttivita == 'puzzle'">
@@ -172,23 +148,12 @@
       <!-- Risorsa Web o Locale -->
       <div class="difficulty-levels">
         <div class="input-group">
-          <input
-            type="radio"
-            [(ngModel)]="tempTipoUpload"
-            name="upload"
-            value="web"
-            checked
-            [ngModelOptions]="{ standalone: true }"
-          />Risorsa Web
+          <input type="radio" [(ngModel)]="tempTipoUpload" name="upload" value="web" checked
+            [ngModelOptions]="{ standalone: true }" />Risorsa Web
         </div>
         <div class="input-group">
-          <input
-            type="radio"
-            [(ngModel)]="tempTipoUpload"
-            name="upload"
-            value="locale"
-            [ngModelOptions]="{ standalone: true }"
-          />File Locale
+          <input type="radio" [(ngModel)]="tempTipoUpload" name="upload" value="locale"
+            [ngModelOptions]="{ standalone: true }" />File Locale
         </div>
       </div>
 
@@ -197,34 +162,18 @@
           <span class="input-group-btn">
             <div class="btn btn-default">Image Url!</div>
           </span>
-          <input
-            type="url"
-            class="form-control"
-            placeholder="Image Url..."
-            [(ngModel)]="tempImgPuzzle"
-            [ngModelOptions]="{ standalone: true }"
-          />
+          <input type="url" class="form-control" placeholder="Image Url..." [(ngModel)]="tempImgPuzzle"
+            [ngModelOptions]="{ standalone: true }" />
         </div>
       </div>
       <div *ngIf="tempTipoUpload == 'locale'">
         <div>
-          <button
-            mat-stroked-button
-            type="button"
-            (click)="puzzlePicker.click()"
-          >
+          <button mat-stroked-button type="button" (click)="puzzlePicker.click()">
             Pick Image
           </button>
-          <input
-            type="file"
-            #puzzlePicker
-            (change)="onImagePicked($event, 'puzzle')"
-          />
+          <input type="file" #puzzlePicker (change)="onImagePicked($event, 'puzzle')" />
         </div>
-        <div
-          class="puzzle-preview"
-          *ngIf="tempImgPuzzle !== '' && tempImgPuzzle"
-        >
+        <div class="puzzle-preview" *ngIf="tempImgPuzzle !== '' && tempImgPuzzle">
           <img [src]="tempImgPuzzle" alt="puzzleImg" />
         </div>
       </div>
@@ -233,32 +182,16 @@
       <h3>Difficulty Level</h3>
       <div class="difficulty-levels">
         <div class="input-group">
-          <input
-            type="radio"
-            [(ngModel)]="tempDifficulty"
-            name="difficulty"
-            value="2"
-            checked
-            [ngModelOptions]="{ standalone: true }"
-          />Low
+          <input type="radio" [(ngModel)]="tempDifficulty" name="difficulty" value="2" checked
+            [ngModelOptions]="{ standalone: true }" />Low
         </div>
         <div class="input-group">
-          <input
-            type="radio"
-            [(ngModel)]="tempDifficulty"
-            name="difficulty"
-            value="3"
-            [ngModelOptions]="{ standalone: true }"
-          />Medium
+          <input type="radio" [(ngModel)]="tempDifficulty" name="difficulty" value="3"
+            [ngModelOptions]="{ standalone: true }" />Medium
         </div>
         <div class="input-group">
-          <input
-            type="radio"
-            [(ngModel)]="tempDifficulty"
-            name="difficulty"
-            value="4"
-            [ngModelOptions]="{ standalone: true }"
-          />High
+          <input type="radio" [(ngModel)]="tempDifficulty" name="difficulty" value="4"
+            [ngModelOptions]="{ standalone: true }" />High
         </div>
       </div>
     </section>
@@ -266,36 +199,22 @@
     <!-- Scelta attività successiva in caso di risposta corretta/errata -->
     <mat-form-field class="example-full-width">
       <mat-label>Corretto</mat-label>
-      <mat-select
-        [(ngModel)]="tempCorrect"
-        formControlName="tempCorrect"
-        [(value)]="tempCorrect"
-        panelClass="correct"
-      >
+      <mat-select [(ngModel)]="tempCorrect" formControlName="tempCorrect" [(value)]="tempCorrect" panelClass="correct">
         <mat-option *ngFor="let act of storia.steps" [value]="act.activityId">
           {{ act.activityId }} : {{ act.activityTitle }}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="form.get('tempCorrect').invalid"
-        >Per favore inserisci idcoretto</mat-error
-      >
+      <mat-error *ngIf="form.get('tempCorrect').invalid">Per favore inserisci idcoretto</mat-error>
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
       <mat-label>Sbagliato</mat-label>
-      <mat-select
-        [(ngModel)]="tempWrong"
-        formControlName="tempWrong"
-        [(value)]="tempWrong"
-        panelClass="wrong"
-      >
+      <mat-select [(ngModel)]="tempWrong" formControlName="tempWrong" [(value)]="tempWrong" panelClass="wrong">
         <mat-option *ngFor="let act of storia.steps" [value]="act.activityId">
           {{ act.activityId }} : {{ act.activityTitle }}
         </mat-option>
       </mat-select>
-      <mat-error *ngIf="form.get('tempWrong').invalid"
-        >Per favore inserisci iderrato</mat-error
-      >
+      <mat-error *ngIf="form.get('tempWrong').invalid">Per favore inserisci iderrato</mat-error>
     </mat-form-field>
 
     <!-- Associazione immagine ad attività -->
@@ -305,10 +224,7 @@
     </mat-form-field>
     <mat-form-field class="example-full-width">
       <mat-label>Alt immagine</mat-label>
-      <input
-        matInput
-        placeholder="Inserisci qui il testo alternativo per il'immagine"
-      />
+      <input matInput placeholder="Inserisci qui il testo alternativo per il'immagine" />
     </mat-form-field>
     <div>
       <button mat-stroked-button type="button" (click)="filePicker.click()">
@@ -317,28 +233,15 @@
       <input type="file" #filePicker (change)="onImagePicked($event)" />
     </div>
     <div>
-      <input
-      type="url"
-      class="form-control"
-      placeholder="Image Url..."
-      [(ngModel)]="imagePreview"
-      [ngModelOptions]="{ standalone: true }"
-    />
+      <input type="url" class="form-control" placeholder="Image Url..." [(ngModel)]="imagePreview"
+        [ngModelOptions]="{ standalone: true }" />
     </div>
-    <div
-
-      class="image-preview"
-      *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid"
-    >
+    <div class="image-preview" *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid">
       <img [src]="imagePreview" [alt]="form.value.title" />
     </div>
 
-    <button
-      *ngIf="this.tempActivityId == -1"
-      mat-raised-button
-      color="primary"
-      (click)="aggiungiAttivita(tempTipologiaAttivita)"
-    >
+    <button *ngIf="this.tempActivityId == -1" mat-raised-button color="primary"
+      (click)="aggiungiAttivita(tempTipologiaAttivita)">
       Aggiungi Attività
     </button>
 
@@ -346,11 +249,7 @@
       <button mat-raised-button color="primary" (click)="onSaveActivity()">
         Salva modifiche
       </button>
-      <button
-        mat-raised-button
-        color="danger"
-        (click)="tempActivityId = -1; this.form.reset()"
-      >
+      <button mat-raised-button color="danger" (click)="tempActivityId = -1; this.form.reset()">
         ESCI
       </button>
     </div>
