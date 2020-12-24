@@ -17,6 +17,7 @@ const storySchema = mongoose.Schema({
       difficulty : { type: String},
       answers : {type: Array},
       quizCorrectIdx: {type: Number},
+      order: {type: Array},
       chatMessages : {type: Array},
       correctId :  {type: Number,required:true},
       wrongId: {type: Number,required:true},
