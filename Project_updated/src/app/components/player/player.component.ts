@@ -42,6 +42,22 @@ export class PlayerComponent implements OnInit {
     })
   }
 
+  popolaDimensioni(tipo:string){
+    this.dimensioni = []
+    if(tipo=='classe'){
+      console.log('classe');
+
+      for (let i = 15; i <= 25; i++) {
+        this.dimensioni.push(i)
+      }
+    } else if(tipo=='gruppo') {
+      console.log('gruppo');
+      for (let i = 2; i <= 5; i++) {
+        this.dimensioni.push(i)
+      }
+    }
+  }
+
   aggiungiPlayer(idSquadra) {
     if (this.nPartecipantiAggiunti + 1 > this.nPartecipanti) return;
     if (this.squadre[idSquadra].players.length + 1 > MAXPARTECIPANTI) return;
@@ -172,11 +188,7 @@ export class PlayerComponent implements OnInit {
   }
 
 
-  constructor(private apiDb: DummyApiService, private activeRoute: ActivatedRoute, private router: Router) {
-    for (let i = 15; i <= 25; i++) {
-      this.dimensioni.push(i)
-    }
-  }
+  constructor(private apiDb: DummyApiService, private activeRoute: ActivatedRoute, private router: Router) {}
 
   close() {
     this.alerts = []
@@ -209,9 +221,6 @@ export class PlayerComponent implements OnInit {
     }
     this.getStories();
   }
-
-
-
 
 
 }
