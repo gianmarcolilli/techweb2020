@@ -156,13 +156,12 @@
 
     <div class="container5" *ngIf="fasciaEta != ''">
       <form aria-label="Select an option" *ngFor="let storia of storie">
-        <div class="card">
+        <div class="card" *ngIf="storia.fasciaEta == fasciaEta">
           <input
             [id]="storia.id"
             name="traccia"
             type="radio"
             [value]="storia.id"
-            *ngIf="storia.fasciaEta == fasciaEta"
             [(ngModel)]="traccia"
           />
           <label [for]="storia.id">
