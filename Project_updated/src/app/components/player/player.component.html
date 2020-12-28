@@ -88,9 +88,12 @@
         </div>
         <div class="content">
           <h4>Giocatori: </h4>
-            <p *ngFor="let player of squadra.players">
-              {{ player }}
-            </p>
+          <ul>
+            <li *ngFor="let player of squadra.players">
+             <p>{{ player }}</p>
+             </li>
+            </ul>
+
         </div>
           <button class="btn-add" *ngIf="this.nPartecipantiAggiunti<this.nPartecipanti"
               mat-stroked-button
