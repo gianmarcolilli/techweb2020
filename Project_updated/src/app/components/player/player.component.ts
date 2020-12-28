@@ -59,8 +59,8 @@ export class PlayerComponent implements OnInit {
   }
 
   aggiungiPlayer(idSquadra) {
-    if (this.nPartecipantiAggiunti + 1 > this.nPartecipanti) return;
-    if (this.squadre[idSquadra].players.length + 1 > MAXPARTECIPANTI) return;
+    // if (this.nPartecipantiAggiunti + 1 > this.nPartecipanti) return;
+    // if (this.squadre[idSquadra].players.length + 1 > MAXPARTECIPANTI) return;
 
 
     for (let i = 0; i < this.checkPartecipanti.length; i++) {
@@ -68,17 +68,17 @@ export class PlayerComponent implements OnInit {
         this.squadre[idSquadra].players.push(
           'player' + i
         )
+        this.nPartecipantiAggiunti += 1
         this.checkPartecipanti[i] = true;
         i = this.checkPartecipanti.length
       }
     }
-    this.nPartecipantiAggiunti += 1
   }
 
   rimuoviPlayer(idSquadra) {
     var posDaRimuovere = this.squadre[idSquadra].players.pop();
     this.nPartecipantiAggiunti--
-    this.checkPartecipanti[(posDaRimuovere.substring(5, 7))] = false
+    this.checkPartecipanti[(posDaRimuovere.substring(6, 8))] = false
   }
 
   azzeraSquadre() {
@@ -127,7 +127,6 @@ export class PlayerComponent implements OnInit {
     for (let index = 0; index < numPartecipanti; index++) {
       this.aggiungiPlayer(idS)
     }
-
   }
 
   nPartecipantiChanged() {
