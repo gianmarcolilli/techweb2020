@@ -57,7 +57,7 @@
         (ngModelChange)="nPartecipantiChanged()"
       >
         <mat-option *ngFor="let dimensione of dimensioni" [value]="dimensione">
-         {{ dimensione }} studenti
+          {{ dimensione }} studenti
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -106,141 +106,175 @@
             </button>
         </div>
       </div>
-  </section> <!-- fine sec2 -->
+    </div>
+  </section>
+  <!-- fine sec2 -->
 
-  <!-- personeSquadra = {{ personeSquadra }} -->
-  <!-- num squadre = {{ this.nSquadre }}
-  numer partecipanti {{this.nPartecipanti}} -->
-  <!-- siamo tutti in squadra ? {{ personeSquadra * this.nSquadre == this.nPartecipanti }} -->
-<section id="sec3">
-  <div class="container4">
-    <form aria-label="Select an option"
-    (click)="traccia = -1">
-      <div class="card">
-          <input type="radio" name="fasciaEta" id="7-10" value="fasciaUno" [(ngModel)]="fasciaEta">
-          <label class=""  for="7-10">
-          <h5>7 - 10 anni</h5>
+  <section id="sec3">
+    <div class="container4">
+      <form aria-label="Select an option" (click)="traccia = -1">
+        <div class="card">
+          <input
+            type="radio"
+            name="fasciaEta"
+            id="7-10"
+            value="fasciaUno"
+            [(ngModel)]="fasciaEta"
+          />
+          <label class="" for="7-10">
+            <h5>7 - 10 anni</h5>
           </label>
         </div>
 
-      <div class="card">
-          <input type="radio" name="fasciaEta" id="11-14" value="fasciaDue" [(ngModel)]="fasciaEta">
-          <label class=""  for="11-14">
-          <h5>11 - 14 anni</h5>
+        <div class="card">
+          <input
+            type="radio"
+            name="fasciaEta"
+            id="11-14"
+            value="fasciaDue"
+            [(ngModel)]="fasciaEta"
+          />
+          <label class="" for="11-14">
+            <h5>11 - 14 anni</h5>
           </label>
         </div>
 
-      <div class="card">
-          <input type="radio" name="fasciaEta" id="15-18" value="fasciaTre" [(ngModel)]="fasciaEta">
-          <label class=""  for="15-18">
-          <h5>15 - 18 anni</h5>
+        <div class="card">
+          <input
+            type="radio"
+            name="fasciaEta"
+            id="15-18"
+            value="fasciaTre"
+            [(ngModel)]="fasciaEta"
+          />
+          <label class="" for="15-18">
+            <h5>15 - 18 anni</h5>
           </label>
         </div>
+      </form>
+    </div>
 
-    </form>
-  </div>
-
-  <div class="container5" *ngIf="fasciaEta != ''">
+    <div class="container5" *ngIf="fasciaEta != ''">
       <form aria-label="Select an option" *ngFor="let storia of storie">
-        <div class="card"  >
+        <div class="card">
           <input
             [id]="storia.id"
             name="traccia"
             type="radio"
             [value]="storia.id"
             *ngIf="storia.fasciaEta == fasciaEta"
-            [(ngModel)]="traccia">
-            <label [for]="storia.id">
-              <h4>{{ storia.title}}</h4>
-              <img [src]="storia.urlBackground">
-            </label>
+            [(ngModel)]="traccia"
+          />
+          <label [for]="storia.id">
+            <h4>{{ storia.title }}</h4>
+            <img [src]="storia.urlBackground" />
+          </label>
         </div>
       </form>
-  </div>
-</section>
+    </div>
+  </section>
   <hr />
-<div class="container6">
-  <mat-card>
-    <mat-card-title> Riepilogo </mat-card-title>
-    <mat-card-content>
-      <h4>Gruppo : {{ tipologiaGruppo }}</h4>
-      <h4>Fascia di età : {{ fasciaEta }}</h4>
-      <br />
-      <span *ngIf="traccia != -1">
-        <h4>Traccia: {{ traccia }}</h4>
+  <div class="container6">
+    <mat-card>
+      <mat-card-title> Riepilogo </mat-card-title>
+      <mat-card-content>
+        <h4>Gruppo : {{ tipologiaGruppo }}</h4>
+        <h4>Fascia di età : {{ fasciaEta }}</h4>
         <br />
-        <qrcode
-          *ngIf="
-            tipologiaGruppo == 'individuale' || tipologiaGruppo == 'gruppo'"
-          [qrdata]="
-            'http://localhost:4200/player/'+
-            tipologiaGruppo +
-            '/' +
-            fasciaEta +
-            '/' + traccia + '/autoplay'
-          "
-          [width]="256"
-          [errorCorrectionLevel]="'M'"
-        ></qrcode>
-  <button mat-raised-button color="success" (click)="iniziaPartita(this.traccia)">Inizia Partita</button>
-
-      </span>
-    </mat-card-content>
-  </mat-card>
-</div>
+        <span *ngIf="traccia != -1">
+          <h4>Traccia: {{ traccia }}</h4>
+          <br />
+          <qrcode
+            *ngIf="
+              tipologiaGruppo == 'individuale' || tipologiaGruppo == 'gruppo'
+            "
+            [qrdata]="
+              'http://localhost:4200/player/' +
+              tipologiaGruppo +
+              '/' +
+              fasciaEta +
+              '/' +
+              traccia +
+              '/autoplay'
+            "
+            [width]="256"
+            [errorCorrectionLevel]="'M'"
+          ></qrcode>
+          <button
+            mat-raised-button
+            color="success"
+            (click)="iniziaPartita(this.traccia)"
+          >
+            Inizia Partita
+          </button>
+        </span>
+      </mat-card-content>
+    </mat-card>
+  </div>
 
   <div class="fixedLowRight" (click)="playClick()">
     <button mat-fab color="warn" class="my-fab-button">
       <mat-icon>play_arrow</mat-icon>
     </button>
-    <p>
-      <!-- <button type="button" class="btn btn-primary" (click)="reset()">Reset</button> -->
-    </p>
   </div>
-</section> <!-- fine MainSection -->
+</section>
+<!-- fine MainSection -->
 
 <section *ngIf="playClicked">
   <div *ngIf="tipologiaGruppo == 'individuale'">
     <h3>Ecco il tuo QR code!</h3>
     <qrcode
-    [qrdata]="'http://localhost:4200/lobby/786'"
-    [width]="256"
-    [errorCorrectionLevel]="'M'"
-  ></qrcode>
-  <button mat-raised-button color="info" (click)="iniziaPartita(this.traccia)">Inizia Parita</button>
-
-  </div>
-  <div *ngIf="tipologiaGruppo =='gruppo'">
-    <h3>Ecco il vostro QR code!</h3>
-    <qrcode
-    [qrdata]="'http://localhost:4200/lobby/786'"
-    [width]="256"
-    [errorCorrectionLevel]="'M'"
-  ></qrcode>
-  <button mat-raised-button color="info" (click)="iniziaPartita(this.traccia)">Inizia Parita</button>
-  </div>
-
-  <div *ngIf="tipologiaGruppo == 'classe'">
-    <h3> Ecco i vostri QR Code!</h3>
-    <mat-card *ngFor="let s of squadre" class="example-card">
-      <mat-card-header>
-        <mat-card-title>{{s.name}}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <qrcode
-      [qrdata]="
-      'http://localhost:4200/player/'+
-      tipologiaGruppo +
-      '/' +
-      fasciaEta +
-      '/' + traccia + '/autoplay/'+
-      s.idPartita"
+      [qrdata]="'http://localhost:4200/lobby/786'"
       [width]="256"
       [errorCorrectionLevel]="'M'"
     ></qrcode>
+    <button
+      mat-raised-button
+      color="info"
+      (click)="iniziaPartita(this.traccia)"
+    >
+      Inizia Parita
+    </button>
+  </div>
+  <div *ngIf="tipologiaGruppo == 'gruppo'">
+    <h3>Ecco il vostro QR code!</h3>
+    <qrcode
+      [qrdata]="'http://localhost:4200/lobby/786'"
+      [width]="256"
+      [errorCorrectionLevel]="'M'"
+    ></qrcode>
+    <button
+      mat-raised-button
+      color="info"
+      (click)="iniziaPartita(this.traccia)"
+    >
+      Inizia Parita
+    </button>
+  </div>
+
+  <div *ngIf="tipologiaGruppo == 'classe'">
+    <h3>Ecco i vostri QR Code!</h3>
+    <mat-card *ngFor="let s of squadre" class="example-card">
+      <mat-card-header>
+        <mat-card-title>{{ s.name }}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <qrcode
+          [qrdata]="
+            'http://localhost:4200/player/' +
+            tipologiaGruppo +
+            '/' +
+            fasciaEta +
+            '/' +
+            traccia +
+            '/autoplay/' +
+            s.idPartita
+          "
+          [width]="256"
+          [errorCorrectionLevel]="'M'"
+        ></qrcode>
       </mat-card-content>
     </mat-card>
   </div>
-
 </section>
 <!--</div>-->
