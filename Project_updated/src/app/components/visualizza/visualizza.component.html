@@ -1,13 +1,55 @@
 <app-header [my-title]="'Visualizza'"> </app-header>
 
 <button (click)="refresh()">aggiorna</button>
-<section *ngIf="this.storia">
-  <h1>
-    {{ title }}
-  </h1>
-  <h2>
-    {{ didascalia }}
-  </h2>
+<section id="mainSection" *ngIf="this.storia">
+
+  <mat-grid-list id="copertina" cols="3"  rowHeight="15vw"
+  [ngStyle]="{'background-image': 'url(/assets/book.png)','background-size' : 'contain','background-repeat' : 'no-repeat'}"
+  *ngIf="this.currentStepId < 0" >
+    <mat-grid-tile
+    colspan="3"
+    rowspan="2" >
+    <p class="storyTitle">{{this.storia.nome}}</p>
+    </mat-grid-tile>
+    <mat-grid-tile
+        colspan="3"
+        rowspan="1">
+        <img class="imgCopertina" [src]="(this.storia.urlBackground)">
+    </mat-grid-tile>
+    <mat-grid-tile
+    colspan="3"
+    rowspan="1" >
+    <button
+    *ngIf="this.currentStepId < 0"
+    mat-raised-button
+    color="primary"
+    (click)="iniziaStep()">
+    <p>{{ startText ? startText : "Inizia" }}</p>
+  </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list cols="4" rowHeight="25vw">
+    <mat-grid-tile
+        colspan="1"
+        rowspan="1"
+        style="background-color: green;">
+        {{variabileOk }}
+    </mat-grid-tile>
+    <mat-grid-tile
+        colspan="1"
+        rowspan="1"
+        style="background-color: rgb(92, 0, 128);">
+        {{variabileOk }}
+    </mat-grid-tile>
+  </mat-grid-list>
+
+    <h1>
+      {{ title }}
+    </h1>
+    <h2>
+      {{ didascalia }}
+    </h2>
 
   <section *ngIf="this.storia.steps">
     <div *ngIf="this.currentStepId != -1">
@@ -19,9 +61,7 @@
         <ng-container
           *ngIf="
             this.storia.steps[currentStepId].answers &&
-            this.storia.steps[currentStepId].answers.length > 0
-          "
-        >
+            this.storia.steps[currentStepId].answers.length > 0 ">
           <!-- <mat-selection-list #answers>
         <mat-list-option *ngFor="let answ of this.steps[currentStepId].answers">
           {{ answ.content }} {{ answ.correct }}
@@ -32,8 +72,7 @@
             role="list"
             *ngFor="
               let answ of this.storia.steps[currentStepId].answers;
-              let i = index
-            "
+              let i = index"
             (click)="gestisciAvanzamento(i)"
           >
             <button mat-raised-button color="accent" role="listitem">
@@ -45,25 +84,25 @@
           <button
             mat-raised-button
             color="primary"
-
           >
             {{ answ.content }} {{ answ.correct }}
           </button>
         </p> -->
         </ng-container>
+      </div> <!-- end QUIZ -->
+
+      <div class="container1">
+        <img *ngIf="this.storia.steps[this.currentStepId].backImg!=''"
+              [src]="this.storia.steps[this.currentStepId].backImg" />
       </div>
-      <img *ngIf="this.storia.steps[this.currentStepId].backImg!=''"[src]="this.storia.steps[this.currentStepId].backImg" />
       <div *ngIf="this.storia.steps[currentStepId].action == 'puzzle'">
         <!-- <app-image-puzzle [puzzleUrl]=steps[currentStepId].puzzleUrl>
-
         </app-image-puzzle> -->
-
         <app-image-puzzle
           [difficulty]="this.storia.steps[this.currentStepId].difficulty"
-          [puzzleUrl]="this.storia.steps[this.currentStepId].puzzleImg"
-        >
+          [puzzleUrl]="this.storia.steps[this.currentStepId].puzzleImg">
         </app-image-puzzle>
-      </div>
+      </div> <!-- end PUZZLE -->
 
       <div *ngIf="this.storia.steps[currentStepId].action == 'dnd'">
         <app-dragndrop [order]="this.storia.steps[this.currentStepId].order"></app-dragndrop>
@@ -91,16 +130,4 @@
       </div>
     </div>
   </section>
-
-  <button
-    *ngIf="this.currentStepId < 0"
-    mat-raised-buttona
-    color="primary"
-    (click)="iniziaStep()"
-  >
-    {{ startText ? startText : "Inizia" }}
-  </button>
-
-  <img *ngIf="this.currentStepId < 0" [src]="this.storia.urlBackground" />
-  {{variabileOk }} / {{numeroPlayers}} ciao ciao
 </section>

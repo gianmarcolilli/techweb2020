@@ -12,28 +12,38 @@
     <mat-expansion-panel *ngFor="let storia of storie; index as i">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          {{ storia.nome  }}
+          <p id="storyTitle">{{ storia.nome  }}</p>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <img class="img-story"
-        [src]="storia.urlBackground"
-        [alt]="'  immagine sfondo di  ' + storia.nome"
-      />
-
-      <button
-        mat-raised-button
-        color="primary"
-        (click)="statoMod[i] = !statoMod[i]"
-      >
-        modifica
-      </button>
-
-      <button mat-raised-button color="info" (click)="configuraStoria(storia.id)">Configura</button>
-
-      <button [swal]="mioAlert1" mat-raised-button color="warn">Elimina</button>
-
-      <swal #mioAlert1 confirmButtonText="Elimina" (confirm)="eliminaStoria(storia.id)" >
-      </swal>
+      <mat-grid-list cols="8" rowHeight="4vw">
+        <mat-grid-tile
+        colspan="1"
+        rowspan="1">
+          <button mat-raised-button color="primary" (click)="statoMod[i] = !statoMod[i]"> Modifica </button>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
+        <mat-grid-tile
+        colspan="6"
+        rowspan="7">
+          <img class="img-story"
+            [src]="storia.urlBackground"
+            [alt]="'  immagine sfondo di  ' + storia.nome"/>
+        </mat-grid-tile>
+        <mat-grid-tile
+        colspan="1"
+        rowspan="1">
+          <button mat-raised-button color="info" (click)="configuraStoria(storia.id)">Configura</button>
+        </mat-grid-tile>
+        <mat-grid-tile colspan="2" rowspan="5"></mat-grid-tile>
+        <mat-grid-tile colspan="7" rowspan="1"></mat-grid-tile>
+        <mat-grid-tile
+        colspan="1"
+        rowspan="1">
+          <button [swal]="mioAlert1" mat-raised-button color="warn">Elimina</button>
+          <swal #mioAlert1 confirmButtonText="Elimina" (confirm)="eliminaStoria(storia.id)" >
+          </swal>
+      </mat-grid-tile>
+    </mat-grid-list>
       <!-- <a
         [routerLink]="['/visualizza/:storia']"
         routerLinkActive="router-link-active"
@@ -50,7 +60,7 @@
 
     </mat-expansion-panel>
   </mat-accordion>
-</div>
+</div> <!-- end CONTAINER 1 -->
 
 <swal #mioAlert confirmButtonText="Salva" (confirm)="aggiungiStoria()" >
 
