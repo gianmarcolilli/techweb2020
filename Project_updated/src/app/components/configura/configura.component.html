@@ -5,58 +5,102 @@
 <!-- **************** -->
 <mat-card *ngIf="storia">
   <mat-card-header>
-    {{ storia.nome }}
+    <h1>{{ storia.nome }}</h1>
     <button *ngIf="flagSalvataggio==true" class="f-r" mat-raised-button color="primary" (click)="onSaveStory()">
       Salva storia
     </button>
   </mat-card-header>
   <mat-card-content>
-    <img [src]="storia.urlBackground" [alt]="'  immagine sfondo di  ' + storia.nome" />
-    <table>
-      <tr *ngFor="let act of storia.steps; index as j">
-        <td>
-          # {{ j }} <b> Attivita n. </b> {{ act.activityId }}
-          <b> Contenuto : </b> {{ act.activityTitle }} <b>Tipologia : </b> ({{
-          act.action
-          }})
-        </td>
-        <td *ngIf="act.action == 'domanda'">
-          <b> Risposta : </b>{{ act.risposta }}
-        </td>
-
-        <td *ngIf="act.action == 'quiz'">
-          <b>Id Risposta : </b>{{ act.quizCorrectIdx }}
-        </td>
-
-
-        <td>
-          <b>
-            Id errato :
-          </b>{{ act.wrongId }}
-        </td>
-        <td>
-          <b>
-            Id corretto :
-          </b>{{ act.correctId }}
-        </td>
-
-        <td>{{ act.quizCorrectIdx ? act.quizCorrectIdx : "" }}</td>
-        <td>
-          <button (click)="editAttivita(act)" mat-icon-button>
-            <mat-icon>edit</mat-icon>
-          </button>
-        </td>
-        <td>
-          <button (click)="eliminaAttivita(j)" mat-icon-button>
-            <mat-icon>delete</mat-icon>
-          </button>
-        </td>
-      </tr>
-    </table>
-
-    <p *ngIf="!storia.steps || storia.steps.length == 0">
-      Nessuna attività presente
-    </p>
+    <mat-grid-list cols="1" rowHeight="4vw">
+      <mat-grid-tile
+      colspan="1"
+      rowspan="10">
+        <img [src]="storia.urlBackground" [alt]="'  immagine sfondo di  ' + storia.nome" />
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-grid-list *ngFor="let act of storia.steps; index as j" cols="12" rowHeight="4vw">
+      <!-- row 1 -->
+      <mat-grid-tile
+      colspan="7"
+      rowspan="1">
+          <mat-grid-tile-header>
+            # {{ j }} <b> Attivita n. </b> {{ act.activityId }}
+          </mat-grid-tile-header>
+      </mat-grid-tile>
+      <mat-grid-tile
+      colspan="5"
+      rowspan="1">
+          <mat-grid-tile-header>
+            <mat-icon>arrow-right</mat-icon> <b> Tipologia : </b> ({{act.action}})
+          </mat-grid-tile-header>
+      </mat-grid-tile>
+      <!-- end row 1 -->
+      <!-- row 2 -->
+      <mat-grid-tile
+      colspan="1"
+      rowspan="1">
+            <b> Contenuto: </b>
+      </mat-grid-tile>
+      <mat-grid-tile
+      colspan="11"
+      rowspan="1">
+           {{ act.activityTitle }}
+      </mat-grid-tile>
+      <!-- end row 2 -->
+      <!-- eventual row 3 -->
+      <mat-grid-tile
+      colspan="12"
+      rowspan="1"
+      *ngIf="act.action == 'domanda'">
+            <b> Risposta: </b>{{ act.risposta }}
+      </mat-grid-tile>
+      <!-- end eventual row 3 -->
+      <!-- row 4 -->
+      <mat-grid-tile
+      colspan="1"
+      rowspan="1"
+      *ngIf="act.action == 'quiz'">
+            <b>Id Risposta: </b>{{ act.quizCorrectIdx }}
+      </mat-grid-tile>
+      <mat-grid-tile
+      colspan="1"
+      rowspan="1">
+            <b>Id errato: </b>{{ act.wrongId }}
+      </mat-grid-tile>
+      <mat-grid-tile
+      colspan="1"
+      rowspan="1">
+            <b>Id corretto: </b>{{ act.correctId }}
+      </mat-grid-tile>
+      <mat-grid-tile colspan="9" rowspan="1"></mat-grid-tile>
+      <!-- end row 4 -->
+      <!-- eventual row 5 -->
+      <mat-grid-tile
+      colspan="3"
+      rowspan="1">
+          <td>{{ act.quizCorrectIdx ? act.quizCorrectIdx : "" }}</td>
+      </mat-grid-tile>
+    <!-- row 6 -->
+    <mat-grid-tile colspan="10" rowspan="1"></mat-grid-tile>
+      <mat-grid-tile
+      colspan="1"
+      rowspan="1">
+        <button (click)="editAttivita(act)" mat-icon-button>
+          <mat-icon>edit</mat-icon>
+        </button>
+      </mat-grid-tile>
+      <mat-grid-tile
+      colspan="1"
+      rowspan="1">
+        <button (click)="eliminaAttivita(j)" mat-icon-button>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-grid-tile>
+<!-- end row 6 -->
+      <p *ngIf="!storia.steps || storia.steps.length == 0">
+        Nessuna attività presente
+      </p>
+      </mat-grid-list>
   </mat-card-content>
 </mat-card>
 
