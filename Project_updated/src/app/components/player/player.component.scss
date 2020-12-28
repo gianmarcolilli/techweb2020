@@ -4,10 +4,10 @@ h1{
   font-size: 4vw;
 }
 h2{
-  font-size: 3.5vw;
+  font-size: 3.0vw;
 }
 h3{
-  font-size: 3vw;
+  font-size: 2.5vw;
 }
 h4{
   font-size: 2vw;
@@ -39,8 +39,6 @@ button{
       color: $primary-color;
     }
 
-
-
       mat-grid-tile {
         background-color: #ffffff93;
         margin: 10px;
@@ -70,7 +68,7 @@ button{
           width: 25px;
         }
         input[type='radio'] + label {
-          font-size: 2.6rem;
+          font-size: 2.4rem;
           display: block;
           cursor: pointer;
           transition: color .3s;
@@ -147,17 +145,17 @@ button{
 }
 /* fine sec */
 #sec2{
-    .btn-addsq{
-      color: #51be6383;
-      margin: 5px;
-      padding: 3px;
-    }
     .container3{
       display: flex;
       flex-direction: row;
       justify-content: space-evenly;
       align-items: flex-start;
       flex-wrap: wrap;
+
+    .button-container{
+      display:flex;
+      size:3vw;
+    }
 
     h1 {
       margin: 0;
@@ -169,37 +167,42 @@ button{
       line-height: 26px;
       transition: color .3s;
     }
+    .nomeS-container{
+      float: left;
+    }
+    #nomeSquadra{
+      font-size: 2.0vw;
+      text-transform: uppercase;
+      color: white;
+    }
 
     .card {
       display: inline-block;
-      width: 30%;
-      margin: 8px;
+      width: 23%;
+      margin: 2vw;
       min-width: max-content;
       min-height: max-content;
       background-color: #ffffff;
       border-radius: 10px;
       box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24);
     }
+
     .card .heading {
-      height: 10vw;
+      height: 6vw;
       background-color: #2a34bbe5;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
-      padding: 5px;
-    }
-    .card .heading h1 {
-      text-transform: uppercase;
-      color: white;
+      padding: 1.3vw;
     }
 
     .card .content {
-      padding: 1rem;
+      padding: 1.3vw;
     }
     .card .content h3 {
       font-size: 2vw;
     }
     .card .content p {
-      font-size: 1.8vw;
+      font-size: 1.6vw;
     }
   }
 } /* fine sec 2 */
@@ -218,8 +221,8 @@ button{
   }
     .card {
       background-color: #ffffff93;
-      padding: 10px;
-      margin: 10px;
+      padding: 2vw;
+      margin: 2vw;
       display: flex;
       float: left;
       flex-flow: row wrap;
@@ -252,7 +255,7 @@ button{
           width: 25px;
         }
         input[type='radio'] + label {
-          font-size: 2rem;
+          font-size: 1.8vw;
           display: block;
           cursor: pointer;
           transition: color .3s;
@@ -266,7 +269,7 @@ button{
           color: $primary-color;
           border: solid 3px;
           border-radius: 5px;
-          padding: 10px;
+          padding: 2vw;
          /* border-top-left-radius: 40px;
           border-top-right-radius: 40px;*/
         }
