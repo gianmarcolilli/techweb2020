@@ -53,23 +53,6 @@ p{
   padding: 10px;
 }
 
-.container1{
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-start;
-  flex-wrap: nowrap;
-  padding: 30px;
-}
-
-.container5{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: flex-end;
-  flex-wrap: nowrap;
-}
-
 .container6{
   display: inline-flex;
   flex-direction: row;

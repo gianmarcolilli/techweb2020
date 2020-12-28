@@ -11,7 +11,7 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-autore',
   templateUrl: './autore.component.html',
-  styleUrls: ['./autore.component.css'],
+  styleUrls: ['./autore.component.css', './autore.component.scss'],
   encapsulation: ViewEncapsulation.None
 
 })
