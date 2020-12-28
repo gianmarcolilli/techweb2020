@@ -64,46 +64,46 @@
   </div>
 
   <section id="sec2" *ngIf="nPartecipanti != -1 && tipologiaGruppo=='classe'" >
-    <h3>Partecipanti : {{ nPartecipantiAggiunti }} / {{ nPartecipanti }}</h3>
+    <p>Partecipanti : {{ nPartecipantiAggiunti }} / {{ nPartecipanti }}</p>
 
-      <button class="btn-aggsq"
+      <button
       *ngIf="(nPartecipanti-nPartecipantiAggiunti>=2)" (click) = "aggiungiNuovaSquadra()"
-        mat-flat-button>
-        <h3>+ Aggiungi squadra</h3>
+        mat-raised-button color="basic" >
+        <p>+ Aggiungi squadra</p>
         </button>
 
       <div class="container3"  >
         <div class="card" *ngFor="let squadra of squadre">
           <div class="heading" >
-            <div >
-            <h1>{{ squadra.name }}</h1>
+            <div class="nomeS-container" >
+            <p id="nomeSquadra">{{ squadra.name }}</p>
           </div>
-            <div>
+          <div class="button-container">
             <button  mat-mini-fab color="warn"
             *ngIf="this.squadre.length>this.nSquadre"
               (click)="eliminaSquadra(squadra.id)">
               <span class="material-icons" >clear</span>
             </button>
           </div>
-          </div>
-          <div class="content">
-            <h3>Giocatori: </h3>
-              <p *ngFor="let player of squadra.players">
-                {{ player }}
-              </p>
-          </div>
+        </div>
+        <div class="content">
+          <h4>Giocatori: </h4>
+            <p *ngFor="let player of squadra.players">
+              {{ player }}
+            </p>
+        </div>
           <button class="btn-add" *ngIf="this.nPartecipantiAggiunti<this.nPartecipanti"
               mat-stroked-button
               color="primary"
               (click)="aggiungiPlayer(squadra.id)">
              + Add
-            </button>
-            <button *ngIf="squadra.players.length>2"
-              mat-stroked-button
-              color="warn"
-              (click)="rimuoviPlayer(squadra.id)">
-              - Remove
-            </button>
+          </button>
+          <button *ngIf="squadra.players.length>2"
+            mat-stroked-button
+            color="warn"
+            (click)="rimuoviPlayer(squadra.id)">
+            - Remove
+          </button>
         </div>
       </div>
 
