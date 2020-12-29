@@ -3,7 +3,9 @@ mat-card {
   margin-left: 1rem;
   margin-right: 1rem;
 }
-
+h4{
+  font-style: bold;
+}
 .correct.mat-select-panel {
   background: rgba(0, 255, 0, 0.5);
 }
