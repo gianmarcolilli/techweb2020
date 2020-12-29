@@ -5,6 +5,7 @@ import { startWith, switchMap } from 'rxjs/operators';
 import { Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { mimeType } from '../visualizza/mime-type.validator';
+import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-visualizza',
@@ -28,12 +29,32 @@ export class VisualizzaComponent implements OnInit {
   hoProcedutoIo = false;
   variabileOk = 0;
   numeroPlayers = 0;
+  // ticks: string = '0:00';
+  // timer: any = timer(0, 1000);
+  // timeVar: any;
+
+  progressbarValue = 100;
+  curSec: number = 0;
 
   //form
   tempRisposta: string = ""
   idPartita = -1;
   stop: boolean = false;
   constructor(private activeRoute: ActivatedRoute, private apiDb: DummyApiService, private router: Router) { }
+
+  startTimer(seconds: number) {
+    const time = seconds;
+    const timer$ = interval(1000);
+
+    const sub = timer$.subscribe((sec) => {
+      this.progressbarValue = 100 - sec * 100 / seconds;
+      this.curSec = sec;
+
+      if (this.curSec === seconds) {
+        sub.unsubscribe();
+      }
+    });
+  }
 
   refresh() {
     this.apiDb.getStoria(this.id).subscribe(
@@ -110,6 +131,7 @@ export class VisualizzaComponent implements OnInit {
                 this.hoDatoOk = false
                 this.hoProcedutoIo = false
                 this.stop = false
+                this.startTimer(60)
               });
               this.refresh();
               return;
@@ -128,6 +150,7 @@ export class VisualizzaComponent implements OnInit {
   iniziaStep() {
     if (this.idPartita == -1) {
       this.currentStepId = 0
+      this.startTimer(60)
     } else {
       this.stop = true
       this.hoProcedutoIo = true
