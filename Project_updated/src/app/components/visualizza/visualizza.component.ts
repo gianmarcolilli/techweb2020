@@ -32,9 +32,9 @@ export class VisualizzaComponent implements OnInit {
   // ticks: string = '0:00';
   // timer: any = timer(0, 1000);
   // timeVar: any;
-
-  progressbarValue = 100;
+  progressbarValue: number=100;
   curSec: number = 0;
+  // flagTimer = false;
 
   //form
   tempRisposta: string = ""
@@ -46,27 +46,23 @@ export class VisualizzaComponent implements OnInit {
     const time = seconds;
     const timer$ = interval(1000);
 
+    // const sub = timer$.subscribe((sec) => {
+    //   this.progressbarValue = 100 - sec * 100 / seconds;
+    //   this.curSec = sec;
+    // });
+
     const sub = timer$.subscribe((sec) => {
       this.progressbarValue = 100 - sec * 100 / seconds;
       this.curSec = sec;
-
-      if (this.curSec === seconds) {
-        sub.unsubscribe();
-      }
     });
+
+    if (this.curSec === seconds) {
+      sub.unsubscribe()
+    }
   }
 
   refresh() {
     this.apiDb.getStoria(this.id).subscribe(
-      // (storia) => {
-      //   this.storia = storia
-      //   console.log("la mia storia è " + JSON.stringify(storia))
-      //   this.id = this.storia.id
-      //   this.title = this.storia.nome
-      //   this.didascalia = this.storia.didascalia
-      //   this.steps = this.storia.steps
-      //   this.urlIconaPrincip = this.storia.urlBackground
-      // }
       (singleStory) => {
         this.storia = this.apiDb.reMap(singleStory);
         this.steps = this.storia.steps
