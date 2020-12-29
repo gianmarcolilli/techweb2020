@@ -20,6 +20,8 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -93,6 +95,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatStepperModule,
     MatSnackBarModule,
     DragDropModule,
+    MatProgressBarModule,
 
     NgbModule,
     NgbAlertModule,
