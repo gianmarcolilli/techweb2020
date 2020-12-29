@@ -24,14 +24,14 @@
       colspan="7"
       rowspan="1">
           <mat-grid-tile-header>
-            # {{ j }} <b> Attivita n. </b> {{ act.activityId }}
+           <p> # {{ j }}  Attivita n.  {{ act.activityId }}</p>
           </mat-grid-tile-header>
       </mat-grid-tile>
       <mat-grid-tile
       colspan="5"
       rowspan="1">
           <mat-grid-tile-header>
-            <mat-icon>arrow-right</mat-icon> <b> Tipologia : </b> ({{act.action}})
+            <mat-icon>arrow-right</mat-icon> <p> Tipologia : ({{act.action}})</p>
           </mat-grid-tile-header>
       </mat-grid-tile>
       <!-- end row 1 -->
@@ -39,12 +39,12 @@
       <mat-grid-tile
       colspan="1"
       rowspan="1">
-            <b> Contenuto: </b>
+            <h4> Contenuto: </h4>
       </mat-grid-tile>
       <mat-grid-tile
       colspan="11"
       rowspan="1">
-           {{ act.activityTitle }}
+          <p>{{ act.activityTitle }}</p>
       </mat-grid-tile>
       <!-- end row 2 -->
       <!-- eventual row 3 -->
@@ -52,7 +52,7 @@
       colspan="12"
       rowspan="1"
       *ngIf="act.action == 'domanda'">
-            <b> Risposta: </b>{{ act.risposta }}
+            <h4> Risposta: </h4> <p>{{ act.risposta }}</p>
       </mat-grid-tile>
       <!-- end eventual row 3 -->
       <!-- row 4 -->
@@ -60,17 +60,17 @@
       colspan="1"
       rowspan="1"
       *ngIf="act.action == 'quiz'">
-            <b>Id Risposta: </b>{{ act.quizCorrectIdx }}
+            <h4>Id Risposta: </h4><p>{{ act.quizCorrectIdx }}</p>
       </mat-grid-tile>
       <mat-grid-tile
       colspan="1"
       rowspan="1">
-            <b>Id errato: </b>{{ act.wrongId }}
+            <h4>Id errato: </h4> <p>{{ act.wrongId }}</p>
       </mat-grid-tile>
       <mat-grid-tile
       colspan="1"
       rowspan="1">
-            <b>Id corretto: </b>{{ act.correctId }}
+            <h4>Id corretto: </h4> <p>{{ act.correctId }}</p>
       </mat-grid-tile>
       <mat-grid-tile colspan="9" rowspan="1"></mat-grid-tile>
       <!-- end row 4 -->
@@ -78,7 +78,7 @@
       <mat-grid-tile
       colspan="3"
       rowspan="1">
-          <td>{{ act.quizCorrectIdx ? act.quizCorrectIdx : "" }}</td>
+          <td><p>{{ act.quizCorrectIdx ? act.quizCorrectIdx : "" }}</p></td>
       </mat-grid-tile>
     <!-- row 6 -->
     <mat-grid-tile colspan="10" rowspan="1"></mat-grid-tile>

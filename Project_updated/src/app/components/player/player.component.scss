@@ -1,33 +1,52 @@
 $font-color: #5c5f66;
 $primary-color: #3b3a99;
-h1{
-  font-size: 4vw;
+
+.fixedLowRight{
+    right: 1rem;
+    bottom: 1rem;
+    position: fixed;
 }
-h2{
-  font-size: 3.0vw;
+
+.card-qr{
+  align-content: center;
+  padding: 3px;
 }
-h3{
-  font-size: 2.5vw;
-}
-h4{
-  font-size: 2vw;
-}
-p{
-  font-size: 1.8vw;
-}
-button{
-  margin: 5px;
+
+.mainSection{
+  background-image: url(/assets/logo5.png);
+  background-repeat: no-repeat;
+  height: 100%;
+  width: 100%;
+  padding: 0.5rem;
 }
 
 #sec {
-  font-family: 'Raleway', sans-serif;
-  padding: 50px 0;
+  padding: 5px;
   text-align: center;
   word-wrap:break-word;
+}
 
-  mat-grid-list {
-    margin: 3px;
-    padding: 10px;
+.tipoStoria{
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  margin: auto;
+  flex-direction: row;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+
+  .card {
+    background-color: #ffffff93;
+    padding: 2vw;
+    margin: 2vw;
+    display: flex;
+    float: left;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    list-style: none;
+    width: max-content;
+    min-height: 15rem;
+    cursor: pointer;
 
     input[type='radio']{
       position: absolute;
@@ -39,16 +58,12 @@ button{
       color: $primary-color;
     }
 
-      mat-grid-tile {
-        background-color: #ffffff93;
-        margin: 10px;
-        padding: 40px;
-        transition: box-shadow .3s;
-
+        .mat-icon{
+          margin: 2rem;
+        }
         &:hover {
           box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
         }
-
         &:hover label {
           color: $primary-color;
         }
@@ -65,10 +80,10 @@ button{
           color: $primary-color;
         }
         &:hover h3:after{
-          width: 25px;
+          width: 2rem;
         }
+
         input[type='radio'] + label {
-          font-size: 2.4rem;
           display: block;
           cursor: pointer;
           transition: color .3s;
@@ -78,12 +93,7 @@ button{
           }
         }
         input[type='radio']:checked + label{
-          border-style: $primary-color;
           color: $primary-color;
-          border: solid 3px;
-          border-radius: 5px;
-        /* border-top-left-radius: 40px;
-          border-top-right-radius: 40px;*/
         }
 
         h3 {
@@ -112,6 +122,7 @@ button{
           transition: color .3s;
         }
       }
+
     }
 
   .container2{
@@ -142,7 +153,7 @@ button{
     }
 
   }
-}
+
 /* fine sec */
 #sec2{
     .container3{
@@ -154,32 +165,29 @@ button{
 
     .button-container{
       display:flex;
-      size:3vw;
+      float: right;
+      margin: 5px;
+      justify-content: center;
     }
 
-    h1 {
-      margin: 0;
-      padding: 0;
-    }
     p {
       color: $font-color;
       text-indent: 1em;
-      line-height: 26px;
       transition: color .3s;
     }
     .nomeS-container{
+      display: flex;
       float: left;
     }
     #nomeSquadra{
-      font-size: 2.0vw;
-      text-transform: uppercase;
+      text-transform: capitalize;
       color: white;
     }
 
     .card {
       display: inline-block;
       width: 23%;
-      margin: 2vw;
+      margin: 0.5em;
       min-width: max-content;
       min-height: max-content;
       background-color: #ffffff;
@@ -188,22 +196,16 @@ button{
     }
 
     .card .heading {
-      height: 6vw;
+      height: 3rem;
       background-color: #2a34bbe5;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
-      padding: 1.3vw;
     }
 
     .card .content {
       padding: 1.3vw;
     }
-    .card .content h3 {
-      font-size: 2vw;
-    }
-    .card .content p {
-      font-size: 1.6vw;
-    }
+
   }
 } /* fine sec 2 */
   /* CONTAINER 4 ########################################*/
@@ -226,11 +228,11 @@ button{
       display: flex;
       float: left;
       flex-flow: row wrap;
-      justify-content: space-evenly;
+      justify-content: space-around;
       list-style: none;
       width: max-content;
 
-        transition: box-shadow .3s;
+      transition: box-shadow .3s;
 
         &:hover {
           box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
@@ -255,7 +257,6 @@ button{
           width: 25px;
         }
         input[type='radio'] + label {
-          font-size: 1.8vw;
           display: block;
           cursor: pointer;
           transition: color .3s;
@@ -270,8 +271,6 @@ button{
           border: solid 3px;
           border-radius: 5px;
           padding: 2vw;
-         /* border-top-left-radius: 40px;
-          border-top-right-radius: 40px;*/
         }
 
         h5 {
@@ -302,11 +301,9 @@ button{
   .container5{
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: flex-start;
     flex-wrap: wrap;
-    display: flex;
-
 
     input[type='radio']{
     position: absolute;
@@ -321,8 +318,7 @@ button{
       justify-content: space-evenly;
       list-style: none;
       min-width: 12vw;
-      min-height: 20vw;
-      width:30%;
+      min-height: 10vw;
 
         transition: box-shadow .3s;
 
@@ -350,7 +346,6 @@ button{
 
         }
         input[type='radio'] + label {
-          font-size: 2rem;
           display: block;
           cursor: pointer;
           transition: color .3s;
@@ -397,3 +392,98 @@ button{
     }
   }
 }
+.container6{
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+}
+.container6 .mat-card-title{
+  color: grey;
+}
+
+.mat-card{
+  background-color: whitesmoke;
+  opacity: 88%;
+  min-width: 20rem;
+  min-height: 15rem;
+}
+
+.mat-card-title {
+  margin: 1rem;
+}
+
+.mat-card-subtitle{
+  color: darkslategray;
+}
+
+@media (min-width: 991px) {
+  .mat-icon{
+    transform: scale(5);
+  }
+  .my-fab-button {
+    width: 100px;
+    height: 100px;
+    float: right;
+    margin-right: 50px;
+  }
+  .deleteSq{
+    height: 25px;
+    width: 25px;
+  }
+} /* for desktops */
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .mat-icon{
+    transform: scale(4);
+  }
+  .my-fab-button {
+    width: 80px;
+    height: 80px;
+    float: right;
+    margin-right: 50px;
+  }
+  .deleteSq{
+    height: 20px;
+    width: 20px;
+  }
+
+} /* for laptops */
+
+ @media (max-width: 768px) {
+  .mat-icon{
+    transform: scale(2);
+  }
+  .my-fab-button {
+    width: 60px;
+    height: 60px;
+    float: right;
+    margin-right: 50px;
+  }
+  .deleteSq{
+    height: 18px;
+    width: 18px;
+  }
+
+} /* for smaller tablets */
+
+@media (max-width: 500px) {
+  .mat-icon{
+    transform: scale(1);
+  }
+  .my-fab-button {
+    width: 60px;
+    height: 60px;
+    float: right;
+    margin-right: 50px;
+  }
+  .deleteSq{
+    height: 15px;
+    width: 15px;
+    .mat-icon{
+      size: 15px;
+    }
+  }
+
+} /* for cellphones */
