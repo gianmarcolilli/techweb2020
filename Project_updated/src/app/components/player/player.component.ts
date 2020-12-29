@@ -42,9 +42,25 @@ export class PlayerComponent implements OnInit {
     })
   }
 
+  popolaDimensioni(tipo:string){
+    this.dimensioni = []
+    if(tipo=='classe'){
+      console.log('classe');
+
+      for (let i = 15; i <= 25; i++) {
+        this.dimensioni.push(i)
+      }
+    } else if(tipo=='gruppo') {
+      console.log('gruppo');
+      for (let i = 2; i <= 5; i++) {
+        this.dimensioni.push(i)
+      }
+    }
+  }
+
   aggiungiPlayer(idSquadra) {
-    if (this.nPartecipantiAggiunti + 1 > this.nPartecipanti) return;
-    if (this.squadre[idSquadra].players.length + 1 > MAXPARTECIPANTI) return;
+    // if (this.nPartecipantiAggiunti + 1 > this.nPartecipanti) return;
+    // if (this.squadre[idSquadra].players.length + 1 > MAXPARTECIPANTI) return;
 
 
     for (let i = 0; i < this.checkPartecipanti.length; i++) {
@@ -52,17 +68,17 @@ export class PlayerComponent implements OnInit {
         this.squadre[idSquadra].players.push(
           'player' + i
         )
+        this.nPartecipantiAggiunti += 1
         this.checkPartecipanti[i] = true;
         i = this.checkPartecipanti.length
       }
     }
-    this.nPartecipantiAggiunti += 1
   }
 
   rimuoviPlayer(idSquadra) {
     var posDaRimuovere = this.squadre[idSquadra].players.pop();
     this.nPartecipantiAggiunti--
-    this.checkPartecipanti[(posDaRimuovere.substring(5, 7))] = false
+    this.checkPartecipanti[(posDaRimuovere.substring(6, 8))] = false
   }
 
   azzeraSquadre() {
@@ -111,7 +127,6 @@ export class PlayerComponent implements OnInit {
     for (let index = 0; index < numPartecipanti; index++) {
       this.aggiungiPlayer(idS)
     }
-
   }
 
   nPartecipantiChanged() {
@@ -172,11 +187,7 @@ export class PlayerComponent implements OnInit {
   }
 
 
-  constructor(private apiDb: DummyApiService, private activeRoute: ActivatedRoute, private router: Router) {
-    for (let i = 15; i <= 25; i++) {
-      this.dimensioni.push(i)
-    }
-  }
+  constructor(private apiDb: DummyApiService, private activeRoute: ActivatedRoute, private router: Router) {}
 
   close() {
     this.alerts = []
