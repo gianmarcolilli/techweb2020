@@ -32,8 +32,9 @@ export class VisualizzaComponent implements OnInit {
   // ticks: string = '0:00';
   // timer: any = timer(0, 1000);
   // timeVar: any;
-  progressbarValue = 100;
-  flagTimer = false;
+  progressbarValue: number=100;
+  curSec: number = 0;
+  // flagTimer = false;
 
   //form
   tempRisposta: string = ""
@@ -44,35 +45,24 @@ export class VisualizzaComponent implements OnInit {
   startTimer(seconds: number) {
     const time = seconds;
     const timer$ = interval(1000);
-    var curSec: number = 0;
-    this.progressbarValue = 100;
+
+    // const sub = timer$.subscribe((sec) => {
+    //   this.progressbarValue = 100 - sec * 100 / seconds;
+    //   this.curSec = sec;
+    // });
 
     const sub = timer$.subscribe((sec) => {
       this.progressbarValue = 100 - sec * 100 / seconds;
-      curSec = sec;
+      this.curSec = sec;
     });
 
-    if (curSec === seconds || this.flagTimer == true) {
-      sub.unsubscribe
-      if (this.flagTimer == true) {
-        sub.remove
-        this.progressbarValue = 100;
-      }
-      this.flagTimer = false
+    if (this.curSec === seconds) {
+      sub.unsubscribe()
     }
   }
 
   refresh() {
     this.apiDb.getStoria(this.id).subscribe(
-      // (storia) => {
-      //   this.storia = storia
-      //   console.log("la mia storia è " + JSON.stringify(storia))
-      //   this.id = this.storia.id
-      //   this.title = this.storia.nome
-      //   this.didascalia = this.storia.didascalia
-      //   this.steps = this.storia.steps
-      //   this.urlIconaPrincip = this.storia.urlBackground
-      // }
       (singleStory) => {
         this.storia = this.apiDb.reMap(singleStory);
         this.steps = this.storia.steps
@@ -178,7 +168,6 @@ export class VisualizzaComponent implements OnInit {
       //Avanzamento in gioco modalità singolo
       if (this.idPartita == -1) {
         this.currentStepId = this.steps[this.currentStepId].correctId
-        this.startTimer(60)
       } else {
         //Avanzamento gioco in modalità squadre
         console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
@@ -202,8 +191,6 @@ export class VisualizzaComponent implements OnInit {
           alert("hai dato la risposta corretta")
           if (this.idPartita == -1) {
             this.currentStepId = this.steps[this.currentStepId].correctId
-            this.flagTimer = true;
-            this.startTimer(60)
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
             this.nextStepId = this.steps[this.currentStepId].correctId;
@@ -217,8 +204,6 @@ export class VisualizzaComponent implements OnInit {
           alert("hai dato la risposta sbagliata")
           if (this.idPartita == -1) {
             this.currentStepId = this.steps[this.currentStepId].wrongId
-            this.flagTimer = true;
-            this.startTimer(60)
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
             this.nextStepId = this.steps[this.currentStepId].wrongId;
@@ -250,8 +235,6 @@ export class VisualizzaComponent implements OnInit {
           console.log("sei una lota");
           if (this.idPartita == -1) {
             this.currentStepId = this.steps[this.currentStepId].wrongId
-            this.flagTimer = true;
-            this.startTimer(60)
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
             this.nextStepId = this.steps[this.currentStepId].wrongId;
