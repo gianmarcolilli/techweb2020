@@ -174,7 +174,18 @@ $primary-color: #3b3a99;
     .deleteSq{
       align-content: center;
       margin: 0.3em;
-
+    }
+    .button-add-container{
+      display: flex;
+      margin: 5px;
+      justify-content: center;
+      float: left;
+    }
+    .button-rem-container{
+      display: flex;
+      margin: 5px;
+      justify-content: center;
+      float: right;
     }
 
     p {
