@@ -25,41 +25,20 @@ export class VisualizzaComponent implements OnInit {
   currentStepId = -1;
   nextStepId = -1;
   storia: Storia;
+
   hoDatoOk = false;
   hoProcedutoIo = false;
   variabileOk = 0;
-  numeroPlayers = 0;
-  // ticks: string = '0:00';
-  // timer: any = timer(0, 1000);
-  // timeVar: any;
-  progressbarValue: number=100;
-  curSec: number = 0;
-  // flagTimer = false;
+  numeroPlayers = 0
+  stop: boolean = false;
 
-  //form
   tempRisposta: string = ""
   idPartita = -1;
-  stop: boolean = false;
+
+  timerPunteggio;
+  punteggio=0;
+
   constructor(private activeRoute: ActivatedRoute, private apiDb: DummyApiService, private router: Router) { }
-
-  startTimer(seconds: number) {
-    const time = seconds;
-    const timer$ = interval(1000);
-
-    // const sub = timer$.subscribe((sec) => {
-    //   this.progressbarValue = 100 - sec * 100 / seconds;
-    //   this.curSec = sec;
-    // });
-
-    const sub = timer$.subscribe((sec) => {
-      this.progressbarValue = 100 - sec * 100 / seconds;
-      this.curSec = sec;
-    });
-
-    if (this.curSec === seconds) {
-      sub.unsubscribe()
-    }
-  }
 
   refresh() {
     this.apiDb.getStoria(this.id).subscribe(
@@ -95,6 +74,8 @@ export class VisualizzaComponent implements OnInit {
               this.nextStepId = res.nextStepId
               this.hoDatoOk = false
               this.hoProcedutoIo = false
+
+              this.timerPunteggio = timer(3000, 1000);
               return;
             }
 
@@ -107,12 +88,17 @@ export class VisualizzaComponent implements OnInit {
                 this.nextStepId = risp.result.nextStepId
                 this.stop = false
               })
-              // this.variabileOk
+              this.timerPunteggio = 0
               return;
             }
 
             if (this.hoProcedutoIo == true && this.nextStepId == res.nextStepId && this.hoDatoOk == true && this.stop == true) {
               alert('ho cliccato procedi per primo')
+              this.timerPunteggio.subscribe( (x) => {
+                this.punteggio+=( (x/10)*5 )
+                console.log(this.punteggio);
+                this.timerPunteggio=0;
+              });
               this.stop = false
               return;
             }
@@ -127,9 +113,9 @@ export class VisualizzaComponent implements OnInit {
                 this.hoDatoOk = false
                 this.hoProcedutoIo = false
                 this.stop = false
-                this.startTimer(60)
               });
               this.refresh();
+              this.timerPunteggio = timer(3000, 1000);
               return;
             }
 
@@ -146,7 +132,6 @@ export class VisualizzaComponent implements OnInit {
   iniziaStep() {
     if (this.idPartita == -1) {
       this.currentStepId = 0
-      this.startTimer(60)
     } else {
       this.stop = true
       this.hoProcedutoIo = true
