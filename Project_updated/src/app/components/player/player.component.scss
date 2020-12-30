@@ -168,6 +168,24 @@ $primary-color: #3b3a99;
       float: right;
       margin: 5px;
       justify-content: center;
+      align-content: center;
+      align-items: stretch;
+    }
+    .deleteSq{
+      align-content: center;
+      margin: 0.3em;
+    }
+    .button-add-container{
+      display: flex;
+      margin: 5px;
+      justify-content: center;
+      float: left;
+    }
+    .button-rem-container{
+      display: flex;
+      margin: 5px;
+      justify-content: center;
+      float: right;
     }
 
     p {
@@ -196,6 +214,7 @@ $primary-color: #3b3a99;
     }
 
     .card .heading {
+      justify-content: space-between;
       height: 3rem;
       background-color: #2a34bbe5;
       border-top-left-radius: 10px;
@@ -204,6 +223,10 @@ $primary-color: #3b3a99;
 
     .card .content {
       padding: 1.3vw;
+    }
+
+    li{
+      list-style: none;
     }
 
   }
@@ -393,7 +416,7 @@ $primary-color: #3b3a99;
   }
 }
 .container6{
-  display: inline-flex;
+  display:flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: flex-end;
