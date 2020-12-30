@@ -14,7 +14,7 @@ const myAlert = {
 @Component({
   selector: 'app-player',
   templateUrl: './player.component.html',
-  styleUrls: ['./player.component.css', './player.component.scss']
+  styleUrls: ['./player.component.scss']
 })
 export class PlayerComponent implements OnInit {
 
