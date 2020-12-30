@@ -11,7 +11,7 @@
       <div class="card">
         <input type="radio" name="tipologiaGruppo" id="Individuale" value="individuale" [(ngModel)]="tipologiaGruppo">
         <label class="fa fa-code"  for="Individuale">
-            <mat-icon aria-hidden="false" aria-label="person icon">person</mat-icon> <br>
+            <mat-icon class="icon-tipoS" aria-hidden="false" aria-label="person icon">person</mat-icon> <br>
         <h3>Individuale</h3>
         </label>
       </div>
@@ -19,7 +19,7 @@
       <div class="card">
         <input type="radio" name="tipologiaGruppo" id="Gruppo" value="gruppo" [(ngModel)]="tipologiaGruppo" (click)="popolaDimensioni('gruppo')">
         <label class="fa fa-code"  for="Gruppo">
-            <mat-icon aria-hidden="false" aria-label="group icon">group</mat-icon> <br>
+            <mat-icon class="icon-tipoS" aria-hidden="false" aria-label="group icon">group</mat-icon> <br>
         <h3>Gruppo </h3><p>(2-5 persone)</p>
         </label>
       </div>
@@ -27,7 +27,7 @@
       <div class="card">
         <input type="radio" name="tipologiaGruppo" id="Classe" value="classe" [(ngModel)]="tipologiaGruppo" (click)="popolaDimensioni('classe')">
         <label class="fa fa-code"  for="Classe">
-            <mat-icon aria-hidden="false" aria-label="person icon">groups</mat-icon> <br>
+            <mat-icon class="icon-tipoS" aria-hidden="false" aria-label="person icon">groups</mat-icon> <br>
         <h3>Classe</h3><p>(15-25 persone)</p>
         </label>
       </div>
@@ -68,7 +68,7 @@
             <h3 id="nomeSquadra">{{ squadra.name }}</h3>
           </div>
           <div class="button-container">
-            <button  mat-mini-fab class="deleteSq"
+            <button  mat-mini-fab
             color="warn"
             *ngIf="this.squadre.length>this.nSquadre"
               (click)="eliminaSquadra(squadra.id)">
@@ -209,7 +209,7 @@
 
   <div *ngIf="tipologiaGruppo!='individuale' && tipologiaGruppo!=''" class="fixedLowRight" (click)="playClick()">
     <button mat-fab color="warn" class="my-fab-button">
-      <mat-icon>play_arrow</mat-icon>
+      <mat-icon class="icon-tipoS">play_arrow</mat-icon>
     </button>
   </div>
 </section>
