@@ -128,7 +128,7 @@
         <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
         <button (click)="gestisciAvanzamento()">Avanti</button>
       </div>
-      <mat-progress-bar mode="determinate" [value]="progressbarValue"></mat-progress-bar>
+      <mat-progress-bar  *ngIf="this.storia.steps[currentStepId].action != 'informazione'" mode="determinate" [value]="progressbarValue"></mat-progress-bar>
     </div>
   </section>
 </section>
