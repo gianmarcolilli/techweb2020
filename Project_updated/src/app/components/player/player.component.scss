@@ -168,6 +168,13 @@ $primary-color: #3b3a99;
       float: right;
       margin: 5px;
       justify-content: center;
+      align-content: center;
+      align-items: stretch;
+    }
+    .deleteSq{
+      align-content: center;
+      margin: 0.3em;
+
     }
 
     p {
@@ -196,6 +203,7 @@ $primary-color: #3b3a99;
     }
 
     .card .heading {
+      justify-content: space-between;
       height: 3rem;
       background-color: #2a34bbe5;
       border-top-left-radius: 10px;

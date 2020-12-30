@@ -94,10 +94,10 @@ export class VisualizzaComponent implements OnInit {
 
             if (this.hoProcedutoIo == true && this.nextStepId == res.nextStepId && this.hoDatoOk == true && this.stop == true) {
               alert('ho cliccato procedi per primo')
-              this.timerPunteggio.subscribe( (x) => {
-                this.punteggio+=( (x/10)*5 )
+              this.timerPunteggio.subscribe( (x:number) => {
+                this.punteggio+=( 5/(x/10) )
                 console.log(this.punteggio);
-                this.timerPunteggio=0;
+                this.timerPunteggio.unsubscribe()
               });
               this.stop = false
               return;
@@ -136,6 +136,7 @@ export class VisualizzaComponent implements OnInit {
       this.stop = true
       this.hoProcedutoIo = true
       this.hoDatoOk = true
+      this.timerPunteggio = timer(3000, 1000)
       this.notificaAvanzamento(0)
     }
   }
