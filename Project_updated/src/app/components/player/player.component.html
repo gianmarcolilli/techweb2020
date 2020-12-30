@@ -72,7 +72,7 @@
             color="warn"
             *ngIf="this.squadre.length>this.nSquadre"
               (click)="eliminaSquadra(squadra.id)">
-              <mat-icon>clear</mat-icon>
+              <i class="material-icons">clear</i>
             </button>
           </div>
         </div>
@@ -84,20 +84,24 @@
              </li>
             </ul>
         </div>
-          <button class="btn-add" *ngIf="this.nPartecipantiAggiunti<this.nPartecipanti"
-              mat-stroked-button
+        <div class="button-add-container">
+          <button *ngIf="this.nPartecipantiAggiunti<this.nPartecipanti"
+              mat-mini-fab
               color="primary"
               (click)="aggiungiPlayer(squadra.id)">
-             <p>+ Add</p>
+             <mat-icon>add</mat-icon>
           </button>
+        </div>
+        <div class="button-rem-container">
           <button *ngIf="squadra.players.length>2"
-            mat-stroked-button
+            mat-mini-fab
             color="warn"
             (click)="rimuoviPlayer(squadra.id)">
-            <p>- Remove</p>
+            <mat-icon>delete_forever</mat-icon>
           </button>
         </div>
       </div>
+    </div>
   </section>
   <!-- fine sec2 -->
 
