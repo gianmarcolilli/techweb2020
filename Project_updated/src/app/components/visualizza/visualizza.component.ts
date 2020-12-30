@@ -1,7 +1,7 @@
 import { Component, Injectable, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { interval, of } from 'rxjs';
-import { startWith, switchMap } from 'rxjs/operators';
+import { startWith, switchMap, take } from 'rxjs/operators';
 import { Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { mimeType } from '../visualizza/mime-type.validator';
@@ -35,7 +35,7 @@ export class VisualizzaComponent implements OnInit {
   tempRisposta: string = ""
   idPartita = -1;
 
-  timerPunteggio;
+  timerPunteggio = timer(1000, 1000);
   punteggio=0;
 
   constructor(private activeRoute: ActivatedRoute, private apiDb: DummyApiService, private router: Router) { }
@@ -88,17 +88,16 @@ export class VisualizzaComponent implements OnInit {
                 this.nextStepId = risp.result.nextStepId
                 this.stop = false
               })
-              this.timerPunteggio = 0
               return;
             }
 
             if (this.hoProcedutoIo == true && this.nextStepId == res.nextStepId && this.hoDatoOk == true && this.stop == true) {
               alert('ho cliccato procedi per primo')
-              this.timerPunteggio.subscribe( (x:number) => {
+              this.timerPunteggio.pipe(take(1)).subscribe( (x) => {
+                console.log('x= '+x);
                 this.punteggio+=( 5/(x/10) )
-                console.log(this.punteggio);
-                this.timerPunteggio.unsubscribe()
-              });
+                console.log('punteggio = '+this.punteggio);
+              })
               this.stop = false
               return;
             }
@@ -136,7 +135,7 @@ export class VisualizzaComponent implements OnInit {
       this.stop = true
       this.hoProcedutoIo = true
       this.hoDatoOk = true
-      this.timerPunteggio = timer(3000, 1000)
+
       this.notificaAvanzamento(0)
     }
   }
