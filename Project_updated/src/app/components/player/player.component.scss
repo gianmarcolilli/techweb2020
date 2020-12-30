@@ -58,68 +58,76 @@ $primary-color: #3b3a99;
       color: $primary-color;
     }
 
-        .mat-icon{
-          margin: 2rem;
-        }
-        &:hover {
-          box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-        }
-        &:hover label {
-          color: $primary-color;
-        }
-        &:hover p {
-          color: #555;
-        }
-        &:hover h3  {
-          color: $primary-color;
-        }
-        &:hover h5  {
-          color: $primary-color;
-        }
-        &:hover mat-icon {
-          color: $primary-color;
-        }
-        &:hover h3:after{
-          width: 2rem;
-        }
+    .mat-icon{
+      margin: 2rem;
+    }
+    &:hover {
+      box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+      background-color: #14144dc7;
+    }
+    &:hover label {
+      color: $primary-color;
+    }
+    &:hover p {
+      color:white;
+    }
+    &:hover h3  {
+      color: white;
+    }
+    &:hover h5  {
+      color: $primary-color;
+    }
+    &:hover mat-icon {
+      color: white;
+    }
+    &:hover h3:after{
+      width: 2rem;
+    }
 
-        input[type='radio'] + label {
-          display: block;
-          cursor: pointer;
-          transition: color .3s;
-          color: $font-color;
-          &:before, &:after {
-            position: static;
-          }
-        }
-        input[type='radio']:checked + label{
-          color: $primary-color;
-        }
+    input[type='radio'] + label {
+      display: block;
+      cursor: pointer;
+      transition: color .3s;
+      color: $font-color;
+      &:before, &:after {
+        position: static;
+      }
+    }
+    input[type='radio']:checked + label{
+      color: $primary-color;
+    }
 
-        h3 {
-          display: inline-block;
-          font-weight: 100;
-          transition: color .3s;
-          &:after {
-            content: '';
-            position: relative;
-            color: $primary-color;
-            left: 50%;
-            top: 40px;
-            transform: translateX(-50%);
-            display: block;
-            width: 40px;
-            height: 1.4px;
-            background: darken($font-color, 20%);
-            transition: width .3s;
-          }
-        }
-        p {
-          color: $font-color;
-          text-align: left;
-          text-indent: 1em;
-          line-height: 26px;
-          transition: color .3s;
+    h3 {
+      display: inline-block;
+      font-weight: 100;
+      transition: color .3s;
+      &:after {
+        content: '';
+        position: relative;
+        color: $primary-color;
+        left: 50%;
+        top: 40px;
+        display: block;
+        transition: width .3s;
+      }
+    }
+    p {
+      color: $font-color;
+      text-align: left;
+      text-indent: 1em;
+      line-height: 26px;
+      transition: color .3s;
+      &:after {
+        content: '';
+        position: relative;
+        color: $primary-color;
+        left: 50%;
+        top: 40px;
+        display: block;
+        width: 40px;
+        height: 1.4px;
+        transition: width .3s;
+      }
         }
       }
 
@@ -265,7 +273,7 @@ $primary-color: #3b3a99;
           color: $primary-color;
         }
         &:hover p {
-          color: #555;
+          color:$primary-color;
         }
         &:hover h3  {
           color: $primary-color;
@@ -302,13 +310,7 @@ $primary-color: #3b3a99;
           &:after {
             content: '';
             position: relative;
-            left: 50%;
-            top: 40px;
-            transform: translateX(-50%);
             display: block;
-            width: 40px;
-            height: 1.4px;
-            background: darken($font-color, 20%);
             transition: width .3s;
           }
         }
@@ -442,71 +444,51 @@ $primary-color: #3b3a99;
 }
 
 @media (min-width: 991px) {
-  .mat-icon{
+  .icon-tipoS{
     transform: scale(5);
   }
   .my-fab-button {
     width: 100px;
     height: 100px;
     float: right;
-    margin-right: 50px;
+    margin-right: 3em;
   }
-  .deleteSq{
-    height: 25px;
-    width: 25px;
-  }
+
 } /* for desktops */
 
 @media (min-width: 768px) and (max-width: 991px) {
-  .mat-icon{
+  .icon-tipoS{
     transform: scale(4);
   }
   .my-fab-button {
     width: 80px;
     height: 80px;
     float: right;
-    margin-right: 50px;
-  }
-  .deleteSq{
-    height: 20px;
-    width: 20px;
+    margin-right: 3em;
   }
 
 } /* for laptops */
 
  @media (max-width: 768px) {
-  .mat-icon{
+  .icon-tipoS{
     transform: scale(2);
   }
   .my-fab-button {
     width: 60px;
     height: 60px;
     float: right;
-    margin-right: 50px;
+    margin-right: 3em;
   }
-  .deleteSq{
-    height: 18px;
-    width: 18px;
-  }
-
 } /* for smaller tablets */
 
 @media (max-width: 500px) {
-  .mat-icon{
+  .icon-tipoS{
     transform: scale(1);
   }
   .my-fab-button {
     width: 60px;
     height: 60px;
     float: right;
-    margin-right: 50px;
+    margin-right: 3em;
   }
-  .deleteSq{
-    height: 15px;
-    width: 15px;
-    .mat-icon{
-      size: 15px;
-    }
-  }
-
 } /* for cellphones */
