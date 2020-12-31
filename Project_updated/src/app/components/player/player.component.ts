@@ -59,8 +59,8 @@ export class PlayerComponent implements OnInit {
   }
 
   aggiungiPlayer(idSquadra) {
-    // if (this.nPartecipantiAggiunti + 1 > this.nPartecipanti) return;
-    // if (this.squadre[idSquadra].players.length + 1 > MAXPARTECIPANTI) return;
+     if (this.nPartecipantiAggiunti + 1 > this.nPartecipanti) return;
+     if (this.squadre[idSquadra].players.length + 1 > MAXPARTECIPANTI) return;
 
 
     for (let i = 0; i < this.checkPartecipanti.length; i++) {
