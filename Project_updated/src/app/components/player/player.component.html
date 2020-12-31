@@ -85,7 +85,7 @@
             </ul>
         </div>
         <div class="button-add-container">
-          <button *ngIf="this.nPartecipantiAggiunti<this.nPartecipanti"
+          <button *ngIf="this.nPartecipantiAggiunti<this.nPartecipanti || squadra.players.length<5"
               mat-mini-fab
               color="primary"
               (click)="aggiungiPlayer(squadra.id)">
