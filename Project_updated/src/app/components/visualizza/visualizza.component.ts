@@ -35,8 +35,10 @@ export class VisualizzaComponent implements OnInit {
   tempRisposta: string = ""
   idPartita = -1;
 
-  timerPunteggio = timer(0, 1000);
+  timerPunteggio = timer(1000, 1000);
   punteggio=0;
+  tempPunteggio: number;
+  tempTimer: any;
 
   constructor(private activeRoute: ActivatedRoute, private apiDb: DummyApiService, private router: Router) { }
 
@@ -75,7 +77,7 @@ export class VisualizzaComponent implements OnInit {
               this.hoDatoOk = false
               this.hoProcedutoIo = false
 
-              this.timerPunteggio = timer(0, 1000);
+              this.timerPunteggio = timer(3000, 1000);
               return;
             }
 
@@ -93,10 +95,10 @@ export class VisualizzaComponent implements OnInit {
 
             if (this.hoProcedutoIo == true && this.nextStepId == res.nextStepId && this.hoDatoOk == true && this.stop == true) {
               alert('ho cliccato procedi per primo')
-              this.timerPunteggio.pipe(take(1)).subscribe( (x) => {
-                console.log('x= '+x);
-                this.punteggio+=( 5/(x/10) )
-                console.log('punteggio = '+this.punteggio);
+              this.tempTimer = this.timerPunteggio.subscribe( (x) => {
+                this.settime(x)
+                // this.punteggio += ( 5/(x/10) );
+                // console.log(this.punteggio);
               })
               this.stop = false
               return;
@@ -114,7 +116,7 @@ export class VisualizzaComponent implements OnInit {
                 this.stop = false
               });
               this.refresh();
-              this.timerPunteggio = timer(0, 1000);
+              this.timerPunteggio = timer(3000, 1000);
               return;
             }
 
@@ -127,6 +129,12 @@ export class VisualizzaComponent implements OnInit {
     this.refresh()
   }
 
+  settime(t: number): void {
+    this.tempPunteggio = this.tempTimer.unsubscribe();
+    this.punteggio += ( 5/(this.tempPunteggio/10) );
+    console.log(this.punteggio);
+
+  }
 
   iniziaStep() {
     if (this.idPartita == -1) {
