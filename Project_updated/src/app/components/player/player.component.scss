@@ -1,32 +1,28 @@
 $font-color: #5c5f66;
 $primary-color: #3b3a99;
 
-.fixedLowRight{
-    right: 1rem;
-    bottom: 1rem;
-    position: fixed;
+.fixedLowRight {
+  right: 1rem;
+  bottom: 1rem;
+  position: fixed;
 }
 
-.card-qr{
+.card-qr {
   align-content: center;
   padding: 3px;
 }
 
-.mainSection{
+.mainSection {
   background-image: url(/assets/logo5.png);
   background-repeat: no-repeat;
   height: 100%;
   width: 100%;
   padding: 0.5rem;
-}
-
-#sec {
-  padding: 5px;
   text-align: center;
-  word-wrap:break-word;
+  word-wrap: break-word;
 }
 
-.tipoStoria{
+.tipoStoria {
   display: flex;
   justify-content: space-around;
   width: 100%;
@@ -37,18 +33,21 @@ $primary-color: #3b3a99;
 
   .card {
     background-color: #ffffff93;
-    padding: 2vw;
     margin: 2vw;
     display: flex;
     float: left;
     flex-flow: row wrap;
     justify-content: space-around;
     list-style: none;
-    width: max-content;
-    min-height: 15rem;
     cursor: pointer;
 
-    input[type='radio']{
+    label{
+      padding: 1.5em 2em;
+      min-height: 15rem;
+      min-width: 13rem;
+      margin:0 !important;
+    }
+    input[type="radio"] {
       position: absolute;
       clip: rect(1px, 1px, 1px, 1px);
     }
@@ -58,57 +57,68 @@ $primary-color: #3b3a99;
       color: $primary-color;
     }
 
-    .mat-icon{
+    .mat-icon {
       margin: 2rem;
     }
     &:hover {
-      box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+      box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),0 17px 50px 0 rgba(0, 0, 0, 0.19);
       background-color: #14144dc7;
     }
     &:hover label {
       color: $primary-color;
     }
     &:hover p {
-      color:white;
-    }
-    &:hover h3  {
       color: white;
     }
-    &:hover h5  {
+    &:hover h3 {
+      color: white;
+    }
+    &:hover h5 {
       color: $primary-color;
     }
     &:hover mat-icon {
       color: white;
     }
-    &:hover h3:after{
+    &:hover h3:after {
       width: 2rem;
     }
 
-    input[type='radio'] + label {
+    input[type="radio"] + label {
       display: block;
       cursor: pointer;
-      transition: color .3s;
+      transition: color 0.3s;
+      padding: 1.5em 2em;
       color: $font-color;
-      &:before, &:after {
+      &:before,
+      &:after {
         position: static;
       }
     }
-    input[type='radio']:checked + label{
-      color: $primary-color;
+
+    input[type='radio']:checked + label {
+      box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+      background-color: #14144dc7;
+      padding: 1.5em 2em;
+      border-radius: 5px;
+      .mat-icon{
+        color: white;
+      }
+      h3, p{
+        color: white;
+      }
     }
 
     h3 {
       display: inline-block;
       font-weight: 100;
-      transition: color .3s;
+      transition: color 0.3s;
       &:after {
-        content: '';
+        content: "";
         position: relative;
         color: $primary-color;
         left: 50%;
-        top: 40px;
         display: block;
-        transition: width .3s;
+        transition: width 0.3s;
       }
     }
     p {
@@ -116,9 +126,9 @@ $primary-color: #3b3a99;
       text-align: left;
       text-indent: 1em;
       line-height: 26px;
-      transition: color .3s;
+      transition: color 0.3s;
       &:after {
-        content: '';
+        content: "";
         position: relative;
         color: $primary-color;
         left: 50%;
@@ -126,70 +136,68 @@ $primary-color: #3b3a99;
         display: block;
         width: 40px;
         height: 1.4px;
-        transition: width .3s;
-      }
-        }
-      }
-
-    }
-
-  .container2{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    flex-wrap: nowrap;
-    padding: 30px;
-
-    button{
-      background-color: $primary-color;
-      h3{
-        color: $primary-color;
+        transition: width 0.3s;
       }
     }
+  }
+}
 
-    mat-form-field{
-      width: max-content;
-      border-radius: 4px;
-    }
-    mat-label{
-      padding: 5px;
-      color: $font-color;
-    }
-    mat-option{
+.container2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: nowrap;
+  padding: 30px;
+
+  button {
+    background-color: $primary-color;
+    h3 {
       color: $primary-color;
     }
-
   }
 
-/* fine sec */
-#sec2{
-    .container3{
-      display: flex;
-      flex-direction: row;
-      justify-content: space-evenly;
-      align-items: flex-start;
-      flex-wrap: wrap;
+  mat-form-field {
+    width: max-content;
+    border-radius: 4px;
+  }
+  mat-label {
+    padding: 5px;
+    color: $font-color;
+  }
+  mat-option {
+    color: $primary-color;
+  }
+}
 
-    .button-container{
-      display:flex;
+/* fine sec */
+#sec2 {
+  .container3 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    .button-container {
+      display: flex;
       float: right;
       margin: 5px;
       justify-content: center;
       align-content: center;
       align-items: stretch;
     }
-    .deleteSq{
+    .deleteSq {
       align-content: center;
       margin: 0.3em;
     }
-    .button-add-container{
+    .button-add-container {
       display: flex;
       margin: 5px;
       justify-content: center;
       float: left;
     }
-    .button-rem-container{
+    .button-rem-container {
       display: flex;
       margin: 5px;
       justify-content: center;
@@ -199,13 +207,13 @@ $primary-color: #3b3a99;
     p {
       color: $font-color;
       text-indent: 1em;
-      transition: color .3s;
+      transition: color 0.3s;
     }
-    .nomeS-container{
+    .nomeS-container {
       display: flex;
       float: left;
     }
-    #nomeSquadra{
+    #nomeSquadra {
       text-transform: capitalize;
       color: white;
     }
@@ -233,28 +241,27 @@ $primary-color: #3b3a99;
       padding: 1.3vw;
     }
 
-    li{
+    li {
       list-style: none;
     }
-
   }
 } /* fine sec 2 */
-  /* CONTAINER 4 ########################################*/
-#sec3{
-  .container4{
+/* CONTAINER 4 ########################################*/
+#sec3 {
+  .container4 {
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
     align-items: flex-end;
     flex-wrap: nowrap;
 
-    input[type='radio']{
-    position: absolute;
-    clip: rect(1px, 1px, 1px, 1px);
-  }
+    input[type="radio"] {
+      position: absolute;
+      clip: rect(1px, 1px, 1px, 1px);
+    }
+    ///
     .card {
       background-color: #ffffff93;
-      padding: 2vw;
       margin: 2vw;
       display: flex;
       float: left;
@@ -262,173 +269,181 @@ $primary-color: #3b3a99;
       justify-content: space-around;
       list-style: none;
       width: max-content;
+      cursor: pointer;
 
-      transition: box-shadow .3s;
+      label{
+        padding: 1.5em 2em;
+        min-height: 5rem;
+        min-width: 13rem;
+      }
+      input[type="radio"] {
+        position: absolute;
+        clip: rect(1px, 1px, 1px, 1px);
+      }
 
-        &:hover {
-          box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
-        }
+      &:hover {
+        box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        background-color: #14144dc7;
+      }
+      &:hover label {
+        color: $primary-color;
+      }
+      &:hover h5 {
+        color: white;
+      }
 
-        &:hover label {
-          color: $primary-color;
+      input[type="radio"] + label {
+        display: block;
+        cursor: pointer;
+        transition: color 0.3s;
+        color: $primary-color;
+        &:before,
+        &:after {
+          position: static;
         }
-        &:hover p {
-          color:$primary-color;
+      }
+
+      input[type='radio']:checked + label {
+        box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        background-color: #14144dc7;
+        border-radius: 5px;
+        h5{
+          color: white;
         }
-        &:hover h3  {
-          color: $primary-color;
-        }
-        &:hover h5  {
-          color: $primary-color;
-        }
-        &:hover mat-icon {
-          color: $primary-color;
-        }
-        &:hover h3:after{
-          width: 25px;
-        }
-        input[type='radio'] + label {
+      }
+
+      h5 {
+        display: inline-block;
+        transition: color 0.3s;
+        &:after {
+          content: "";
+          position: relative;
+          color: white;
+          left: 50%;
+          top: 40px;
           display: block;
-          cursor: pointer;
-          transition: color .3s;
-          color: $font-color;
-          &:before, &:after {
-            position: static;
-          }
+          transition: width 0.3s;
         }
-        input[type='radio']:checked + label{
-          border-style: $primary-color;
-          color: $primary-color;
-          border: solid 3px;
-          border-radius: 5px;
-          padding: 2vw;
-        }
-
-        h5 {
-          display: inline-block;
-          transition: color .3s;
-          &:after {
-            content: '';
-            position: relative;
-            display: block;
-            transition: width .3s;
-          }
-        }
-        p {
-          color: $font-color;
-          text-align: left;
-          text-indent: 1em;
-          line-height: 26px;
-          transition: color .3s;
-        }
+      }
+      }
     }
-  }
-  .container5{
+    ////////
+
+  .container5 {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: flex-start;
     flex-wrap: wrap;
 
-    input[type='radio']{
-    position: absolute;
-    clip: rect(1px, 1px, 1px, 1px);
-  }
+    input[type="radio"] {
+      position: absolute;
+      clip: rect(1px, 1px, 1px, 1px);
+    }
     .card {
       background-color: #ffffff93;
-      padding: 10px;
       margin: 10px;
       display: inline-block;
       flex-flow: row wrap;
-      justify-content: space-evenly;
+      justify-content: space-around;
       list-style: none;
-      min-width: 12vw;
-      min-height: 10vw;
+      transition: box-shadow 0.3s;
 
-        transition: box-shadow .3s;
+      &:hover {
+        box-shadow: 0 rgba(0, 0, 0, 0.24),
+          0 rgba(0, 0, 0, 0.19);
+      }
 
-        &:hover {
-          box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+      &:hover label {
+        color: $primary-color;
+      }
+      &:hover p {
+        color: #555;
+      }
+      &:hover h4 {
+        color: $primary-color;
+      }
+      &:hover h5 {
+        color: $primary-color;
+      }
+      &:hover mat-icon {
+        color: $primary-color;
+      }
+      &:hover h4:after {
+        width: 25px;
+      }
+      input[type="radio"] + label {
+        display: block;
+        cursor: pointer;
+        transition: color 0.3s;
+        color: $font-color;
+        padding: 1.5em 2em;
+        min-width: 10rem;
+        min-height: 8rem;
+        &:before,
+        &:after {
+          position: static;
         }
+      }
+      input[type="radio"]:checked + label {
+        border-style: $primary-color;
+        color: $primary-color;
+        border: solid 3px;
+        border-radius: 5px;
+        padding: 1.5em 2em;
+        min-width: 12rem;
+        min-height: 10rem;
 
-        &:hover label {
+        h4 {
+          color: $primary-color;
+          font-style: bold;
+        }
+        mat-icon{
           color: $primary-color;
         }
-        &:hover p {
-          color: #555;
-        }
-        &:hover h4  {
-          color: $primary-color;
-        }
-        &:hover h5  {
-          color: $primary-color;
-        }
-        &:hover mat-icon {
-          color: $primary-color;
-        }
-        &:hover h4:after{
-          width: 25px;
+      }
+      h4 {
+        text-transform: uppercase;
+      }
 
-        }
-        input[type='radio'] + label {
+      h5 {
+        display: inline-block;
+        transition: color 0.3s;
+        &:after {
+          content: "";
+          position: relative;
+          left: 50%;
+          top: 40px;
+          transform: translateX(-50%);
           display: block;
-          cursor: pointer;
-          transition: color .3s;
-          color: $font-color;
-          &:before, &:after {
-            position: static;
-          }
+          width: 40px;
+          height: 1.4px;
+          background: darken($font-color, 20%);
+          transition: width 0.3s;
         }
-        input[type='radio']:checked + label{
-          border-style: $primary-color;
-          color: $primary-color;
-          border: solid 3px;
-          border-radius: 5px;
-          padding: 10px;
-        }
-        h4{
-          text-transform: uppercase;
-        }
-
-        h5 {
-          display: inline-block;
-          transition: color .3s;
-          &:after {
-            content: '';
-            position: relative;
-            left: 50%;
-            top: 40px;
-            transform: translateX(-50%);
-            display: block;
-            width: 40px;
-            height: 1.4px;
-            background: darken($font-color, 20%);
-            transition: width .3s;
-          }
-        }
-        p {
-          color: $font-color;
-          text-align: left;
-          text-indent: 1em;
-          line-height: 26px;
-          transition: color .3s;
-        }
-
+      }
+      p {
+        color: $font-color;
+        text-align: left;
+        text-indent: 1em;
+        line-height: 26px;
+        transition: color 0.3s;
+      }
     }
   }
 }
-.container6{
-  display:flex;
+.container6 {
+  display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: flex-end;
   flex-wrap: nowrap;
 }
-.container6 .mat-card-title{
+.container6 .mat-card-title {
   color: grey;
 }
 
-.mat-card{
+.mat-card {
   background-color: whitesmoke;
   opacity: 88%;
   min-width: 20rem;
@@ -439,12 +454,12 @@ $primary-color: #3b3a99;
   margin: 1rem;
 }
 
-.mat-card-subtitle{
+.mat-card-subtitle {
   color: darkslategray;
 }
 
 @media (min-width: 991px) {
-  .icon-tipoS{
+  .icon-tipoS {
     transform: scale(5);
   }
   .my-fab-button {
@@ -453,11 +468,10 @@ $primary-color: #3b3a99;
     float: right;
     margin-right: 3em;
   }
-
 } /* for desktops */
 
 @media (min-width: 768px) and (max-width: 991px) {
-  .icon-tipoS{
+  .icon-tipoS {
     transform: scale(4);
   }
   .my-fab-button {
@@ -466,11 +480,10 @@ $primary-color: #3b3a99;
     float: right;
     margin-right: 3em;
   }
-
 } /* for laptops */
 
- @media (max-width: 768px) {
-  .icon-tipoS{
+@media (max-width: 768px) {
+  .icon-tipoS {
     transform: scale(2);
   }
   .my-fab-button {
@@ -482,7 +495,7 @@ $primary-color: #3b3a99;
 } /* for smaller tablets */
 
 @media (max-width: 500px) {
-  .icon-tipoS{
+  .icon-tipoS {
     transform: scale(1);
   }
   .my-fab-button {

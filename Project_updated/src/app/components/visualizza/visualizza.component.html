@@ -24,7 +24,9 @@
     mat-raised-button
     color="primary"
     (click)="iniziaStep()">
-    <p>{{ startText ? startText : "Inizia" }}</p>
+    <p>{{ startText ? startText : "Inizia"}}</p>
+    <p>{{timestampGlobale}}</p>
+    <p> Timestamp start : {{ this.stepStartAt }}</p>
   </button>
     </mat-grid-tile>
   </mat-grid-list>
@@ -128,6 +130,8 @@
         <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
         <button (click)="gestisciAvanzamento()">Avanti</button>
       </div>
+      <p> Punteggio : {{this.punteggio }}</p>
+
     </div>
   </section>
 </section>
