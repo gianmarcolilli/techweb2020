@@ -18,10 +18,6 @@ $primary-color: #3b3a99;
   height: 100%;
   width: 100%;
   padding: 0.5rem;
-}
-
-#sec {
-  padding: 5px;
   text-align: center;
   word-wrap: break-word;
 }
@@ -43,12 +39,12 @@ $primary-color: #3b3a99;
     flex-flow: row wrap;
     justify-content: space-around;
     list-style: none;
-    width: max-content;
     cursor: pointer;
 
     label{
       padding: 1.5em 2em;
       min-height: 15rem;
+      min-width: 13rem;
     }
     input[type="radio"] {
       position: absolute;
@@ -90,6 +86,7 @@ $primary-color: #3b3a99;
       display: block;
       cursor: pointer;
       transition: color 0.3s;
+      padding: 1.5em 2em;
       color: $font-color;
       &:before,
       &:after {
@@ -100,6 +97,7 @@ $primary-color: #3b3a99;
     input[type='radio']:checked + label {
       box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
       background-color: #14144dc7;
+      padding: 1.5em 2em;
       border-radius: 5px;
       .mat-icon{
         color: white;
@@ -118,7 +116,6 @@ $primary-color: #3b3a99;
         position: relative;
         color: $primary-color;
         left: 50%;
-        top: 40px;
         display: block;
         transition: width 0.3s;
       }
@@ -261,9 +258,9 @@ $primary-color: #3b3a99;
       position: absolute;
       clip: rect(1px, 1px, 1px, 1px);
     }
+    ///
     .card {
       background-color: #ffffff93;
-      padding: 2vw;
       margin: 2vw;
       display: flex;
       float: left;
@@ -271,48 +268,47 @@ $primary-color: #3b3a99;
       justify-content: space-around;
       list-style: none;
       width: max-content;
+      cursor: pointer;
 
-      transition: box-shadow 0.3s;
-
-      &:hover {
-        box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
-          0 17px 50px 0 rgba(0, 0, 0, 0.19);
+      label{
+        padding: 1.5em 2em;
+        min-height: 5rem;
+        min-width: 13rem;
+      }
+      input[type="radio"] {
+        position: absolute;
+        clip: rect(1px, 1px, 1px, 1px);
       }
 
+      &:hover {
+        box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        background-color: #14144dc7;
+      }
       &:hover label {
         color: $primary-color;
       }
-      &:hover p {
-        color: $primary-color;
-      }
-      &:hover h3 {
-        color: $primary-color;
-      }
       &:hover h5 {
-        color: $primary-color;
+        color: white;
       }
-      &:hover mat-icon {
-        color: $primary-color;
-      }
-      &:hover h3:after {
-        width: 25px;
-      }
+
       input[type="radio"] + label {
         display: block;
         cursor: pointer;
         transition: color 0.3s;
-        color: $font-color;
+        color: $primary-color;
         &:before,
         &:after {
           position: static;
         }
       }
-      input[type="radio"]:checked + label {
-        border-style: $primary-color;
-        color: $primary-color;
-        border: solid 3px;
+
+      input[type='radio']:checked + label {
+        box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        background-color: #14144dc7;
         border-radius: 5px;
-        padding: 2vw;
+        h5{
+          color: white;
+        }
       }
 
       h5 {
@@ -321,19 +317,17 @@ $primary-color: #3b3a99;
         &:after {
           content: "";
           position: relative;
+          color: white;
+          left: 50%;
+          top: 40px;
           display: block;
           transition: width 0.3s;
         }
       }
-      p {
-        color: $font-color;
-        text-align: left;
-        text-indent: 1em;
-        line-height: 26px;
-        transition: color 0.3s;
       }
     }
-  }
+    ////////
+
   .container5 {
     display: flex;
     flex-direction: row;
@@ -347,20 +341,16 @@ $primary-color: #3b3a99;
     }
     .card {
       background-color: #ffffff93;
-      padding: 10px;
       margin: 10px;
       display: inline-block;
       flex-flow: row wrap;
-      justify-content: space-evenly;
+      justify-content: space-around;
       list-style: none;
-      min-width: 12vw;
-      min-height: 10vw;
-
       transition: box-shadow 0.3s;
 
       &:hover {
-        box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24),
-          0 17px 50px 0 rgba(0, 0, 0, 0.19);
+        box-shadow: 0 rgba(0, 0, 0, 0.24),
+          0 rgba(0, 0, 0, 0.19);
       }
 
       &:hover label {
@@ -386,6 +376,9 @@ $primary-color: #3b3a99;
         cursor: pointer;
         transition: color 0.3s;
         color: $font-color;
+        padding: 1.5em 2em;
+        min-width: 10rem;
+        min-height: 8rem;
         &:before,
         &:after {
           position: static;
@@ -396,7 +389,17 @@ $primary-color: #3b3a99;
         color: $primary-color;
         border: solid 3px;
         border-radius: 5px;
-        padding: 10px;
+        padding: 1.5em 2em;
+        min-width: 12rem;
+        min-height: 10rem;
+
+        h4 {
+          color: $primary-color;
+          font-style: bold;
+        }
+        mat-icon{
+          color: $primary-color;
+        }
       }
       h4 {
         text-transform: uppercase;
