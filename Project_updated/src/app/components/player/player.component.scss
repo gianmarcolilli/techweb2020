@@ -14,9 +14,8 @@ $primary-color: #3b3a99;
 
 .mainSection {
   background-image: url(/assets/logo5.png);
+  background-size: contain;
   background-repeat: no-repeat;
-  height: 100%;
-  width: 100%;
   padding: 0.5rem;
   text-align: center;
   word-wrap: break-word;
@@ -332,7 +331,7 @@ $primary-color: #3b3a99;
   .container5 {
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
 
@@ -446,8 +445,8 @@ $primary-color: #3b3a99;
 .mat-card {
   background-color: whitesmoke;
   opacity: 88%;
-  min-width: 20rem;
-  min-height: 15rem;
+  min-width: 20em;
+  min-height: 15em;
 }
 
 .mat-card-title {
