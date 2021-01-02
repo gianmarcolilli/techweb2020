@@ -144,11 +144,12 @@ export class DummyApiService {
     });
   }
 
-  updateGame(idPartita:number, prossimoId:number){
+  updateGame(idPartita:number, prossimoId:number , punteggio:number){
 
     return this.http
       .put("http://localhost:3000/api/games/"+idPartita, {
-        prossimoId: prossimoId
+        prossimoId: prossimoId,
+        score : punteggio
       })
    }
 
