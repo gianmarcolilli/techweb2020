@@ -27,6 +27,7 @@ router.post("", (req, res, next) => {
         currentStepId: -1,
         nextStepId: -1,
         variabileOk: 0,
+        score:0
       });
 
       game
@@ -107,6 +108,7 @@ router.put("/:idPartita", (req, res, next) => {
               numeroPlayer: game.numeroPlayer,
               currentStepId: game.currentStepId,
               nextStepId: req.body.prossimoId,
+              score : req.body.score,
               variabileOk: 1,
             },
             { new: true }

@@ -6,8 +6,9 @@
 </ngb-alert>
 
 <section *ngIf="!playClicked" class="mainSection" id="sec">
-  <h2>Seleziona la storia che preferisci e inizia a giocare</h2>
-  <section class="tipoStoria">
+  <section id="tipoS">
+    <h2>Seleziona la storia che preferisci e inizia a giocare</h2>
+    <div class="tipoStoria">
       <div class="card">
         <input type="radio" name="tipologiaGruppo" id="Individuale" value="individuale" [(ngModel)]="tipologiaGruppo">
         <label class="fa fa-code"  for="Individuale">
@@ -31,8 +32,8 @@
         <h3>Classe</h3><p>(15-25 persone)</p>
         </label>
       </div>
+    </div>
   </section>
-
   <div class="container2">
     <mat-form-field
       appearance="fill"
@@ -106,8 +107,7 @@
   <!-- fine sec2 -->
 
   <section id="sec3">
-    <div class="container4">
-      <form aria-label="Select an option" (click)="traccia = -1">
+    <div class="container4" aria-label="Select an option" (click)="traccia = -1">
         <div class="card">
           <input
             type="radio"
@@ -146,7 +146,6 @@
             <h5>15 - 18 anni</h5>
           </label>
         </div>
-      </form>
     </div>
 
     <div class="container5" *ngIf="fasciaEta != ''">
