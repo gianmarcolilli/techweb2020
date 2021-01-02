@@ -5,5 +5,6 @@ export interface Game {
   numeroPlayer: number,
   currentStepId: number,
   nextStepId:number,
-  variabileOk:number
+  variabileOk:number,
+  score:number
 }
