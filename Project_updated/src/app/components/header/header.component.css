@@ -7,35 +7,38 @@
   width: 100%;
   font-family: "Acme", sans-serif;
 }
-#stemma {
-  font-size: 3em;
-  font-family: "Acme", "sans-serif";
+.container1{
   width: 100%;
-  margin-left: 2em;
 }
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.title{
+  font-family: 'Acme', 'sans-serif';
+  float: center;
+  font-size: 2em;
 }
 
-a {
+.menu{
+float: right;
+}
+
+a{
+  font-size: 3em;
   text-decoration: none;
   color: white;
   font-family: "Acme", sans-serif;
 }
 
-ul {
-  display: flex;
+span{
+  font-family:'Acme', sans-serif;
 }
 
 .spacer {
   flex: 1 1 auto;
 }
 
-/* navbar */
-@media (min-width: 991px) {
-} /* for desktops */
+.example-icon{
+  padding: 2px;
+  float: left;
+}
 
 @media (min-width: 768px) and (max-width: 990px) {
   .navbar-fixed-bottom .dropdown .caret {
