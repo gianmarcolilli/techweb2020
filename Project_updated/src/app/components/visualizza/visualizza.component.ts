@@ -4,6 +4,7 @@ import { interval, of } from 'rxjs';
 import { startWith, switchMap, take } from 'rxjs/operators';
 import { Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
+import { NgForm } from "@angular/forms";
 import { mimeType } from '../visualizza/mime-type.validator';
 import { timer } from 'rxjs';
 
@@ -142,6 +143,10 @@ export class VisualizzaComponent implements OnInit {
 
       this.notificaAvanzamento(0)
     }
+  }
+
+  fine(form: NgForm) {
+    this.router.navigateByUrl("classifica")
   }
 
 
