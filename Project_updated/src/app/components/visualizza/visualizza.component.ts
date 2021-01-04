@@ -31,12 +31,13 @@ export class VisualizzaComponent implements OnInit {
   hoProcedutoIo = false;
   variabileOk = 0;
   numeroPlayers = 0
+  arrayPlayers = [];
+
   stop: boolean = false;
 
   tempRisposta: string = ""
   idPartita = -1;
 
-  timerPunteggio = timer(0, 1000);
   punteggio = 0;
   tempPunteggio: number;
   tempTimer: any;
@@ -76,6 +77,7 @@ export class VisualizzaComponent implements OnInit {
 
             if (!res) return;
             this.numeroPlayers = res.numeroPlayer
+            this.arrayPlayers = this.array(res.numeroPlayer)
             this.variabileOk = res.variabileOk
             this.punteggio = res.score
 
@@ -118,7 +120,6 @@ export class VisualizzaComponent implements OnInit {
                 this.stop = false
               });
               this.refresh();
-              this.timerPunteggio = timer(3000, 1000);
               return;
             }
 
@@ -155,6 +156,7 @@ export class VisualizzaComponent implements OnInit {
   }
 
   gestisciPunteggio(timer: number) {
+    if(timer== NaN || timer == undefined || timer == null)return
     if (this.currentStepId == 0) return 0;
     if (this.storia.steps[this.currentStepId].action == "informazione") return 0;
     if (this.nextStepId == this.steps[this.currentStepId].wrongId) return -(timer / 50);
@@ -166,6 +168,11 @@ export class VisualizzaComponent implements OnInit {
     this.stepStartAt = Date.now()
     return (this.stepStartAt - oldTimer) / 1000
   }
+
+  array(length)  {
+    return Array(length)
+  }
+
 
   gestisciAvanzamento(idQuiz) {
 
@@ -180,10 +187,18 @@ export class VisualizzaComponent implements OnInit {
       //Avanzamento in gioco modalità singolo
       if (this.idPartita == -1) {
         this.currentStepId = this.steps[this.currentStepId].correctId
+        var tempoImpiegato = this.resetStepTimer();
+        console.log("impiegati " + tempoImpiegato + " secondi.");
+        this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
         // var timeS = Date.now();
         // console.log(Date.now())
       } else {
         //Avanzamento gioco in modalità squadre
+        if(this.storia.steps[this.currentStepId].action != "informazione"){
+          var tempoImpiegato = this.resetStepTimer();
+          console.log("impiegati " + tempoImpiegato + " secondi.");
+          this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
+        }
         console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
         this.nextStepId = this.steps[this.currentStepId].correctId;
         this.stop = true
@@ -191,11 +206,7 @@ export class VisualizzaComponent implements OnInit {
         this.hoDatoOk = true
         this.notificaAvanzamento(this.nextStepId)
       }
-      if(this.storia.steps[this.currentStepId].action != "informazione"){
-        var tempoImpiegato = this.resetStepTimer();
-        console.log("impiegati " + tempoImpiegato + " secondi.");
-        this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
-      }
+
       return;
     }
     if (this.storia.steps[this.currentStepId].action == "domanda" || this.storia.steps[this.currentStepId].action == "quiz") {

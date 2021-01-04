@@ -145,7 +145,7 @@ export class DummyApiService {
   }
 
   updateGame(idPartita:number, prossimoId:number , punteggio:number){
-
+    console.log("da frontend mando : "+punteggio)
     return this.http
       .put("http://localhost:3000/api/games/"+idPartita, {
         prossimoId: prossimoId,
