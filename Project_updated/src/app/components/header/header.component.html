@@ -1,25 +1,55 @@
-<mat-toolbar color="primary">
-  <button mat-icon-button (click)="navigateToHome()" class="example-icon" aria-label="Example icon-button with home icon" style="margin-right: 10px;">
-    <mat-icon aria-hidden="false" aria-label="Example home icon">home</mat-icon>
-  </button>
-  <span>{{  myTitle  }}</span>
-  <p id="stemma">M&M</p>
-  <span class="spacer"></span>
-  <ul>
-    <li *ngIf="!userIsAuthenticated">
-      <a mat-button routerLink="/signup" routerLinkActive="mat-accent">Signup Autore</a>
-    </li>
-    <li *ngIf="!userIsAuthenticated">
-      <a mat-button routerLink="/login" routerLinkActive="mat-accent">Login Autore</a>
-    </li>
-    <li *ngIf="userIsAuthenticated">
-      <button mat-button (click)="navigateToAutore()">Menu' Autore</button>
-    </li>
-    <li *ngIf="userIsAuthenticated">
-      <button mat-button (click)="navigateToHome()">Menu' Player</button>
-    </li>
-    <li *ngIf="userIsAuthenticated">
-      <button mat-button (click)="onLogout()">Logout</button>
-    </li>
-  </ul>
-</mat-toolbar>
+<nav class="navbar navbar-fixed navbar-expand-lg navbar-inverse">
+  <div class="navbar-header">
+    <button
+      type="button"
+      class="navbar-toggle collapsed"
+      data-toggle="collapse"
+      data-target="#bs-example-navbar-collapse-1"
+      aria-expanded="false"
+    >
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+  </div>
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+      <button
+        mat-icon-button
+        (click)="navigateToHome()"
+        class="example-icon"
+        aria-label="Example icon-button with home icon"
+        style="margin-right: 10px"
+      >
+        <mat-icon aria-hidden="false" aria-label="Example home icon"
+          >home</mat-icon
+        >
+      </button>
+      <span>{{ myTitle }}</span>
+      <p id="stemma">M&M</p>
+      <span class="spacer"></span>
+      <ul>
+        <li *ngIf="!userIsAuthenticated">
+          <a mat-button routerLink="/signup" routerLinkActive="mat-accent"
+            >Signup Autore</a
+          >
+        </li>
+        <li *ngIf="!userIsAuthenticated">
+          <a mat-button routerLink="/login" routerLinkActive="mat-accent"
+            >Login Autore</a
+          >
+        </li>
+        <li *ngIf="userIsAuthenticated">
+          <button mat-button (click)="navigateToAutore()">Menu' Autore</button>
+        </li>
+        <li *ngIf="userIsAuthenticated">
+          <button mat-button (click)="navigateToHome()">Menu' Player</button>
+        </li>
+        <li *ngIf="userIsAuthenticated">
+          <button mat-button (click)="onLogout()">Logout</button>
+        </li>
+      </ul>
+
+  </div>
+</nav>
