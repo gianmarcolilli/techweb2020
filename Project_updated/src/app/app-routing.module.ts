@@ -8,6 +8,7 @@ import { ConfiguraComponent } from './components/configura/configura.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { AuthGuard } from "./components/auth/auth.guard";
 import { SignupComponent } from './components/auth/signup/signup.component';
+import { ClassificaComponent } from './components/classifica/classifica.component';
 
 const routes: Routes = [
   { path: "home" , component:HomePageComponent},
@@ -22,7 +23,9 @@ const routes: Routes = [
 
   { path: "configura/:id", component: ConfiguraComponent},
   { path: "login", component: LoginComponent},
-  { path: "signup", component: SignupComponent }
+  { path: "signup", component: SignupComponent },
+  { path: "classifica", component: ClassificaComponent }
+
 ];
 
 @NgModule({
