@@ -142,7 +142,9 @@
 
 
       <p> Punteggio : {{this.punteggio }}</p>
-
+      <div *ngFor="let item of this.arrayPlayers;index as k">
+        <mat-icon  [ngClass]="{  'green' : k < variabileOk}">person</mat-icon>
+      </div>
     </div>
   </section>
 </section>
