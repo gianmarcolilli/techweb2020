@@ -52,7 +52,7 @@ export class ConfiguraComponent implements OnInit {
     if (type == "domanda") {
       return "domanda"
     }
-    if (type == "informazione" || type == "dnd") {
+    if (type == "informazione" || type == "dnd" || type =="fine") {
       return "contenuto"
     }
     if (type == "puzzle") {
@@ -112,6 +112,21 @@ export class ConfiguraComponent implements OnInit {
     if (type == "informazione") {
       let myActivity = {
         action: 'informazione',
+        activityId: id == -1 ? this.storia.steps.length : id,
+        activityTitle: this.tempContenuto,
+        backImg: this.imagePreview,
+        correctId: this.tempCorrect,
+        wrongId: this.tempWrong
+      }
+      if (id == -1) {
+        this.storia.steps.push(myActivity)
+      } else {
+        this.storia.steps[id] = myActivity
+      }
+    }
+    if (type == "fine") {
+      let myActivity = {
+        action: 'fine',
         activityId: id == -1 ? this.storia.steps.length : id,
         activityTitle: this.tempContenuto,
         backImg: this.imagePreview,
