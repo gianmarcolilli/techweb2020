@@ -47,6 +47,7 @@ import { SignupComponent } from './components/auth/signup/signup.component';
 import { AuthInterceptor } from "./components/auth/auth-interceptor";
 import { DragndropComponent } from './components/dragndrop/dragndrop.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { ClassificaComponent } from './components/classifica/classifica.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     ImagePuzzleComponent,
     LoginComponent,
     SignupComponent,
-    DragndropComponent
+    DragndropComponent,
+    ClassificaComponent
   ],
   imports: [
     BrowserModule,
