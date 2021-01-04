@@ -10,26 +10,66 @@
     <h2>Seleziona la storia che preferisci e inizia a giocare</h2>
     <div class="tipoStoria">
       <div class="card">
-        <input type="radio" name="tipologiaGruppo" id="Individuale" value="individuale" [(ngModel)]="tipologiaGruppo">
-        <label class="fa fa-code"  for="Individuale">
-            <mat-icon class="icon-tipoS" aria-hidden="false" aria-label="person icon">person</mat-icon> <br>
-        <h3>Individuale</h3>
+        <input
+          type="radio"
+          name="tipologiaGruppo"
+          id="Individuale"
+          value="individuale"
+          [(ngModel)]="tipologiaGruppo"
+        />
+        <label class="fa fa-code" for="Individuale">
+          <mat-icon
+            class="icon-tipoS"
+            aria-hidden="false"
+            aria-label="person icon"
+            >person</mat-icon
+          >
+          <br />
+          <h3>Individuale</h3>
         </label>
       </div>
 
       <div class="card">
-        <input type="radio" name="tipologiaGruppo" id="Gruppo" value="gruppo" [(ngModel)]="tipologiaGruppo" (click)="popolaDimensioni('gruppo')">
-        <label class="fa fa-code"  for="Gruppo">
-            <mat-icon class="icon-tipoS" aria-hidden="false" aria-label="group icon">group</mat-icon> <br>
-        <h3>Gruppo </h3><p>(2-5 persone)</p>
+        <input
+          type="radio"
+          name="tipologiaGruppo"
+          id="Gruppo"
+          value="gruppo"
+          [(ngModel)]="tipologiaGruppo"
+          (click)="popolaDimensioni('gruppo')"
+        />
+        <label class="fa fa-code" for="Gruppo">
+          <mat-icon
+            class="icon-tipoS"
+            aria-hidden="false"
+            aria-label="group icon"
+            >group</mat-icon
+          >
+          <br />
+          <h3>Gruppo</h3>
+          <p>(2-5 persone)</p>
         </label>
       </div>
 
       <div class="card">
-        <input type="radio" name="tipologiaGruppo" id="Classe" value="classe" [(ngModel)]="tipologiaGruppo" (click)="popolaDimensioni('classe')">
-        <label class="fa fa-code"  for="Classe">
-            <mat-icon class="icon-tipoS" aria-hidden="false" aria-label="person icon">groups</mat-icon> <br>
-        <h3>Classe</h3><p>(15-25 persone)</p>
+        <input
+          type="radio"
+          name="tipologiaGruppo"
+          id="Classe"
+          value="classe"
+          [(ngModel)]="tipologiaGruppo"
+          (click)="popolaDimensioni('classe')"
+        />
+        <label class="fa fa-code" for="Classe">
+          <mat-icon
+            class="icon-tipoS"
+            aria-hidden="false"
+            aria-label="person icon"
+            >groups</mat-icon
+          >
+          <br />
+          <h3>Classe</h3>
+          <p>(15-25 persone)</p>
         </label>
       </div>
     </div>
@@ -37,7 +77,7 @@
   <div class="container2">
     <mat-form-field
       appearance="fill"
-      *ngIf="tipologiaGruppo == 'classe' || tipologiaGruppo=='gruppo'"
+      *ngIf="tipologiaGruppo == 'classe' || tipologiaGruppo == 'gruppo'"
       ngDefaultControl
       name="nPartecipanti"
     >
@@ -53,51 +93,63 @@
     </mat-form-field>
   </div>
 
-  <section id="sec2" *ngIf="nPartecipanti != -1 && tipologiaGruppo=='classe'" >
+  <section id="sec2" *ngIf="nPartecipanti != -1 && tipologiaGruppo == 'classe'">
     <p>Partecipanti : {{ nPartecipantiAggiunti }} / {{ nPartecipanti }}</p>
 
-      <button
-      *ngIf="(nPartecipanti-nPartecipantiAggiunti>=2)" (click) = "aggiungiNuovaSquadra()"
-        mat-raised-button color="basic" >
-        <p>+ Aggiungi squadra</p>
-      </button>
+    <button
+      *ngIf="nPartecipanti - nPartecipantiAggiunti >= 2"
+      (click)="aggiungiNuovaSquadra()"
+      mat-raised-button
+      color="basic"
+    >
+      <p>+ Aggiungi squadra</p>
+    </button>
 
-      <div class="container3"  >
-        <div class="card" *ngFor="let squadra of squadre">
-          <div class="heading" >
-            <div class="nomeS-container" >
+    <div class="container3">
+      <div class="card" *ngFor="let squadra of squadre">
+        <div class="heading">
+          <div class="nomeS-container">
             <h3 id="nomeSquadra">{{ squadra.name }}</h3>
           </div>
           <div class="button-container">
-            <button  mat-mini-fab
-            color="warn"
-            *ngIf="this.squadre.length>this.nSquadre"
-              (click)="eliminaSquadra(squadra.id)">
+            <button
+              mat-mini-fab
+              color="warn"
+              *ngIf="this.squadre.length > this.nSquadre"
+              (click)="eliminaSquadra(squadra.id)"
+            >
               <i class="material-icons">clear</i>
             </button>
           </div>
         </div>
         <div class="content">
-          <h4>Giocatori: </h4>
+          <h4>Giocatori:</h4>
           <ul>
             <li *ngFor="let player of squadra.players">
-             <p>{{ player }}</p>
-             </li>
-            </ul>
+              <p>{{ player }}</p>
+            </li>
+          </ul>
         </div>
         <div class="button-add-container">
-          <button *ngIf="this.nPartecipantiAggiunti<this.nPartecipanti || squadra.players.length<5"
-              mat-mini-fab
-              color="primary"
-              (click)="aggiungiPlayer(squadra.id)">
-             <mat-icon>add</mat-icon>
+          <button
+            *ngIf="
+              this.nPartecipantiAggiunti < this.nPartecipanti ||
+              squadra.players.length < 5
+            "
+            mat-mini-fab
+            color="primary"
+            (click)="aggiungiPlayer(squadra.id)"
+          >
+            <mat-icon>add</mat-icon>
           </button>
         </div>
         <div class="button-rem-container">
-          <button *ngIf="squadra.players.length>2"
+          <button
+            *ngIf="squadra.players.length > 2"
             mat-mini-fab
             color="warn"
-            (click)="rimuoviPlayer(squadra.id)">
+            (click)="rimuoviPlayer(squadra.id)"
+          >
             <mat-icon>delete_forever</mat-icon>
           </button>
         </div>
@@ -107,45 +159,49 @@
   <!-- fine sec2 -->
 
   <section id="sec3">
-    <div class="container4" aria-label="Select an option" (click)="traccia = -1">
-        <div class="card">
-          <input
-            type="radio"
-            name="fasciaEta"
-            id="7-10"
-            value="fasciaUno"
-            [(ngModel)]="fasciaEta"
-          />
-          <label for="7-10">
-            <h5>7 - 10 anni</h5>
-          </label>
-        </div>
+    <div
+      class="container4"
+      aria-label="Select an option"
+      (click)="traccia = -1"
+    >
+      <div class="card">
+        <input
+          type="radio"
+          name="fasciaEta"
+          id="7-10"
+          value="fasciaUno"
+          [(ngModel)]="fasciaEta"
+        />
+        <label for="7-10">
+          <h5>7 - 10 anni</h5>
+        </label>
+      </div>
 
-        <div class="card">
-          <input
-            type="radio"
-            name="fasciaEta"
-            id="11-14"
-            value="fasciaDue"
-            [(ngModel)]="fasciaEta"
-          />
-          <label for="11-14">
-            <h5>11 - 14 anni</h5>
-          </label>
-        </div>
+      <div class="card">
+        <input
+          type="radio"
+          name="fasciaEta"
+          id="11-14"
+          value="fasciaDue"
+          [(ngModel)]="fasciaEta"
+        />
+        <label for="11-14">
+          <h5>11 - 14 anni</h5>
+        </label>
+      </div>
 
-        <div class="card">
-          <input
-            type="radio"
-            name="fasciaEta"
-            id="15-18"
-            value="fasciaTre"
-            [(ngModel)]="fasciaEta"
-          />
-          <label for="15-18">
-            <h5>15 - 18 anni</h5>
-          </label>
-        </div>
+      <div class="card">
+        <input
+          type="radio"
+          name="fasciaEta"
+          id="15-18"
+          value="fasciaTre"
+          [(ngModel)]="fasciaEta"
+        />
+        <label for="15-18">
+          <h5>15 - 18 anni</h5>
+        </label>
+      </div>
     </div>
 
     <div class="container5" *ngIf="fasciaEta != ''">
@@ -195,7 +251,8 @@
             [width]="256"
             [errorCorrectionLevel]="'M'"
           ></qrcode>
-          <button *ngIf="tipologiaGruppo=='individuale'"
+          <button
+            *ngIf="tipologiaGruppo == 'individuale'"
             mat-raised-button
             color="success"
             (click)="iniziaPartita(this.traccia)"
@@ -207,7 +264,11 @@
     </mat-card>
   </div>
 
-  <div *ngIf="tipologiaGruppo!='individuale' && tipologiaGruppo!=''" class="fixedLowRight" (click)="playClick()">
+  <div
+    *ngIf="tipologiaGruppo != 'individuale' && tipologiaGruppo != ''"
+    class="fixedLowRight"
+    (click)="playClick()"
+  >
     <button mat-fab color="warn" class="my-fab-button">
       <mat-icon class="icon-tipoS">play_arrow</mat-icon>
     </button>
@@ -219,14 +280,15 @@
   <div *ngIf="tipologiaGruppo == 'individuale'">
     <h3>Ecco il tuo QR code!</h3>
     <qrcode
-    [qrdata]="
-    'http://localhost:4200/player/' +
-    tipologiaGruppo +
-    '/' +
-    fasciaEta +
-    '/' +
-    traccia +
-    '/autoplay'"
+      [qrdata]="
+        'http://localhost:4200/player/' +
+        tipologiaGruppo +
+        '/' +
+        fasciaEta +
+        '/' +
+        traccia +
+        '/autoplay'
+      "
       [width]="256"
       [errorCorrectionLevel]="'M'"
     ></qrcode>
@@ -254,7 +316,7 @@
     </button>
   </div> -->
 
-  <div *ngIf="tipologiaGruppo == 'classe' || tipologiaGruppo=='gruppo'">
+  <div *ngIf="tipologiaGruppo == 'classe' || tipologiaGruppo == 'gruppo'">
     <h3>Ecco i vostri QR Code!</h3>
     <mat-card *ngFor="let s of squadre" class="example-card">
       <mat-card-header>
