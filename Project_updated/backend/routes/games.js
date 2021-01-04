@@ -82,6 +82,7 @@ router.put("/:idPartita", (req, res, next) => {
               numeroPlayer: game.numeroPlayer,
               currentStepId: game.currentStepId,
               nextStepId: game.nextStepId,
+              score : game.score,
               variabileOk: game.variabileOk + 1,
             },
             { new: true }
@@ -98,7 +99,7 @@ router.put("/:idPartita", (req, res, next) => {
             });
         } else if (game.variabileOk == 0) {
           //Se sono il primo a entrarci
-          console.log("sono il primo");
+          console.log("sono il primo e sto impostando come score : "+ req.body.score);
           Game.findOneAndUpdate(
             { idPartita: req.params.idPartita },
             {
@@ -108,7 +109,7 @@ router.put("/:idPartita", (req, res, next) => {
               numeroPlayer: game.numeroPlayer,
               currentStepId: game.currentStepId,
               nextStepId: req.body.prossimoId,
-              score : req.body.score,
+              score : req.body.score?req.body.score:game.score,
               variabileOk: 1,
             },
             { new: true }
@@ -136,6 +137,7 @@ router.put("/:idPartita", (req, res, next) => {
             numeroPlayer: game.numeroPlayer,
             currentStepId: game.nextStepId,
             nextStepId: -1,
+            score : game.score,
             variabileOk: 0,
           },
           { new: true }
