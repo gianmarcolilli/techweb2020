@@ -21,7 +21,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
-
+import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatMenuModule} from '@angular/material/menu';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -64,6 +65,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     LoginComponent,
     SignupComponent,
     DragndropComponent
+
   ],
   imports: [
     BrowserModule,
@@ -96,6 +98,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatSnackBarModule,
     DragDropModule,
     MatProgressBarModule,
+    MatSidenavModule,
+    MatMenuModule,
 
     NgbModule,
     NgbAlertModule,
