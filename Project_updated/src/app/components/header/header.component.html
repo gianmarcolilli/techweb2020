@@ -1,64 +1,58 @@
 <mat-toolbar color="primary">
-  <div class="container1">
-    <button
-      mat-button
-      (click)="navigateToHome()"
-      class="example-icon"
-      aria-label="Example icon-button with home icon"
-    >
-      <a id="stemma">M&M</a>
-    </button>
-    <button mat-flat-button color="primary">
-      <p class="title">{{ myTitle }}</p>
-    </button>
-    <button
-      mat-icon-button
-      [matMenuTriggerFor]="menu"
-      class="menu"
-      aria-label="Example icon-button with a menu"
-    >
-      <mat-icon>menu</mat-icon>
-    </button>
-    <!-- Mat menu-->
-    <mat-menu #menu="matMenu">
-      <button
-        mat-menu-item
-        *ngIf="!userIsAuthenticated"
-        routerLink="/signup"
-        routerLinkActive="mat-accent"
-      >
-        <mat-icon>dialpad</mat-icon>
-        <span>Signup Autore</span>
-      </button>
-      <button
-        mat-menu-item
-        *ngIf="!userIsAuthenticated"
-        routerLink="/login"
-        routerLinkActive="mat-accent"
-      >
-        <mat-icon>login</mat-icon>
-        <span>Login Autore</span>
-      </button>
-      <button
-        mat-menu-item
-        *ngIf="userIsAuthenticated"
-        (click)="navigateToAutore()"
-      >
-        <mat-icon>assignment</mat-icon>
-        <span>Menu' Autore</span>
-      </button>
-      <button
-        mat-menu-item
-        *ngIf="userIsAuthenticated"
-        (click)="navigateToHome()"
-      >
-        <mat-icon>videogame_asset</mat-icon>
-        <span>Menu' Player</span>
-      </button>
-      <button mat-menu-item *ngIf="userIsAuthenticated" (click)="onLogout()">
-        <mat-icon>exit_to_app</mat-icon>
-        <span>Logout</span>
-      </button>
-    </mat-menu>
-  </div>
+  <button
+    mat-button
+    (click)="navigateToHome()"
+    class="example-icon"
+    aria-label="Example icon-button with home icon"
+  >
+    <a id="stemma">M&M</a>
+  </button>
+
+  <p class="title">{{ myTitle }}</p>
+
+  <button
+    mat-icon-button
+    [matMenuTriggerFor]="menu"
+    class="menu"
+    aria-label="Example icon-button with a menu"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
 </mat-toolbar>
+<!-- Mat menu-->
+<mat-menu #menu="matMenu">
+  <button
+    mat-menu-item
+    *ngIf="!userIsAuthenticated"
+    routerLink="/signup"
+    routerLinkActive="mat-accent"
+  >
+    <mat-icon>dialpad</mat-icon>
+    <span>Signup Autore</span>
+  </button>
+  <button
+    mat-menu-item
+    *ngIf="!userIsAuthenticated"
+    routerLink="/login"
+    routerLinkActive="mat-accent"
+  >
+    <mat-icon>login</mat-icon>
+    <span>Login Autore</span>
+  </button>
+  <button
+    mat-menu-item
+    *ngIf="userIsAuthenticated"
+    (click)="navigateToAutore()"
+  >
+    <mat-icon>assignment</mat-icon>
+    <span>Menu' Autore</span>
+  </button>
+  <button mat-menu-item *ngIf="userIsAuthenticated" (click)="navigateToHome()">
+    <mat-icon>videogame_asset</mat-icon>
+    <span>Menu' Player</span>
+  </button>
+  <button mat-menu-item *ngIf="userIsAuthenticated" (click)="onLogout()">
+    <mat-icon>exit_to_app</mat-icon>
+    <span>Logout</span>
+  </button>
+</mat-menu>
