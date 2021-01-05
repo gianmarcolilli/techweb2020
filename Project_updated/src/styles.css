@@ -111,7 +111,7 @@ img{
     margin: 0.2em;
   }
   p {
-    font-size: 9px;
+    font-size: 10px;
     margin: 0.3em;
   }
   button {
@@ -141,10 +141,10 @@ img{
     margin: 0.2em;
   }
   p {
-    font-size: 8px;
+    font-size: 9px;
     margin: 0.3em;
   }
   button {
-    margin: 3px;
+    margin: 2px;
   }
 } /* for cellphones */

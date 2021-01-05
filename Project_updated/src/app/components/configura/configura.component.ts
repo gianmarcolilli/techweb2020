@@ -11,7 +11,7 @@ import { mimeType } from '../autore/mime-type.validator';
 @Component({
   selector: 'app-configura',
   templateUrl: './configura.component.html',
-  styleUrls: [ './configura.component.css'],
+  styleUrls: [ './configura.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class ConfiguraComponent implements OnInit {

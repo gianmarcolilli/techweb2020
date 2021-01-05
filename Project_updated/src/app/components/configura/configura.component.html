@@ -3,7 +3,7 @@
 <!-- **************** -->
 <!-- RIEPILOGO STORIA -->
 <!-- **************** -->
-<mat-card *ngIf="storia">
+<mat-card *ngIf="storia" class="riepilogo-attivita">
   <mat-card-header>
     <mat-card-title
       ><h1>{{ storia.nome }}</h1>
@@ -91,9 +91,11 @@
 <!-- ****************** -->
 <!-- CREAZIONE ATTIVITA -->
 <!-- ****************** -->
-<mat-card *ngIf="storia">
+<mat-card *ngIf="storia" class="crea-attivita">
+  <mat-card-title>Aggiungi attività alla tua storia</mat-card-title>
   <form [formGroup]="form" class="example-form">
     <!-- TIPOLOGIA -->
+
     <mat-form-field class="example-full-width">
       <mat-label>Tipologia Attività</mat-label>
       <mat-select matNativeControl [(value)]="tempTipologiaAttivita" required>
@@ -207,98 +209,119 @@
 
     <!-- TIPOLOGIA : PUZZLE -->
     <section *ngIf="tempTipologiaAttivita == 'puzzle'">
-      <h3>Immagine</h3>
+      <h3>Immagine per il puzzle</h3>
 
       <!-- Risorsa Web o Locale -->
-      <div class="difficulty-levels">
-        <div class="input-group">
-          <input
-            type="radio"
-            [(ngModel)]="tempTipoUpload"
-            name="upload"
-            value="web"
-            checked
-            [ngModelOptions]="{ standalone: true }"
-          />Risorsa Web
+      <div class="img-puzzle">
+        <div class="difficulty-levels">
+          <div class="input-group">
+            <input
+              type="radio"
+              [(ngModel)]="tempTipoUpload"
+              name="upload"
+              value="web"
+              id="web"
+              checked
+              [ngModelOptions]="{ standalone: true }"
+            /><label for="web">Risorsa Web</label>
+          </div>
+          <div class="input-group">
+            <input
+              type="radio"
+              [(ngModel)]="tempTipoUpload"
+              name="upload"
+              value="locale"
+              id="locale"
+              [ngModelOptions]="{ standalone: true }"
+            /><label for="locale">File Locale</label>
+          </div>
         </div>
-        <div class="input-group">
-          <input
-            type="radio"
-            [(ngModel)]="tempTipoUpload"
-            name="upload"
-            value="locale"
-            [ngModelOptions]="{ standalone: true }"
-          />File Locale
-        </div>
-      </div>
 
-      <div class="image-url" *ngIf="tempTipoUpload == 'web'">
-        <div class="input-group">
+        <!-- Se seleziono risorsa web-->
+        <div class="image-url" *ngIf="tempTipoUpload == 'web'">
           <span class="input-group-btn">
             <div class="btn btn-default">Image Url!</div>
           </span>
-          <input
-            type="url"
-            class="form-control"
-            placeholder="Image Url..."
-            [(ngModel)]="tempImgPuzzle"
-            [ngModelOptions]="{ standalone: true }"
-          />
+          <div class="input-group">
+            <input
+              type="url"
+              class="form-control"
+              placeholder="Image Url..."
+              [(ngModel)]="tempImgPuzzle"
+              [ngModelOptions]="{ standalone: true }"
+            />
+          </div>
         </div>
-      </div>
-      <div *ngIf="tempTipoUpload == 'locale'">
-        <div>
-          <button
-            mat-stroked-button
-            type="button"
-            (click)="puzzlePicker.click()"
-          >
-            Pick Image
-          </button>
-          <input
-            type="file"
-            #puzzlePicker
-            (change)="onImagePicked($event, 'puzzle')"
-          />
-        </div>
-        <div
-          class="puzzle-preview"
-          *ngIf="tempImgPuzzle !== '' && tempImgPuzzle"
-        >
-          <img [src]="tempImgPuzzle" alt="puzzleImg" />
-        </div>
-      </div>
+        <!-- se seleziono file locale-->
+        <div class="image-url" *ngIf="tempTipoUpload == 'locale'">
+          <div class="button-pick-puzzle">
+            <span class="input-group-btn">
+              <div class="btn btn-default">Carica la tua immagine:</div>
+            </span>
+            <button
+              mat-stroked-button
+              type="button"
+              color="link"
+              (click)="puzzlePicker.click()"
+            >
+              Pick Image
+            </button>
+            <input
+              type="file"
+              #puzzlePicker
+              (change)="onImagePicked($event, 'puzzle')"
+            />
 
+            <div
+              class="puzzle-preview"
+              *ngIf="tempImgPuzzle !== '' && tempImgPuzzle"
+            >
+              <img [src]="tempImgPuzzle" alt="puzzleImg" />
+            </div>
+          </div>
+        </div>
+      </div>
       <!-- Difficolta -->
-      <h3>Difficulty Level</h3>
-      <div class="difficulty-levels">
-        <div class="input-group">
-          <input
-            type="radio"
-            [(ngModel)]="tempDifficulty"
-            name="difficulty"
-            value="2"
-            checked
-            [ngModelOptions]="{ standalone: true }"
-          />Low
-        </div>
-        <div class="input-group">
-          <input
-            type="radio"
-            [(ngModel)]="tempDifficulty"
-            name="difficulty"
-            value="3"
-            [ngModelOptions]="{ standalone: true }"
-          />Medium
-        </div>
-        <div class="input-group">
-          <input
-            type="radio"
-            [(ngModel)]="tempDifficulty"
-            name="difficulty"
-            value="4"
-            [ngModelOptions]="{ standalone: true }"
-          />High
+      <div class="difficolta">
+        <h3>Difficulty Level</h3>
+        <div class="difficulty-levels">
+          <div class="input-group">
+            <input
+              type="radio"
+              [(ngModel)]="tempDifficulty"
+              name="difficulty"
+              id="low"
+              value="2"
+              checked
+              [ngModelOptions]="{ standalone: true }"
+            /><label for="low">
+              Low
+            </label>
+          </div>
+          <div class="input-group">
+            <input
+              type="radio"
+              [(ngModel)]="tempDifficulty"
+              name="difficulty"
+              id="medium"
+              value="3"
+              [ngModelOptions]="{ standalone: true }"
+            /><label for="medium">
+              Medium
+            </label>
+          </div>
+          <div class="input-group">
+            <input
+              type="radio"
+              [(ngModel)]="tempDifficulty"
+              name="difficulty"
+              id="high"
+              value="4"
+              [ngModelOptions]="{ standalone: true }"
+            /><label for="high">
+              High
+            </label>
+          </div>
         </div>
       </div>
     </section>
@@ -351,7 +374,13 @@
       />
     </mat-form-field>
     <div>
-      <button mat-stroked-button type="button" (click)="filePicker.click()">
+      <button
+        mat-stroked-button
+        class="button-pick"
+        type="button"
+        color="link"
+        (click)="filePicker.click()"
+      >
         Pick Image
       </button>
       <input type="file" #filePicker (change)="onImagePicked($event)" />
@@ -361,6 +390,7 @@
         type="url"
         class="form-control"
         placeholder="Image Url..."
+        style="font-size: .8em;"
         [(ngModel)]="imagePreview"
         [ngModelOptions]="{ standalone: true }"
       />
