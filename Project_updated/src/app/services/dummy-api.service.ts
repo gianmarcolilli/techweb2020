@@ -188,10 +188,7 @@ export class DummyApiService {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer b1d16b1ec2358cf4dc4ee8591aedce91ac2cf67d' }​​​​​);
       let options = { headers : headers};
-    return this.http.post<{message:string, link:string}>("https://api.imgur.com/3/upload",{
-      image:base64imgStr
-    }),
-    options
+    return this.http.post<any>("https://api.imgur.com/3/upload",{image:base64imgStr},options)
   }
 
 }
