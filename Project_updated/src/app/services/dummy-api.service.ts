@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import {  Storia } from '../interfaces/storia';
 import { Game } from '../interfaces/game';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { head } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -173,6 +174,24 @@ export class DummyApiService {
       numeroPlayer: numeroPlayer
     }
     return this.http.post<{ message: string, game:Game }>("http://localhost:3000/api/games/", gameData)
+  }
+
+
+  //
+  // options?: {
+  //   headers?: HttpHeaders | {
+  //       [header: string]: string | string[];
+  //   };
+  //va nel servizio a parte
+  uploadImage(base64imgStr:String){
+    let headers = new HttpHeaders({​​​​​
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer b1d16b1ec2358cf4dc4ee8591aedce91ac2cf67d' }​​​​​);
+      let options = { headers : headers};
+    return this.http.post<{message:string, link:string}>("https://api.imgur.com/3/upload",{
+      image:base64imgStr
+    }),
+    options
   }
 
 }
