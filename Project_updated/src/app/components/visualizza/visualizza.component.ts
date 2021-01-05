@@ -4,6 +4,7 @@ import { interval, of } from 'rxjs';
 import { startWith, switchMap, take } from 'rxjs/operators';
 import { Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
+import { NgForm } from "@angular/forms";
 import { mimeType } from '../visualizza/mime-type.validator';
 import { timer } from 'rxjs';
 
@@ -30,12 +31,13 @@ export class VisualizzaComponent implements OnInit {
   hoProcedutoIo = false;
   variabileOk = 0;
   numeroPlayers = 0
+  arrayPlayers = [];
+
   stop: boolean = false;
 
   tempRisposta: string = ""
   idPartita = -1;
 
-  timerPunteggio = timer(0, 1000);
   punteggio = 0;
   tempPunteggio: number;
   tempTimer: any;
@@ -63,7 +65,7 @@ export class VisualizzaComponent implements OnInit {
     }
 
     if (this.idPartita != -1) {
-      interval( 1000) // run every 2000 millisecond
+      interval(1000) // run every 2000 millisecond
         .pipe(
           startWith(0),
           switchMap((res, i) => {
@@ -75,6 +77,7 @@ export class VisualizzaComponent implements OnInit {
 
             if (!res) return;
             this.numeroPlayers = res.numeroPlayer
+            this.arrayPlayers = this.array(res.numeroPlayer)
             this.variabileOk = res.variabileOk
             this.punteggio = res.score
 
@@ -89,7 +92,7 @@ export class VisualizzaComponent implements OnInit {
             if (this.nextStepId != res.nextStepId && this.hoDatoOk == false && this.hoProcedutoIo == false && this.stop == false) {
               this.stop = true
               alert('compagno andato avanti! vuoi andare avanti anche tu?')
-              this.apiDb.updateGame(this.idPartita, res.nextStepId,this.punteggio).subscribe((risp: any) => {
+              this.apiDb.updateGame(this.idPartita, res.nextStepId, this.punteggio).subscribe((risp: any) => {
                 console.log(risp);
                 this.hoDatoOk = true
                 this.nextStepId = risp.result.nextStepId
@@ -109,7 +112,7 @@ export class VisualizzaComponent implements OnInit {
               console.log('daje');
 
               this.stop = true
-              this.apiDb.updateGame(this.idPartita, res.nextStepId,this.punteggio).subscribe((risp: any) => {
+              this.apiDb.updateGame(this.idPartita, res.nextStepId, this.punteggio).subscribe((risp: any) => {
                 this.currentStepId = risp.result.currentStepId
                 this.nextStepId = risp.result.nextStepId
                 this.hoDatoOk = false
@@ -117,7 +120,6 @@ export class VisualizzaComponent implements OnInit {
                 this.stop = false
               });
               this.refresh();
-              this.timerPunteggio = timer(3000, 1000);
               return;
             }
 
@@ -143,17 +145,23 @@ export class VisualizzaComponent implements OnInit {
     }
   }
 
+  fine(form: NgForm) {
+    this.router.navigateByUrl("classifica")
+  }
+
 
   notificaAvanzamento(nextStepId: number) {
-    this.apiDb.updateGame(this.idPartita, nextStepId,this.punteggio).subscribe();
+    this.apiDb.updateGame(this.idPartita, nextStepId, this.punteggio).subscribe();
     this.nextStepId = nextStepId;
   }
 
   gestisciPunteggio(timer: number) {
-    if (this.currentStepId == 0) return 0;
+    if (timer == NaN || timer == undefined || timer == null) return
+
+    // if (this.currentStepId == 0) return 0;
     if (this.storia.steps[this.currentStepId].action == "informazione") return 0;
-    if (this.nextStepId == this.steps[this.currentStepId].wrongId) return -(timer / 50);
     if (this.nextStepId == this.steps[this.currentStepId].correctId) return (50 / timer)
+    if (this.nextStepId == this.steps[this.currentStepId].wrongId) return -(timer / 50);
   }
 
   resetStepTimer() {
@@ -161,6 +169,11 @@ export class VisualizzaComponent implements OnInit {
     this.stepStartAt = Date.now()
     return (this.stepStartAt - oldTimer) / 1000
   }
+
+  array(length) {
+    return Array(length)
+  }
+
 
   gestisciAvanzamento(idQuiz) {
 
@@ -175,6 +188,9 @@ export class VisualizzaComponent implements OnInit {
       //Avanzamento in gioco modalità singolo
       if (this.idPartita == -1) {
         this.currentStepId = this.steps[this.currentStepId].correctId
+        var tempoImpiegato = this.resetStepTimer();
+        console.log("impiegati " + tempoImpiegato + " secondi.");
+        this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
         // var timeS = Date.now();
         // console.log(Date.now())
       } else {
@@ -184,13 +200,12 @@ export class VisualizzaComponent implements OnInit {
         this.stop = true
         this.hoProcedutoIo = true
         this.hoDatoOk = true
-        this.notificaAvanzamento(this.nextStepId)
-      }
-      if(this.storia.steps[this.currentStepId].action != "informazione"){
         var tempoImpiegato = this.resetStepTimer();
         console.log("impiegati " + tempoImpiegato + " secondi.");
         this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
+        this.notificaAvanzamento(this.nextStepId)
       }
+
       return;
     }
     if (this.storia.steps[this.currentStepId].action == "domanda" || this.storia.steps[this.currentStepId].action == "quiz") {
@@ -209,6 +224,9 @@ export class VisualizzaComponent implements OnInit {
             this.stop = true
             this.hoProcedutoIo = true
             this.hoDatoOk = true
+            var tempoImpiegato = this.resetStepTimer();
+            console.log("impiegati " + tempoImpiegato + " secondi.");
+            this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
             this.notificaAvanzamento(this.nextStepId)
           }
 
@@ -222,6 +240,9 @@ export class VisualizzaComponent implements OnInit {
             this.stop = true
             this.hoProcedutoIo = true
             this.hoDatoOk = true
+            var tempoImpiegato = this.resetStepTimer();
+            console.log("impiegati " + tempoImpiegato + " secondi.");
+            this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
             this.notificaAvanzamento(this.nextStepId)
           }
         }
@@ -241,6 +262,9 @@ export class VisualizzaComponent implements OnInit {
             this.stop = true
             this.hoProcedutoIo = true
             this.hoDatoOk = true
+            var tempoImpiegato = this.resetStepTimer();
+            console.log("impiegati " + tempoImpiegato + " secondi.");
+            this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
             this.notificaAvanzamento(this.nextStepId)
           }
         } else {
@@ -253,14 +277,15 @@ export class VisualizzaComponent implements OnInit {
             this.stop = true
             this.hoProcedutoIo = true
             this.hoDatoOk = true
+            var tempoImpiegato = this.resetStepTimer();
+            console.log("impiegati " + tempoImpiegato + " secondi.");
+            this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
             this.notificaAvanzamento(this.nextStepId)
           }
         }
       }
     }
-    var tempoImpiegato = this.resetStepTimer();
-    console.log("impiegati " + tempoImpiegato + " secondi.");
-    this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
+
     return;
   }
 }

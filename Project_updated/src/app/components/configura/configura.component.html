@@ -104,6 +104,8 @@
         <mat-option value="quiz">Quiz</mat-option>
         <mat-option value="puzzle">Puzzle</mat-option>
         <mat-option value="dnd">Drag&Drop</mat-option>
+        <mat-option value="fine">fine</mat-option>
+
       </mat-select>
       <mat-error *ngIf="form.get('tempTipologiaAttivita').invalid"
         >Per favore inserisci tipologia</mat-error
@@ -327,7 +329,8 @@
     </section>
 
     <!-- Scelta attività successiva in caso di risposta corretta/errata -->
-    <mat-form-field class="example-full-width">
+    <section *ngIf="tempTipologiaAttivita != 'fine'">
+      <mat-form-field class="example-full-width">
       <mat-label>Corretto</mat-label>
       <mat-select
         [(ngModel)]="tempCorrect"
@@ -360,6 +363,7 @@
         >Per favore inserisci iderrato</mat-error
       >
     </mat-form-field>
+</section>
 
     <!-- Associazione immagine ad attività -->
     <mat-form-field class="example-full-width">

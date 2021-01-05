@@ -1,10 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import {  Storia } from '../interfaces/storia';
 import { Game } from '../interfaces/game';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { head } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -145,7 +146,7 @@ export class DummyApiService {
   }
 
   updateGame(idPartita:number, prossimoId:number , punteggio:number){
-
+    console.log("da frontend mando : "+punteggio)
     return this.http
       .put("http://localhost:3000/api/games/"+idPartita, {
         prossimoId: prossimoId,
@@ -173,6 +174,23 @@ export class DummyApiService {
       numeroPlayer: numeroPlayer
     }
     return this.http.post<{ message: string, game:Game }>("http://localhost:3000/api/games/", gameData)
+  }
+
+
+  //
+  // options?: {
+  //   headers?: HttpHeaders | {
+  //       [header: string]: string | string[];
+  //   };
+  //va nel servizio a parte
+  uploadImage(base64imgStr:String){
+    let headers = new HttpHeaders({​​​​​
+      // 'Content-Type': 'application/json',
+      // 'Content-Type': 'multipart/form-data',
+      'Authorization': 'Bearer 5eeae49394cd929e299785c8805bd168fc675280'
+       }​​​​​);
+      let options = { headers : headers};
+    return this.http.post<any>("https://api.imgur.com/3/upload",{image:base64imgStr},options)
   }
 
 }

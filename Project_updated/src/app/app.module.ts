@@ -23,6 +23,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu';
+import {MatTableModule} from '@angular/material/table';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -48,6 +49,7 @@ import { SignupComponent } from './components/auth/signup/signup.component';
 import { AuthInterceptor } from "./components/auth/auth-interceptor";
 import { DragndropComponent } from './components/dragndrop/dragndrop.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import { ClassificaComponent } from './components/classifica/classifica.component';
 
 @NgModule({
   declarations: [
@@ -64,8 +66,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     ImagePuzzleComponent,
     LoginComponent,
     SignupComponent,
-    DragndropComponent
-
+    DragndropComponent,
+    ClassificaComponent
   ],
   imports: [
     BrowserModule,
@@ -100,6 +102,7 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     MatProgressBarModule,
     MatSidenavModule,
     MatMenuModule,
+    MatTableModule,
 
     NgbModule,
     NgbAlertModule,
