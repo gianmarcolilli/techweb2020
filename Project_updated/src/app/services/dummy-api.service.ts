@@ -185,8 +185,10 @@ export class DummyApiService {
   //va nel servizio a parte
   uploadImage(base64imgStr:String){
     let headers = new HttpHeaders({​​​​​
-      'Content-Type': 'application/json',
-      'Authorization': 'Bearer b1d16b1ec2358cf4dc4ee8591aedce91ac2cf67d' }​​​​​);
+      // 'Content-Type': 'application/json',
+      // 'Content-Type': 'multipart/form-data',
+      'Authorization': 'Bearer 5eeae49394cd929e299785c8805bd168fc675280'
+       }​​​​​);
       let options = { headers : headers};
     return this.http.post<any>("https://api.imgur.com/3/upload",{image:base64imgStr},options)
   }
