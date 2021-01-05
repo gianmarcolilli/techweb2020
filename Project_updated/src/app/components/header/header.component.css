@@ -1,37 +1,41 @@
-@import url('https://fonts.googleapis.com/css2?family=Acme&family=Montserrat&family=Permanent+Marker&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Acme&family=Montserrat&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Montserrat&family=Permanent+Marker&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Montserrat&display=swap");
 
-.mat-toolbar{
-display: flex;
-opacity: 100%;
-width: 100%;
-font-family: 'Acme', sans-serif;
-}
-#stemma{
-  font-size: 3rem;
-  font-family: 'Acme', 'sans-serif';
+.mat-toolbar {
+  display: flex;
+  opacity: 100%;
   width: 100%;
-  margin-left: 2em;
-
+  font-family: "Acme", sans-serif;
 }
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+.container1 {
+  width: 100%;
+}
+.title {
+  font-family: "Acme", "sans-serif";
+  float: center;
+  font-size: 2em;
 }
 
-a{
+.menu {
+  float: right;
+}
+
+a {
+  font-size: 2.5em;
   text-decoration: none;
   color: white;
-  font-family: 'Acme', sans-serif;
+  font-family: "Acme", sans-serif;
 }
 
-ul {
-  display: flex;
+span {
+  font-family: "Acme", sans-serif;
 }
 
 .spacer {
   flex: 1 1 auto;
 }
 
-
+.example-icon {
+  padding: 2px;
+  float: left;
+}
