@@ -195,11 +195,6 @@ export class VisualizzaComponent implements OnInit {
         // console.log(Date.now())
       } else {
         //Avanzamento gioco in modalità squadre
-        if (this.storia.steps[this.currentStepId].action != "informazione") {
-          var tempoImpiegato = this.resetStepTimer();
-          console.log("impiegati " + tempoImpiegato + " secondi.");
-          this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
-        }
         console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
         this.nextStepId = this.steps[this.currentStepId].correctId;
         this.stop = true
