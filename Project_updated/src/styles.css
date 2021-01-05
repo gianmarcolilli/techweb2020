@@ -18,7 +18,17 @@ body {
 mat-icon {
   margin: 3px;
 }
-
+div .img-story {
+  display: grid;
+  grid-template-areas: "image";
+  margin: .3em;
+}
+img{
+  grid-area: "image";
+  object-fit: contain;
+  width: 80%;
+  max-height: auto;
+}
 @media (min-width: 991px) {
   h1 {
     font-size: 30px;
