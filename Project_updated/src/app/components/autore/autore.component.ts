@@ -42,6 +42,11 @@ export class AutoreComponent implements OnInit {
     const reader = new FileReader();
     reader.onload = () => {
       this.imagePreview = reader.result as string;
+      this.api.uploadImage(this.imagePreview).subscribe(()=>{
+
+
+
+      })
     };
     reader.readAsDataURL(file);
   }
