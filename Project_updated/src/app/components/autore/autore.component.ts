@@ -43,7 +43,8 @@ export class AutoreComponent implements OnInit {
     reader.onload = () => {
       this.imagePreview = reader.result as string;
       this.api.uploadImage(this.imagePreview).subscribe((res)=>{
-        this.imagePreview = res.link
+        console.log('dio bubu');
+        this.imagePreview = res.data.link
       })
     };
     reader.readAsDataURL(file);
