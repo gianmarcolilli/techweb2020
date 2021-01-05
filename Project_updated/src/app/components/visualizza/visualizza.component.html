@@ -17,7 +17,9 @@
       <p class="storyTitle">{{ this.storia.nome }}</p>
     </mat-grid-tile>
     <mat-grid-tile colspan="3" rowspan="1">
-      <img class="imgCopertina" [src]="this.storia.urlBackground" />
+      <div class="img-responsive">
+        <img class="imgCopertina" [src]="this.storia.urlBackground" />
+      </div>
     </mat-grid-tile>
     <mat-grid-tile colspan="3" rowspan="1">
       <button
