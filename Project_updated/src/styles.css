@@ -18,7 +18,17 @@ body {
 mat-icon {
   margin: 3px;
 }
-
+div .img-story {
+  display: grid;
+  grid-template-areas: "image";
+  margin: .3em;
+}
+img{
+  grid-area: "image";
+  object-fit: contain;
+  width: 80%;
+  max-height: auto;
+}
 @media (min-width: 991px) {
   h1 {
     font-size: 30px;
@@ -101,7 +111,7 @@ mat-icon {
     margin: 0.2em;
   }
   p {
-    font-size: 9px;
+    font-size: 10px;
     margin: 0.3em;
   }
   button {
@@ -131,10 +141,10 @@ mat-icon {
     margin: 0.2em;
   }
   p {
-    font-size: 8px;
+    font-size: 9px;
     margin: 0.3em;
   }
   button {
-    margin: 3px;
+    margin: 2px;
   }
 } /* for cellphones */

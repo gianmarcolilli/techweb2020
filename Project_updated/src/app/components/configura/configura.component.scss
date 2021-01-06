@@ -1,0 +1,145 @@
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Montserrat&family=Permanent+Marker&display=swap");
+
+$font-color: #5c5f66;
+$primary-color: #3b3a99;
+
+mat-card {
+  font-family: "Montserrat", sans-serif !important;
+  margin: 0.7em;
+  padding: 0 !important;
+}
+mat-card-header {
+  justify-content: center;
+  align-content: flex-start;
+  align-items: flex-start;
+}
+mat-grid-tile-header {
+  justify-content: space-between;
+  align-content: flex-start;
+  align-items: flex-start;
+  padding: 0.1em !important;
+  font-size: 0.9em !important;
+  mat-icon {
+    transform: scale(0.8);
+  }
+}
+mat-grid-tile {
+  float: left;
+  justify-content: flex-start;
+  align-items: center;
+}
+.riepilogo-attivita {
+  background-color: rgba(51, 50, 148, 0.301);
+}
+.crea-attivita {
+  background-color: rgba(212, 200, 200, 0.685);
+}
+h1 {
+  text-transform: capitalize;
+  font-weight: bold;
+}
+h4 {
+  font-weight: bold;
+}
+
+.correct.mat-select-panel {
+  background: rgba(6, 187, 6, 0.5);
+}
+
+.wrong.mat-select-panel {
+  background: rgba(204, 4, 4, 0.5);
+}
+
+.f-r {
+  float: right;
+}
+form {
+  margin: auto;
+}
+.example-form {
+  justify-content: center;
+  width: 70%;
+}
+.example-full-width {
+  width: 100%;
+  margin: 0.5rem;
+}
+
+input[type="file"] {
+  visibility: hidden;
+}
+.button-pick {
+  float: left;
+  margin: 0.3em !important;
+}
+.button-pick-puzzle {
+  max-height: fit-content;
+}
+.img-puzzle {
+  width: 100%;
+}
+.img-url {
+  width: 100%;
+}
+.image-preview {
+  height: 5rem;
+  margin: 1rem 0;
+}
+
+.image-preview img {
+  height: 100%;
+}
+.difficolta {
+  width: 100%;
+}
+.difficulty-levels {
+  display: flex;
+  justify-content: space-around;
+}
+
+.input-group {
+  display: flex;
+  background-color: #ffffff93;
+  margin: 2vw;
+  float: left;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  list-style: none;
+  cursor: pointer;
+
+  label {
+    padding: 1.5em 2em;
+    margin: 0 !important;
+  }
+
+  input[type="radio"] {
+    position: absolute;
+    clip: rect(1px, 1px, 1px, 1px);
+  }
+
+  input[type="radio"] + label {
+    display: block;
+    cursor: pointer;
+    min-height: 1.5em;
+    min-width: 5em;
+    border-radius: 5px;
+    font-size: .8em;
+    color: $font-color;
+  }
+  input[type="radio"]:checked + label {
+    background-color: #14144dc7;
+    min-height: 1.5em;
+    min-width: 5em;
+    border-radius: 5px;
+    color: white;
+    .mat-icon {
+      color: white;
+    }
+    p {
+      color: white;
+    }
+  }
+}
+.form-control {
+  border-radius: 4px;
+}
