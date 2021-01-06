@@ -184,12 +184,8 @@
         </mat-card>
       </div>
 
-      <div *ngIf="this.storia.steps[currentStepId].action == 'fine'">
-        <mat-card>
-          <div class="punteggio">
-            <p>Punteggio : {{ this.punteggio }}</p>
-          </div>
-          <mat-card-title> Titolo di informazione </mat-card-title>
+      <div *ngIf="this.storia.steps[currentStepId].action == 'fine'"|| tipologiaGruppo != "individuale" >
+        Partita Finita
           <mat-card-content>
             step corrente {{ this.currentStepId }}
 

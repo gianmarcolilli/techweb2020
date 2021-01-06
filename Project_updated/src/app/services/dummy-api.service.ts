@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import {  Storia } from '../interfaces/storia';
+import { Storia } from '../interfaces/storia';
 import { Game } from '../interfaces/game';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
@@ -137,22 +137,22 @@ export class DummyApiService {
 
 
   //put
-  updateStoria(storia:Storia){
-  this.http
-    .put("http://localhost:3000/api/stories/"+storia.id, storia)
-    .subscribe(response => {
-      this.router.navigate(["/configura/"+storia.id]);
-    });
+  updateStoria(storia: Storia) {
+    this.http
+      .put("http://localhost:3000/api/stories/" + storia.id, storia)
+      .subscribe(response => {
+        this.router.navigate(["/configura/" + storia.id]);
+      });
   }
 
-  updateGame(idPartita:number, prossimoId:number , punteggio:number){
-    console.log("da frontend mando : "+punteggio)
+  updateGame(idPartita: number, prossimoId: number, punteggio: number) {
+    console.log("da frontend mando : " + punteggio)
     return this.http
-      .put("http://localhost:3000/api/games/"+idPartita, {
+      .put("http://localhost:3000/api/games/" + idPartita, {
         prossimoId: prossimoId,
-        score : punteggio
+        score: punteggio
       })
-   }
+  }
 
   //post
   addNewStory(title: string, didascalia: string, fasciaEta: string, image: string) {
@@ -166,14 +166,14 @@ export class DummyApiService {
     return this.http.post<{ message: string, storia: Storia }>("http://localhost:3000/api/stories/", storyData)
   }
 
-  addNewGame(idSquadra:Number, idClasse:Number, idPartita:Number, numeroPlayer:Number){
+  addNewGame(idSquadra: Number, idClasse: Number, idPartita: Number, numeroPlayer: Number) {
     const gameData = {
-      idSquadra : idSquadra,
-      idClasse : idClasse,
+      idSquadra: idSquadra,
+      idClasse: idClasse,
       idPartita: idPartita,
       numeroPlayer: numeroPlayer
     }
-    return this.http.post<{ message: string, game:Game }>("http://localhost:3000/api/games/", gameData)
+    return this.http.post<{ message: string, game: Game }>("http://localhost:3000/api/games/", gameData)
   }
 
 
@@ -184,13 +184,10 @@ export class DummyApiService {
   //   };
   //va nel servizio a parte
   uploadImage(base64imgStr:String){
-    let headers = new HttpHeaders({​​​​​
-      // 'Content-Type': 'application/json',
-      // 'Content-Type': 'multipart/form-data',
-      'Authorization': 'Bearer 5eeae49394cd929e299785c8805bd168fc675280'
-       }​​​​​);
+    let headers = new HttpHeaders().set(​​​​​"Authorization",'Bearer d4e418b1180149c2f908769861db2fa0d6a60ec2')
       let options = { headers : headers};
-    return this.http.post<any>("https://api.imgur.com/3/upload",{image:base64imgStr},options)
-  }
+      console.log(options);
 
+    return this.http.post<any>("https://api.imgur.com/3/image",{image:base64imgStr},options)
+  }
 }
