@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { Squadra } from "../../interfaces/squadra";
 import { Router } from '@angular/router';
+import { constants } from 'buffer';
 const MAXPARTECIPANTI = 5;
 const MINPARTECIPANTI = 2;
 
@@ -164,14 +165,21 @@ export class PlayerComponent implements OnInit {
     if(this.tipologiaGruppo!="individuale"){
       this.apiDb.getGames().subscribe( conta => {
         let numeroGame = conta.maxPosts
+        let maxClasse =0;
+        for (let i = 0; i < conta.posts.length; i++) {
+          if(conta.posts[i].idClasse>=maxClasse){
+            maxClasse=conta.posts[i].idClasse+1
+          }
+
+        }
         for (let i = 0; i < this.squadre.length; i++) {
-          this.apiDb.addNewGame(this.squadre[i].id, this.idClasseUsati, numeroGame, this.squadre[i].players.length).subscribe((res)=> {
+          this.apiDb.addNewGame(this.squadre[i].id,maxClasse, numeroGame, this.squadre[i].players.length).subscribe((res)=> {
             console.log(res);
           })
           this.squadre[i].idPartita=numeroGame
           numeroGame++;
         }
-        this.idClasseUsati++
+        // this.idClasseUsati++
       })
     }
   }

@@ -265,7 +265,7 @@
   </div>
 
   <div
-    *ngIf="tipologiaGruppo != 'individuale' && tipologiaGruppo != ''"
+    *ngIf="tipologiaGruppo != 'individuale' && tipologiaGruppo != '' && nPartecipantiAggiunti==nPartecipanti"
     class="fixedLowRight"
     (click)="playClick()"
   >
