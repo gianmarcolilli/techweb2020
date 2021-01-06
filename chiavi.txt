@@ -2,3 +2,42 @@ Client ID:
 c3c85327116e358
 Client secret:
 9561ed610e9995652ea5f0e74706f3fabc5bfecd
+
+con marco
+"access_token": "b1d16b1ec2358cf4dc4ee8591aedce91ac2cf67d",
+    "expires_in": 315360000,
+    "token_type": "bearer",
+    "scope": null,
+    "refresh_token": "e57bd7c20232cd58bd73624582f3bc33631180f3",
+    "account_id": 143423159,
+    "account_username": "techwebrmg"
+
+
+
+da solo
+    "access_token": "cdf44bed31cea449f2691e1525cd6db6346b4571",
+    "expires_in": 315360000,
+    "token_type": "bearer",
+    "scope": null,
+    "refresh_token": "b6c2a07850ba020d45fcb3371512ea70496e9383",
+    "account_id": 143423159,
+    "account_username": "techwebrmg"
+
+
+con stocazzo
+access_token	= 	0abdd1a2732d4ed639c63e4fd118543f0f3cf6e3
+expires_in	=	315360000
+token_type	=	bearer
+refresh_token	=	3e14c91d54651fe93cce959d19632103cd9c134c
+account_username=	techwebrmg
+account_id	=	143423159
+
+
+porcodio ultimo  /////QUESTA VA BENE
+    "access_token": "d4e418b1180149c2f908769861db2fa0d6a60ec2",
+    "expires_in": 315360000,
+    "token_type": "bearer",
+    "scope": null,
+    "refresh_token": "b423f14035bc9ba2c74de2f26af8e32787a2bf6c",
+    "account_id": 143423159,
+    "account_username": "techwebrmg"
