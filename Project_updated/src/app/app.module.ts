@@ -50,6 +50,7 @@ import { AuthInterceptor } from "./components/auth/auth-interceptor";
 import { DragndropComponent } from './components/dragndrop/dragndrop.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ClassificaComponent } from './components/classifica/classifica.component';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
   declarations: [
@@ -103,6 +104,8 @@ import { ClassificaComponent } from './components/classifica/classifica.componen
     MatSidenavModule,
     MatMenuModule,
     MatTableModule,
+    MatSortModule,
+
 
     NgbModule,
     NgbAlertModule,
