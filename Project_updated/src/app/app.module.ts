@@ -46,7 +46,6 @@ import { ConfiguraComponent } from './components/configura/configura.component';
 import { ImagePuzzleComponent } from './components/image-puzzle/image-puzzle.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
-import { AuthInterceptor } from "./components/auth/auth-interceptor";
 import { DragndropComponent } from './components/dragndrop/dragndrop.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ClassificaComponent } from './components/classifica/classifica.component';
@@ -113,7 +112,7 @@ import { MatSortModule } from '@angular/material/sort';
 
 
   ],
-  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true}],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
