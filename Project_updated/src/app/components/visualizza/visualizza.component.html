@@ -146,8 +146,8 @@
         <button (click)="gestisciAvanzamento()">Avanti</button>
       </div>
 
-      <div *ngIf="this.storia.steps[currentStepId].action == 'fine'" >
-        step corrente {{ this.currentStepId }}
+      <div *ngIf="this.storia.steps[currentStepId].action == 'fine'"|| tipologiaGruppo != "individuale" >
+        Partita Finita
 
         <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
         <button (click)="fine()">Visualizza classifica</button>
