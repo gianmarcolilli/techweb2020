@@ -1,11 +1,11 @@
 .imagePuzzle {
   color: white;
-  width: 1200px;
+  width: 100%;
   height: auto;
   margin: auto;
   display: flex;
   justify-content: center;
-  background-color: lightslategrey;
+  background-color: transparent;
 }
 
 .unsolvedPuzzle, .scoreboard {
@@ -15,10 +15,9 @@
 }
 
 .sectionName {
-  background-color: lightslategrey;
+  background-color: transparent;
   color: white;
   text-align: center;
-  width: 500px;
   height: 50px;
 }
 
