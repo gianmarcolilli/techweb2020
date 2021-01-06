@@ -1,5 +1,6 @@
 $font-color: #5c5f66;
 $primary-color: #3b3a99;
+$background : rgba(212, 200, 200, 0.685);
 
 .mainSection {
   padding: 2vw;
@@ -32,4 +33,32 @@ $primary-color: #3b3a99;
   border-color: rgb(87, 6, 6);
   border-radius: 3px;
 }
+.mainContainer{
+  width: 100%;
+  margin: .5rem;
+}
+mat-card{
+  background-color: $background ;
+  top: 1;
+  left: 1;
+}
+.backImage{
+  position: relative;
+  width: 30em;
+  height: auto;
+  background-color: transparent;
+  opacity: 30%;
 
+}
+.punteggio{
+
+  float: right;
+  width: 100%;
+  p{
+    float: right;
+  }
+}
+.title{
+  justify-content: center;
+  width: 100%;
+}
