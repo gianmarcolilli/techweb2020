@@ -53,27 +53,27 @@
       <!-- end row 1 -->
       <!-- row 2 -->
       <mat-grid-tile colspan="3" rowspan="1">
-        <h4>Contenuto:</h4>
+        <h3>Contenuto:</h3>
         <p>{{ act.activityTitle }}</p>
       </mat-grid-tile>
       <!-- end row 2 -->
       <!-- eventual row 3 -->
       <mat-grid-tile colspan="3" rowspan="1" *ngIf="act.action == 'domanda'">
-        <h4>Risposta:</h4>
+        <h3>Risposta:</h3>
         <p>{{ act.risposta }}</p>
       </mat-grid-tile>
       <!-- end eventual row 3 -->
       <!-- row 4 -->
       <mat-grid-tile colspan="1" rowspan="1" *ngIf="act.action == 'quiz'">
-        <h4>Id Risposta:</h4>
+        <h3>Id Risposta:</h3>
         <p>{{ act.quizCorrectIdx }}</p>
       </mat-grid-tile>
       <mat-grid-tile colspan="1" rowspan="1">
-        <h4>Id errato:</h4>
+        <h3>Id errato:</h3>
         <p>{{ act.wrongId }}</p>
       </mat-grid-tile>
       <mat-grid-tile colspan="1" rowspan="1">
-        <h4>Id corretto:</h4>
+        <h3>Id corretto:</h3>
         <p>{{ act.correctId }}</p>
       </mat-grid-tile>
       <!-- <mat-grid-tile colspan="9" rowspan="1"></mat-grid-tile> -->
