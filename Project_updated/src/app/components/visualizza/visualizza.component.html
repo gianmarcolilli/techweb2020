@@ -1,6 +1,6 @@
 <app-header [my-title]="'Visualizza'"> </app-header>
 
-<button (click)="refresh()">aggiorna</button>
+<!-- <button (click)="refresh()">aggiorna</button> -->
 <section id="mainSection" *ngIf="this.storia">
   <mat-grid-list
     id="copertina"
@@ -60,105 +60,143 @@
 
   <section *ngIf="this.storia.steps">
     <div *ngIf="this.currentStepId != -1">
-      <!-- {{ this.steps[currentStepId]. }} -->
+      <div
+        *ngIf="this.storia.steps[currentStepId].action == 'quiz'"
+        class="mainContainer"
+      >
+        <mat-card>
+          <div class="punteggio">
+            <p>Punteggio : {{ this.punteggio }}</p>
+          </div>
+          <mat-card-title>
+            <h4>Ecco la domanda a cui rispondere:</h4>
 
-      <div *ngIf="this.storia.steps[currentStepId].action == 'quiz'">
-        Ecco la domanda a cui rispondere :
-        <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
-        <ng-container
-          *ngIf="
-            this.storia.steps[currentStepId].answers &&
-            this.storia.steps[currentStepId].answers.length > 0
-          "
-        >
-          <!-- <mat-selection-list #answers>
+            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+          </mat-card-title>
+          <mat-card-content>
+            <ng-container
+              *ngIf="
+                this.storia.steps[currentStepId].answers &&
+                this.storia.steps[currentStepId].answers.length > 0
+              "
+            >
+              <!-- <mat-selection-list #answers>
         <mat-list-option *ngFor="let answ of this.steps[currentStepId].answers">
           {{ answ.content }} {{ answ.correct }}
         </mat-list-option>
       </mat-selection-list> -->
 
-          <mat-list
-            role="list"
-            *ngFor="
-              let answ of this.storia.steps[currentStepId].answers;
-              let i = index
-            "
-            (click)="gestisciAvanzamento(i)"
-          >
-            <button mat-raised-button color="accent" role="listitem">
-              {{ answ }}
-            </button>
-          </mat-list>
-
-          <!-- <p  style="padding-left: 20px;" *ngFor="let answ of this.steps[currentStepId].answers">
-          <button
-            mat-raised-button
-            color="primary"
-          >
-            {{ answ.content }} {{ answ.correct }}
-          </button>
-        </p> -->
-        </ng-container>
+              <mat-list
+                role="list"
+                *ngFor="
+                  let answ of this.storia.steps[currentStepId].answers;
+                  let i = index
+                "
+                (click)="gestisciAvanzamento(i)"
+              >
+                <button mat-raised-button color="accent" role="listitem">
+                  {{ answ }}
+                </button>
+              </mat-list>
+            </ng-container>
+          </mat-card-content>
+          <div class="backImage">
+            <img
+              class="img-responsive"
+              *ngIf="this.storia.steps[this.currentStepId].backImg != ''"
+              [src]="this.storia.steps[this.currentStepId].backImg"
+            />
+          </div>
+        </mat-card>
       </div>
       <!-- end QUIZ -->
 
-      <div class="container1">
-        <img
-          *ngIf="this.storia.steps[this.currentStepId].backImg != ''"
-          [src]="this.storia.steps[this.currentStepId].backImg"
-        />
-      </div>
       <div *ngIf="this.storia.steps[currentStepId].action == 'puzzle'">
         <!-- <app-image-puzzle [puzzleUrl]=steps[currentStepId].puzzleUrl>
         </app-image-puzzle> -->
-        <app-image-puzzle
-          [difficulty]="this.storia.steps[this.currentStepId].difficulty"
-          [puzzleUrl]="this.storia.steps[this.currentStepId].puzzleImg"
-        >
-        </app-image-puzzle>
+        <mat-card>
+          <div class="punteggio">
+            <p>Punteggio : {{ this.punteggio }}</p>
+          </div>
+          <app-image-puzzle
+            [difficulty]="this.storia.steps[this.currentStepId].difficulty"
+            [puzzleUrl]="this.storia.steps[this.currentStepId].puzzleImg"
+          >
+          </app-image-puzzle>
+        </mat-card>
       </div>
       <!-- end PUZZLE -->
 
       <div *ngIf="this.storia.steps[currentStepId].action == 'dnd'">
-        <app-dragndrop
-          [order]="this.storia.steps[this.currentStepId].order"
-        ></app-dragndrop>
+        <mat-card>
+          <div class="punteggio">
+            <p>Punteggio : {{ this.punteggio }}</p>
+          </div>
+          <app-dragndrop
+            [order]="this.storia.steps[this.currentStepId].order"
+          ></app-dragndrop>
+        </mat-card>
       </div>
 
       <div *ngIf="this.storia.steps[currentStepId].action == 'domanda'">
-        Ecco la domanda a cui rispondere :
-        <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+        <mat-card>
+          <div class="punteggio">
+            <p>Punteggio : {{ this.punteggio }}</p>
+          </div>
+          <mat-card-title>
+            <h4>Ecco la domanda a cui rispondere:</h4>
 
-        <input
-          [(ngModel)]="tempRisposta"
-          class="form-control"
-          type="text"
-          placeholder="Inserisci qui la risposta "
-        />
-        <button (click)="gestisciAvanzamento()">Avanti</button>
-        <img />
+            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+          </mat-card-title>
+          <mat-card-content>
+            <input
+              [(ngModel)]="tempRisposta"
+              class="form-control"
+              type="text"
+              placeholder="Inserisci qui la risposta "
+            />
+            <button (click)="gestisciAvanzamento()">Avanti</button>
+            <img />
+          </mat-card-content>
+        </mat-card>
       </div>
 
       <div *ngIf="this.storia.steps[currentStepId].action == 'informazione'">
-        step corrente {{ this.currentStepId }}
+        <mat-card>
+          <div class="punteggio">
+            <p>Punteggio : {{ this.punteggio }}</p>
+          </div>
+          <mat-card-title> Titolo di informazione </mat-card-title>
+          <mat-card-content>
+            step corrente {{ this.currentStepId }}
 
-        <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
-        <button (click)="gestisciAvanzamento()">Avanti</button>
+            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+          </mat-card-content>
+
+          <button
+            mat-flat-button
+            (click)="gestisciAvanzamento()"
+            class="gestisciAvanzamento"
+            color="basic"
+          >
+            Avanti
+          </button>
+        </mat-card>
       </div>
 
-      <div *ngIf="this.storia.steps[currentStepId].action == 'fine'" >
-        step corrente {{ this.currentStepId }}
+      <div *ngIf="this.storia.steps[currentStepId].action == 'fine'"|| tipologiaGruppo != "individuale" >
+        Partita Finita
+          <mat-card-content>
+            step corrente {{ this.currentStepId }}
 
-        <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
-        <button (click)="fine()">Visualizza classifica</button>
+            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+          </mat-card-content>
+          <button (click)="fine()">Visualizza classifica</button>
+        </mat-card>
       </div>
 
-
-
-
-      <p> Punteggio : {{this.punteggio }}</p>
-      <div *ngFor="let item of this.arrayPlayers;index as k">
-        <mat-icon  [ngClass]="{  'green' : k < variabileOk}">person</mat-icon>
+      <div *ngFor="let item of this.arrayPlayers; index as k">
+        <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
       </div>
     </div>
   </section>
