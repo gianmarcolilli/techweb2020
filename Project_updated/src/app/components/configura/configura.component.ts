@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DragDrop, Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { mimeType } from '../autore/mime-type.validator';
@@ -44,7 +44,7 @@ export class ConfiguraComponent implements OnInit {
   flagSalvataggio = false;
 
   form: FormGroup;
-  constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder) { }
+  constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder, private router: Router) { }
 
 
 
@@ -229,7 +229,9 @@ export class ConfiguraComponent implements OnInit {
   onSaveStory() {
     this.api.updateStoria(
       this.storia
-    );
+    ).subscribe(response => {
+      this.router.navigate(["/configura/" + this.storia.id]);
+    });
     this.flagSalvataggio = false;
     this.resettaForm()
   }
