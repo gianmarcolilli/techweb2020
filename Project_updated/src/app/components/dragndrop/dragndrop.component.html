@@ -1,5 +1,7 @@
-<div cdkDropList cdkDropListOrientation="horizontal" class="example-list" (cdkDropListDropped)="drop($event)">
-  <div class="example-box" *ngFor="let item of this.order" cdkDrag>{{item.desc}}</div>
+<div cdkDropList   class="example-list" (cdkDropListDropped)="drop($event)">
+  <div class="example-box" *ngFor="let item of this.order" cdkDrag>
+    <h3>{{item.desc}}</h3>
+  </div>
 </div>
 <div class="successMessage" *ngIf="isCompleted">
   Game Complete. <br>

@@ -1,27 +1,32 @@
+$font-color: #5c5f66;
+$primary-color: #3b3a99;
+$background : rgba(212, 200, 200, 0.685);
+$bluBackground: #14144daf;
+
 .example-list {
   width: 100%;
-
-  border: solid 1px #ccc;
-  min-height: 60px;
-  display: flex;
+  border: solid 1.5px #ccc;
+  height: 10em;
+  width: 15rem;
+  display: table-cell;
   flex-direction: row;
-  background: white;
+  background: $background;
   border-radius: 4px;
   overflow: hidden;
+  vertical-align: middle;
 }
 
 .example-box {
-  padding: 20px 10px;
+  padding: .9em;
   border-right: solid 1px #ccc;
-  color: rgba(0, 0, 0, 0.87);
+  color: white;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   box-sizing: border-box;
   cursor: move;
-  background: white;
-  font-size: 14px;
+  background: $bluBackground;
   flex-grow: 1;
   flex-basis: 0;
 }

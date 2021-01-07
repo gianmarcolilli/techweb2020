@@ -62,15 +62,6 @@ export class ConfiguraComponent implements OnInit {
     return "titolo"
   }
 
-  // aggiungiDD() {
-  //   let lastIdx = this.tempOrder.length
-  //   this.tempOrder.push(
-  //     {
-  //       posizione: lastIdx,
-  //       desc: ""
-  //     }
-  //   )
-  // }
 
   aggiungiAttivita(type: string, id: number = -1) {
     this.flagSalvataggio = true;
@@ -199,6 +190,8 @@ export class ConfiguraComponent implements OnInit {
     this.tempCorrect = attivita.correctId;
     this.tempWrong = attivita.wrongId;
     this.tempActivityId = attivita.activityId;
+    this.imagePreview = attivita.backImg;
+    this.tempQuizCorrectIdx=attivita.quizCorrectIdx;
 
     console.log("corretto = " + this.tempCorrect + " sbagliato = " + this.tempWrong);
 
@@ -212,7 +205,7 @@ export class ConfiguraComponent implements OnInit {
     if (attivita.action == "puzzle") {
       if (attivita.puzzleImg.charAt(0) == 'd') {
         this.tempTipoUpload = "locale"
-      } else if (attivita.puzzleImg.charAt(0) == 'w') {
+      } else if (attivita.puzzleImg.charAt(0) == 'w' || attivita.puzzleImg.charAt(0) == 'h') {
         this.tempTipoUpload = "web"
       }
       this.tempDifficulty = attivita.difficulty;
@@ -257,8 +250,6 @@ export class ConfiguraComponent implements OnInit {
     this.tempWrong = 0;
     this.arrayRisposte = [];
     this.tempOrder = [];
-    // this.tempDDdescrizione = "";
-    // this.tempDDposizione = 0;
     this.tempTipologiaAttivita = "";
     this.numeroRisposte = 0;
     this.imagePreview = "";
@@ -266,15 +257,6 @@ export class ConfiguraComponent implements OnInit {
     this.form.reset()
   }
 
-  // generaAttivita(tipoDiAttività){
-  //   if(tipoDiAttività=="4answers"){
-  //     return {
-  //       title : myTempTitle,
-  //       answers : myTempRisposte,
-  //     }
-  //   }
-  //   resetVariabiliDiAppoggio()
-  // }
   inputChanged(ev: Event, idx) {
     console.log(idx + " : ")
     console.log(ev.returnValue)
@@ -286,10 +268,19 @@ export class ConfiguraComponent implements OnInit {
     this.form.get('image').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
+
       if (type && type == 'puzzle') {
         this.tempImgPuzzle = reader.result as string;
+        let base64 = this.tempImgPuzzle.split('base64')
+        this.api.uploadImage(base64[1]).subscribe((res) => {
+          this.tempImgPuzzle = res.data.link
+        })
       } else {
         this.imagePreview = reader.result as string;
+        let base64 = this.imagePreview.split('base64')
+        this.api.uploadImage(base64[1]).subscribe((res) => {
+          this.imagePreview = res.data.link
+        })
 
       }
     };
