@@ -2,7 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { DragDrop, Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { mimeType } from '../autore/mime-type.validator';
@@ -11,7 +11,7 @@ import { mimeType } from '../autore/mime-type.validator';
 @Component({
   selector: 'app-configura',
   templateUrl: './configura.component.html',
-  styleUrls: [ './configura.component.scss'],
+  styleUrls: ['./configura.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class ConfiguraComponent implements OnInit {
@@ -38,13 +38,13 @@ export class ConfiguraComponent implements OnInit {
   showConfiguraClickToObject: boolean = false;
   tempTipologiaAttivita: string = "";
   numeroRisposte: number;
-  numeroDnd:number=0;
+  numeroDnd: number = 0;
   imagePreview: string;
   rispostaGiusta: string = "";
   flagSalvataggio = false;
 
   form: FormGroup;
-  constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder) { }
+  constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder, private router: Router) { }
 
 
 
@@ -52,7 +52,7 @@ export class ConfiguraComponent implements OnInit {
     if (type == "domanda") {
       return "domanda"
     }
-    if (type == "informazione" || type == "dnd" || type =="fine") {
+    if (type == "informazione" || type == "dnd" || type == "fine") {
       return "contenuto"
     }
     if (type == "puzzle") {
@@ -210,10 +210,10 @@ export class ConfiguraComponent implements OnInit {
       this.arrayRisposte = attivita.answers
     }
     if (attivita.action == "puzzle") {
-      if (attivita.puzzleImg.charAt(0)=='d') {
-        this.tempTipoUpload="locale"
-      } else if (attivita.puzzleImg.charAt(0)=='w'){
-        this.tempTipoUpload="web"
+      if (attivita.puzzleImg.charAt(0) == 'd') {
+        this.tempTipoUpload = "locale"
+      } else if (attivita.puzzleImg.charAt(0) == 'w') {
+        this.tempTipoUpload = "web"
       }
       this.tempDifficulty = attivita.difficulty;
       this.tempImgPuzzle = attivita.puzzleImg;
@@ -236,7 +236,9 @@ export class ConfiguraComponent implements OnInit {
   onSaveStory() {
     this.api.updateStoria(
       this.storia
-    );
+    ).subscribe(response => {
+      this.router.navigate(["/configura/" + this.storia.id]);
+    });
     this.flagSalvataggio = false;
     this.resettaForm()
   }
@@ -258,8 +260,8 @@ export class ConfiguraComponent implements OnInit {
     // this.tempDDdescrizione = "";
     // this.tempDDposizione = 0;
     this.tempTipologiaAttivita = "";
-    this.numeroRisposte=0;
-    this.imagePreview="";
+    this.numeroRisposte = 0;
+    this.imagePreview = "";
     this.rispostaGiusta = "";
     this.form.reset()
   }
