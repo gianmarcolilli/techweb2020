@@ -44,11 +44,15 @@ mat-card{
 }
 .backImage{
   position: relative;
-  width: 30em;
+  width: 20em;
   height: auto;
   background-color: transparent;
-  opacity: 30%;
+  opacity: 90%;
+  width: 100%;
+}
+.img-responsive{
 
+  margin: .8em;
 }
 .punteggio{
 
