@@ -2,16 +2,16 @@
 
 $font-color: #5c5f66;
 $primary-color: #3b3a99;
+$background : rgba(212, 200, 200, 0.685);
 
-mat-card {
-  font-family: "Montserrat", sans-serif !important;
-  margin: 0.7em;
-  padding: 0 !important;
-}
+
 mat-card-header {
   justify-content: center;
   align-content: flex-start;
   align-items: flex-start;
+}
+mat-card-title {
+  padding-left: 0.8em;
 }
 mat-grid-tile-header {
   justify-content: space-between;
@@ -19,9 +19,15 @@ mat-grid-tile-header {
   align-items: flex-start;
   padding: 0.1em !important;
   font-size: 0.9em !important;
-  mat-icon {
-    transform: scale(0.8);
-  }
+}
+.button-container {
+  display: flex;
+}
+.button-edit-container {
+  display: inline-flex;
+  margin: 0.1em;
+  float: right;
+  transform: scale(0.7);
 }
 mat-grid-tile {
   float: left;
@@ -31,14 +37,15 @@ mat-grid-tile {
 .riepilogo-attivita {
   background-color: rgba(51, 50, 148, 0.301);
 }
+
 .crea-attivita {
-  background-color: rgba(212, 200, 200, 0.685);
+  background-color:$background;
 }
 h1 {
   text-transform: capitalize;
   font-weight: bold;
 }
-h4 {
+h3 {
   font-weight: bold;
 }
 
@@ -99,7 +106,7 @@ input[type="file"] {
 
 .input-group {
   display: flex;
-  background-color: #ffffff93;
+
   margin: 2vw;
   float: left;
   flex-flow: row wrap;
@@ -120,10 +127,11 @@ input[type="file"] {
   input[type="radio"] + label {
     display: block;
     cursor: pointer;
+    background-color: #ffffff93;
     min-height: 1.5em;
     min-width: 5em;
     border-radius: 5px;
-    font-size: .8em;
+    font-size: 0.8em;
     color: $font-color;
   }
   input[type="radio"]:checked + label {
@@ -142,4 +150,7 @@ input[type="file"] {
 }
 .form-control {
   border-radius: 4px;
+}
+.aggAttivita {
+  margin: 0.8em !important;
 }
