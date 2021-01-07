@@ -132,6 +132,13 @@
           <div class="punteggio">
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
+          <div class="backImage">
+            <img
+              class="img-responsive"
+              *ngIf="this.storia.steps[this.currentStepId].backImg != ''"
+              [src]="this.storia.steps[this.currentStepId].backImg"
+            />
+          </div>
           <app-dragndrop
             [order]="this.storia.steps[this.currentStepId].order"
           ></app-dragndrop>
@@ -142,6 +149,13 @@
         <mat-card>
           <div class="punteggio">
             <p>Punteggio : {{ this.punteggio }}</p>
+          </div>
+          <div class="backImage">
+            <img
+              class="img-responsive"
+              *ngIf="this.storia.steps[this.currentStepId].backImg != ''"
+              [src]="this.storia.steps[this.currentStepId].backImg"
+            />
           </div>
           <mat-card-title>
             <h4>Ecco la domanda a cui rispondere:</h4>
@@ -156,7 +170,7 @@
               placeholder="Inserisci qui la risposta "
             />
             <button (click)="gestisciAvanzamento()">Avanti</button>
-            <img />
+
           </mat-card-content>
         </mat-card>
       </div>
@@ -168,6 +182,13 @@
           </div>
           <mat-card-title> Titolo di informazione </mat-card-title>
           <mat-card-content>
+            <div class="backImage">
+              <img
+                class="img-responsive"
+                *ngIf="this.storia.steps[this.currentStepId].backImg != ''"
+                [src]="this.storia.steps[this.currentStepId].backImg"
+              />
+            </div>
             step corrente {{ this.currentStepId }}
 
             <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
@@ -192,7 +213,6 @@
             <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
           </mat-card-content>
           <button (click)="fine()">Visualizza classifica</button>
-        </mat-card>
       </div>
 
       <div *ngFor="let item of this.arrayPlayers; index as k">
