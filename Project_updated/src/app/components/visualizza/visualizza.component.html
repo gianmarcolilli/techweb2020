@@ -53,7 +53,6 @@
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
           <mat-card-title>
-            <h4>Ecco la domanda a cui rispondere:</h4>
 
             <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
           </mat-card-title>
@@ -103,6 +102,9 @@
           <div class="punteggio">
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
+          <mat-card-title>
+            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+          </mat-card-title>
           <app-image-puzzle
             [difficulty]="this.storia.steps[this.currentStepId].difficulty"
             [puzzleUrl]="this.storia.steps[this.currentStepId].puzzleImg"
@@ -120,7 +122,9 @@
           <div class="punteggio">
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
-          <mat-card-title>Riordina gli step </mat-card-title>
+          <mat-card-title>
+            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+          </mat-card-title>
           <div class="backImage">
             <img
               class="img-responsive"
@@ -143,7 +147,6 @@
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
           <mat-card-title>
-            <h4>Ecco la domanda a cui rispondere:</h4>
 
             <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
           </mat-card-title>
@@ -174,7 +177,6 @@
           <div class="punteggio">
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
-          <mat-card-title> Titolo di informazione </mat-card-title>
           <div class="backImage">
             <img
               class="img-responsive"
@@ -183,7 +185,6 @@
             />
           </div>
           <mat-card-content>
-            step corrente {{ this.currentStepId }}
             <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
           </mat-card-content>
 
@@ -206,7 +207,10 @@
         class="mainContainer"
       >
         <mat-card>
-          <mat-card-title>Partita Finita</mat-card-title>
+          <mat-card-title>Partita Finita
+            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+
+          </mat-card-title>
           <div class="backImage">
             <img
               class="img-responsive"
