@@ -9,6 +9,12 @@ body {
   font-family: "Montserrat", sans-serif;
   width: 100%;
 }
+mat-card {
+  font-family: "Montserrat", sans-serif !important;
+  margin: .5em;
+  padding: .1em !important;
+  justify-content: center;
+}
 mat-menu{
   float: left;
 }
