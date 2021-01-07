@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Input, Injectable } from '@angular/core';
 import { DummyApiService } from '../../services/dummy-api.service';
 import { Storia } from '../../interfaces/storia';
 import { SweetAlert2LoaderService } from '@sweetalert2/ngx-sweetalert2';
@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
 })
 
 
-
+@Injectable()
 export class AutoreComponent implements OnInit {
   titolo: string = "Menu' Autore";
   storie: Storia[] = [];

@@ -12,10 +12,10 @@ import { mimeType } from '../mime-type.validator';
 })
 export class ModificaComponent implements OnInit {
   @Input('id') id: number;
-  @Input('nome') nome: string;
+  @Input('title') title: string;
   @Input('sfondo') sfondo: string;
   form: FormGroup;
-  imagePreview: string;
+  imagePreview: string="";
 
   constructor(private api: DummyApiService, private router: Router) { }
 
@@ -29,8 +29,8 @@ export class ModificaComponent implements OnInit {
       let base64 = this.imagePreview.split('base64')
       this.api.uploadImage(base64[1]).subscribe((res) => {
         this.imagePreview = res.data.link
-        console.log('merda');
-
+        this.sfondo = this.imagePreview
+        console.log(this.sfondo);
       })
     };
     reader.readAsDataURL(file);
@@ -39,18 +39,21 @@ export class ModificaComponent implements OnInit {
   salvaModifiche() {
 
     console.log("le mie modifiche sono :");
-    console.log("nome è :" + this.nome);
+    console.log("nome è :" + this.title);
     console.log("id è :" + this.id);
     let tempStoria:Storia;
     this.api.getStoria(this.id).subscribe((res) => {
+
       tempStoria = this.api.reMap(res)
-      tempStoria.urlBackground = this.imagePreview
-      // tempStoria = tempStoria.splice(0,1)
-      this.api.updateStoria(tempStoria).subscribe(response => {
-          this.router.navigate(["/autore/"]);
-        });
+      if (this.imagePreview!="") {
+        tempStoria.urlBackground = this.imagePreview
+      }else{
+        tempStoria.urlBackground = this.sfondo
+      }
+      tempStoria.nome = this.title
+
+      this.api.updateStoria(tempStoria).subscribe();
     })
-    //console.log("sfondo è :"+this.sfondo);
 
   }
 
