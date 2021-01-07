@@ -35,22 +35,6 @@
     </mat-grid-tile>
   </mat-grid-list>
 
-  <!--    DA RIUTILIZZARE
-    <mat-grid-list cols="4" rowHeight="25vw">
-    <mat-grid-tile
-        colspan="1"
-        rowspan="1"
-        style="background-color: green;">
-        {{variabileOk }}
-    </mat-grid-tile>
-    <mat-grid-tile
-        colspan="1"
-        rowspan="1"
-        style="background-color: rgb(92, 0, 128);">
-        {{variabileOk }}
-    </mat-grid-tile>
-  </mat-grid-list> -->
-
   <h1>
     {{ title }}
   </h1>
@@ -73,6 +57,13 @@
 
             <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
           </mat-card-title>
+          <div class="backImage">
+            <img
+              class="img-responsive"
+              *ngIf="this.storia.steps[this.currentStepId].backImg != ''"
+              [src]="this.storia.steps[this.currentStepId].backImg"
+            />
+          </div>
           <mat-card-content>
             <ng-container
               *ngIf="
@@ -100,18 +91,14 @@
               </mat-list>
             </ng-container>
           </mat-card-content>
-          <div class="backImage">
-            <img
-              class="img-responsive"
-              *ngIf="this.storia.steps[this.currentStepId].backImg != ''"
-              [src]="this.storia.steps[this.currentStepId].backImg"
-            />
-          </div>
         </mat-card>
       </div>
       <!-- end QUIZ -->
 
-      <div *ngIf="this.storia.steps[currentStepId].action == 'puzzle'">
+      <div
+        *ngIf="this.storia.steps[currentStepId].action == 'puzzle'"
+        class="mainContainer"
+      >
         <!-- <app-image-puzzle [puzzleUrl]=steps[currentStepId].puzzleUrl>
         </app-image-puzzle> -->
         <mat-card>
@@ -127,7 +114,10 @@
       </div>
       <!-- end PUZZLE -->
 
-      <div *ngIf="this.storia.steps[currentStepId].action == 'dnd'">
+      <div
+        *ngIf="this.storia.steps[currentStepId].action == 'dnd'"
+        class="mainContainer"
+      >
         <mat-card>
           <div class="punteggio">
             <p>Punteggio : {{ this.punteggio }}</p>
@@ -138,7 +128,10 @@
         </mat-card>
       </div>
 
-      <div *ngIf="this.storia.steps[currentStepId].action == 'domanda'">
+      <div
+        *ngIf="this.storia.steps[currentStepId].action == 'domanda'"
+        class="mainContainer"
+      >
         <mat-card>
           <div class="punteggio">
             <p>Punteggio : {{ this.punteggio }}</p>
@@ -148,6 +141,13 @@
 
             <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
           </mat-card-title>
+          <div class="backImage">
+            <img
+              class="img-responsive"
+              *ngIf="this.storia.steps[this.currentStepId].backImg != ''"
+              [src]="this.storia.steps[this.currentStepId].backImg"
+            />
+          </div>
           <mat-card-content>
             <input
               [(ngModel)]="tempRisposta"
@@ -161,12 +161,22 @@
         </mat-card>
       </div>
 
-      <div *ngIf="this.storia.steps[currentStepId].action == 'informazione'">
+      <div
+        *ngIf="this.storia.steps[currentStepId].action == 'informazione'"
+        class="mainContainer"
+      >
         <mat-card>
           <div class="punteggio">
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
           <mat-card-title> Titolo di informazione </mat-card-title>
+          <div class="backImage">
+            <img
+              class="img-responsive"
+              *ngIf="this.storia.steps[this.currentStepId].backImg != ''"
+              [src]="this.storia.steps[this.currentStepId].backImg"
+            />
+          </div>
           <mat-card-content>
             step corrente {{ this.currentStepId }}
 
@@ -184,8 +194,22 @@
         </mat-card>
       </div>
 
-      <div *ngIf="this.storia.steps[currentStepId].action == 'fine'"|| tipologiaGruppo != "individuale" >
-        Partita Finita
+      <div
+        *ngIf="this.storia.steps[currentStepId].action == 'fine'"
+        ||
+        tipologiaGruppo
+        !="individuale"
+        class="mainContainer"
+      >
+        <mat-card>
+          <mat-card-title>Partita Finita</mat-card-title>
+          <div class="backImage">
+            <img
+              class="img-responsive"
+              *ngIf="this.storia.steps[this.currentStepId].backImg != ''"
+              [src]="this.storia.steps[this.currentStepId].backImg"
+            />
+          </div>
           <mat-card-content>
             step corrente {{ this.currentStepId }}
 
