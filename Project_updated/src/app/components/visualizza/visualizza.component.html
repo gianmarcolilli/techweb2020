@@ -224,7 +224,7 @@
             <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
           </mat-card-content>
           <button (click)="fine()">Visualizza classifica</button>
-        </mat-card>
+      </div>
 
         <div *ngFor="let item of this.arrayPlayers; index as k">
           <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>

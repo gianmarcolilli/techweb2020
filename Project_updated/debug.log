@@ -27,3 +27,4 @@
 [0104/163736.175:ERROR:directory_reader_win.cc(43)] FindFirstFile: Impossibile trovare il percorso specificato. (0x3)
 [0105/100337.910:ERROR:directory_reader_win.cc(43)] FindFirstFile: Impossibile trovare il percorso specificato. (0x3)
 [0105/165928.015:ERROR:directory_reader_win.cc(43)] FindFirstFile: Impossibile trovare il percorso specificato. (0x3)
+[0107/130330.294:ERROR:directory_reader_win.cc(43)] FindFirstFile: Impossibile trovare il percorso specificato. (0x3)
