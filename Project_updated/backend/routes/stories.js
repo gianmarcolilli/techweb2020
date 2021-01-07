@@ -105,7 +105,7 @@ router.put("/:id", (req, res, next) => {
       id: req.body.id,
       title: req.body.nome,
       fasciaEta: req.body.fasciaEta,
-      urlBackground: req.body.urlBackground,
+      image: req.body.urlBackground,
       attivita: req.body.steps,
       didascalia: req.body.didascalia,
     }
