@@ -45,7 +45,6 @@ export class AutoreComponent implements OnInit {
       let base64 = this.imagePreview.split('base64')
       this.api.uploadImage(base64[1]).subscribe((res)=>{
         this.imagePreview=res.data.link
-        console.log('merda');
 
       })
     };

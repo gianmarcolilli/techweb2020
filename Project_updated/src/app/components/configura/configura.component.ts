@@ -11,7 +11,7 @@ import { mimeType } from '../autore/mime-type.validator';
 @Component({
   selector: 'app-configura',
   templateUrl: './configura.component.html',
-  styleUrls: [ './configura.component.scss'],
+  styleUrls: ['./configura.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
 export class ConfiguraComponent implements OnInit {
@@ -38,7 +38,7 @@ export class ConfiguraComponent implements OnInit {
   showConfiguraClickToObject: boolean = false;
   tempTipologiaAttivita: string = "";
   numeroRisposte: number;
-  numeroDnd:number=0;
+  numeroDnd: number = 0;
   imagePreview: string;
   rispostaGiusta: string = "";
   flagSalvataggio = false;
@@ -52,7 +52,7 @@ export class ConfiguraComponent implements OnInit {
     if (type == "domanda") {
       return "domanda"
     }
-    if (type == "informazione" || type == "dnd" || type =="fine") {
+    if (type == "informazione" || type == "dnd" || type == "fine") {
       return "contenuto"
     }
     if (type == "puzzle") {
@@ -62,15 +62,6 @@ export class ConfiguraComponent implements OnInit {
     return "titolo"
   }
 
-  // aggiungiDD() {
-  //   let lastIdx = this.tempOrder.length
-  //   this.tempOrder.push(
-  //     {
-  //       posizione: lastIdx,
-  //       desc: ""
-  //     }
-  //   )
-  // }
 
   aggiungiAttivita(type: string, id: number = -1) {
     this.flagSalvataggio = true;
@@ -199,6 +190,8 @@ export class ConfiguraComponent implements OnInit {
     this.tempCorrect = attivita.correctId;
     this.tempWrong = attivita.wrongId;
     this.tempActivityId = attivita.activityId;
+    this.imagePreview = attivita.backImg;
+    this.tempQuizCorrectIdx=attivita.quizCorrectIdx;
 
     console.log("corretto = " + this.tempCorrect + " sbagliato = " + this.tempWrong);
 
@@ -210,10 +203,10 @@ export class ConfiguraComponent implements OnInit {
       this.arrayRisposte = attivita.answers
     }
     if (attivita.action == "puzzle") {
-      if (attivita.puzzleImg.charAt(0)=='d') {
-        this.tempTipoUpload="locale"
-      } else if (attivita.puzzleImg.charAt(0)=='w'){
-        this.tempTipoUpload="web"
+      if (attivita.puzzleImg.charAt(0) == 'd') {
+        this.tempTipoUpload = "locale"
+      } else if (attivita.puzzleImg.charAt(0) == 'w' || attivita.puzzleImg.charAt(0) == 'h') {
+        this.tempTipoUpload = "web"
       }
       this.tempDifficulty = attivita.difficulty;
       this.tempImgPuzzle = attivita.puzzleImg;
@@ -255,24 +248,13 @@ export class ConfiguraComponent implements OnInit {
     this.tempWrong = 0;
     this.arrayRisposte = [];
     this.tempOrder = [];
-    // this.tempDDdescrizione = "";
-    // this.tempDDposizione = 0;
     this.tempTipologiaAttivita = "";
-    this.numeroRisposte=0;
-    this.imagePreview="";
+    this.numeroRisposte = 0;
+    this.imagePreview = "";
     this.rispostaGiusta = "";
     this.form.reset()
   }
 
-  // generaAttivita(tipoDiAttività){
-  //   if(tipoDiAttività=="4answers"){
-  //     return {
-  //       title : myTempTitle,
-  //       answers : myTempRisposte,
-  //     }
-  //   }
-  //   resetVariabiliDiAppoggio()
-  // }
   inputChanged(ev: Event, idx) {
     console.log(idx + " : ")
     console.log(ev.returnValue)
@@ -284,10 +266,19 @@ export class ConfiguraComponent implements OnInit {
     this.form.get('image').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
+
       if (type && type == 'puzzle') {
         this.tempImgPuzzle = reader.result as string;
+        let base64 = this.tempImgPuzzle.split('base64')
+        this.api.uploadImage(base64[1]).subscribe((res) => {
+          this.tempImgPuzzle = res.data.link
+        })
       } else {
         this.imagePreview = reader.result as string;
+        let base64 = this.imagePreview.split('base64')
+        this.api.uploadImage(base64[1]).subscribe((res) => {
+          this.imagePreview = res.data.link
+        })
 
       }
     };
