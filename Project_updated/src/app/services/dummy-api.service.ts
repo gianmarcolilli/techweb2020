@@ -138,11 +138,8 @@ export class DummyApiService {
 
   //put
   updateStoria(storia: Storia) {
-    this.http
+    return this.http
       .put("http://localhost:3000/api/stories/" + storia.id, storia)
-      .subscribe(response => {
-        this.router.navigate(["/configura/" + storia.id]);
-      });
   }
 
   updateGame(idPartita: number, prossimoId: number, punteggio: number) {
