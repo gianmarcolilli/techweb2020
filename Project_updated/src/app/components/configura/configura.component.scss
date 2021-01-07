@@ -3,7 +3,7 @@
 $font-color: #5c5f66;
 $primary-color: #3b3a99;
 $background : rgba(212, 200, 200, 0.685);
-
+$bluBackground: #14144daf;
 
 mat-card-header {
   justify-content: center;
@@ -135,7 +135,7 @@ input[type="file"] {
     color: $font-color;
   }
   input[type="radio"]:checked + label {
-    background-color: #14144dc7;
+    background-color: $bluBackground;
     min-height: 1.5em;
     min-width: 5em;
     border-radius: 5px;
