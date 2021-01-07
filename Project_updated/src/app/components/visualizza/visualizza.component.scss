@@ -6,54 +6,68 @@ $background : rgba(212, 200, 200, 0.685);
   padding: 2vw;
   justify-content: center;
 }
+.mainContainer{
+  width: 100%;
+  height: auto;
+}
 
-.copertinaStoria {
-  min-height: 30vw;
+#copertina {
+  background-image: url(/assets/book.png);
   background-size: contain;
   background-repeat: no-repeat;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: nowrap;
-  padding: 30px;
-}
-#copertina {
+  background-position: center;
   padding: 2vw;
-  margin-left: 25vw;
-  margin-right: 25vw;
-  justify-content: space-evenly;
-  align-content: flex-start;
+  padding-left: 22%;
+  padding-right: 22%;
+  margin: 1em;
+  justify-content: center;
+  align-content: center;
 }
+
 .storyTitle {
-  font-size: 4vw;
+  font-size: 3em;
   color: white;
   text-transform: uppercase;
+  font-weight: bold;
+  margin-top: .6em;
+  margin-bottom: 0;
+  margin-left: 17%;
+  margin-right: 15%;
+}
+.copertina-responsive{
+  justify-content: center;
+  margin: .2em;
 }
 .imgCopertina {
   border: solid 5px;
   border-color: rgb(87, 6, 6);
   border-radius: 3px;
+  width: 5em;
 }
-.mainContainer{
-  width: 100%;
-  margin: .5rem;
+.button-container{
+  justify-content: center;
 }
 mat-card{
   background-color: $background ;
-  top: 1;
-  left: 1;
+
 }
 .backImage{
   position: relative;
-  width: 20em;
   height: auto;
   background-color: transparent;
   opacity: 90%;
   width: 100%;
 }
-.img-responsive{
 
+.img-responsive{
+  width: 50%;
+  height: auto;
   margin: .8em;
+  @media (max-width: 600px) {
+    width: 75%;
+  }
 }
+
 .punteggio{
 
   float: right;
