@@ -11,7 +11,11 @@
 .mat-menu-container{
   display: flex;
   float: left;
-
+}
+@media (max-width: 1024px) {
+  .menu{
+    display: none;
+  }
 }
 .container1 {
   width: 100%;
