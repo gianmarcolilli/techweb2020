@@ -1,7 +1,7 @@
 <app-header [my-title]="titolo"> </app-header>
 <div class="container1">
   <mat-accordion multi="true" *ngIf="storie.length > 0; else error">
-    <mat-expansion-panel  hideToggle>
+    <mat-expansion-panel hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Elenco delle storie presenti nel database
@@ -12,66 +12,75 @@
     <mat-expansion-panel *ngFor="let storia of storie; index as i">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          <p id="storyTitle">{{ storia.nome  }}</p>
+          <p id="storyTitle">{{ storia.nome }}</p>
         </mat-panel-title>
       </mat-expansion-panel-header>
       <mat-grid-list cols="8" rowHeight="4vw">
-        <mat-grid-tile
-        colspan="1"
-        rowspan="1">
-          <button mat-raised-button color="primary" (click)="statoMod[i] = !statoMod[i]">Modifica  </button>
+        <mat-grid-tile colspan="1" rowspan="1">
+          <button mat-raised-button color="primary" (click)="statoMod[i] = !statoMod[i]">Modifica </button>
         </mat-grid-tile>
         <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
-        <mat-grid-tile
-        colspan="6"
-        rowspan="7">
-          <img class="img-story"
-            [src]="storia.urlBackground"
-            [alt]="'  immagine sfondo di  ' + storia.nome"/>
+        <mat-grid-tile colspan="6" rowspan="7">
+          <img class="img-story" [src]="storia.urlBackground" [alt]="'  immagine sfondo di  ' + storia.nome" />
         </mat-grid-tile>
-        <mat-grid-tile
-        colspan="1"
-        rowspan="1">
+        <mat-grid-tile colspan="1" rowspan="1">
           <button mat-raised-button color="info" (click)="configuraStoria(storia.id)">Configura </button>
         </mat-grid-tile>
         <mat-grid-tile colspan="2" rowspan="5"></mat-grid-tile>
         <mat-grid-tile colspan="7" rowspan="1"></mat-grid-tile>
-        <mat-grid-tile
-        colspan="1"
-        rowspan="1">
+        <mat-grid-tile colspan="1" rowspan="1">
           <button [swal]="mioAlert1" mat-raised-button color="warn">Elimina</button>
-          <swal #mioAlert1 confirmButtonText="Elimina" (confirm)="eliminaStoria(storia.id)" >
+          <swal #mioAlert1 confirmButtonText="Elimina" (confirm)="eliminaStoria(storia.id)">
           </swal>
-      </mat-grid-tile>
-    </mat-grid-list>
+        </mat-grid-tile>
+      </mat-grid-list>
       <!-- <a
         [routerLink]="['/visualizza/:storia']"
         routerLinkActive="router-link-active"
       >
         Anteprima</a
       > -->
-      <app-modifica
-        *ngIf="statoMod[i]"
-        [id]="storia.id"
-        [nome]="storia.nome"
-        [sfondo]="storia.urlBackground"
-      >
-      </app-modifica>
+      <div *ngIf="statoMod[i]">
+
+        <input type="text" class="form-control" [placeholder]="storia.id" disabled/>
+        <input type="text" class="form-control" [(ngModel)]="storia.nome" />
+        <input type="text" class="form-control" [(ngModel)]="storia.urlBackground" />
+
+      <div>
+
+        <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
+
+        <input type="file" #filePicker (change)="onImagePicked($event)">
+
+      </div>
+
+      <div class="image-preview" *ngIf="imagePreview!=='' && imagePreview && form.get('image').valid">
+
+        <img [src]="imagePreview" [alt]="form.value.title">
+
+      </div>
+
+      <button mat-raised-button color="warn" (click)="salvaModifiche(i)">
+        Salva
+      </button>
+
+    </div>
 
     </mat-expansion-panel>
   </mat-accordion>
 </div> <!-- end CONTAINER 1 -->
 
-<swal #mioAlert confirmButtonText="Salva" (confirm)="aggiungiStoria()" >
+<swal #mioAlert confirmButtonText="Salva" (confirm)="aggiungiStoria()">
 
-  <div *swalPortal >
-    <form [formGroup]="form" >
+  <div *swalPortal>
+    <form [formGroup]="form">
 
       <h1>name :</h1> <input formControlName="myTempName" class="form-control" id="name" type="text" />
-      <h1>didascalia :</h1> <input formControlName="myTempDidascalia" class="form-control" id="didascalia" type="text" />
+      <h1>didascalia :</h1> <input formControlName="myTempDidascalia" class="form-control" id="didascalia"
+        type="text" />
       <h1>fascia di età :</h1>
 
-      <mat-radio-group formControlName="myTempFasciaEta" aria-label="Select an option" >
+      <mat-radio-group formControlName="myTempFasciaEta" aria-label="Select an option">
         <mat-radio-button value="fasciaUno">
           <mat-card> 7 - 10 anni </mat-card>
         </mat-radio-button>
@@ -102,11 +111,9 @@
 
 <ng-template #error>
   <div>
-    <mat-icon aria-hidden="false" aria-label="Example home icon"
-      >error</mat-icon
-    >
+    <mat-icon aria-hidden="false" aria-label="Example home icon">error</mat-icon>
     <h2>Errore</h2>
   </div>
 
-  <template> </template
-></ng-template>
+  <template> </template>
+</ng-template>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, Input } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Input, Injectable } from '@angular/core';
 import { DummyApiService } from '../../services/dummy-api.service';
 import { Storia } from '../../interfaces/storia';
 import { SweetAlert2LoaderService } from '@sweetalert2/ngx-sweetalert2';
@@ -17,7 +17,7 @@ import { Subscription } from 'rxjs';
 })
 
 
-
+@Injectable()
 export class AutoreComponent implements OnInit {
   titolo: string = "Menu' Autore";
   storie: Storia[] = [];
@@ -34,7 +34,6 @@ export class AutoreComponent implements OnInit {
   constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService, private router: Router) { }
 
 
-
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });
@@ -43,13 +42,29 @@ export class AutoreComponent implements OnInit {
     reader.onload = () => {
       this.imagePreview = reader.result as string;
       let base64 = this.imagePreview.split('base64')
-      this.api.uploadImage(base64[1]).subscribe((res)=>{
-        this.imagePreview=res.data.link
-
+      this.api.uploadImage(base64[1]).subscribe((res) => {
+        this.imagePreview = res.data.link
       })
     };
     reader.readAsDataURL(file);
   }
+
+
+  // onImagePicked(event: Event) {
+  //   const file = (event.target as HTMLInputElement).files[0];
+  //   this.form.patchValue({ image: file });
+  //   this.form.get('image').updateValueAndValidity();
+  //   const reader = new FileReader();
+  //   reader.onload = () => {
+  //     this.imagePreview = reader.result as string;
+  //     let base64 = this.imagePreview.split('base64')
+  //     this.api.uploadImage(base64[1]).subscribe((res)=>{
+  //       this.imagePreview=res.data.link
+
+  //     })
+  //   };
+  //   reader.readAsDataURL(file);
+  // }
 
   showAlert(testo: string) {
     let promiseDiSwal = this.swalLoader.swal;
@@ -103,6 +118,29 @@ export class AutoreComponent implements OnInit {
         this.refreshData()
       }
     )
+  }
+
+  salvaModifiche(i:number) {
+
+    console.log("le mie modifiche sono :");
+    // console.log("nome è :" + this.storia.nome);
+    // console.log("id è :" + id);
+    let tempStoria:Storia;
+    this.api.getStoria(this.storie[i].id).subscribe((res) => {
+
+      tempStoria = this.api.reMap(res)
+      if (this.imagePreview!="") {
+        tempStoria.urlBackground = this.imagePreview
+      }else{
+        tempStoria.urlBackground = this.storie[i].urlBackground
+      }
+      tempStoria.nome = this.storie[i].nome
+      console.log(this.storie[i].nome)
+      this.api.updateStoria(tempStoria).subscribe(()=>{
+        this.refreshData()
+      });
+    })
+
   }
 
 
