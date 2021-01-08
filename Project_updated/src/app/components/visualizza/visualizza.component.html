@@ -9,17 +9,17 @@
         <img class="imgCopertina" [src]="this.storia.urlBackground" />
       </div>
       <div class="button-container">
-      <button
-        *ngIf="this.currentStepId < 0"
-        mat-raised-button
-        color="primary"
-        (click)="iniziaStep()"
-      >
-        <p>{{ startText ? startText : "Inizia" }}</p>
-        <!-- <p>{{ timestampGlobale }}</p>
+        <button
+          *ngIf="this.currentStepId < 0"
+          mat-raised-button
+          color="primary"
+          (click)="iniziaStep()"
+        >
+          <p>{{ startText ? startText : "Inizia" }}</p>
+          <!-- <p>{{ timestampGlobale }}</p>
         <p>Timestamp start : {{ this.stepStartAt }}</p> -->
-      </button>
-    </div>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -110,7 +110,7 @@
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
           <mat-card-title>
-            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+            <p> {{ this.storia.steps[currentStepId].activityTitle }}</p>
           </mat-card-title>
           <div class="backImage">
             <img
@@ -144,13 +144,23 @@
             />
           </div>
           <mat-card-content>
+            <div class="input-container">
             <input
               [(ngModel)]="tempRisposta"
               class="form-control"
               type="text"
               placeholder="Inserisci qui la risposta "
             />
-            <button (click)="gestisciAvanzamento()">Avanti</button>
+          </div>
+            <div class="container-btn-avanti">
+              <button
+                mat-mini-fab
+                class="btn-avanti"
+                (click)="gestisciAvanzamento()"
+              >
+                <i class="material-icons">play_arrow</i>
+              </button>
+            </div>
           </mat-card-content>
         </mat-card>
       </div>
@@ -171,17 +181,18 @@
             />
           </div>
           <mat-card-content>
-            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+            <p> {{ this.storia.steps[currentStepId].activityTitle }}</p>
           </mat-card-content>
 
-          <button
-            mat-flat-button
-            (click)="gestisciAvanzamento()"
-            class="gestisciAvanzamento"
-            color="basic"
-          >
-            Avanti
-          </button>
+          <div class="container-btn-avanti">
+            <button
+              mat-mini-fab
+              class="btn-avanti"
+              (click)="gestisciAvanzamento()"
+            >
+              <i class="material-icons">play_arrow</i>
+            </button>
+          </div>
         </mat-card>
       </div>
 
