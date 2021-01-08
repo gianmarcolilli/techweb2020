@@ -127,6 +127,7 @@ img {
   button {
     margin: 5px;
   }
+
 } /* for smaller tablets */
 
 @media (max-width: 500px) {
