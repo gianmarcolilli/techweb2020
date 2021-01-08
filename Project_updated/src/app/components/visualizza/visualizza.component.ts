@@ -214,7 +214,7 @@ export class VisualizzaComponent implements OnInit {
         console.log("sto confrontando questo :" + this.tempRisposta)
         console.log("con questo  :" + this.steps[this.currentStepId].risposta)
 
-        if (this.tempRisposta.trim() == this.steps[this.currentStepId].risposta.trim()) {
+        if (this.tempRisposta.trim().toLowerCase() == this.steps[this.currentStepId].risposta.trim().toLowerCase()) {
           alert("hai dato la risposta corretta")
           if (this.idPartita == -1) {
             this.currentStepId = this.steps[this.currentStepId].correctId
