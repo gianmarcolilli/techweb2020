@@ -2,7 +2,6 @@ $font-color: #5c5f66;
 $primary-color: #3b3a99;
 $background: rgba(212, 200, 200, 0.685);
 
-
 .mainSection {
   padding: 2vw;
   justify-content: center;
@@ -58,25 +57,23 @@ mat-card {
   opacity: 90%;
   margin: 20px;
 }
-.animation-text{
+.animation-text {
   display: flex;
 }
 .typing-text{
-  animation: type 10s steps(242);
+  animation: type 10s steps(242), blink-caret .75s step-end infinite;
   overflow: hidden;
   white-space: nowrap;
-  word-wrap: normal;
-  flex-wrap: wrap;
   border-right: 4px solid black;
   width: 100%;
 }
 @keyframes type{
-  0%{
-    width: 0ch;
-  }
-  100%{
-    width: 242ch;
-  }
+  from { width: 0 }
+  to { width: 100% }
+}
+@keyframes blink-caret {
+  from, to { border-color: transparent }
+  50% { border-color: orange; }
 }
 .container-btn-avanti {
   display: flex;
@@ -86,13 +83,13 @@ mat-card {
   float: right;
   margin: 0.5em;
 }
-.input-container{
+.input-container {
   display: flex;
   justify-content: center;
 }
 .form-control {
   background-color: transparent !important;
- //margin: 0.1em !important;
+  //margin: 0.1em !important;
   width: 95% !important;
 }
 .img-responsive {
