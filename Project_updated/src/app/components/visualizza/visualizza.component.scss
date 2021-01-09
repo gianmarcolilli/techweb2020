@@ -1,68 +1,101 @@
 $font-color: #5c5f66;
 $primary-color: #3b3a99;
-$background : rgba(212, 200, 200, 0.685);
+$background: rgba(212, 200, 200, 0.685);
+
 
 .mainSection {
   padding: 2vw;
   justify-content: center;
 }
+.mainContainer {
+  width: 100%;
+  height: auto;
+}
 
-.copertinaStoria {
-  min-height: 30vw;
+#copertina {
+  background-image: url(/assets/book.png);
   background-size: contain;
   background-repeat: no-repeat;
-  flex-direction: row;
-  justify-content: center;
-  flex-wrap: nowrap;
-  padding: 30px;
-}
-#copertina {
+  background-position: center;
   padding: 2vw;
-  margin-left: 25vw;
-  margin-right: 25vw;
-  justify-content: space-evenly;
-  align-content: flex-start;
+  padding-left: 22%;
+  padding-right: 22%;
+  margin: 1em;
+  justify-content: center;
+  align-content: center;
 }
+
 .storyTitle {
-  font-size: 4vw;
+  font-size: 3em;
   color: white;
   text-transform: uppercase;
+  font-weight: bold;
+  margin-top: 0.6em;
+  margin-bottom: 0;
+  margin-left: 17%;
+  margin-right: 15%;
+}
+.copertina-responsive {
+  justify-content: center;
+  margin: 0.2em;
 }
 .imgCopertina {
   border: solid 5px;
   border-color: rgb(87, 6, 6);
   border-radius: 3px;
+  width: 5em;
 }
-.mainContainer{
-  width: 100%;
-  margin: .5rem;
+.button-container {
+  justify-content: center;
 }
-mat-card{
-  background-color: $background ;
-  top: 1;
-  left: 1;
+mat-card {
+  background-color: $background;
 }
-.backImage{
+.backImage {
   position: relative;
-  width: 20em;
   height: auto;
-  background-color: transparent;
+  background-color: transparent !important;
   opacity: 90%;
-  width: 100%;
+  margin: 20px;
 }
-.img-responsive{
-
-  margin: .8em;
+.container-btn-avanti {
+  display: flex;
+  justify-content: flex-end;
 }
-.punteggio{
+.btn-avanti {
+  float: right;
+  margin: 0.5em;
+}
+.input-container{
+  display: flex;
+  justify-content: center;
+}
+.form-control {
+  background-color: transparent !important;
+ //margin: 0.1em !important;
+  width: 95% !important;
+}
+.img-responsive {
+  width: 50%;
+  height: auto;
+  margin: 0.8em;
+  border-radius: 8px;
+  box-shadow: 1px 3px 23px 1px rgba(16, 18, 44, 0.336),
+    4px 3px 25px 21px rgba(13, 10, 34, 0.315);
 
+  @media (max-width: 600px) {
+    width: 75%;
+  }
+}
+
+.punteggio {
   float: right;
   width: 100%;
-  p{
+  p {
     float: right;
   }
 }
-.title{
+.title {
   justify-content: center;
   width: 100%;
 }

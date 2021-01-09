@@ -15,13 +15,13 @@
     [matMenuTriggerFor]="menu"
     class="menu"
     aria-label="Example icon-button with a menu"
-  >
+    >
     <mat-icon>menu</mat-icon>
   </button>
 </mat-toolbar>
 <!-- Mat menu-->
-<div class="mat-menu-container">
-<mat-menu #menu="matMenu">
+<div class="mat-menu-container" >
+<mat-menu #menu="matMenu" >
   <button
     mat-menu-item
     *ngIf="!userIsAuthenticated"
