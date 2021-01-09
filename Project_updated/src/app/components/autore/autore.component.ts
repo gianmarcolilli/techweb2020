@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, Input, Injectable } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, Input, Injectable, Inject } from '@angular/core';
 import { DummyApiService } from '../../services/dummy-api.service';
 import { Storia } from '../../interfaces/storia';
 import { SweetAlert2LoaderService } from '@sweetalert2/ngx-sweetalert2';
@@ -7,6 +7,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { mimeType } from './mime-type.validator';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { saveAs } from 'file-saver/dist/FileSaver';
+import { HttpClient } from '@angular/common/http';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-autore',
@@ -31,8 +34,9 @@ export class AutoreComponent implements OnInit {
   imagePreview: string;
   getStorySubscription: Subscription;
 
-  constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService, private router: Router) { }
+  constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService, private router: Router, private http: HttpClient, public dialog: MatDialog){
 
+   }
 
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
@@ -143,6 +147,25 @@ export class AutoreComponent implements OnInit {
 
   }
 
+  download(i: number){
+    let tempStoria:Storia;
+    this.api.getStoria(i).subscribe(storia =>{
+      storia = this.api.reMap(storia)
+      const blob = new Blob([JSON.stringify(storia)], {type: 'text/json'});
+      const fileName = 'prova.json';
+      saveAs(blob, fileName);
+    }, err =>{
+      console.log(err);
+    })
+  }
+
+  openDialog() {​​
+    const dialogRef = this.dialog.open(DialogContentExampleDialog);
+
+    dialogRef.afterClosed().subscribe(result => {​​
+      console.log(`Dialog result: ${​​result}​​`);
+    }​​);
+  }
 
 
   ngOnInit(): void {
@@ -197,5 +220,21 @@ export class AutoreComponent implements OnInit {
       }
     );
   }
-
 }
+
+@Component({​​
+  selector: 'dialog-content-example-dialog',
+  templateUrl: 'dialog-content-example-dialog.html',
+}​​)
+export class DialogContentExampleDialog {
+  constructor(public dialogRef: MatDialogRef<DialogContentExampleDialog>) {​​}​​
+
+  upload(){
+    console.log('coddio');
+
+  }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+​​}​​

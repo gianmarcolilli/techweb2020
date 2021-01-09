@@ -25,6 +25,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTableModule} from '@angular/material/table';
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AutoreComponent } from './components/autore/autore.component';
@@ -50,6 +51,7 @@ import { DragndropComponent } from './components/dragndrop/dragndrop.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ClassificaComponent } from './components/classifica/classifica.component';
 import { MatSortModule } from '@angular/material/sort';
+import { AngularFileUploaderModule } from "angular-file-uploader";
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import { MatSortModule } from '@angular/material/sort';
     LoginComponent,
     SignupComponent,
     DragndropComponent,
-    ClassificaComponent
+    ClassificaComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -104,6 +107,9 @@ import { MatSortModule } from '@angular/material/sort';
     MatMenuModule,
     MatTableModule,
     MatSortModule,
+    AngularFileUploaderModule,
+    MatDialogModule,
+
 
 
     NgbModule,
