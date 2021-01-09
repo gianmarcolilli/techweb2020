@@ -3,8 +3,10 @@
 <!-- <button (click)="refresh()">aggiorna</button> -->
 <section id="mainSection" *ngIf="this.storia">
   <div id="mainContainer" *ngIf="this.currentStepId < 0">
-    <div id="copertina">
-      <p class="storyTitle">{{ this.storia.nome }}</p>
+    <div class="copertina">
+      <div class="storyTitle">
+      {{ this.storia.nome }}
+    </div>
       <div class="copertina-responsive">
         <img class="imgCopertina" [src]="this.storia.urlBackground" />
       </div>
@@ -15,7 +17,7 @@
           color="primary"
           (click)="iniziaStep()"
         >
-          <p>{{ startText ? startText : "Inizia" }}</p>
+          {{ startText ? startText : "Inizia" }}
           <!-- <p>{{ timestampGlobale }}</p>
         <p>Timestamp start : {{ this.stepStartAt }}</p> -->
         </button>
@@ -181,8 +183,8 @@
             />
           </div>
           <mat-card-content>
-            <div class="animation-text">
-              <p class="typing-text" > {{ this.storia.steps[currentStepId].activityTitle }}</p>
+            <div class="typing-text">
+              <p> {{ this.storia.steps[currentStepId].activityTitle }}</p>
             </div>
           </mat-card-content>
 

@@ -1,5 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Acme&family=Montserrat&family=Permanent+Marker&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Acme&family=Montserrat&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Architects+Daughter&family=Caveat:wght@700&family=Courgette&family=Montserrat:wght@500&family=Patrick+Hand&family=Permanent+Marker&display=swap');
 
 .mat-toolbar {
   display: flex;
@@ -22,7 +21,7 @@
   justify-content: space-between;
 }
 .title {
-  font-family: "Acme", "sans-serif";
+  font-family: "Acme", sans-serif;
   font-size: 1.5em;
 }
 
