@@ -41,7 +41,7 @@
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
           <mat-card-title>
-            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+            <p> {{ this.storia.steps[currentStepId].activityTitle }}</p>
           </mat-card-title>
           <div class="backImage">
             <img
@@ -72,7 +72,7 @@
                 (click)="gestisciAvanzamento(i)"
               >
                 <button mat-raised-button color="accent" role="listitem">
-                  {{ answ }}
+                  <p>{{ answ }}</p>
                 </button>
               </mat-list>
             </ng-container>
@@ -90,7 +90,7 @@
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
           <mat-card-title>
-            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+            <p> {{ this.storia.steps[currentStepId].activityTitle }}</p>
           </mat-card-title>
           <app-image-puzzle
             [difficulty]="this.storia.steps[this.currentStepId].difficulty"
@@ -181,7 +181,9 @@
             />
           </div>
           <mat-card-content>
-            <p> {{ this.storia.steps[currentStepId].activityTitle }}</p>
+            <div class="animation-text">
+              <p class="typing-text" > {{ this.storia.steps[currentStepId].activityTitle }}</p>
+            </div>
           </mat-card-content>
 
           <div class="container-btn-avanti">
