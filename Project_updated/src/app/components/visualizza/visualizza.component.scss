@@ -58,6 +58,26 @@ mat-card {
   opacity: 90%;
   margin: 20px;
 }
+.animation-text{
+  display: flex;
+}
+.typing-text{
+  animation: type 10s steps(242);
+  overflow: hidden;
+  white-space: nowrap;
+  word-wrap: normal;
+  flex-wrap: wrap;
+  border-right: 4px solid black;
+  width: 100%;
+}
+@keyframes type{
+  0%{
+    width: 0ch;
+  }
+  100%{
+    width: 242ch;
+  }
+}
 .container-btn-avanti {
   display: flex;
   justify-content: flex-end;
