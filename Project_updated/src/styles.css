@@ -11,12 +11,22 @@ body {
 }
 mat-card {
   font-family: "Montserrat", sans-serif !important;
-  margin: .5em;
-  padding: .1em !important;
+  margin: 0.5em;
+  padding: 0.1em !important;
   justify-content: center;
 }
-mat-menu{
+mat-menu {
   float: left;
+}
+mat-card-title {
+  justify-content: center !important;
+  margin-left: .2em ;
+  margin-right: .2em;
+}
+mat-card-content {
+  justify-content: center !important;
+  margin-left: .2em ;
+  margin-right: .2em;
 }
 .mat-menu-content {
   width: max-content;
