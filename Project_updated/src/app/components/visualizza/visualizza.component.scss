@@ -115,6 +115,20 @@ mat-card {
 //   }
 // }
 
+// .typing-text p{
+//   animation: type 5s steps(242), blink-caret .75s step-end infinite;
+//   overflow: hidden;
+//   border-right: 4px solid black;
+//   white-space: nowrap;
+//   width: 100%;
+// }
+// @keyframes type{
+//   from { width: 50% }
+//   to { width: 100% }
+// }
+// @keyframes blink-caret {
+//   from, to { border-color: transparent }
+//   50% { border-color: black; }
 .container-btn-avanti {
   display: flex;
   justify-content: flex-end;
