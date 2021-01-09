@@ -2,7 +2,7 @@ export interface Step {
   activityId: number,
   activityTitle: string,
   action: string,
-  backImg: string,
+  backImg?: string,
   actionImg ?: string,
   puzzleImg ?: string,
   difficulty ?: string,

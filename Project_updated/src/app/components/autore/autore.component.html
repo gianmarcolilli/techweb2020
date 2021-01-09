@@ -29,9 +29,6 @@
         <mat-grid-tile colspan="2" rowspan="5">
           <button mat-raised-button color="info" (click)="download(storia.id)">Download JSON </button>
         </mat-grid-tile>
-        <mat-grid-tile colspan="7" rowspan="1">
-          <button mat-raised-button (click)="openDialog()">Pick one</button>
-        </mat-grid-tile>
         <mat-grid-tile colspan="1" rowspan="1">
           <button [swal]="mioAlert1" mat-raised-button color="warn">Elimina</button>
           <swal #mioAlert1 confirmButtonText="Elimina" (confirm)="eliminaStoria(storia.id)">
@@ -111,6 +108,8 @@
 
 
 <button [swal]="mioAlert" mat-raised-button color="accent">aggiunta</button>
+<button mat-raised-button (click)="openDialog()">Pick one</button>
+
 <mat-spinner *ngIf="isLoading"></mat-spinner>
 
 <ng-template #error>
