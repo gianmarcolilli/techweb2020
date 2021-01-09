@@ -11,7 +11,7 @@ const storySchema = mongoose.Schema({
       activityId : { type: Number,required:true},
       activityTitle : { type: String,required:true},
       action: { type: String,required:true},
-      backImg: { type: String,required:true},
+      backImg: { type: String},
       actionImg : { type: String},
       puzzleImg : { type: String},
       difficulty : { type: String},
