@@ -15,26 +15,49 @@
           <p id="storyTitle">{{ storia.nome }}</p>
         </mat-panel-title>
       </mat-expansion-panel-header>
-      <mat-grid-list cols="8" rowHeight="4vw">
-        <mat-grid-tile colspan="1" rowspan="1">
-          <button mat-raised-button color="primary" (click)="statoMod[i] = !statoMod[i]">Modifica </button>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1" rowspan="1"></mat-grid-tile>
-        <mat-grid-tile colspan="6" rowspan="7">
-          <img class="img-story" [src]="storia.urlBackground" [alt]="'  immagine sfondo di  ' + storia.nome" />
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1" rowspan="1">
-          <button mat-raised-button color="info" (click)="configuraStoria(storia.id)">Configura </button>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="2" rowspan="5">
-          <button mat-raised-button color="info" (click)="download(storia.id)">Download JSON </button>
-        </mat-grid-tile>
-        <mat-grid-tile colspan="1" rowspan="1">
-          <button [swal]="mioAlert1" mat-raised-button color="warn">Elimina</button>
-          <swal #mioAlert1 confirmButtonText="Elimina" (confirm)="eliminaStoria(storia.id)">
+
+      <div class="container-panel">
+        <div class="container-modifica">
+          <button
+            mat-raised-button
+            color="primary"
+            (click)="statoMod[i] = !statoMod[i]"
+          >
+            Modifica
+          </button>
+          <!-- </div>
+          <div class="container-configura"> --><br />
+          <button
+            mat-raised-button
+            color="info"
+            (click)="configuraStoria(storia.id)"
+          >
+            Configura
+          </button>
+          <!-- </div>
+        <div class="container-download"> --><br />
+          <button mat-raised-button color="info" (click)="download(storia.id)">
+            Download JSON
+          </button>
+          <br />
+          <button [swal]="mioAlert1" mat-raised-button color="warn">
+            Elimina
+          </button>
+          <swal
+            #mioAlert1
+            confirmButtonText="Elimina"
+            (confirm)="eliminaStoria(storia.id)"
+          >
           </swal>
-        </mat-grid-tile>
-      </mat-grid-list>
+        </div>
+        <div class="image-container">
+          <img
+            class="img-story"
+            [src]="storia.urlBackground"
+            [alt]="'  immagine sfondo di  ' + storia.nome"
+          />
+        </div>
+      </div>
       <!-- <a
         [routerLink]="['/visualizza/:storia']"
         routerLinkActive="router-link-active"
@@ -42,46 +65,66 @@
         Anteprima</a
       > -->
       <div *ngIf="statoMod[i]">
-
-        <input type="text" class="form-control" [placeholder]="storia.id" disabled />
+        <input
+          type="text"
+          class="form-control"
+          [placeholder]="storia.id"
+          disabled
+        />
         <input type="text" class="form-control" [(ngModel)]="storia.nome" />
-        <input type="text" class="form-control" [(ngModel)]="storia.urlBackground" />
+        <input
+          type="text"
+          class="form-control"
+          [(ngModel)]="storia.urlBackground"
+        />
 
         <div>
+          <button mat-stroked-button type="button" (click)="filePicker.click()">
+            Pick Image
+          </button>
 
-          <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
-
-          <input type="file" #filePicker (change)="onImagePicked($event)">
-
+          <input type="file" #filePicker (change)="onImagePicked($event)" />
         </div>
 
-        <div class="image-preview" *ngIf="imagePreview!=='' && imagePreview && form.get('image').valid">
-
-          <img [src]="imagePreview" [alt]="form.value.title">
-
+        <div
+          class="image-preview"
+          *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid"
+        >
+          <img [src]="imagePreview" [alt]="form.value.title" />
         </div>
 
         <button mat-raised-button color="warn" (click)="salvaModifiche(i)">
           Salva
         </button>
-
       </div>
-
     </mat-expansion-panel>
   </mat-accordion>
-</div> <!-- end CONTAINER 1 -->
+</div>
+<!-- end CONTAINER 1 -->
 
 <swal #mioAlert confirmButtonText="Salva" (confirm)="aggiungiStoria()">
-
   <div *swalPortal>
     <form [formGroup]="form">
-
-      <h1>name :</h1> <input formControlName="myTempName" class="form-control" id="name" type="text" />
-      <h1>didascalia :</h1> <input formControlName="myTempDidascalia" class="form-control" id="didascalia"
-        type="text" />
+      <h1>name :</h1>
+      <input
+        formControlName="myTempName"
+        class="form-control"
+        id="name"
+        type="text"
+      />
+      <h1>didascalia :</h1>
+      <input
+        formControlName="myTempDidascalia"
+        class="form-control"
+        id="didascalia"
+        type="text"
+      />
       <h1>fascia di età :</h1>
 
-      <mat-radio-group formControlName="myTempFasciaEta" aria-label="Select an option">
+      <mat-radio-group
+        formControlName="myTempFasciaEta"
+        aria-label="Select an option"
+      >
         <mat-radio-button value="fasciaUno">
           <mat-card> 7 - 10 anni </mat-card>
         </mat-radio-button>
@@ -93,19 +136,21 @@
         </mat-radio-button>
       </mat-radio-group>
 
-
       <div>
-        <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
-        <input type="file" #filePicker (change)="onImagePicked($event)">
+        <button mat-stroked-button type="button" (click)="filePicker.click()">
+          Pick Image
+        </button>
+        <input type="file" #filePicker (change)="onImagePicked($event)" />
       </div>
-      <div class="image-preview" *ngIf="imagePreview!=='' && imagePreview && form.get('image').valid">
-        <img [src]="imagePreview" [alt]="form.value.title">
+      <div
+        class="image-preview"
+        *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid"
+      >
+        <img [src]="imagePreview" [alt]="form.value.title" />
       </div>
     </form>
   </div>
 </swal>
-
-
 
 <button [swal]="mioAlert" mat-raised-button color="accent">aggiunta</button>
 <button mat-raised-button (click)="openDialog()">Pick one</button>
@@ -114,7 +159,9 @@
 
 <ng-template #error>
   <div>
-    <mat-icon aria-hidden="false" aria-label="Example home icon">error</mat-icon>
+    <mat-icon aria-hidden="false" aria-label="Example home icon"
+      >error</mat-icon
+    >
     <h2>Errore</h2>
   </div>
 
