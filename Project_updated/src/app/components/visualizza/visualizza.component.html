@@ -2,38 +2,26 @@
 
 <!-- <button (click)="refresh()">aggiorna</button> -->
 <section id="mainSection" *ngIf="this.storia">
-  <mat-grid-list
-    id="copertina"
-    cols="3"
-    rowHeight="15vw"
-    [ngStyle]="{
-      'background-image': 'url(/assets/book.png)',
-      'background-size': 'contain',
-      'background-repeat': 'no-repeat'
-    }"
-    *ngIf="this.currentStepId < 0"
-  >
-    <mat-grid-tile colspan="3" rowspan="2">
+  <div id="mainContainer" *ngIf="this.currentStepId < 0">
+    <div id="copertina">
       <p class="storyTitle">{{ this.storia.nome }}</p>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="3" rowspan="1">
-      <div class="img-responsive">
+      <div class="copertina-responsive">
         <img class="imgCopertina" [src]="this.storia.urlBackground" />
       </div>
-    </mat-grid-tile>
-    <mat-grid-tile colspan="3" rowspan="1">
-      <button
-        *ngIf="this.currentStepId < 0"
-        mat-raised-button
-        color="primary"
-        (click)="iniziaStep()"
-      >
-        <p>{{ startText ? startText : "Inizia" }}</p>
-        <p>{{ timestampGlobale }}</p>
-        <p>Timestamp start : {{ this.stepStartAt }}</p>
-      </button>
-    </mat-grid-tile>
-  </mat-grid-list>
+      <div class="button-container">
+        <button
+          *ngIf="this.currentStepId < 0"
+          mat-raised-button
+          color="primary"
+          (click)="iniziaStep()"
+        >
+          <p>{{ startText ? startText : "Inizia" }}</p>
+          <!-- <p>{{ timestampGlobale }}</p>
+        <p>Timestamp start : {{ this.stepStartAt }}</p> -->
+        </button>
+      </div>
+    </div>
+  </div>
 
   <h1>
     {{ title }}
@@ -53,7 +41,6 @@
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
           <mat-card-title>
-
             <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
           </mat-card-title>
           <div class="backImage">
@@ -123,7 +110,7 @@
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
           <mat-card-title>
-            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+            <p> {{ this.storia.steps[currentStepId].activityTitle }}</p>
           </mat-card-title>
           <div class="backImage">
             <img
@@ -147,7 +134,6 @@
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
           <mat-card-title>
-
             <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
           </mat-card-title>
           <div class="backImage">
@@ -158,13 +144,23 @@
             />
           </div>
           <mat-card-content>
+            <div class="input-container">
             <input
               [(ngModel)]="tempRisposta"
               class="form-control"
               type="text"
               placeholder="Inserisci qui la risposta "
             />
-            <button (click)="gestisciAvanzamento()">Avanti</button>
+          </div>
+            <div class="container-btn-avanti">
+              <button
+                mat-mini-fab
+                class="btn-avanti"
+                (click)="gestisciAvanzamento()"
+              >
+                <i class="material-icons">play_arrow</i>
+              </button>
+            </div>
           </mat-card-content>
         </mat-card>
       </div>
@@ -185,17 +181,18 @@
             />
           </div>
           <mat-card-content>
-            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+            <p> {{ this.storia.steps[currentStepId].activityTitle }}</p>
           </mat-card-content>
 
-          <button
-            mat-flat-button
-            (click)="gestisciAvanzamento()"
-            class="gestisciAvanzamento"
-            color="basic"
-          >
-            Avanti
-          </button>
+          <div class="container-btn-avanti">
+            <button
+              mat-mini-fab
+              class="btn-avanti"
+              (click)="gestisciAvanzamento()"
+            >
+              <i class="material-icons">play_arrow</i>
+            </button>
+          </div>
         </mat-card>
       </div>
 
@@ -207,9 +204,9 @@
         class="mainContainer"
       >
         <mat-card>
-          <mat-card-title>Partita Finita
+          <mat-card-title
+            >Partita Finita
             <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
-
           </mat-card-title>
           <div class="backImage">
             <img
