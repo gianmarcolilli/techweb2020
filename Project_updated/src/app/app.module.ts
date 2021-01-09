@@ -24,6 +24,9 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTableModule} from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -50,8 +53,9 @@ import { SignupComponent } from './components/auth/signup/signup.component';
 import { DragndropComponent } from './components/dragndrop/dragndrop.component';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { ClassificaComponent } from './components/classifica/classifica.component';
-import { MatSortModule } from '@angular/material/sort';
 import { AngularFileUploaderModule } from "angular-file-uploader";
+
+// import { GetStartedDialog } from './app.component';
 
 @NgModule({
   declarations: [
@@ -118,7 +122,11 @@ import { AngularFileUploaderModule } from "angular-file-uploader";
 
 
   ],
-  providers: [],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  providers: [
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

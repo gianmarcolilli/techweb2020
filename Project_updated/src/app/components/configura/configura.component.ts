@@ -135,7 +135,7 @@ export class ConfiguraComponent implements OnInit {
         action: 'puzzle',
         activityId: id == -1 ? this.storia.steps.length : id,
         activityTitle: this.tempContenuto,
-        backImg: this.imagePreview,
+        // backImg: this.imagePreview,
         puzzleImg: this.tempImgPuzzle,
         difficulty: this.tempDifficulty,
         correctId: this.tempCorrect,
