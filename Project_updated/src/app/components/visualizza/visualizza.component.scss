@@ -1,7 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Architects+Daughter&family=Caveat:wght@700&family=Courgette&family=Montserrat:wght@500&family=Patrick+Hand&family=Permanent+Marker&display=swap");
+
 $font-color: #5c5f66;
 $primary-color: #3b3a99;
 $background: rgba(212, 200, 200, 0.685);
 
+mat-card {
+  font-family: "Acme", sans-serif !important;
+  p {
+    font-size: 1.3em;
+    color: white;
+    font-weight: 200;
+    text-shadow: 2px 0 0 #212121, -2px 0 0 #212121, 0 2px 0 #212121,
+      0 -2px 0 #212121, 1px 1px #212121, -1px -1px 0 #212121, 1px -1px 0 #212121,
+      -1px 1px 0 #212121;
+  }
+}
+mat-card-title {
+  background-color: #97999c63;
+}
 .mainSection {
   padding: 2vw;
   justify-content: center;
@@ -10,42 +26,52 @@ $background: rgba(212, 200, 200, 0.685);
   width: 100%;
   height: auto;
 }
-
-#copertina {
+.copertina {
+  position: relative;
   background-image: url(/assets/book.png);
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   padding: 2vw;
-  padding-left: 22%;
-  padding-right: 22%;
+  // padding-left: 22%;
+  // padding-right: 22%;
+  height: 80vw;
   margin: 1em;
   justify-content: center;
   align-content: center;
 }
-
 .storyTitle {
-  font-size: 3em;
+  position: absolute;
+  top: 13vw;
+  font-size: 4vw;
   color: white;
   text-transform: uppercase;
   font-weight: bold;
-  margin-top: 0.6em;
-  margin-bottom: 0;
-  margin-left: 17%;
-  margin-right: 15%;
+  width: 100%;
 }
 .copertina-responsive {
+  position: absolute;
   justify-content: center;
-  margin: 0.2em;
+  width: 100%;
+  bottom: 23vw;
 }
 .imgCopertina {
   border: solid 5px;
   border-color: rgb(87, 6, 6);
   border-radius: 3px;
-  width: 5em;
+  width: 40vw;
 }
 .button-container {
+  position: absolute;
   justify-content: center;
+  bottom: 4vw;
+  width: 100%;
+  button {
+    font-size: 4.5vw;
+    padding: 0.1em 0.3em !important;
+    height: 10vw;
+    border-radius: 3vw;
+  }
 }
 mat-card {
   background-color: $background;
@@ -54,27 +80,55 @@ mat-card {
   position: relative;
   height: auto;
   background-color: transparent !important;
-  opacity: 90%;
   margin: 20px;
 }
-.animation-text {
-  display: flex;
+.typing-text p {
+  // animation: type 5s steps(242);
+  // overflow: hidden;
+  // white-space: nowrap;
+  background-color: rgba(212, 200, 200, 0.685);
+  padding-left: 4vw;
+  padding-right: 4vw;
+  padding-top: 1vh;
+  padding-bottom: 1vh;
+  margin-left: 4%;
+  margin-right: 4%;
+  margin-top: 4vh;
+  border-radius: 10px;
+  letter-spacing: .08em;
+  text-align: center;
+
+ /* animation */
+//  animation-name: story;
+//  animation-duration: 2s;
 }
-.typing-text{
-  animation: type 10s steps(242), blink-caret .75s step-end infinite;
-  overflow: hidden;
-  white-space: nowrap;
-  border-right: 4px solid black;
-  width: 100%;
-}
-@keyframes type{
-  from { width: 0 }
-  to { width: 100% }
-}
-@keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: orange; }
-}
+
+// @keyframes story {
+//   0% {
+//     min-width: 0vw;
+//     min-height: 0vh;
+//   }
+
+//   100% {
+//     min-width: 80vw;
+//     min-height: 5vh;
+//   }
+// }
+
+// .typing-text p{
+//   animation: type 5s steps(242), blink-caret .75s step-end infinite;
+//   overflow: hidden;
+//   border-right: 4px solid black;
+//   white-space: nowrap;
+//   width: 100%;
+// }
+// @keyframes type{
+//   from { width: 50% }
+//   to { width: 100% }
+// }
+// @keyframes blink-caret {
+//   from, to { border-color: transparent }
+//   50% { border-color: black; }
 .container-btn-avanti {
   display: flex;
   justify-content: flex-end;
