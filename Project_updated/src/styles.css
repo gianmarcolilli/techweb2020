@@ -10,7 +10,6 @@ body {
   width: 100%;
 }
 mat-card {
-  font-family: "Montserrat", sans-serif !important;
   margin: 0.5em;
   padding: 0.1em !important;
   justify-content: center;
@@ -59,19 +58,19 @@ img {
     margin: 0.2em;
   }
   h3 {
-    font-size: 20px;
+    font-size: 21px;
     margin: 0.2em;
   }
   h4 {
-    font-size: 14px;
+    font-size: 18px;
     margin: 0.2em;
   }
   h5 {
-    font-size: 13px;
+    font-size: 17px;
     margin: 0.2em;
   }
   p {
-    font-size: 12px;
+    font-size: 17px;
     margin: 0.2em;
   }
   button {
@@ -93,15 +92,15 @@ img {
     margin: 0.2em;
   }
   h4 {
-    font-size: 14px;
+    font-size: 17px;
     margin: 0.2em;
   }
   h5 {
-    font-size: 13px;
+    font-size: 17px;
     margin: 0.2em;
   }
   p {
-    font-size: 12px;
+    font-size: 16px;
     margin: 0.2em;
   }
   button {
@@ -115,24 +114,24 @@ img {
     margin: 0.3em;
   }
   h2 {
-    font-size: 16px;
+    font-size: 18px;
     margin: 0.3em;
   }
   h3 {
-    font-size: 14px;
+    font-size: 16px;
     margin: 0.3em;
   }
   h4 {
-    font-size: 11px;
+    font-size: 15px;
     margin: 0.3em;
   }
   h5 {
-    font-size: 10px;
+    font-size: 14px;
     margin: 0.2em;
   }
   p {
-    font-size: 10px;
-    margin: 0.3em;
+    font-size: 14px;
+    margin: 0.2em;
   }
   button {
     margin: 5px;
@@ -145,24 +144,24 @@ img {
     margin: 0.3em;
   }
   h2 {
-    font-size: 16px;
+    font-size: 17px;
     margin: 0.3em;
   }
   h3 {
-    font-size: 12px;
+    font-size: 16px;
     margin: 0.3em;
   }
   h4 {
-    font-size: 11px;
+    font-size: 15px;
     margin: 0.3em;
   }
   h5 {
-    font-size: 10px;
+    font-size: 14px;
     margin: 0.2em;
   }
   p {
-    font-size: 10px;
-    margin: 0.3em;
+    font-size: 14px;
+    margin: 0.2em;
   }
   button {
     margin: 2px;
@@ -171,28 +170,28 @@ img {
 
 @media (max-width: 350px) {
   h1 {
-    font-size: 18px;
+    font-size: 19px;
     margin: 0.3em;
   }
   h2 {
-    font-size: 15px;
+    font-size: 17px;
     margin: 0.3em;
   }
   h3 {
-    font-size: 12px;
+    font-size: 15px;
     margin: 0.3em;
   }
   h4 {
-    font-size: 10px;
+    font-size: 15px;
     margin: 0.3em;
   }
   h5 {
-    font-size: 9px;
+    font-size: 14px;
     margin: 0.2em;
   }
   p {
-    font-size: 9px;
-    margin: 0.3em;
+    font-size: 13px;
+    margin: 0.2em;
   }
   button {
     margin: 0.3em;
