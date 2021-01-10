@@ -1,8 +1,16 @@
 
+<div class="container-input">
+  <p>Id: </p>
 <input type="text" class="form-control" id="id" name="id" [(ngModel)]="id" />
+</div>
+<div class="container-input">
+  <p>Titolo: </p>>
 <input type="text" class="form-control" id="title" name="title" [(ngModel)]="title" />
-<input type="text" class="form-control" id="sfondo" name="sfondo" [(ngModel)]="sfondo" />
-
+</div>
+<div class="container-input">
+  <p>Immagine copertina: </p>>
+<input type="text" placeholder="Copia il link dal web o carica dal pc" class="form-control" id="sfondo" name="sfondo" [(ngModel)]="sfondo" />
+</div>
 <div>
 
   <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>

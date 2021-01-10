@@ -8,7 +8,7 @@ import { mimeType } from '../mime-type.validator';
 @Component({
   selector: 'app-modifica',
   templateUrl: './modifica.component.html',
-  styleUrls: ['./modifica.component.css']
+  styleUrls: ['./modifica.component.scss']
 })
 export class ModificaComponent implements OnInit {
   @Input('id') id: number;
