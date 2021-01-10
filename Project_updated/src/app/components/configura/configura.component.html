@@ -6,7 +6,7 @@
 <mat-card *ngIf="storia" class="riepilogo-attivita">
   <mat-card-header>
     <mat-card-title
-      ><h1>{{ storia.nome }}</h1>
+      ><h1 style="font-weight: bold;">{{ storia.nome }}</h1>
       <button
         *ngIf="flagSalvataggio == true"
         class="f-r"
@@ -26,69 +26,57 @@
     ></mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
-    <mat-grid-list
-      *ngFor="let act of storia.steps; index as j"
-      cols="3"
-      rowHeight="3.2em"
-    >
-      <!-- row 1 -->
-      <mat-grid-tile colspan="3" rowspan="1">
-        <mat-grid-tile-header>
-          <p>#{{ j }} Attivita n.{{ act.activityId }}</p>
+    <div *ngFor="let act of storia.steps; index as j">
+      <div class="header">
+        <!-- row 1 -->
+        <div class="header-title">
+          <p style="font-weight: bold">
+            #{{ j }} Attività n.{{ act.activityId }}
+          </p>
           <p>Tipologia: ({{ act.action }})</p>
-          <div class="button-container">
-            <div class="button-edit-container">
-              <button (click)="editAttivita(act)" mat-mini-fab color="primary">
-                <i class="material-icons">edit</i>
-              </button>
-            </div>
-            <div class="button-edit-container">
-              <button (click)="eliminaAttivita(j)" mat-mini-fab color="warn">
-                <i class="material-icons">delete</i>
-              </button>
-            </div>
+        </div>
+        <div class="button-container">
+          <div class="button-edit-container">
+            <button (click)="editAttivita(act)" mat-mini-fab color="primary">
+              <i class="material-icons">edit</i>
+            </button>
           </div>
-        </mat-grid-tile-header>
-      </mat-grid-tile>
+          <div class="button-edit-container">
+            <button (click)="eliminaAttivita(j)" mat-mini-fab color="warn">
+              <i class="material-icons">delete</i>
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- end row 1 -->
       <!-- row 2 -->
-      <mat-grid-tile colspan="3" rowspan="1">
-        <h3>Contenuto:</h3>
-        <p>{{ act.activityTitle }}</p>
-      </mat-grid-tile>
+
+      <h3 style="font-weight: bold">Contenuto:</h3>
+      <p>{{ act.activityTitle }}</p>
+
       <!-- end row 2 -->
       <!-- eventual row 3 -->
-      <mat-grid-tile colspan="3" rowspan="1" *ngIf="act.action == 'domanda'">
-        <h3>Risposta:</h3>
+      <div *ngIf="act.action == 'domanda'">
+        <h3 style="font-weight: bold">Risposta:</h3>
         <p>{{ act.risposta }}</p>
-      </mat-grid-tile>
-      <!-- end eventual row 3 -->
+      </div>
       <!-- row 4 -->
-      <mat-grid-tile colspan="1" rowspan="1" *ngIf="act.action == 'quiz'">
-        <h3>Id Risposta:</h3>
+      <div class="risposte-quiz" *ngIf="act.action == 'quiz'">
+        <h3 style="font-weight: bold">Id Risposta:</h3>
         <p>{{ act.quizCorrectIdx }}</p>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="1" rowspan="1">
-        <h3>Id errato:</h3>
+
+        <h3 style="font-weight: bold">Id errato:</h3>
         <p>{{ act.wrongId }}</p>
-      </mat-grid-tile>
-      <mat-grid-tile colspan="1" rowspan="1">
-        <h3>Id corretto:</h3>
+
+        <h3 style="font-weight: bold">Id corretto:</h3>
         <p>{{ act.correctId }}</p>
-      </mat-grid-tile>
-      <!-- <mat-grid-tile colspan="9" rowspan="1"></mat-grid-tile> -->
-      <!-- end row 4 -->
-      <!-- eventual row 5 -->
-      <!-- <mat-grid-tile colspan="3" rowspan="1" *ngIf="act.action == 'quiz'">
-        <td>
-          <p>{{ act.quizCorrectIdx ? act.quizCorrectIdx : "" }}</p>
-        </td>
-      </mat-grid-tile> -->
+      </div>
 
       <p *ngIf="!storia.steps || storia.steps.length == 0">
         Nessuna attività presente
       </p>
-    </mat-grid-list>
+    </div>
   </mat-card-content>
 </mat-card>
 
@@ -177,14 +165,16 @@
       </button>
 
       <div *ngFor="let item of tempOrder; let i = index; trackBy: trackByFn">
-        <input
-          [(ngModel)]="tempOrder[i].desc"
-          [ngModelOptions]="{ standalone: true }"
-        />
-        <input
-          [(ngModel)]="tempOrder[i].posizione"
-          [ngModelOptions]="{ standalone: true }"
-        />
+        <div class="dnd-table">
+          <input
+            [(ngModel)]="tempOrder[i].desc"
+            [ngModelOptions]="{ standalone: true }"
+          />
+          <input
+            [(ngModel)]="tempOrder[i].posizione"
+            [ngModelOptions]="{ standalone: true }"
+          />
+        </div>
       </div>
     </div>
 
@@ -344,7 +334,7 @@
           </mat-option>
         </mat-select>
         <mat-error *ngIf="form.get('tempCorrect').invalid"
-          >Per favore inserisci idcoretto</mat-error
+          >Per favore inserisci id coretto</mat-error
         >
       </mat-form-field>
 
@@ -361,7 +351,7 @@
           </mat-option>
         </mat-select>
         <mat-error *ngIf="form.get('tempWrong').invalid"
-          >Per favore inserisci iderrato</mat-error
+          >Per favore inserisci id errato</mat-error
         >
       </mat-form-field>
     </section>
@@ -418,16 +408,18 @@
       </button>
     </div>
     <div *ngIf="this.tempActivityId != -1">
-      <button mat-raised-button color="primary" (click)="onSaveActivity()">
-        Salva modifiche
-      </button>
-      <button
-        mat-raised-button
-        color="danger"
-        (click)="tempActivityId = -1; this.form.reset()"
-      >
-        ESCI
-      </button>
+      <div class="button-container">
+        <button mat-raised-button color="primary" (click)="onSaveActivity()">
+          Salva modifiche
+        </button>
+        <button
+          mat-raised-button
+          color="danger"
+          (click)="tempActivityId = -1; this.form.reset()"
+        >
+          ESCI
+        </button>
+      </div>
     </div>
   </form>
 </mat-card>

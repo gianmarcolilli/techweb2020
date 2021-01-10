@@ -2,9 +2,11 @@
 
 $font-color: #5c5f66;
 $primary-color: #3b3a99;
-$background : rgba(212, 200, 200, 0.685);
+$background: rgba(212, 200, 200, 0.685);
 $bluBackground: #14144daf;
-
+mat-card {
+  font-family: "Montserrat", sans-serif !important;
+}
 mat-card-header {
   justify-content: center;
   align-content: flex-start;
@@ -20,26 +22,41 @@ mat-grid-tile-header {
   padding: 0.1em !important;
   font-size: 0.9em !important;
 }
+.riepilogo-attivita {
+  background-color: rgba(51, 50, 148, 0.301);
+}
+.header {
+  display: inline-block;
+  width: 100%;
+  background-color: $bluBackground;
+  color: white;
+}
+.header-title {
+  width: 70%;
+  display: inline-flex;
+  justify-content: space-evenly;
+  margin-top: 2vw;
+}
 .button-container {
-  display: flex;
+  display: inline;
+  width: 20%;
+  float: right;
+  justify-content: flex-end;
+  margin: 0.5vw;
 }
 .button-edit-container {
   display: inline-flex;
   margin: 0.1em;
-  float: right;
-  transform: scale(0.7);
-}
-mat-grid-tile {
-  float: left;
-  justify-content: flex-start;
-  align-items: center;
-}
-.riepilogo-attivita {
-  background-color: rgba(51, 50, 148, 0.301);
+  transform: scale(0.8);
 }
 
+.risposte-quiz {
+  display: flex;
+  width: 100%;
+  justify-content: space-evenly;
+}
 .crea-attivita {
-  background-color:$background;
+  background-color: $background;
 }
 h1 {
   text-transform: capitalize;
@@ -106,7 +123,6 @@ input[type="file"] {
 
 .input-group {
   display: flex;
-
   margin: 2vw;
   float: left;
   flex-flow: row wrap;
@@ -153,4 +169,14 @@ input[type="file"] {
 }
 .aggAttivita {
   margin: 0.8em !important;
+}
+.dnd-table {
+  width: 100%;
+  background-color: $background;
+  padding: 1vw;
+  margin: 0.5vw;
+  border-radius: 4px;
+  input {
+    background-color: transparent;
+  }
 }
