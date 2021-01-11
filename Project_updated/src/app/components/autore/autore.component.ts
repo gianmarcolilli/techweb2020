@@ -60,22 +60,6 @@ export class AutoreComponent implements OnInit {
   }
 
 
-  // onImagePicked(event: Event) {
-  //   const file = (event.target as HTMLInputElement).files[0];
-  //   this.form.patchValue({ image: file });
-  //   this.form.get('image').updateValueAndValidity();
-  //   const reader = new FileReader();
-  //   reader.onload = () => {
-  //     this.imagePreview = reader.result as string;
-  //     let base64 = this.imagePreview.split('base64')
-  //     this.api.uploadImage(base64[1]).subscribe((res)=>{
-  //       this.imagePreview=res.data.link
-
-  //     })
-  //   };
-  //   reader.readAsDataURL(file);
-  // }
-
   showAlert(testo: string) {
     let promiseDiSwal = this.swalLoader.swal;
     console.log(testo)
@@ -234,17 +218,11 @@ export class DialogContentExampleDialog {
 
   constructor(public dialogRef: MatDialogRef<DialogContentExampleDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData, private api: DummyApiService) { }
 
-  // upload() {
-  //   let fileReader = new FileReader();
-  //   fileReader.onload = (e) => {
-  //     console.log(fileReader.result);
-  //     this.api.addNewStory(fileReader.result).subscribe();
-  //   }
-  //   fileReader.readAsText(this.selectedFile);
-  // }
+
   onNoClick(): void {
     this.dialogRef.close();
   }
+
   onFileSelect(event) {
     this.selectedFile = event.target.files[0];
     const fileReader = new FileReader();
