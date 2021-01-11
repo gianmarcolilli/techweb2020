@@ -173,6 +173,7 @@ export class PlayerComponent implements OnInit {
 
         }
         for (let i = 0; i < this.squadre.length; i++) {
+          console.log('Il mio id squadra: '+this.squadre[i].id)
           this.apiDb.addNewGame(this.squadre[i].id,maxClasse, numeroGame, this.squadre[i].players.length).subscribe((res)=> {
             console.log(res);
           })

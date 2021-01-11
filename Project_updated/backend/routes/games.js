@@ -19,7 +19,7 @@ router.post("", (req, res, next) => {
       return Game.count();
     })
     .then((lunghezza) => {
-      const game = new Game({
+      let game = new Game({
         idPartita: req.body.idPartita,
         idClasse: req.body.idClasse,
         idSquadra: req.body.idSquadra,
