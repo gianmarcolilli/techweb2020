@@ -8,7 +8,7 @@ import { VisualizzaComponent } from '../visualizza/visualizza.component';
   moduleId: module.id,
   selector: 'app-image-puzzle',
   templateUrl: './image-puzzle.component.html',
-  styleUrls: ['./image-puzzle.component.css']
+  styleUrls: ['./image-puzzle.component.scss']
 })
 
 
