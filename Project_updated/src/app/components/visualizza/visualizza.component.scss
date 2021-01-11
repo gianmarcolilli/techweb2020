@@ -3,20 +3,17 @@
 $font-color: #5c5f66;
 $primary-color: #3b3a99;
 $background: rgba(212, 200, 200, 0.685);
-
+$fontAcme: "Acme", sans-serif;
 mat-card {
   font-family: "Acme", sans-serif !important;
   p {
-    font-size: 1.3em;
-    color: white;
+    //font-size: 1.4em;
+    color: $primary-color;
     font-weight: 200;
-    text-shadow: 2px 0 0 #212121, -2px 0 0 #212121, 0 2px 0 #212121,
-      0 -2px 0 #212121, 1px 1px #212121, -1px -1px 0 #212121, 1px -1px 0 #212121,
-      -1px 1px 0 #212121;
+    // text-shadow: 2px 0 0 #212121, -2px 0 0 #212121, 0 2px 0 #212121,
+    //   0 -2px 0 #212121, 1px 1px #212121, -1px -1px 0 #212121, 1px -1px 0 #212121,
+    //   -1px 1px 0 #212121;
   }
-}
-mat-card-title {
-  //background-color: #97999c63;
 }
 .mainSection {
   padding: 2vw;
@@ -42,8 +39,11 @@ mat-card-title {
 }
 .storyTitle {
   position: absolute;
+  font-family: "Acme", sans-serif !important;
   top: 13vw;
+  left: 5vw;
   font-size: 4vw;
+  letter-spacing: 2vw;
   color: white;
   text-transform: uppercase;
   font-weight: bold;
@@ -54,6 +54,7 @@ mat-card-title {
   justify-content: center;
   width: 100%;
   bottom: 18vw;
+  left: 4vw;
 }
 .imgCopertina {
   border: solid 5px;
@@ -76,6 +77,14 @@ mat-card-title {
 mat-card {
   background-color: $background;
 }
+.punteggio {
+  float: right;
+  width: 100%;
+  p {
+    //font-size: 3vw !important;
+    float: right;
+  }
+}
 .backImage {
   position: relative;
   height: auto;
@@ -95,12 +104,12 @@ mat-card {
   margin-right: 4%;
   margin-top: 4vh;
   border-radius: 10px;
-  letter-spacing: .08em;
+  letter-spacing: 0.08em;
   text-align: center;
 
- /* animation */
-//  animation-name: story;
-//  animation-duration: 2s;
+  /* animation */
+  //  animation-name: story;
+  //  animation-duration: 2s;
 }
 
 // @keyframes story {
@@ -136,6 +145,8 @@ mat-card {
 .btn-avanti {
   float: right;
   margin: 0.5em;
+  box-shadow: 1px 0px 2px 1px rgba(16, 18, 44, 0.336),
+    0px 0px 11px 7px rgba(13, 10, 34, 0.315);
 }
 .input-container {
   display: flex;
@@ -159,14 +170,17 @@ mat-card {
   }
 }
 
-.punteggio {
-  float: right;
-  width: 100%;
-  p {
-    float: right;
-  }
-}
 .title {
   justify-content: center;
   width: 100%;
+}
+.mat-list {
+  button {
+    justify-content: center;
+    p {
+      font-family: $fontAcme;
+      margin: 0 !important;
+      color: white;
+    }
+  }
 }
