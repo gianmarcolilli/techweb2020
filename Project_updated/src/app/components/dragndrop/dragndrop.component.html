@@ -1,7 +1,10 @@
-<div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-  <div class="example-box" *ngFor="let item of this.order" cdkDrag>
-    <h3>{{ item.desc }}</h3>
+<div cdkDropList   class="example-list" (cdkDropListDropped)="drop($event)">
+  <div class="example-box" *ngFor="let item of this.order; index as k" cdkDrag [ngClass]="{ green: k == item.posizione }">
+    <h3 >{{item.desc}}</h3>
   </div>
+  <!-- <div *ngFor="let item of this.arrayPlayers; index as k">
+    <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
+  </div> -->
 </div>
 <div class="successMessage" *ngIf="isCompleted">
   <p>Game Complete.</p>
