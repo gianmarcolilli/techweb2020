@@ -202,7 +202,7 @@
 
       <div
         *ngIf="this.storia.steps[currentStepId].action == 'fine'"
-
+        || tipologiaGruppo != "individuale"
         class="mainContainer"
       >
         <mat-card>
@@ -219,18 +219,23 @@
           </div>
           <mat-card-content>
             step corrente {{ this.currentStepId }}
-
             <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+            <button (click)="fine()">Visualizza classifica</button>
           </mat-card-content>
-          <button *ngIf="this.storia.steps[currentStepId].action == 'fine'"
-          ||
-          tipologiaGruppo
-          !="individuale" (click)="fine()">Visualizza classifica</button>
+          <button (click)="fine()">Visualizza classifica</button>
         </mat-card>
 
         <div *ngFor="let item of this.arrayPlayers; index as k">
           <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
         </div>
+      </div>
+          <div *ngIf="this.storia.steps[currentStepId].action == 'fine'"|| tipologiaGruppo = "individuale">
+            <mat-card>
+            <mat-card-content>
+              step corrente {{ this.currentStepId }}
+              <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+            </mat-card-content>
+          </mat-card>
       </div>
     </div>
   </section>
