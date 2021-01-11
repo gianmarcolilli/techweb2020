@@ -20,7 +20,7 @@ export interface DialogData {
 @Component({
   selector: 'app-autore',
   templateUrl: './autore.component.html',
-  styleUrls: ['./autore.component.css', './autore.component.scss'],
+  styleUrls: ['./autore.component.scss'],
   encapsulation: ViewEncapsulation.None
 
 })
