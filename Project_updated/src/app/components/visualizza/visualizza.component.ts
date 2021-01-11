@@ -176,21 +176,19 @@ export class VisualizzaComponent implements OnInit {
 
 
   gestisciAvanzamento(idQuiz) {
-
     // assegnare il punteggio
-
-
-
     console.log("step corrente: " + this.currentStepId)
     if (this.currentStepId == -1) return
 
     if (this.storia.steps[this.currentStepId].action == "informazione" || this.storia.steps[this.currentStepId].action == "puzzle" || this.storia.steps[this.currentStepId].action == "dnd") {
       //Avanzamento in gioco modalità singolo
       if (this.idPartita == -1) {
-        this.currentStepId = this.steps[this.currentStepId].correctId
+        this.nextStepId = this.steps[this.currentStepId].correctId
         var tempoImpiegato = this.resetStepTimer();
         console.log("impiegati " + tempoImpiegato + " secondi.");
         this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
+        this.currentStepId = this.steps[this.currentStepId].correctId
+
         // var timeS = Date.now();
         // console.log(Date.now())
       } else {
@@ -209,6 +207,7 @@ export class VisualizzaComponent implements OnInit {
       return;
     }
     if (this.storia.steps[this.currentStepId].action == "domanda" || this.storia.steps[this.currentStepId].action == "quiz") {
+
       //Avanzamento in gioco modalità singolo
       if (this.storia.steps[this.currentStepId].action == "domanda") {
         console.log("sto confrontando questo :" + this.tempRisposta)
@@ -217,6 +216,10 @@ export class VisualizzaComponent implements OnInit {
         if (this.tempRisposta.trim().toLowerCase() == this.steps[this.currentStepId].risposta.trim().toLowerCase()) {
           alert("hai dato la risposta corretta")
           if (this.idPartita == -1) {
+            this.nextStepId = this.steps[this.currentStepId].correctId
+            var tempoImpiegato = this.resetStepTimer();
+            console.log("impiegati " + tempoImpiegato + " secondi.");
+            this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
             this.currentStepId = this.steps[this.currentStepId].correctId
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
@@ -233,6 +236,10 @@ export class VisualizzaComponent implements OnInit {
         } else {
           alert("hai dato la risposta sbagliata")
           if (this.idPartita == -1) {
+            this.nextStepId = this.steps[this.currentStepId].wrongId
+            var tempoImpiegato = this.resetStepTimer();
+            console.log("impiegati " + tempoImpiegato + " secondi.");
+            this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
             this.currentStepId = this.steps[this.currentStepId].wrongId
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
@@ -255,6 +262,10 @@ export class VisualizzaComponent implements OnInit {
         if (idQuiz == correctQuizResp) {
           console.log("grande fratello");
           if (this.idPartita == -1) {
+            this.nextStepId = this.steps[this.currentStepId].correctId
+            var tempoImpiegato = this.resetStepTimer();
+            console.log("impiegati " + tempoImpiegato + " secondi.");
+            this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
             this.currentStepId = this.steps[this.currentStepId].correctId
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
@@ -270,6 +281,10 @@ export class VisualizzaComponent implements OnInit {
         } else {
           console.log("sei una lota");
           if (this.idPartita == -1) {
+            this.nextStepId = this.steps[this.currentStepId].wrongId
+            var tempoImpiegato = this.resetStepTimer();
+            console.log("impiegati " + tempoImpiegato + " secondi.");
+            this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
             this.currentStepId = this.steps[this.currentStepId].wrongId
           } else {
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
