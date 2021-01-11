@@ -202,7 +202,6 @@
 
       <div
         *ngIf="this.storia.steps[currentStepId].action == 'fine'"
-
         class="mainContainer"
       >
         <mat-card>
@@ -219,13 +218,12 @@
           </div>
           <mat-card-content>
             step corrente {{ this.currentStepId }}
-
             <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
+          <section *ngIf="this.storia.steps[currentStepId].action == 'fine'"|| tipologiaGruppo != "individuale">
+            <button (click)="fine()">Visualizza classifica</button>
+          </section>
           </mat-card-content>
-          <button *ngIf="this.storia.steps[currentStepId].action == 'fine'"
-          ||
-          tipologiaGruppo
-          !="individuale" (click)="fine()">Visualizza classifica</button>
+          <button (click)="fine()">Visualizza classifica</button>
         </mat-card>
 
         <div *ngFor="let item of this.arrayPlayers; index as k">
