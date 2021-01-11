@@ -226,9 +226,9 @@
           <button (click)="fine()">Visualizza classifica</button>
         </mat-card>
 
-        <div *ngFor="let item of this.arrayPlayers; index as k">
-          <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
-        </div>
+      </div>
+      <div *ngFor="let item of this.arrayPlayers; index as k">
+        <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
       </div>
     </div>
   </section>
