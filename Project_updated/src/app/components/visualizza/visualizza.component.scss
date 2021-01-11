@@ -15,9 +15,9 @@ mat-card {
       -1px 1px 0 #212121;
   }
 }
-mat-card-title {
-  //background-color: #97999c63;
-}
+// mat-card-title {
+//   //background-color: #97999c63;
+// }
 .mainSection {
   padding: 2vw;
   justify-content: center;
@@ -169,4 +169,8 @@ mat-card {
 .title {
   justify-content: center;
   width: 100%;
+}
+
+.green {
+  color: green;
 }
