@@ -1,8 +1,10 @@
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Architects+Daughter&family=Caveat:wght@700&family=Courgette&family=Montserrat:wght@500&family=Patrick+Hand&family=Permanent+Marker&display=swap");
+
 $font-color: #5c5f66;
 $primary-color: #3b3a99;
-$background : rgba(212, 200, 200, 0.685);
+$background: rgba(212, 200, 200, 0.685);
 $bluBackground: #14144daf;
-
+$fontAcme: "Acme, sans-serif";
 .example-list {
   width: 100%;
   border: solid 1.5px #ccc;
@@ -17,7 +19,8 @@ $bluBackground: #14144daf;
 }
 
 .example-box {
-  padding: .9em;
+  font-family: $fontAcme !important;
+  padding: 0.5em;
   border-right: solid 1px #ccc;
   color: white;
   display: flex;
@@ -29,6 +32,10 @@ $bluBackground: #14144daf;
   background: $bluBackground;
   flex-grow: 1;
   flex-basis: 0;
+  h3 {
+    font-family: $fontAcme;
+    margin: 0 !important;
+  }
 }
 
 .cdk-drag-preview {
@@ -52,4 +59,20 @@ $bluBackground: #14144daf;
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+.successMessage {
+  margin: 3%;
+  border: 1px solid green;
+  border-radius: 10px;
+  color: $font-color;
+  background-color: lightgreen;
+  padding: 2%;
+  button {
+    box-shadow: 0px 0px 9px 1px rgba(0, 0, 0, 0.2),
+      0px 0px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 8px 8px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.green {
+  background-color: green;
 }

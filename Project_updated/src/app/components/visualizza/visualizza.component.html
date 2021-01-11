@@ -5,8 +5,8 @@
   <div id="mainContainer" *ngIf="this.currentStepId < 0">
     <div class="copertina">
       <div class="storyTitle">
-      {{ this.storia.nome }}
-    </div>
+        {{ this.storia.nome }}
+      </div>
       <div class="copertina-responsive">
         <img class="imgCopertina" [src]="this.storia.urlBackground" />
       </div>
@@ -42,9 +42,9 @@
           <div class="punteggio">
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
-          <mat-card-title>
-            <p> {{ this.storia.steps[currentStepId].activityTitle }}</p>
-          </mat-card-title>
+          <div class="typing-text">
+            <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
+          </div>
           <div class="backImage">
             <img
               class="img-responsive"
@@ -91,9 +91,9 @@
           <div class="punteggio">
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
-          <mat-card-title>
-            <p> {{ this.storia.steps[currentStepId].activityTitle }}</p>
-          </mat-card-title>
+          <div class="typing-text">
+            <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
+          </div>
           <app-image-puzzle
             [difficulty]="this.storia.steps[this.currentStepId].difficulty"
             [puzzleUrl]="this.storia.steps[this.currentStepId].puzzleImg"
@@ -111,9 +111,9 @@
           <div class="punteggio">
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
-          <mat-card-title>
-            <p> {{ this.storia.steps[currentStepId].activityTitle }}</p>
-          </mat-card-title>
+          <div class="typing-text">
+            <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
+          </div>
           <div class="backImage">
             <img
               class="img-responsive"
@@ -135,9 +135,9 @@
           <div class="punteggio">
             <p>Punteggio : {{ this.punteggio }}</p>
           </div>
-          <mat-card-title>
-            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
-          </mat-card-title>
+          <div class="typing-text">
+            <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
+          </div>
           <div class="backImage">
             <img
               class="img-responsive"
@@ -147,13 +147,13 @@
           </div>
           <mat-card-content>
             <div class="input-container">
-            <input
-              [(ngModel)]="tempRisposta"
-              class="form-control"
-              type="text"
-              placeholder="Inserisci qui la risposta "
-            />
-          </div>
+              <input
+                [(ngModel)]="tempRisposta"
+                class="form-control"
+                type="text"
+                placeholder="Inserisci qui la risposta "
+              />
+            </div>
             <div class="container-btn-avanti">
               <button
                 mat-mini-fab
@@ -184,7 +184,7 @@
           </div>
           <mat-card-content>
             <div class="typing-text">
-              <p> {{ this.storia.steps[currentStepId].activityTitle }}</p>
+              <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
             </div>
           </mat-card-content>
 
@@ -205,10 +205,10 @@
         class="mainContainer"
       >
         <mat-card>
-          <mat-card-title
-            >Partita Finita
-            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
-          </mat-card-title>
+          <div class="typing-text">
+            Partita Finita
+            <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
+          </div>
           <div class="backImage">
             <img
               class="img-responsive"
@@ -218,17 +218,24 @@
           </div>
           <mat-card-content>
             step corrente {{ this.currentStepId }}
-            <b> {{ this.storia.steps[currentStepId].activityTitle }}</b>
-          <section *ngIf="this.storia.steps[currentStepId].action == 'fine'"|| tipologiaGruppo != "individuale">
-            <button (click)="fine()">Visualizza classifica</button>
-          </section>
+            <div class="typing-text">
+              <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
+            </div>
+            <section
+              *ngIf="this.storia.steps[currentStepId].action == 'fine'"
+              ||
+              tipologiaGruppo
+              !="individuale"
+            >
+              <button (click)="fine()">Visualizza classifica</button>
+            </section>
           </mat-card-content>
           <button (click)="fine()">Visualizza classifica</button>
         </mat-card>
 
-        <div *ngFor="let item of this.arrayPlayers; index as k">
-          <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
-        </div>
+      </div>
+      <div *ngFor="let item of this.arrayPlayers; index as k">
+        <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
       </div>
     </div>
   </section>

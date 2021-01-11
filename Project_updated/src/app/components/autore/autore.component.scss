@@ -9,7 +9,7 @@ mat-grid-tile {
   align-content: flex-end;
 }
 mat-panel-title {
-  font-size: 1.8vw;
+  //font-size: 1.8vw;
 }
 
 .container-panel {
@@ -48,7 +48,8 @@ input[type="file"] {
   margin: 5px;
 }
 
-mat-raised-button, mat-stroked-button {
+mat-raised-button,
+mat-stroked-button {
   padding: 5px;
   margin: 10px;
 }
@@ -58,7 +59,7 @@ mat-raised-button, mat-stroked-button {
   text-transform: capitalize;
   font-weight: bold;
 }
-.btn-container{
+.btn-container {
   display: flex;
   justify-content: space-evenly;
 }
