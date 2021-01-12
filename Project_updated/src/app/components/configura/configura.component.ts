@@ -45,6 +45,8 @@ export class ConfiguraComponent implements OnInit {
   flagSalvataggio = false;
 
   form: FormGroup;
+  advancedMode: any;
+  advancedModeIdx: number;
   constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder, private router: Router) { }
 
 
@@ -65,6 +67,9 @@ export class ConfiguraComponent implements OnInit {
 
 
   aggiungiAttivita(type: string, id: number = -1) {
+    if(this.advancedMode){
+      id = this.advancedModeIdx
+    }
     this.flagSalvataggio = true;
     console.log("sono stato chiamato con tipo =" + type)
     if (type == "domanda") {

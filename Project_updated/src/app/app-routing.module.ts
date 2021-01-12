@@ -12,7 +12,7 @@ import { ClassificaComponent } from './components/classifica/classifica.componen
 
 const routes: Routes = [
   { path: "home" , component:HomePageComponent},
-  { path: "autore" , component:AutoreComponent},
+  { path: "autore" , component:AutoreComponent,canActivate:[AuthGuard]},
   { path: "player" , component:PlayerComponent},
   { path: "visualizza/:id/:partita" , component:VisualizzaComponent},
   { path: "visualizza/:id" , component:VisualizzaComponent},
