@@ -15,7 +15,9 @@ export interface Step {
   chatMessages? : string[],
   correctId :  number,
   wrongId: number,
-  risposta ?: string
+  risposteDomanda ?: string[],
+  tipoDomanda?: string
+
 }
 
 
