@@ -144,7 +144,7 @@ export class DummyApiService {
         chatMessages: element[i].chatMessages,
         correctId: element[i].correctId,
         wrongId: element[i].wrongId,
-        risposta: element[i].risposta
+        risposteDomanda: element[i].risposteDomanda
       }
     }
     return element
