@@ -229,6 +229,7 @@
     <mat-card>
       <mat-card-title> <h3>Riepilogo</h3> </mat-card-title>
       <mat-card-content>
+        {{this.squadre | json}}
         <h4>Gruppo : {{ tipologiaGruppo }}</h4>
         <h4>Fascia di età : {{ fasciaEta }}</h4>
         <br />
@@ -265,7 +266,7 @@
   </div>
 
   <div
-    *ngIf="tipologiaGruppo != 'individuale' && tipologiaGruppo != '' && nPartecipantiAggiunti==nPartecipanti"
+    *ngIf="tipologiaGruppo == 'gruppo' || (tipologiaGruppo == 'classe' && nPartecipantiAggiunti==nPartecipanti)"
     class="fixedLowRight"
     (click)="playClick()"
   >

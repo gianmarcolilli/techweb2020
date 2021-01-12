@@ -156,6 +156,8 @@ export class AutoreComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}​​`);
+      this.refreshData()
+
     });
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
@@ -230,7 +232,18 @@ export class DialogContentExampleDialog {
     fileReader.onload = () => {
       console.log(fileReader.result);
       let storia = JSON.parse(fileReader.result as string)
-      this.api.addNewStory( storia ).subscribe();
+      this.api.addNewStory( storia ).subscribe(
+        (res)=>{
+        if (res){
+          alert(res.message)
+        }else{
+          alert("Generic error")
+        }
+      }
+      ,
+      (err)=>{
+        alert(JSON.stringify(err))
+      });
     }
     fileReader.onerror = (error) => {
       console.log(error);

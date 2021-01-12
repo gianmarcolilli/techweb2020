@@ -174,6 +174,13 @@ export class VisualizzaComponent implements OnInit {
     return Array(length)
   }
 
+  // valutaDomanda():boolean{
+  //   if () {
+  //     return true
+  //   }
+  //   return false;
+  // }
+
 
   gestisciAvanzamento(idQuiz) {
     // assegnare il punteggio
@@ -213,7 +220,7 @@ export class VisualizzaComponent implements OnInit {
         console.log("sto confrontando questo :" + this.tempRisposta)
         console.log("con questo  :" + this.steps[this.currentStepId].risposta)
 
-        if (this.tempRisposta.trim().toLowerCase() == this.steps[this.currentStepId].risposta.trim().toLowerCase()) {
+        if (this.valutaDomanda()) {
           alert("hai dato la risposta corretta")
           if (this.idPartita == -1) {
             this.nextStepId = this.steps[this.currentStepId].correctId

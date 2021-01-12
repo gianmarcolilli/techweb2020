@@ -27,7 +27,7 @@ export class ConfiguraComponent implements OnInit {
   tempQuizCorrectIdx = -1;
   tempCorrect = 0;
   tempWrong = 0;
-  arrayRisposte: any[];
+  risposteQuiz: any[];
   tempOrder: DragDrop[] = [];
   // tempDDdescrizione = "";
   // tempDDposizione = 0;
@@ -91,7 +91,7 @@ export class ConfiguraComponent implements OnInit {
         backImg: this.imagePreview,
         correctId: this.tempCorrect,
         wrongId: this.tempWrong,
-        answers: this.arrayRisposte,
+        answers: this.risposteQuiz,
         quizCorrectIdx: this.tempQuizCorrectIdx.valueOf()
       }
       if (id == -1) {
@@ -166,10 +166,10 @@ export class ConfiguraComponent implements OnInit {
     this.resettaForm()
   }
 
-  aggiornaArrayRisposte() {
-    this.arrayRisposte = [];
+  aggiornaRisposteQuiz() {
+    this.risposteQuiz = [];
     for (let i = 0; i < this.numeroRisposte; i++) {
-      this.arrayRisposte[i] = "";
+      this.risposteQuiz[i] = "";
     }
   }
 
@@ -200,7 +200,7 @@ export class ConfiguraComponent implements OnInit {
       this.tempRisposta = attivita.risposta;
     }
     if (attivita.action == "quiz") {
-      this.arrayRisposte = attivita.answers
+      this.risposteQuiz = attivita.answers
     }
     if (attivita.action == "puzzle") {
       if (attivita.puzzleImg.charAt(0) == 'd') {
@@ -248,7 +248,7 @@ export class ConfiguraComponent implements OnInit {
     this.tempQuizCorrectIdx = -1;
     this.tempCorrect = 0;
     this.tempWrong = 0;
-    this.arrayRisposte = [];
+    this.risposteQuiz = [];
     this.tempOrder = [];
     this.tempTipologiaAttivita = "";
     this.numeroRisposte = 0;
@@ -260,7 +260,7 @@ export class ConfiguraComponent implements OnInit {
   inputChanged(ev: Event, idx) {
     console.log(idx + " : ")
     console.log(ev.returnValue)
-    // this.arrayRisposte[idx] = "risposy"+idx
+    // this.risposteQuiz[idx] = "risposy"+idx
   }
   onImagePicked(event: Event, type?) {
     const file = (event.target as HTMLInputElement).files[0];
