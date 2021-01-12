@@ -174,12 +174,19 @@ export class VisualizzaComponent implements OnInit {
     return Array(length)
   }
 
-  // valutaDomanda():boolean{
-  //   if () {
-  //     return true
-  //   }
-  //   return false;
-  // }
+  valutaDomanda():boolean{
+    if (this.steps[this.currentStepId].tipoDomanda == 'right') {
+      return true
+    }
+    if(this.steps[this.currentStepId].tipoDomanda == 'array'){
+      for (let i = 0; i < this.steps[this.currentStepId].risposteDomanda.length; i++) {
+        if (this.tempRisposta.toLowerCase() == this.steps[this.currentStepId].risposteDomanda[i].toLowerCase()) {
+          return true
+        }
+      }
+    }
+    return false;
+  }
 
 
   gestisciAvanzamento(idQuiz) {
@@ -218,7 +225,7 @@ export class VisualizzaComponent implements OnInit {
       //Avanzamento in gioco modalità singolo
       if (this.storia.steps[this.currentStepId].action == "domanda") {
         console.log("sto confrontando questo :" + this.tempRisposta)
-        console.log("con questo  :" + this.steps[this.currentStepId].risposta)
+        //console.log("con questo  :" + this.steps[this.currentStepId].risposteDomanda)
 
         if (this.valutaDomanda()) {
           alert("hai dato la risposta corretta")
