@@ -3,8 +3,6 @@ const express = require("express");
 const { create, db } = require("../models/story");
 
 const Story = require("../models/story");
-// const checkAuth = require("../middleware/check-auth");
-
 const router = express.Router();
 
 //quando lo occupo lo metto a true, quando lo libero lo metto a false
