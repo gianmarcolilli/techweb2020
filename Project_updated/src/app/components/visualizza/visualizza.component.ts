@@ -174,6 +174,12 @@ export class VisualizzaComponent implements OnInit {
     return Array(length)
   }
 
+  // valutaDomanda():boolean{
+  //   if () {
+  //     return true
+  //   }
+  //   return false;
+  // }
 
 
   gestisciAvanzamento(idQuiz) {
