@@ -5,9 +5,7 @@
 <!-- **************** -->
 <mat-card *ngIf="storia" class="riepilogo-attivita">
   <mat-card-header>
-    <mat-card-title
-      ><h1 style="font-weight: bold;">{{ storia.nome }}</h1>
-      <button
+    <button
         *ngIf="flagSalvataggio == true"
         class="f-r"
         mat-raised-button
@@ -16,6 +14,8 @@
       >
         Salva storia
       </button>
+    <mat-card-title
+      ><h1 style="font-weight: bold;">{{ storia.nome }}</h1>
     </mat-card-title>
     <mat-card-subtitle
       ><div class="img-responsive">
@@ -144,18 +144,50 @@
     </mat-form-field>
 
     <!-- TIPOLOGIA : DOMANDA | Risposta Corretta-->
-    <mat-form-field
+    <section
       *ngIf="tempTipologiaAttivita == 'domanda'"
-      class="example-full-width"
     >
       <mat-label>Risposta</mat-label>
-      <input
-        matInput
-        formControlName="tempRisposta"
-        [(ngModel)]="tempRisposta"
-        placeholder="Inserisci qui la risposta corretta"
-      />
-    </mat-form-field>
+      <div class="difficulty-levels" >
+
+        <div class="input-group">
+          <input
+            type="radio"
+            [(ngModel)]="tempTipoDomanda"
+            name="tipoDomanda"
+            id="right"
+            value="right"
+            checked
+            [ngModelOptions]="{ standalone: true }"
+          /><label for="right"> right </label>
+        </div>
+        <div class="input-group" >
+          <input
+            type="radio"
+            [(ngModel)]="tempTipoDomanda"
+            name="tipoDomanda"
+            id="array"
+            value="array"
+            [ngModelOptions]="{ standalone: true }"
+          /><label for="array"> array </label>
+        </div>
+      </div>
+        <div *ngIf="tempTipoDomanda == 'array'" class="example-full-width">
+          <button (click)="aggiornaTempRisposta()" mat-stroked-button color="link">
+            Aggiungi elemento
+          </button>
+          {{tempRisposteDomanda}}
+          <div *ngFor="let item of tempRisposteDomanda; let i=index; TrackBy: trackByFn">
+            <div class="dnd-table">
+              <input
+                [(ngModel)]="tempRisposteDomanda[i]"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
+          </div>
+        </div>
+
+    </section>
 
     <!-- TIPOLOGIA Drag&Drop -->
     <div *ngIf="tempTipologiaAttivita == 'dnd'" class="example-full-width">
