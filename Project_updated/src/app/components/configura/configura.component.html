@@ -59,7 +59,7 @@
       <!-- eventual row 3 -->
       <div *ngIf="act.action == 'domanda'">
         <h3 style="font-weight: bold">Risposta:</h3>
-        <p>{{ act.risposta }}</p>
+        <p>{{ act.risposteDomanda }}</p>
       </div>
       <!-- row 4 -->
       <div class="risposte-quiz" *ngIf="act.action == 'quiz'">
@@ -111,7 +111,7 @@
       <mat-label>Numero Risposte</mat-label>
       <mat-select
         matNativeControl
-        (selectionChange)="aggiornaArrayRisposte()"
+        (selectionChange)="aggiornaRisposteQuiz()"
         [(value)]="numeroRisposte"
       >
         <mat-option value="2">2</mat-option>
@@ -189,14 +189,14 @@
           <mat-label>Inserisci la risposta</mat-label>
           <div
             *ngFor="
-              let item of arrayRisposte;
+              let item of risposteQuiz;
               let i = index;
               trackBy: trackByFn
             "
           >
             <mat-radio-button [value]="i"> </mat-radio-button>
             <input
-              [(ngModel)]="arrayRisposte[i]"
+              [(ngModel)]="risposteQuiz[i]"
               [ngModelOptions]="{ standalone: true }"
             />
           </div>
