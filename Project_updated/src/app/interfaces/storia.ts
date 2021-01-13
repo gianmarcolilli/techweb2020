@@ -2,8 +2,12 @@ export interface Step {
   activityId: number,
   activityTitle: string,
   action: string,
+  correctId :  number,
+  wrongId: number,
+
   backImg?: string,
-  actionImg ?: string,
+  // actionImg ?: string,
+  //PUZZLE
   puzzleImg ?: string,
   difficulty ?: string,
   //QUIZ
@@ -11,12 +15,10 @@ export interface Step {
   answers? : String[],
   //D&D
   order?:DragDrop[],
-
-  chatMessages? : string[],
-  correctId :  number,
-  wrongId: number,
+  //DOMANDA
   risposteDomanda ?: string[],
   tipoDomanda?: string
+
 
 }
 
@@ -33,8 +35,8 @@ export interface Storia {
   urlBackground?: string,
   steps?: Step[],
   didascalia?: string,
-  startText ?: string,
-  entryId ?: number
+  // startText ?: string,
+  // entryId ?: number
 
 }
 
@@ -42,36 +44,3 @@ export interface DragDrop{
   posizione: number,
   desc: string
 }
-
-
-// manageClick(clickedObjiect)
-// {
-//   if (this.storia.type == 'clickToObjiect') {
-//     {
-//       if (
-//         clickedObjiect == this.storia.objiectToClick
-//       goToNextStep(this.storia.step[currentStep].idNextStep)
-//     )
-//     else {
-//         goToNextStep(this.storia.step[currentStep].idNextWrongStep)
-//       }
-//     }
-
-
-//     if (this.storie.type == "clickToGo") {
-//       goToNextStep(this.storia.step[currentStep].idNextStep)
-//     }
-
-//     if (this.storie.type == "chat") {
-//       if (
-//         currentDidascaliaIndex == this.storia.step[currentStep].chatMessages.lenght
-//       ) {
-//         goToNextStep(this.storia.step[currentStep].idNextStep)
-//       }
-//       else {
-//         currentDidascaliIndex++;
-
-//       }
-
-//     }
-//   }
