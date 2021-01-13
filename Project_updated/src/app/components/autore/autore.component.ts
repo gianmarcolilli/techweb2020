@@ -53,7 +53,7 @@ export class AutoreComponent implements OnInit {
       this.imagePreview = reader.result as string;
       let base64 = this.imagePreview.split('base64')
       this.api.uploadImage(base64[1]).subscribe((res) => {
-        this.imagePreview = res.data.link
+      this.imagePreview = res.data.link
       })
     };
     reader.readAsDataURL(file);
@@ -169,7 +169,7 @@ export class AutoreComponent implements OnInit {
 
     this.form = new FormGroup({
       myTempDidascalia: new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
+        validators: [Validators.required]
       }),
       myTempName: new FormControl(null, {
         validators: [Validators.required]
