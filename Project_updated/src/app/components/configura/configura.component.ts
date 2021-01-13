@@ -20,7 +20,7 @@ export class ConfiguraComponent implements OnInit {
 
   tempActivityId = -1;
   tempContenuto = "";
-  tempRisposta = "";
+  tempRisposteDomanda: string[] = [];
   tempDifficulty = "";
   tempImgPuzzle = "";
   tempTipoUpload = "";
@@ -29,6 +29,7 @@ export class ConfiguraComponent implements OnInit {
   tempWrong = 0;
   risposteQuiz: any[];
   tempOrder: DragDrop[] = [];
+  tempTipoDomanda : string
   // tempDDdescrizione = "";
   // tempDDposizione = 0;
 
@@ -44,6 +45,8 @@ export class ConfiguraComponent implements OnInit {
   flagSalvataggio = false;
 
   form: FormGroup;
+  advancedMode: any;
+  advancedModeIdx: number;
   constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder, private router: Router) { }
 
 
@@ -64,6 +67,9 @@ export class ConfiguraComponent implements OnInit {
 
 
   aggiungiAttivita(type: string, id: number = -1) {
+    if(this.advancedMode){
+      id = this.advancedModeIdx
+    }
     this.flagSalvataggio = true;
     console.log("sono stato chiamato con tipo =" + type)
     if (type == "domanda") {
@@ -71,7 +77,8 @@ export class ConfiguraComponent implements OnInit {
         action: 'domanda',
         activityId: id == -1 ? this.storia.steps.length : id,
         activityTitle: this.tempContenuto,
-        risposta: this.tempRisposta,
+        risposteDomanda: this.tempRisposteDomanda,
+        tipoDomanda: this.tempTipoDomanda,
         backImg: this.imagePreview,
         correctId: this.tempCorrect,
         wrongId: this.tempWrong
@@ -182,6 +189,10 @@ export class ConfiguraComponent implements OnInit {
     this.numeroDnd++;
   }
 
+  aggiornaTempRisposta() {
+    this.tempRisposteDomanda.push("")
+  }
+
   editAttivita(attivita: Step) {
     this.resettaForm()
     //generale
@@ -197,7 +208,7 @@ export class ConfiguraComponent implements OnInit {
 
     //specifica
     if (attivita.action == "domanda") {
-      this.tempRisposta = attivita.risposta;
+      this.tempRisposteDomanda = attivita.risposteDomanda;
     }
     if (attivita.action == "quiz") {
       this.risposteQuiz = attivita.answers
@@ -241,7 +252,7 @@ export class ConfiguraComponent implements OnInit {
     this.tempClickToObject = ''
     this.tempActivityId = -1;
     this.tempContenuto = "";
-    this.tempRisposta = "";
+    this.tempRisposteDomanda = [];
     this.tempDifficulty = "";
     this.tempImgPuzzle = "";
     this.tempTipoUpload = "";
