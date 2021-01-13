@@ -45,8 +45,6 @@ export class ConfiguraComponent implements OnInit {
   flagSalvataggio = false;
 
   form: FormGroup;
-  advancedMode: any;
-  advancedModeIdx: number;
   constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder, private router: Router) { }
 
 
@@ -67,15 +65,19 @@ export class ConfiguraComponent implements OnInit {
 
 
   aggiungiAttivita(type: string, id: number = -1) {
-    if(this.advancedMode){
-      id = this.advancedModeIdx
-    }
     this.flagSalvataggio = true;
+    let proxId:number;
+    if(this.storia.steps.length == 0){
+      proxId=0
+    } else {
+      proxId=(this.storia.steps[this.storia.steps.length - 1].activityId + 1)
+    }
+    console.log("Prox id: "+proxId )
     console.log("sono stato chiamato con tipo =" + type)
     if (type == "domanda") {
       let myActivity = {
         action: 'domanda',
-        activityId: id == -1 ? this.storia.steps.length : id,
+        activityId: id == -1 ? proxId : id,
         activityTitle: this.tempContenuto,
         risposteDomanda: this.tempRisposteDomanda,
         tipoDomanda: this.tempTipoDomanda,
@@ -93,7 +95,7 @@ export class ConfiguraComponent implements OnInit {
     if (type == "quiz") {
       let myActivity = {
         action: 'quiz',
-        activityId: id == -1 ? this.storia.steps.length : id,
+        activityId: id == -1 ? proxId : id,
         activityTitle: this.tempContenuto,
         backImg: this.imagePreview,
         correctId: this.tempCorrect,
@@ -110,7 +112,7 @@ export class ConfiguraComponent implements OnInit {
     if (type == "informazione") {
       let myActivity = {
         action: 'informazione',
-        activityId: id == -1 ? this.storia.steps.length : id,
+        activityId: id == -1 ? proxId : id,
         activityTitle: this.tempContenuto,
         backImg: this.imagePreview,
         correctId: this.tempCorrect,
@@ -125,7 +127,7 @@ export class ConfiguraComponent implements OnInit {
     if (type == "fine") {
       let myActivity = {
         action: 'fine',
-        activityId: id == -1 ? this.storia.steps.length : id,
+        activityId: id == -1 ? proxId : id,
         activityTitle: this.tempContenuto,
         backImg: this.imagePreview,
         correctId: this.tempCorrect,
@@ -140,7 +142,7 @@ export class ConfiguraComponent implements OnInit {
     if (type == "puzzle") {
       let myActivity = {
         action: 'puzzle',
-        activityId: id == -1 ? this.storia.steps.length : id,
+        activityId: id == -1 ? proxId : id,
         activityTitle: this.tempContenuto,
         // backImg: this.imagePreview,
         puzzleImg: this.tempImgPuzzle,
@@ -157,7 +159,7 @@ export class ConfiguraComponent implements OnInit {
     if (type == "dnd") {
       let myActivity = {
         action: 'dnd',
-        activityId: id == -1 ? this.storia.steps.length : id,
+        activityId: id == -1 ? proxId : id,
         activityTitle: this.tempContenuto,
         backImg: this.imagePreview,
         order: this.tempOrder,
@@ -311,7 +313,7 @@ export class ConfiguraComponent implements OnInit {
 
     this.form = new FormGroup({
       'tempTipologiaAttivita': new FormControl(null, {
-        validators: [Validators.required, Validators.minLength(3)]
+        validators: [Validators.required]
       }),
       'tempContenuto': new FormControl(null, {
         validators: [Validators.required]
