@@ -85,6 +85,11 @@
 <!-- ****************** -->
 <mat-card *ngIf="storia" class="crea-attivita">
   <mat-card-title>Aggiungi attività alla tua storia</mat-card-title>
+  Id : {{ this.storia.steps.length}}
+  <input type="checkbox" [placeholder]="this.storia.steps.length" [(ngModel)]="this.advancedMode">
+  <p *ngIf="advancedMode==true">
+    <input type="text" [(ngModel)]="this.advancedModeIdx"/>
+  </p>
   <form [formGroup]="form" class="example-form">
     <!-- TIPOLOGIA -->
 
