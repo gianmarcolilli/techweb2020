@@ -17,6 +17,7 @@ $background: rgba(212, 200, 200, 0.685);
   background-image: url(/assets/logo5.png);
   background-size: contain;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   padding: 0.5rem;
   text-align: center;
   word-wrap: break-word;
@@ -181,6 +182,18 @@ $background: rgba(212, 200, 200, 0.685);
 /* fine sec */
 // sezione squadre
 #sec2 {
+  .partecipanti {
+    position: relative;
+    left: 30%;
+    width: 40%;
+    border-radius: 4px;
+    min-height: 4em;
+    margin-bottom: 0.5em;
+    background-color: $background;
+    p {
+      padding-top: 1em;
+    }
+  }
   .container3 {
     display: flex;
     flex-direction: row;
@@ -225,6 +238,7 @@ $background: rgba(212, 200, 200, 0.685);
     #nomeSquadra {
       text-transform: capitalize;
       color: white;
+      margin-top: 0.5em;
     }
 
     .card {
@@ -248,8 +262,11 @@ $background: rgba(212, 200, 200, 0.685);
 
     .card .content {
       padding: 1.3vw;
+      justify-content: center;
     }
-
+    ul {
+      padding: 0 !important;
+    }
     li {
       list-style: none;
     }
@@ -421,7 +438,7 @@ $background: rgba(212, 200, 200, 0.685);
   justify-content: center;
   background-color: $background;
   border-radius: 5px;
-  .container-riepilogo{
+  .container-riepilogo {
     display: flex;
     width: 100%;
     justify-content: center;
@@ -433,9 +450,8 @@ $background: rgba(212, 200, 200, 0.685);
   }
 }
 
-
 @media (min-width: 991px) {
-  i {
+  #icon-tipos {
     transform: scale(5);
   }
   .my-fab-button {
@@ -447,7 +463,7 @@ $background: rgba(212, 200, 200, 0.685);
 } /* for desktops */
 
 @media (min-width: 768px) and (max-width: 991px) {
-  i {
+  #icon-tipos {
     transform: scale(4);
   }
   .my-fab-button {
@@ -459,7 +475,7 @@ $background: rgba(212, 200, 200, 0.685);
 } /* for laptops */
 
 @media (max-width: 768px) {
-  i {
+  #icon-tipos {
     transform: scale(2);
   }
   .my-fab-button {
@@ -471,8 +487,8 @@ $background: rgba(212, 200, 200, 0.685);
 } /* for smaller tablets */
 
 @media (max-width: 500px) {
-  i {
-    transform: scale(1);
+  #icon-tipos {
+    transform: scale(1.5);
   }
   .my-fab-button {
     width: 60px;
