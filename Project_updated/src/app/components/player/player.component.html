@@ -7,7 +7,7 @@
 
 <section *ngIf="!playClicked" class="mainSection" id="sec">
   <section id="tipoS">
-    <h2>Seleziona la storia che preferisci e inizia a giocare</h2>
+    <p style="font-size: 1.5em;">Seleziona la storia che preferisci e inizia a giocare</p>
     <div class="tipoStoria">
       <div class="card">
         <input
@@ -18,14 +18,15 @@
           [(ngModel)]="tipologiaGruppo"
         />
         <label class="fa fa-code" for="Individuale">
-          <mat-icon
-            class="icon-tipoS"
+          <i
+            id="icon-tipos"
+            class="material-icons"
             aria-hidden="false"
             aria-label="person icon"
-            >person</mat-icon
+            >person</i
           >
           <br />
-          <h3>Individuale</h3>
+          <p>Individuale</p>
         </label>
       </div>
 
@@ -39,14 +40,15 @@
           (click)="popolaDimensioni('gruppo')"
         />
         <label class="fa fa-code" for="Gruppo">
-          <mat-icon
-            class="icon-tipoS"
+          <i
+            id="icon-tipos"
+            class="material-icons"
             aria-hidden="false"
             aria-label="group icon"
-            >group</mat-icon
+            >group</i
           >
           <br />
-          <h3>Gruppo</h3>
+          <p>Gruppo</p>
           <p>(2-5 persone)</p>
         </label>
       </div>
@@ -61,15 +63,18 @@
           (click)="popolaDimensioni('classe')"
         />
         <label class="fa fa-code" for="Classe">
-          <mat-icon
-            class="icon-tipoS"
+          <i
+            id="icon-tipos"
+            class="material-icons"
             aria-hidden="false"
             aria-label="person icon"
-            >groups</mat-icon
+            >groups</i
           >
           <br />
-          <h3>Classe</h3>
-          <p>(15-25 persone)</p>
+          <div class="text">
+            <p>Classe</p>
+            <p>(15-25 persone)</p>
+          </div>
         </label>
       </div>
     </div>
@@ -94,22 +99,23 @@
   </div>
 
   <section id="sec2" *ngIf="nPartecipanti != -1 && tipologiaGruppo == 'classe'">
-    <p>Partecipanti : {{ nPartecipantiAggiunti }} / {{ nPartecipanti }}</p>
-
+    <div class="partecipanti">
+      <p>Partecipanti : {{ nPartecipantiAggiunti }} / {{ nPartecipanti }}</p>
+    </div>
     <button
       *ngIf="nPartecipanti - nPartecipantiAggiunti >= 2"
       (click)="aggiungiNuovaSquadra()"
-      mat-raised-button
-      color="basic"
+      mat-stroked-button
+      color="primary"
     >
-      <p>+ Aggiungi squadra</p>
+      + Aggiungi squadra
     </button>
 
     <div class="container3">
       <div class="card" *ngFor="let squadra of squadre">
         <div class="heading">
           <div class="nomeS-container">
-            <h3 id="nomeSquadra">{{ squadra.name }}</h3>
+            <p id="nomeSquadra">{{ squadra.name }}</p>
           </div>
           <div class="button-container">
             <button
@@ -123,7 +129,7 @@
           </div>
         </div>
         <div class="content">
-          <h4>Giocatori:</h4>
+          <p style="font-weight: bold">Giocatori:</p>
           <ul>
             <li *ngFor="let player of squadra.players">
               <p>{{ player }}</p>
@@ -140,7 +146,7 @@
             color="primary"
             (click)="aggiungiPlayer(squadra.id)"
           >
-            <mat-icon>add</mat-icon>
+            <i class="material-icons">add</i>
           </button>
         </div>
         <div class="button-rem-container">
@@ -150,7 +156,7 @@
             color="warn"
             (click)="rimuoviPlayer(squadra.id)"
           >
-            <mat-icon>delete_forever</mat-icon>
+            <i class="material-icons">delete_forever</i>
           </button>
         </div>
       </div>
@@ -173,7 +179,7 @@
           [(ngModel)]="fasciaEta"
         />
         <label for="7-10">
-          <h5>7 - 10 anni</h5>
+          <p>7 - 10 anni</p>
         </label>
       </div>
 
@@ -186,7 +192,7 @@
           [(ngModel)]="fasciaEta"
         />
         <label for="11-14">
-          <h5>11 - 14 anni</h5>
+          <p>11 - 14 anni</p>
         </label>
       </div>
 
@@ -199,7 +205,7 @@
           [(ngModel)]="fasciaEta"
         />
         <label for="15-18">
-          <h5>15 - 18 anni</h5>
+          <p>15 - 18 anni</p>
         </label>
       </div>
     </div>
@@ -215,8 +221,9 @@
             [(ngModel)]="traccia"
           />
           <label [for]="storia.id">
-            <mat-icon>history_edu</mat-icon>
-            <h4>{{ storia.title }}</h4>
+            <i id="icon-tipos" class="material-icons">history_edu</i>
+            <br />
+            <p>{{ storia.title }}</p>
             <img [src]="storia.urlBackground" />
           </label>
         </div>
@@ -226,60 +233,71 @@
 
   <hr />
   <div class="container6">
-    <mat-card>
-      <mat-card-title> <h3>Riepilogo</h3> </mat-card-title>
-      <mat-card-content>
-        {{this.squadre | json}}
-        <h4>Gruppo : {{ tipologiaGruppo }}</h4>
-        <h4>Fascia di età : {{ fasciaEta }}</h4>
-        <br />
-        <span *ngIf="traccia != -1">
-          <h4>Traccia: {{ traccia }}</h4>
-          <br />
-          <qrcode
-            *ngIf="
-              tipologiaGruppo == 'individuale' || tipologiaGruppo == 'gruppo'
-            "
-            [qrdata]="
-              'http://localhost:4200/player/' +
-              tipologiaGruppo +
-              '/' +
-              fasciaEta +
-              '/' +
-              traccia +
-              '/autoplay'
-            "
-            [width]="256"
-            [errorCorrectionLevel]="'M'"
-          ></qrcode>
-          <button
-            *ngIf="tipologiaGruppo == 'individuale'"
-            mat-raised-button
-            color="success"
-            (click)="iniziaPartita(this.traccia)"
-          >
-            Inizia Partita
-          </button>
-        </span>
-      </mat-card-content>
-    </mat-card>
+    <div class="container-riepilogo">
+      <p class="title">Riepilogo</p>
+    </div>
+    <div class="container-riepilogo">
+      <p>Gruppo : {{ tipologiaGruppo }}</p>
+    </div>
+    <div class="container-riepilogo">
+      <p>Fascia di età : {{ fasciaEta }}</p>
+    </div>
+    <div *ngIf="traccia != -1">
+      <div class="container-riepilogo">
+        <p>Traccia: {{ traccia }}</p>
+      </div>
+      <div class="container-riepilogo">
+        <qrcode
+          *ngIf="
+            tipologiaGruppo == 'individuale' || tipologiaGruppo == 'gruppo'
+          "
+          [qrdata]="
+            'http://localhost:4200/player/' +
+            tipologiaGruppo +
+            '/' +
+            fasciaEta +
+            '/' +
+            traccia +
+            '/autoplay'
+          "
+          [width]="256"
+          [errorCorrectionLevel]="'M'"
+        ></qrcode>
+      </div>
+      <div class="container-riepilogo">
+        <button
+          *ngIf="tipologiaGruppo == 'individuale'"
+          mat-raised-button
+          color="primary"
+          (click)="iniziaPartita(this.traccia)"
+        >
+          Inizia Partita
+        </button>
+      </div>
+    </div>
   </div>
 
-  <div
-    *ngIf="tipologiaGruppo == 'gruppo' || (tipologiaGruppo == 'classe' && nPartecipantiAggiunti==nPartecipanti)"
-    class="fixedLowRight"
-    (click)="playClick()"
-  >
-    <button mat-fab color="warn" class="my-fab-button">
-      <mat-icon class="icon-tipoS">play_arrow</mat-icon>
-    </button>
+  <div class="container-riepilogo">
+    <div
+      *ngIf="
+        tipologiaGruppo != 'individuale' &&
+        tipologiaGruppo != '' &&
+        nPartecipantiAggiunti == nPartecipanti
+      "
+      class="fixedLowRight"
+      (click)="playClick()"
+    >
+      <button mat-fab color="warn" class="my-fab-button">
+        <mat-icon class="icon-tipoS">play_arrow</mat-icon>
+      </button>
+    </div>
   </div>
 </section>
 <!-- fine MainSection -->
 
 <section *ngIf="playClicked">
   <div *ngIf="tipologiaGruppo == 'individuale'">
-    <h3>Ecco il tuo QR code!</h3>
+    <p>Ecco il tuo QR code!</p>
     <qrcode
       [qrdata]="
         'http://localhost:4200/player/' +
@@ -295,30 +313,16 @@
     ></qrcode>
     <button
       mat-raised-button
-      color="info"
+      style="margin: 1em;"
+      color="primary"
       (click)="iniziaPartita(this.traccia)"
     >
-      Inizia Parita
+    Inizia Partita
     </button>
   </div>
-  <!-- <div *ngIf="tipologiaGruppo == 'gruppo'">
-    <h3>Ecco il vostro QR code!</h3>
-    <qrcode
-      [qrdata]="'http://localhost:4200/lobby/786'"
-      [width]="256"
-      [errorCorrectionLevel]="'M'"
-    ></qrcode>
-    <button
-      mat-raised-button
-      color="info"
-      (click)="iniziaPartita(this.traccia)"
-    >
-      Inizia Parita
-    </button>
-  </div> -->
 
   <div *ngIf="tipologiaGruppo == 'classe' || tipologiaGruppo == 'gruppo'">
-    <h3>Ecco i vostri QR Code!</h3>
+    <p>Ecco i vostri QR Code!</p>
     <mat-card *ngFor="let s of squadre" class="example-card">
       <mat-card-header>
         <mat-card-title>{{ s.name }}</mat-card-title>
@@ -342,4 +346,3 @@
     </mat-card>
   </div>
 </section>
-<!--</div>-->
