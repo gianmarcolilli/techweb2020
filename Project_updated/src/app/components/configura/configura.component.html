@@ -5,17 +5,13 @@
 <!-- **************** -->
 <mat-card *ngIf="storia" class="riepilogo-attivita">
   <mat-card-header>
-    <button
-        *ngIf="flagSalvataggio == true"
-        class="f-r"
-        mat-raised-button
-        color="primary"
-        (click)="onSaveStory()"
-      >
+    <div *ngIf="flagSalvataggio == true" class="salva-button">
+      <button color="primary" mat-raised-button (click)="onSaveStory()">
         Salva storia
       </button>
+    </div>
     <mat-card-title
-      ><h1 style="font-weight: bold;">{{ storia.nome }}</h1>
+      ><h1 style="font-weight: bold">{{ storia.nome }}</h1>
     </mat-card-title>
     <mat-card-subtitle
       ><div class="img-responsive">
@@ -144,12 +140,9 @@
     </mat-form-field>
 
     <!-- TIPOLOGIA : DOMANDA | Risposta Corretta-->
-    <section
-      *ngIf="tempTipologiaAttivita == 'domanda'"
-    >
+    <section *ngIf="tempTipologiaAttivita == 'domanda'">
       <mat-label>Risposta</mat-label>
-      <div class="difficulty-levels" >
-
+      <div class="difficulty-levels">
         <div class="input-group">
           <input
             type="radio"
@@ -161,7 +154,7 @@
             [ngModelOptions]="{ standalone: true }"
           /><label for="right"> right </label>
         </div>
-        <div class="input-group" >
+        <div class="input-group">
           <input
             type="radio"
             [(ngModel)]="tempTipoDomanda"
@@ -172,21 +165,30 @@
           /><label for="array"> array </label>
         </div>
       </div>
-        <div *ngIf="tempTipoDomanda == 'array'" class="example-full-width">
-          <button (click)="aggiornaTempRisposta()" mat-stroked-button color="link">
-            Aggiungi elemento
-          </button>
-          {{tempRisposteDomanda}}
-          <div *ngFor="let item of tempRisposteDomanda; let i=index; TrackBy: trackByFn">
-            <div class="dnd-table">
-              <input
-                [(ngModel)]="tempRisposteDomanda[i]"
-                [ngModelOptions]="{ standalone: true }"
-              />
-            </div>
+      <div *ngIf="tempTipoDomanda == 'array'" class="example-full-width">
+        <button
+          (click)="aggiornaTempRisposta()"
+          mat-stroked-button
+          color="link"
+        >
+          Aggiungi elemento
+        </button>
+        {{ tempRisposteDomanda }}
+        <div
+          *ngFor="
+            let item of tempRisposteDomanda;
+            let i = index;
+            trackBy: trackByFn
+          "
+        >
+          <div class="dnd-table">
+            <input
+              [(ngModel)]="tempRisposteDomanda[i]"
+              [ngModelOptions]="{ standalone: true }"
+            />
           </div>
         </div>
-
+      </div>
     </section>
 
     <!-- TIPOLOGIA Drag&Drop -->
@@ -218,19 +220,18 @@
         ngmodelaria-label="Select an option"
       >
         <div>
-          <mat-label>Inserisci la risposta</mat-label>
+          <mat-label>Inserisci le risposte e indica quella corretta</mat-label>
           <div
-            *ngFor="
-              let item of risposteQuiz;
-              let i = index;
-              trackBy: trackByFn
-            "
+            *ngFor="let item of risposteQuiz; let i = index; trackBy: trackByFn"
           >
-            <mat-radio-button [value]="i"> </mat-radio-button>
-            <input
-              [(ngModel)]="risposteQuiz[i]"
-              [ngModelOptions]="{ standalone: true }"
-            />
+            <div class="input-group">
+              <mat-radio-button [value]="i"> </mat-radio-button>
+              <input
+                style="background-color: transparent"
+                [(ngModel)]="risposteQuiz[i]"
+                [ngModelOptions]="{ standalone: true }"
+              />
+            </div>
           </div>
         </div>
       </mat-radio-group>
@@ -412,7 +413,7 @@
       </button>
       <input type="file" #filePicker (change)="onImagePicked($event)" />
     </div>
-    <div>
+    <div style="width: 100%">
       <input
         type="url"
         class="form-control"
@@ -439,19 +440,25 @@
         Aggiungi Attività
       </button>
     </div>
-    <div *ngIf="this.tempActivityId != -1">
-      <div class="button-container">
-        <button mat-raised-button color="primary" (click)="onSaveActivity()">
-          Salva modifiche
-        </button>
-        <button
-          mat-raised-button
-          color="danger"
-          (click)="tempActivityId = -1; this.form.reset()"
-        >
-          ESCI
-        </button>
-      </div>
+    <div class="container-button">
+      <button
+        mat-raised-button
+        color="primary"
+        class="aggAttivita"
+        (click)="onSaveActivity()"
+        *ngIf="this.tempActivityId != -1"
+      >
+        Salva modifiche
+      </button>
+
+      <button
+        mat-raised-button
+        color="warn"
+        (click)="tempActivityId = -1; this.form.reset()"
+        *ngIf="this.tempActivityId != -1"
+      >
+        ESCI
+      </button>
     </div>
   </form>
 </mat-card>

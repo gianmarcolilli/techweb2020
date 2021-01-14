@@ -6,14 +6,21 @@ $background: rgba(212, 200, 200, 0.685);
 $bluBackground: #14144daf;
 mat-card {
   font-family: "Montserrat", sans-serif !important;
+  padding-bottom: .3em !important;
 }
 mat-card-header {
   justify-content: center;
   align-content: flex-start;
   align-items: flex-start;
+  .salva-button{
+    position: absolute;
+    top:.2em;
+    right: .2em;
+  }
 }
 mat-card-title {
   padding-left: 0.8em;
+  margin-top: .2em;
 }
 mat-grid-tile-header {
   justify-content: space-between;
@@ -72,10 +79,6 @@ h3 {
 
 .wrong.mat-select-panel {
   background: rgba(204, 4, 4, 0.5);
-}
-
-.f-r {
-  float: right;
 }
 form {
   margin: auto;
@@ -166,6 +169,7 @@ input[type="file"] {
 }
 .form-control {
   border-radius: 4px;
+  width: 100%;
 }
 .aggAttivita {
   margin: 0.8em !important;
@@ -179,4 +183,9 @@ input[type="file"] {
   input {
     background-color: white;
   }
+}
+
+.container-button{
+  width: 100%;
+  justify-content: space-around;
 }
