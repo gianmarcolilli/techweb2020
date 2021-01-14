@@ -29,9 +29,7 @@ export class ConfiguraComponent implements OnInit {
   tempWrong = 0;
   risposteQuiz: any[];
   tempOrder: DragDrop[] = [];
-  tempTipoDomanda : string
-  // tempDDdescrizione = "";
-  // tempDDposizione = 0;
+  tempTipoDomanda : string;
 
 
   tempClickToObject: string = '';
@@ -270,11 +268,12 @@ export class ConfiguraComponent implements OnInit {
     this.form.reset()
   }
 
-  inputChanged(ev: Event, idx) {
-    console.log(idx + " : ")
-    console.log(ev.returnValue)
-    // this.risposteQuiz[idx] = "risposy"+idx
-  }
+  // inputChanged(ev: Event, idx) {
+  //   console.log(idx + " : ")
+  //   console.log(ev.returnValue)
+  //   // this.risposteQuiz[idx] = "risposy"+idx
+  // }
+
   onImagePicked(event: Event, type?) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });
@@ -307,7 +306,6 @@ export class ConfiguraComponent implements OnInit {
     this.id = this.activeRoute.snapshot.params.id;
     this.api.getStoria(this.id).subscribe((singleStory) => {
       this.storia = this.api.reMap(singleStory);
-      // console.log("ho questa storia appena entro " + JSON.stringify(this.storia))
     });
 
 
