@@ -1,5 +1,6 @@
 $font-color: #5c5f66;
 $primary-color: #3b3a99;
+$background: rgba(212, 200, 200, 0.685);
 
 .fixedLowRight {
   right: 1rem;
@@ -16,12 +17,15 @@ $primary-color: #3b3a99;
   background-image: url(/assets/logo5.png);
   background-size: contain;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   padding: 0.5rem;
   text-align: center;
   word-wrap: break-word;
+  font-family: "Montserrat", sans-serif;
 }
 
-#tipoS{
+#tipoS {
+  font-family: "Montserrat", sans-serif;
   .tipoStoria {
     display: flex;
     flex-direction: row;
@@ -40,20 +44,23 @@ $primary-color: #3b3a99;
       cursor: pointer;
 
       label {
-        padding: 1.5em 2em;
+        padding: 1.5em;
         margin: 0 !important;
+        .text {
+          justify-content: center;
+        }
       }
       input[type="radio"] {
         position: absolute;
         clip: rect(1px, 1px, 1px, 1px);
       }
 
-      h2 {
+      p {
         font-weight: 200;
         color: $primary-color;
       }
 
-      .mat-icon {
+      i {
         margin: 2rem;
       }
       &:hover {
@@ -73,7 +80,7 @@ $primary-color: #3b3a99;
       &:hover h5 {
         color: $primary-color;
       }
-      &:hover mat-icon {
+      &:hover i {
         color: white;
       }
       &:hover h3:after {
@@ -100,12 +107,13 @@ $primary-color: #3b3a99;
         min-height: 15em;
         min-width: 12em;
         border-radius: 5px;
-        .mat-icon {
+        i {
           color: white;
         }
-        h3,
         p {
           color: white;
+          font-weight: bold;
+          letter-spacing: 0.1em;
         }
       }
 
@@ -125,7 +133,6 @@ $primary-color: #3b3a99;
       p {
         color: $font-color;
         text-align: left;
-        text-indent: 1em;
         line-height: 26px;
         transition: color 0.3s;
         &:after {
@@ -175,6 +182,18 @@ $primary-color: #3b3a99;
 /* fine sec */
 // sezione squadre
 #sec2 {
+  .partecipanti {
+    position: relative;
+    left: 30%;
+    width: 40%;
+    border-radius: 4px;
+    min-height: 4em;
+    margin-bottom: 0.5em;
+    background-color: $background;
+    p {
+      padding-top: 1em;
+    }
+  }
   .container3 {
     display: flex;
     flex-direction: row;
@@ -219,6 +238,7 @@ $primary-color: #3b3a99;
     #nomeSquadra {
       text-transform: capitalize;
       color: white;
+      margin-top: 0.5em;
     }
 
     .card {
@@ -242,8 +262,11 @@ $primary-color: #3b3a99;
 
     .card .content {
       padding: 1.3vw;
+      justify-content: center;
     }
-
+    ul {
+      padding: 0 !important;
+    }
     li {
       list-style: none;
     }
@@ -295,7 +318,7 @@ $primary-color: #3b3a99;
       &:hover label {
         color: $primary-color;
       }
-      &:hover h5 {
+      &:hover p {
         color: white;
       }
 
@@ -320,9 +343,10 @@ $primary-color: #3b3a99;
         padding-top: 4em;
         min-height: 9em;
         min-width: 9em;
-        h5 {
+        p {
           color: white;
           font-weight: bold;
+          letter-spacing: 0.1em;
         }
       }
     }
@@ -345,8 +369,10 @@ $primary-color: #3b3a99;
       display: flex;
       flex-flow: row wrap;
       list-style: none;
-      transition: box-shadow 0.3s;
 
+      i {
+        margin: 2rem;
+      }
       &:hover {
         box-shadow: 0 rgba(0, 0, 0, 0.24), 0 rgba(0, 0, 0, 0.19);
       }
@@ -355,20 +381,12 @@ $primary-color: #3b3a99;
         color: $primary-color;
       }
       &:hover p {
-        color: #555;
-      }
-      &:hover h4 {
         color: $primary-color;
       }
-      &:hover h5 {
+      &:hover i {
         color: $primary-color;
       }
-      &:hover mat-icon {
-        color: $primary-color;
-      }
-      &:hover h4:after {
-        width: 25px;
-      }
+
       input[type="radio"] + label {
         display: block;
         cursor: pointer;
@@ -393,35 +411,18 @@ $primary-color: #3b3a99;
         min-height: 10rem;
         margin: 0 !important;
 
-        h4 {
+        p {
           color: $primary-color;
-          font-style: bold;
+          font-weight: bold;
+          letter-spacing: 0.1em;
         }
-        mat-icon {
+        i {
           color: $primary-color;
-        }
-      }
-      h4 {
-        text-transform: uppercase;
-      }
-
-      h5 {
-        display: inline-block;
-        transition: color 0.3s;
-        &:after {
-          content: "";
-          position: relative;
-          left: 50%;
-          top: 40px;
-          transform: translateX(-50%);
-          display: block;
-          width: 40px;
-          height: 1.4px;
-          background: darken($font-color, 20%);
-          transition: width 0.3s;
         }
       }
       p {
+        text-transform: uppercase;
+        font-weight: bold;
         color: $font-color;
         text-align: left;
         text-indent: 1em;
@@ -433,32 +434,24 @@ $primary-color: #3b3a99;
 }
 .container6 {
   display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: flex-end;
-  flex-wrap: nowrap;
-}
-.container6 .mat-card-title {
-  color: grey;
-}
-
-.mat-card {
-  background-color: whitesmoke;
-  opacity: 88%;
-  min-width: 20em;
-  min-height: 15em;
-}
-
-.mat-card-title {
-  margin: 1rem;
-}
-
-.mat-card-subtitle {
-  color: darkslategray;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: $background;
+  border-radius: 5px;
+  .container-riepilogo {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+  }
+  .title {
+    color: $font-color;
+    font-weight: bold;
+    margin: 0.5em;
+  }
 }
 
 @media (min-width: 991px) {
-  .icon-tipoS {
+  #icon-tipos {
     transform: scale(5);
   }
   .my-fab-button {
@@ -470,7 +463,7 @@ $primary-color: #3b3a99;
 } /* for desktops */
 
 @media (min-width: 768px) and (max-width: 991px) {
-  .icon-tipoS {
+  #icon-tipos {
     transform: scale(4);
   }
   .my-fab-button {
@@ -482,7 +475,7 @@ $primary-color: #3b3a99;
 } /* for laptops */
 
 @media (max-width: 768px) {
-  .icon-tipoS {
+  #icon-tipos {
     transform: scale(2);
   }
   .my-fab-button {
@@ -494,8 +487,8 @@ $primary-color: #3b3a99;
 } /* for smaller tablets */
 
 @media (max-width: 500px) {
-  .icon-tipoS {
-    transform: scale(1);
+  #icon-tipos {
+    transform: scale(1.5);
   }
   .my-fab-button {
     width: 60px;

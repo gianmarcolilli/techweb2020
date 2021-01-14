@@ -39,7 +39,7 @@ app.use((req,res,next)=>{
 });
 
 app.use("/api/stories", storiesRoutes);
-app.use("/api/posts", postsRoutes);
+// app.use("/api/posts", postsRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/games", gamesRoutes);
 
