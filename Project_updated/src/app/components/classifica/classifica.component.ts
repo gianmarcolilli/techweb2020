@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatSort, MatSortable } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Game } from 'src/app/interfaces/game';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
-import { VisualizzaComponent } from '../visualizza/visualizza.component';
 
 
 @Component({

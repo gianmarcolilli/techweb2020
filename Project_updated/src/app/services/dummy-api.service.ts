@@ -1,11 +1,11 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Step, Storia } from '../interfaces/storia';
 import { Game } from '../interfaces/game';
-import { map } from 'rxjs/operators';
+// import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { head } from 'lodash';
+// import { head } from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -19,79 +19,6 @@ export class DummyApiService {
 
   constructor(public http: HttpClient, private router: Router) { }
 
-  // storie = [
-  //   {
-  //     id: 0,
-  //     nome: 'Evoluzione dell\'uomo',
-  //     fasciaEta: 'fasciaUno',
-  //     didascalia: "Ci troviamo 4 milioni di anni fa e sappiamo che nella scala evolutiva dell’uomo c\'&egrave una figura che intercorre tra la scimmia e l’homo sapiens.",
-  //     urlBackground: 'https://image.shutterstock.com/image-photo/background-yellow-color-260nw-339630764.jpg',
-  //     startText: "Comincia",
-  //     steps: [
-  //       {
-  //         numeroStep: 0,
-  //         titleStep: 'Quale è la figura?',
-  //         action: 'clickToGo',
-  //         backImg: "string",
-  //         actionImg: "",
-  //         answers: [' australopiteco', 'uomo di neandertal']
-  //       },
-  //       {
-  //         numeroStep: 1,
-  //         titleStep: 'siamo nello step due ?',
-  //         action: '4answers',
-  //         backImg: "string",
-  //         actionImg: "",
-  //         answers: [
-  //           {
-  //             content: ' australopiteco',
-  //             correct: true
-  //           }, {
-  //             content: ' scimmia',
-  //             correct: false
-  //           }
-
-  //         ]
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     id: 1,
-  //     nome: 'Evoluzione della donna',
-  //     fasciaEta: 'fasciaDue',
-  //     didascalia: "Ci troviamo 4 milioni di anni fa e sappiamo che nella scala evolutiva dell’uomo c\'&egrave una figura che intercorre tra la scimmia e l’homo sapiens.",
-  //     urlBackground: 'https://image.shutterstock.com/image-photo/background-yellow-color-260nw-339630764.jpg',
-  //     startText: "Comincia",
-  //     steps: [
-  //       {
-  //         numeroStep: 0,
-  //         titleStep: 'Quale è la figura?',
-  //         action: 'clickToGo',
-  //         backImg: "string",
-  //         actionImg: "",
-  //         answers: [' australopiteco', 'uomo di neandertal']
-  //       },
-  //       {
-  //         numeroStep: 1,
-  //         titleStep: 'siamo nello step due ?',
-  //         action: '4answers',
-  //         backImg: "string",
-  //         actionImg: "",
-  //         answers: [
-  //           {
-  //             content: ' australopiteco',
-  //             correct: true
-  //           }, {
-  //             content: ' scimmia',
-  //             correct: false
-  //           }
-
-  //         ]
-  //       }
-  //     ]
-  //   }
-  // ]
-
 
   reMap(element): Storia {
     let miaStoriaDaRitornare = {
@@ -101,9 +28,6 @@ export class DummyApiService {
       fasciaEta: element.fasciaEta,
       urlBackground: element.image,
       steps: element.attivita
-      // didascalia: string,
-      // startText : string,
-      // entryId : number
     }
 
 
@@ -196,16 +120,6 @@ export class DummyApiService {
   }
 
   //post
-  // addNewStory(title: string, didascalia: string, fasciaEta: string, image: string) {
-  //   const storyData = {
-  //     title: title,
-  //     didascalia: didascalia,
-  //     fasciaEta: fasciaEta,
-  //     image: image,
-  //     attivita: []
-  //   }
-  //   return this.http.post<{ message: string, storia: Storia }>("http://localhost:3000/api/stories/", storyData)
-  // }
   addNewStory(storyData) {
 
     return this.http.post<{ message: string, storia: Storia }>("http://localhost:3000/api/stories/", storyData)
@@ -222,12 +136,6 @@ export class DummyApiService {
   }
 
 
-  //
-  // options?: {
-  //   headers?: HttpHeaders | {
-  //       [header: string]: string | string[];
-  //   };
-  //va nel servizio a parte
   uploadImage(base64imgStr: String) {
     let headers = new HttpHeaders().set("Authorization", 'Bearer d4e418b1180149c2f908769861db2fa0d6a60ec2')
     let options = { headers: headers };
