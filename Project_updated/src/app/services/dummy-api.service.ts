@@ -132,7 +132,9 @@ export class DummyApiService {
         action: element[i].action,
         backImg: element[i].backImg,
 
-        actionImg: element[i].actionImg,
+        // actionImg: element[i].actionImg,
+
+        //PUZZLE
         puzzleImg: element[i].puzzleImg,
         difficulty: element[i].difficulty,
         //QUIZ
@@ -140,11 +142,12 @@ export class DummyApiService {
         answers: element[i].answers,
         //D&D
         order: element[i].order,
+        //DOMANDA
+        risposteDomanda: element[i].risposteDomanda,
+        tipoDomanda: element[i].tipoDomanda,
 
-        chatMessages: element[i].chatMessages,
         correctId: element[i].correctId,
         wrongId: element[i].wrongId,
-        risposteDomanda: element[i].risposteDomanda
       }
     }
     return element
