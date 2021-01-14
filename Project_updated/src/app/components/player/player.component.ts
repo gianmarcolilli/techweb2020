@@ -4,7 +4,6 @@ import { ActivatedRoute } from '@angular/router';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { Squadra } from "../../interfaces/squadra";
 import { Router } from '@angular/router';
-import { constants } from 'buffer';
 const MAXPARTECIPANTI = 5;
 const MINPARTECIPANTI = 2;
 

@@ -12,9 +12,9 @@ export class HomePageComponent implements OnInit {
 
   constructor(  private router : Router ) { }
 
-  navigateToStory(storyValue){
-        this.router.navigateByUrl("visualizza/4")
-  }
+  // navigateToStory(storyValue){
+  //       this.router.navigateByUrl("visualizza/4")
+  // }
 
   // navigateToAutore(){
   //     this.router.navigateByUrl("autore")
