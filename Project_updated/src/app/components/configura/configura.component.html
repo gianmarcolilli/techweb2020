@@ -33,12 +33,13 @@
         </div>
         <div class="button-container">
           <div class="button-edit-container">
-            <button (click)="editAttivita(act)" mat-mini-fab color="primary">
+            <button (click)="editAttivita(act, j)" mat-mini-fab color="primary">
               <i class="material-icons">edit</i>
             </button>
           </div>
           <div class="button-edit-container">
-            <button (click)="eliminaAttivita(j)" mat-mini-fab color="warn">
+            <!-- <button (click)="eliminaAttivita(j)" mat-mini-fab color="warn"> -->
+              <button (click)="openDialog(j)" mat-mini-fab color="warn">
               <i class="material-icons">delete</i>
             </button>
           </div>
