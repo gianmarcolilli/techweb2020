@@ -1,0 +1,22 @@
+$font-color: #5c5f66;
+$primary-color: #3b3a99;
+$background: rgba(212, 200, 200, 0.685);
+.container{
+  position: absolute;
+  background-color:$background ;
+  padding: 2em;
+  border-radius: 5px;
+  width: 70%;
+  height: 15em;
+  top: 15vw;
+  left: 15%;
+}
+form{
+  width: 100%;
+}
+mat-form-field{
+  width: 75%;
+}
+mat-spinner {
+  margin: auto;
+}

@@ -7,7 +7,7 @@ import { AuthService } from "../auth.service";
 @Component({
   selector: 'form-field-error-example',
   templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.css"]
+  styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent {
   isLoading = false;
