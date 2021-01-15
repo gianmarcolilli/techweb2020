@@ -143,7 +143,7 @@ export class AutoreComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(DialogContentExampleDialog);
+    const dialogRef = this.dialog.open(UploadDialog);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}​​`);
@@ -203,13 +203,13 @@ export class AutoreComponent implements OnInit {
 
 
 @Component({
-  selector: 'dialog-content-example-dialog',
-  templateUrl: 'dialog-content-example-dialog.html',
+  selector: 'upload-dialog',
+  templateUrl: 'upload-dialog.html',
 })
-export class DialogContentExampleDialog {
+export class UploadDialog {
   private selectedFile: File;
 
-  constructor(public dialogRef: MatDialogRef<DialogContentExampleDialog>, private api: DummyApiService) { }
+  constructor(public dialogRef: MatDialogRef<UploadDialog>, private api: DummyApiService) { }
 
 
   onNoClick(): void {
