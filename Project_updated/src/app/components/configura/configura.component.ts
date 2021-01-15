@@ -37,6 +37,8 @@ export class ConfiguraComponent implements OnInit {
   tempOrder: DragDrop[] = [];
   tempTipoDomanda : string;
 
+  tempPosArray: number;
+
 
   tempClickToObject: string = '';
   showConfiguraDomanda: boolean = false;
@@ -68,7 +70,7 @@ export class ConfiguraComponent implements OnInit {
   }
 
 
-  aggiungiAttivita(type: string, id: number = -1) {
+  aggiungiAttivita(type: string, id: number = -1, posArray:number) {
     this.flagSalvataggio = true;
     let proxId:number;
     if(this.storia.steps.length == 0){
@@ -92,7 +94,7 @@ export class ConfiguraComponent implements OnInit {
       if (id == -1) {
         this.storia.steps.push(myActivity)
       } else {
-        this.storia.steps[id] = myActivity
+        this.storia.steps[posArray] = myActivity
       }
     }
     console.log("storia aggiornata: " + this.storia);
@@ -110,7 +112,7 @@ export class ConfiguraComponent implements OnInit {
       if (id == -1) {
         this.storia.steps.push(myActivity)
       } else {
-        this.storia.steps[id] = myActivity
+        this.storia.steps[posArray] = myActivity
       }
     }
     if (type == "informazione") {
@@ -125,7 +127,7 @@ export class ConfiguraComponent implements OnInit {
       if (id == -1) {
         this.storia.steps.push(myActivity)
       } else {
-        this.storia.steps[id] = myActivity
+        this.storia.steps[posArray] = myActivity
       }
     }
     if (type == "fine") {
@@ -140,7 +142,7 @@ export class ConfiguraComponent implements OnInit {
       if (id == -1) {
         this.storia.steps.push(myActivity)
       } else {
-        this.storia.steps[id] = myActivity
+        this.storia.steps[posArray] = myActivity
       }
     }
     if (type == "puzzle") {
@@ -156,7 +158,7 @@ export class ConfiguraComponent implements OnInit {
       if (id == -1) {
         this.storia.steps.push(myActivity)
       } else {
-        this.storia.steps[id] = myActivity
+        this.storia.steps[posArray] = myActivity
       }
     }
     if (type == "dnd") {
@@ -172,7 +174,7 @@ export class ConfiguraComponent implements OnInit {
       if (id == -1) {
         this.storia.steps.push(myActivity)
       } else {
-        this.storia.steps[id] = myActivity
+        this.storia.steps[posArray] = myActivity
       }
     }
     this.resettaForm()
@@ -198,8 +200,9 @@ export class ConfiguraComponent implements OnInit {
     this.tempRisposteDomanda.push("")
   }
 
-  editAttivita(attivita: Step) {
+  editAttivita(attivita: Step, posArray:number) {
     this.resettaForm()
+    this.tempPosArray = posArray;
     console.log('edito:' +attivita.activityId+" "+attivita.activityTitle);
 
     //generale
@@ -241,7 +244,7 @@ export class ConfiguraComponent implements OnInit {
   // }
 
   onSaveActivity() {
-    this.aggiungiAttivita(this.tempTipologiaAttivita, this.tempActivityId)
+    this.aggiungiAttivita(this.tempTipologiaAttivita, this.tempActivityId, this.tempPosArray)
     this.resettaForm();
     this.tempActivityId = -1
   }
@@ -274,6 +277,7 @@ export class ConfiguraComponent implements OnInit {
     this.numeroRisposte = 0;
     this.imagePreview = "";
     this.rispostaGiusta = "";
+    this.tempPosArray = -1;
     this.form.reset()
   }
 
