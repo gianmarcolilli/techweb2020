@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
@@ -7,6 +7,12 @@ import { DragDrop, Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { mimeType } from '../autore/mime-type.validator';
 
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
+export interface DialogData {
+  id: number,
+  steps:Step[]
+}
 
 @Component({
   selector: 'app-configura',
@@ -43,7 +49,7 @@ export class ConfiguraComponent implements OnInit {
   flagSalvataggio = false;
 
   form: FormGroup;
-  constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder, private router: Router) { }
+  constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder, private router: Router, public dialog: MatDialog) { }
 
 
   //Gestisce il testo mostrato nel placeholder
@@ -194,6 +200,7 @@ export class ConfiguraComponent implements OnInit {
 
   editAttivita(attivita: Step) {
     this.resettaForm()
+    console.log('edito:' +attivita.activityId+" "+attivita.activityTitle);
 
     //generale
     this.tempContenuto = attivita.activityTitle;
@@ -228,10 +235,10 @@ export class ConfiguraComponent implements OnInit {
     }
   }
 
-  eliminaAttivita(activityId: number): void {
-    this.storia.steps.splice(activityId, 1);
-    this.flagSalvataggio = true;
-  }
+  // eliminaAttivita(activityId: number): void {
+  //   this.storia.steps.splice(activityId, 1);
+  //   this.flagSalvataggio = true;
+  // }
 
   onSaveActivity() {
     this.aggiungiAttivita(this.tempTipologiaAttivita, this.tempActivityId)
@@ -336,4 +343,34 @@ export class ConfiguraComponent implements OnInit {
     });
 
   }
+
+  openDialog(j:number) {
+    const dialogRef = this.dialog.open(CancellazioneDialog, {
+      data: {
+        id:j,
+        steps: this.storia.steps,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.flagSalvataggio = true;
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }
+
+@Component({
+  selector: 'cancellazione-dialog',
+  templateUrl: 'cancellazione-dialog.html',
+})
+export class CancellazioneDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  eliminaAttivita(activityId: number): void {
+    console.log('cancello: '+activityId);
+
+    this.data.steps.splice(activityId, 1);
+  }
+}
+
