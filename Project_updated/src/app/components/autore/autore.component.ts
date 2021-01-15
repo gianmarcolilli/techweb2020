@@ -1,21 +1,15 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, Input, Injectable, Inject } from '@angular/core';
+import { Component, OnInit,  ViewEncapsulation, Injectable } from '@angular/core';
 import { DummyApiService } from '../../services/dummy-api.service';
 import { Storia } from '../../interfaces/storia';
 import { SweetAlert2LoaderService } from '@sweetalert2/ngx-sweetalert2';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
-import { MatInputModule } from '@angular/material/input';
 
 import { mimeType } from './mime-type.validator';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { saveAs } from 'file-saver/dist/FileSaver';
 import { HttpClient } from '@angular/common/http';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-export interface DialogData {
-  animal: string;
-  name: string;
-}
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-autore',
@@ -50,10 +44,11 @@ export class AutoreComponent implements OnInit {
     this.form.get('image').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
-      this.imagePreview = reader.result as string;
-      let base64 = this.imagePreview.split('base64')
+      let img = reader.result as string;
+      let base64 = img.split('base64')
       this.api.uploadImage(base64[1]).subscribe((res) => {
       this.imagePreview = res.data.link
+
       })
     };
     reader.readAsDataURL(file);
@@ -104,8 +99,6 @@ export class AutoreComponent implements OnInit {
   configuraStoria(id: number): void {
     this.router.navigateByUrl('configura/' + id);
   }
-  modificaStoria(): void {
-  }
 
   eliminaStoria(id: number): void {
     this.api.deleteStory(id).subscribe(
@@ -119,8 +112,6 @@ export class AutoreComponent implements OnInit {
   salvaModifiche(i: number) {
 
     console.log("le mie modifiche sono :");
-    // console.log("nome è :" + this.storia.nome);
-    // console.log("id è :" + id);
     let tempStoria: Storia;
     this.api.getStoria(this.storie[i].id).subscribe((res) => {
 
@@ -152,7 +143,7 @@ export class AutoreComponent implements OnInit {
   }
 
   openDialog() {
-    const dialogRef = this.dialog.open(DialogContentExampleDialog);
+    const dialogRef = this.dialog.open(UploadDialog);
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}​​`);
@@ -212,13 +203,13 @@ export class AutoreComponent implements OnInit {
 
 
 @Component({
-  selector: 'dialog-content-example-dialog',
-  templateUrl: 'dialog-content-example-dialog.html',
+  selector: 'upload-dialog',
+  templateUrl: 'upload-dialog.html',
 })
-export class DialogContentExampleDialog {
+export class UploadDialog {
   private selectedFile: File;
 
-  constructor(public dialogRef: MatDialogRef<DialogContentExampleDialog>, @Inject(MAT_DIALOG_DATA) public data: DialogData, private api: DummyApiService) { }
+  constructor(public dialogRef: MatDialogRef<UploadDialog>, private api: DummyApiService) { }
 
 
   onNoClick(): void {

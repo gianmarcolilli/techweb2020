@@ -12,7 +12,6 @@ const storySchema = mongoose.Schema({
       activityTitle: { type: String, required: true },
       action: { type: String, required: true },
       backImg: { type: String },
-      // actionImg: { type: String },
       puzzleImg: { type: String },
       difficulty: { type: String },
       answers: { type: Array },

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, Inject, OnInit, ViewEncapsulation } from '@angular/core';
 
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
@@ -7,6 +7,12 @@ import { DragDrop, Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { mimeType } from '../autore/mime-type.validator';
 
+import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
+
+export interface DialogData {
+  id: number,
+  steps:Step[]
+}
 
 @Component({
   selector: 'app-configura',
@@ -29,9 +35,9 @@ export class ConfiguraComponent implements OnInit {
   tempWrong = 0;
   risposteQuiz: any[];
   tempOrder: DragDrop[] = [];
-  tempTipoDomanda : string
-  // tempDDdescrizione = "";
-  // tempDDposizione = 0;
+  tempTipoDomanda : string;
+
+  tempPosArray: number;
 
 
   tempClickToObject: string = '';
@@ -45,10 +51,10 @@ export class ConfiguraComponent implements OnInit {
   flagSalvataggio = false;
 
   form: FormGroup;
-  constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder, private router: Router) { }
+  constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder, private router: Router, public dialog: MatDialog) { }
 
 
-
+  //Gestisce il testo mostrato nel placeholder
   getTitleTranslation(type) {
     if (type == "domanda") {
       return "domanda"
@@ -64,7 +70,7 @@ export class ConfiguraComponent implements OnInit {
   }
 
 
-  aggiungiAttivita(type: string, id: number = -1) {
+  aggiungiAttivita(type: string, id: number = -1, posArray:number) {
     this.flagSalvataggio = true;
     let proxId:number;
     if(this.storia.steps.length == 0){
@@ -88,7 +94,7 @@ export class ConfiguraComponent implements OnInit {
       if (id == -1) {
         this.storia.steps.push(myActivity)
       } else {
-        this.storia.steps[id] = myActivity
+        this.storia.steps[posArray] = myActivity
       }
     }
     console.log("storia aggiornata: " + this.storia);
@@ -106,7 +112,7 @@ export class ConfiguraComponent implements OnInit {
       if (id == -1) {
         this.storia.steps.push(myActivity)
       } else {
-        this.storia.steps[id] = myActivity
+        this.storia.steps[posArray] = myActivity
       }
     }
     if (type == "informazione") {
@@ -121,7 +127,7 @@ export class ConfiguraComponent implements OnInit {
       if (id == -1) {
         this.storia.steps.push(myActivity)
       } else {
-        this.storia.steps[id] = myActivity
+        this.storia.steps[posArray] = myActivity
       }
     }
     if (type == "fine") {
@@ -136,7 +142,7 @@ export class ConfiguraComponent implements OnInit {
       if (id == -1) {
         this.storia.steps.push(myActivity)
       } else {
-        this.storia.steps[id] = myActivity
+        this.storia.steps[posArray] = myActivity
       }
     }
     if (type == "puzzle") {
@@ -144,7 +150,6 @@ export class ConfiguraComponent implements OnInit {
         action: 'puzzle',
         activityId: id == -1 ? proxId : id,
         activityTitle: this.tempContenuto,
-        // backImg: this.imagePreview,
         puzzleImg: this.tempImgPuzzle,
         difficulty: this.tempDifficulty,
         correctId: this.tempCorrect,
@@ -153,7 +158,7 @@ export class ConfiguraComponent implements OnInit {
       if (id == -1) {
         this.storia.steps.push(myActivity)
       } else {
-        this.storia.steps[id] = myActivity
+        this.storia.steps[posArray] = myActivity
       }
     }
     if (type == "dnd") {
@@ -169,7 +174,7 @@ export class ConfiguraComponent implements OnInit {
       if (id == -1) {
         this.storia.steps.push(myActivity)
       } else {
-        this.storia.steps[id] = myActivity
+        this.storia.steps[posArray] = myActivity
       }
     }
     this.resettaForm()
@@ -195,8 +200,11 @@ export class ConfiguraComponent implements OnInit {
     this.tempRisposteDomanda.push("")
   }
 
-  editAttivita(attivita: Step) {
+  editAttivita(attivita: Step, posArray:number) {
     this.resettaForm()
+    this.tempPosArray = posArray;
+    console.log('edito:' +attivita.activityId+" "+attivita.activityTitle);
+
     //generale
     this.tempContenuto = attivita.activityTitle;
     this.tempTipologiaAttivita = attivita.action;
@@ -204,7 +212,7 @@ export class ConfiguraComponent implements OnInit {
     this.tempWrong = attivita.wrongId;
     this.tempActivityId = attivita.activityId;
     this.imagePreview = attivita.backImg;
-    this.tempQuizCorrectIdx=attivita.quizCorrectIdx;
+
 
     console.log("corretto = " + this.tempCorrect + " sbagliato = " + this.tempWrong);
 
@@ -214,6 +222,7 @@ export class ConfiguraComponent implements OnInit {
     }
     if (attivita.action == "quiz") {
       this.risposteQuiz = attivita.answers
+      this.tempQuizCorrectIdx=attivita.quizCorrectIdx;
     }
     if (attivita.action == "puzzle") {
       if (attivita.puzzleImg.charAt(0) == 'd') {
@@ -229,16 +238,17 @@ export class ConfiguraComponent implements OnInit {
     }
   }
 
-  eliminaAttivita(activityId: number): void {
-    this.storia.steps.splice(activityId, 1);
-    this.flagSalvataggio = true;
-  }
+  // eliminaAttivita(activityId: number): void {
+  //   this.storia.steps.splice(activityId, 1);
+  //   this.flagSalvataggio = true;
+  // }
 
   onSaveActivity() {
-    this.aggiungiAttivita(this.tempTipologiaAttivita, this.tempActivityId)
+    this.aggiungiAttivita(this.tempTipologiaAttivita, this.tempActivityId, this.tempPosArray)
     this.resettaForm();
     this.tempActivityId = -1
   }
+
   onSaveStory() {
     this.api.updateStoria(
       this.storia
@@ -267,14 +277,10 @@ export class ConfiguraComponent implements OnInit {
     this.numeroRisposte = 0;
     this.imagePreview = "";
     this.rispostaGiusta = "";
+    this.tempPosArray = -1;
     this.form.reset()
   }
 
-  inputChanged(ev: Event, idx) {
-    console.log(idx + " : ")
-    console.log(ev.returnValue)
-    // this.risposteQuiz[idx] = "risposy"+idx
-  }
   onImagePicked(event: Event, type?) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });
@@ -307,7 +313,6 @@ export class ConfiguraComponent implements OnInit {
     this.id = this.activeRoute.snapshot.params.id;
     this.api.getStoria(this.id).subscribe((singleStory) => {
       this.storia = this.api.reMap(singleStory);
-      // console.log("ho questa storia appena entro " + JSON.stringify(this.storia))
     });
 
 
@@ -342,4 +347,34 @@ export class ConfiguraComponent implements OnInit {
     });
 
   }
+
+  openDialog(j:number) {
+    const dialogRef = this.dialog.open(CancellazioneDialog, {
+      data: {
+        id:j,
+        steps: this.storia.steps,
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.flagSalvataggio = true;
+      console.log(`Dialog result: ${result}`);
+    });
+  }
 }
+
+@Component({
+  selector: 'cancellazione-dialog',
+  templateUrl: 'cancellazione-dialog.html',
+})
+export class CancellazioneDialog {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
+
+  eliminaAttivita(activityId: number): void {
+    console.log('cancello: '+activityId);
+
+    this.data.steps.splice(activityId, 1);
+  }
+}
+
