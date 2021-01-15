@@ -1,12 +1,10 @@
-import { Component, Injectable, Input, OnInit } from '@angular/core';
+import { Component, Injectable, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { interval, of } from 'rxjs';
-import { startWith, switchMap, take } from 'rxjs/operators';
+import { interval } from 'rxjs';
+import { startWith, switchMap } from 'rxjs/operators';
 import { Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { NgForm } from "@angular/forms";
-import { mimeType } from '../visualizza/mime-type.validator';
-import { timer } from 'rxjs';
 
 @Component({
   selector: 'app-visualizza',
@@ -318,4 +316,3 @@ export class VisualizzaComponent implements OnInit {
     return;
   }
 }
-// 'clickToGo' 'clickToObject', 'yOnAnswer','dragToRightPos','question"

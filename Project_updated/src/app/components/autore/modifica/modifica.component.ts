@@ -19,6 +19,7 @@ export class ModificaComponent implements OnInit {
 
   constructor(private api: DummyApiService, private router: Router) { }
 
+  //Da immagine a link imgur
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });

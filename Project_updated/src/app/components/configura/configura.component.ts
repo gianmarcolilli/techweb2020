@@ -29,9 +29,7 @@ export class ConfiguraComponent implements OnInit {
   tempWrong = 0;
   risposteQuiz: any[];
   tempOrder: DragDrop[] = [];
-  tempTipoDomanda : string
-  // tempDDdescrizione = "";
-  // tempDDposizione = 0;
+  tempTipoDomanda : string;
 
 
   tempClickToObject: string = '';
@@ -48,7 +46,7 @@ export class ConfiguraComponent implements OnInit {
   constructor(private activeRoute: ActivatedRoute, private api: DummyApiService, private _formBuilder: FormBuilder, private router: Router) { }
 
 
-
+  //Gestisce il testo mostrato nel placeholder
   getTitleTranslation(type) {
     if (type == "domanda") {
       return "domanda"
@@ -144,7 +142,6 @@ export class ConfiguraComponent implements OnInit {
         action: 'puzzle',
         activityId: id == -1 ? proxId : id,
         activityTitle: this.tempContenuto,
-        // backImg: this.imagePreview,
         puzzleImg: this.tempImgPuzzle,
         difficulty: this.tempDifficulty,
         correctId: this.tempCorrect,
@@ -197,6 +194,7 @@ export class ConfiguraComponent implements OnInit {
 
   editAttivita(attivita: Step) {
     this.resettaForm()
+
     //generale
     this.tempContenuto = attivita.activityTitle;
     this.tempTipologiaAttivita = attivita.action;
@@ -204,7 +202,7 @@ export class ConfiguraComponent implements OnInit {
     this.tempWrong = attivita.wrongId;
     this.tempActivityId = attivita.activityId;
     this.imagePreview = attivita.backImg;
-    this.tempQuizCorrectIdx=attivita.quizCorrectIdx;
+
 
     console.log("corretto = " + this.tempCorrect + " sbagliato = " + this.tempWrong);
 
@@ -214,6 +212,7 @@ export class ConfiguraComponent implements OnInit {
     }
     if (attivita.action == "quiz") {
       this.risposteQuiz = attivita.answers
+      this.tempQuizCorrectIdx=attivita.quizCorrectIdx;
     }
     if (attivita.action == "puzzle") {
       if (attivita.puzzleImg.charAt(0) == 'd') {
@@ -239,6 +238,7 @@ export class ConfiguraComponent implements OnInit {
     this.resettaForm();
     this.tempActivityId = -1
   }
+
   onSaveStory() {
     this.api.updateStoria(
       this.storia
@@ -270,11 +270,6 @@ export class ConfiguraComponent implements OnInit {
     this.form.reset()
   }
 
-  inputChanged(ev: Event, idx) {
-    console.log(idx + " : ")
-    console.log(ev.returnValue)
-    // this.risposteQuiz[idx] = "risposy"+idx
-  }
   onImagePicked(event: Event, type?) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });
@@ -307,7 +302,6 @@ export class ConfiguraComponent implements OnInit {
     this.id = this.activeRoute.snapshot.params.id;
     this.api.getStoria(this.id).subscribe((singleStory) => {
       this.storia = this.api.reMap(singleStory);
-      // console.log("ho questa storia appena entro " + JSON.stringify(this.storia))
     });
 
 
