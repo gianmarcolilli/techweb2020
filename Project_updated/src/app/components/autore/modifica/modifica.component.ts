@@ -19,7 +19,7 @@ export class ModificaComponent implements OnInit {
 
   constructor(private api: DummyApiService, private router: Router) { }
 
-  //Da immagine a link imgur
+  //Trasforma il file immagine in base64, dopo di che lo passiamo a un servizio che lo porta in un server online, e ci restiruisce il link
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });
@@ -37,34 +37,10 @@ export class ModificaComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  salvaModifiche() {
-
-    console.log("le mie modifiche sono :");
-    console.log("nome è :" + this.title);
-    console.log("id è :" + this.id);
-    let tempStoria:Storia;
-    this.api.getStoria(this.id).subscribe((res) => {
-
-      tempStoria = this.api.reMap(res)
-      if (this.imagePreview!="") {
-        tempStoria.urlBackground = this.imagePreview
-      }else{
-        tempStoria.urlBackground = this.sfondo
-      }
-      tempStoria.nome = this.title
-
-      this.api.updateStoria(tempStoria).subscribe();
-    })
-
-  }
-
-
   ngOnInit(): void {
     this.form = new FormGroup({
       image: new FormControl(null, {
-
         validators: [Validators.required],
-
         asyncValidators: [mimeType]
 
       })

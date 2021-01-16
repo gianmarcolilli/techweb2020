@@ -34,18 +34,17 @@ export class AutoreComponent implements OnInit {
   imagePreview: string;
   getStorySubscription: Subscription;
 
-  constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService, private router: Router, private http: HttpClient, public dialog: MatDialog) {
+  constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService, private router: Router, private http: HttpClient, public dialog: MatDialog) {}
 
-  }
-
+  //Trasforma il file immagine in base64, dopo di che lo passiamo a un servizio che lo porta in un server online, e ci restiruisce il link
   onImagePicked(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });
     this.form.get('image').updateValueAndValidity();
     const reader = new FileReader();
     reader.onload = () => {
-      let img = reader.result as string;
-      let base64 = img.split('base64')
+      this.imagePreview = reader.result as string;
+      let base64 = this.imagePreview.split('base64')
       this.api.uploadImage(base64[1]).subscribe((res) => {
       this.imagePreview = res.data.link
 
@@ -54,11 +53,10 @@ export class AutoreComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-
+  //Non credo che lo stiamo usando
   showAlert(testo: string) {
     let promiseDiSwal = this.swalLoader.swal;
     console.log(testo)
-
     promiseDiSwal.then((istanzadellaClasseSwal) => {
       istanzadellaClasseSwal.fire(
         testo
@@ -66,6 +64,8 @@ export class AutoreComponent implements OnInit {
     });
   }
 
+  //Al click sul pulsante che porta a questo metodo, i dati inseriti vengono passati a db tramite un servizio di dummy-api,
+  //una volta conclusa l'operazione sarà visibile la storia
   aggiungiStoria(): void {
     this.isLoading = true;
     console.log("wohoo devo aggiungere una storia !")
@@ -85,6 +85,7 @@ export class AutoreComponent implements OnInit {
       attivita: []
     }
 
+    //Servizio di dummy api
     this.api.addNewStory(tempStoria)
       .subscribe(responseData => {
         alert("fatto: " + responseData.message)
@@ -95,11 +96,12 @@ export class AutoreComponent implements OnInit {
     this.form.reset();
   }
 
-
+  //porta al component configura
   configuraStoria(id: number): void {
     this.router.navigateByUrl('configura/' + id);
   }
 
+  //elimina la storia
   eliminaStoria(id: number): void {
     this.api.deleteStory(id).subscribe(
       (responseData: any) => {
@@ -109,6 +111,7 @@ export class AutoreComponent implements OnInit {
     )
   }
 
+  //Una volta completate le modifiche, verrano riportate a db e salvate
   salvaModifiche(i: number) {
 
     console.log("le mie modifiche sono :");
@@ -130,6 +133,7 @@ export class AutoreComponent implements OnInit {
 
   }
 
+  //Possibilità di scaricare la storia in formato json
   download(i: number) {
     let tempStoria: Storia;
     this.api.getStoria(i).subscribe(storia => {
@@ -142,6 +146,7 @@ export class AutoreComponent implements OnInit {
     })
   }
 
+  //Apre un mat-dialog con riferimento al upload-dialog.html per dare la possibilità di effettuare un upload di file json che usi un interfaccia:Storia
   openDialog() {
     const dialogRef = this.dialog.open(UploadDialog);
 
@@ -176,9 +181,7 @@ export class AutoreComponent implements OnInit {
     this.refreshData()
   }
 
-
-
-
+  //Ricarica i dati sempre aggiornati
   refreshData() {
     if (this.getStorySubscription) {
       this.getStorySubscription.unsubscribe()
@@ -201,7 +204,7 @@ export class AutoreComponent implements OnInit {
 }
 
 
-
+//Componente per il dialog di upload
 @Component({
   selector: 'upload-dialog',
   templateUrl: 'upload-dialog.html',
@@ -211,11 +214,12 @@ export class UploadDialog {
 
   constructor(public dialogRef: MatDialogRef<UploadDialog>, private api: DummyApiService) { }
 
-
+  //Se si decide di chiuder il dialog senza effettuare operazioni
   onNoClick(): void {
     this.dialogRef.close();
   }
 
+  //Fa scegliere un file di cui effettuare l'upload
   onFileSelect(event) {
     this.selectedFile = event.target.files[0];
     const fileReader = new FileReader();
