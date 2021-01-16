@@ -21,7 +21,7 @@ $background: rgba(212, 200, 200, 0.685);
   padding: 0.5rem;
   text-align: center;
   word-wrap: break-word;
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", sans-serif !important;
 }
 
 #tipoS {
@@ -433,12 +433,18 @@ $background: rgba(212, 200, 200, 0.685);
   }
 }
 .container6 {
+  font-family: "Montserrat", sans-serif !important;
   display: flex;
-  position: absolute;
   flex-wrap: wrap;
-  left: 30%;
-  width: 40%;
+  margin-left: 20%;
+  margin-top: 5em;
+  margin-bottom: 5em;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  width: 60%;
   justify-content: center;
+  box-shadow: 1px 0px 2px 1px rgba(16, 18, 44, 0.336),
+    0px 0px 11px 7px rgba(13, 10, 34, 0.315);
   background-color: $background;
   border-radius: 5px;
   .container-riepilogo {
@@ -447,9 +453,18 @@ $background: rgba(212, 200, 200, 0.685);
     justify-content: center;
   }
   .title {
+    text-transform: capitalize;
     color: $font-color;
     font-weight: bold;
     margin: 0.5em;
+  }
+  .title-container{
+    width: 40%;
+    float: left;
+  }
+  .qrcode-container{
+    width: 60%;
+    float: right;
   }
 }
 
@@ -479,7 +494,7 @@ $background: rgba(212, 200, 200, 0.685);
 
 @media (max-width: 768px) {
   #icon-tipos {
-    transform: scale(2);
+    transform: scale(2.5);
   }
   .my-fab-button {
     width: 60px;
@@ -491,7 +506,7 @@ $background: rgba(212, 200, 200, 0.685);
 
 @media (max-width: 500px) {
   #icon-tipos {
-    transform: scale(1.5);
+    transform: scale(2);
   }
   .my-fab-button {
     width: 60px;

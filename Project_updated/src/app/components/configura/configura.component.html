@@ -16,8 +16,10 @@
     <mat-card-subtitle
       ><div class="img-responsive">
         <img
+        class="img-responsive"
           [src]="storia.urlBackground"
           [alt]="'  immagine sfondo di  ' + storia.nome"
+          style="border:3px solid"
         /></div
     ></mat-card-subtitle>
   </mat-card-header>
@@ -428,7 +430,7 @@
       class="image-preview"
       *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid"
     >
-      <img [src]="imagePreview" [alt]="form.value.title" />
+      <img class="img-responsive" [src]="imagePreview" [alt]="form.value.title" />
     </div>
     <div>
       <button
