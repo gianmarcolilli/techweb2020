@@ -6,6 +6,7 @@ $background: rgba(212, 200, 200, 0.685);
 $fontAcme: "Acme", sans-serif;
 mat-card {
   font-family: "Acme", sans-serif !important;
+
   p {
     //font-size: 1.4em;
     color: $primary-color;
@@ -15,16 +16,14 @@ mat-card {
     //   -1px 1px 0 #212121;
   }
 }
-// mat-card-title {
-//   //background-color: #97999c63;
-// }
+
 .mainSection {
   padding: 2vw;
   justify-content: center;
 }
 .mainContainer {
-  width: 100%;
-  height: auto;
+  display: flex;
+  justify-content: center;
 }
 .copertina {
   position: relative;
@@ -32,10 +31,7 @@ mat-card {
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
-  padding: 2vw;
-  // padding-left: 22%;
-  // padding-right: 22%;
-  height: 80vw;
+  height: 80vh;
   margin: 1em;
   justify-content: center;
   align-content: center;
@@ -43,38 +39,65 @@ mat-card {
 .storyTitle {
   position: absolute;
   font-family: "Acme", sans-serif !important;
-  top: 13vw;
-  left: 5vw;
-  font-size: 4vw;
-  letter-spacing: 2vw;
+  line-height: initial;
+  letter-spacing: 1.5vw;
   color: white;
   text-transform: uppercase;
   font-weight: bold;
-  width: 100%;
+
+  @media (min-width:600px) {
+    left: 27%;
+    top: 9vh;
+    font-size: 2.5em;
+    width: 50%;
+    text-align: center;
+  }
+  @media (max-width:600px) {
+    left: 10%;
+    top: 14vh;
+    font-size: 1.6em;
+    text-align: center;
+  }
 }
 .copertina-responsive {
   position: absolute;
   justify-content: center;
-  width: 100%;
-  bottom: 18vw;
-  left: 4vw;
+  @media (min-width:600px) {
+    left: 32%;
+    width: 40%;
+    bottom: 25vh;
+  }
+  @media (max-width:600px) {
+    left: 11%;
+    width: 25%;
+    bottom: 25vh;
+  }
 }
 .imgCopertina {
   border: solid 5px;
-  border-color: rgb(87, 6, 6);
+  border-color: #570606;
   border-radius: 3px;
-  width: 35vw;
+  width: 15em;
 }
 .button-container {
   position: absolute;
   justify-content: center;
-  bottom: 4vw;
-  width: 100%;
+  @media (min-width:600px) {
+    left: 31%;
+  width: 40%;
+  bottom: 4vh;
+  }
+  @media (max-width:600px) {
+    left: 38%;
+    width: 30%;
+    bottom: 10vh;
+  }
+
   button {
-    font-size: 4.5vw;
+    font-size: 4vw;
     padding: 0.1em 0.3em !important;
-    height: 10vw;
-    border-radius: 3vw;
+    height: 8vh;
+    border-radius: 6px;
   }
 }
 mat-card {
