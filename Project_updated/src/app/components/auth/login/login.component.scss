@@ -1,15 +1,19 @@
 $font-color: #5c5f66;
 $primary-color: #3b3a99;
 $background: rgba(212, 200, 200, 0.685);
+
 .container{
   position: absolute;
   background-color:$background ;
-  padding: 2em;
+  padding: 1em;
+  padding-top: 5em;
   border-radius: 5px;
   width: 70%;
-  height: 15em;
-  top: 15vw;
+  height: 22em;
+  top: 7em;
   left: 15%;
+  box-shadow: 1px 0px 2px 1px rgba(16, 18, 44, 0.336),
+    0px 0px 11px 7px rgba(13, 10, 34, 0.315);
 }
 form{
   width: 100%;
