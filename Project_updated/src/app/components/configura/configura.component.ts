@@ -218,6 +218,7 @@ export class ConfiguraComponent implements OnInit {
 
     //specifica
     if (attivita.action == "domanda") {
+      this.tempTipoDomanda = attivita.tipoDomanda
       this.tempRisposteDomanda = attivita.risposteDomanda;
     }
     if (attivita.action == "quiz") {
@@ -265,6 +266,7 @@ export class ConfiguraComponent implements OnInit {
     this.tempActivityId = -1;
     this.tempContenuto = "";
     this.tempRisposteDomanda = [];
+    this.tempTipoDomanda = "";
     this.tempDifficulty = "";
     this.tempImgPuzzle = "";
     this.tempTipoUpload = "";
