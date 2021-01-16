@@ -69,7 +69,8 @@ export class ConfiguraComponent implements OnInit {
     return "titolo"
   }
 
-
+// metodo che aggiunge un attività alla storia nel database tramite una push
+// dopo aver verificato la tipologia di attività tramite un if
   aggiungiAttivita(type: string, id: number = -1, posArray:number) {
     this.flagSalvataggio = true;
     let proxId:number;
@@ -180,6 +181,7 @@ export class ConfiguraComponent implements OnInit {
     this.resettaForm()
   }
 
+//metodo utilizzato per generare le risposte possibili di un quiz
   aggiornaRisposteQuiz() {
     this.risposteQuiz = [];
     for (let i = 0; i < this.numeroRisposte; i++) {
@@ -200,6 +202,7 @@ export class ConfiguraComponent implements OnInit {
     this.tempRisposteDomanda.push("")
   }
 
+ // metodo utilizzato per modificare le attività
   editAttivita(attivita: Step, posArray:number) {
     this.resettaForm()
     this.tempPosArray = posArray;
@@ -244,12 +247,15 @@ export class ConfiguraComponent implements OnInit {
   //   this.flagSalvataggio = true;
   // }
 
+  //metodo utilizzato per caricare un attività che ha subito delle modifiche
   onSaveActivity() {
     this.aggiungiAttivita(this.tempTipologiaAttivita, this.tempActivityId, this.tempPosArray)
     this.resettaForm();
     this.tempActivityId = -1
   }
 
+  //metodo utilizzato per caricare una storia nel database
+  //passando per il dummyApiService tramite la updateStoria
   onSaveStory() {
     this.api.updateStoria(
       this.storia
@@ -260,6 +266,7 @@ export class ConfiguraComponent implements OnInit {
     this.resettaForm()
   }
 
+  //metodo utilizzato per svuotare il form delle attività
   resettaForm() {
     this.tempContenuto = ''
     this.tempClickToObject = ''
@@ -373,6 +380,8 @@ export class ConfiguraComponent implements OnInit {
 export class CancellazioneDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
+  //metodo utilizzato per eliminare un attività tramite splice
+  //dopo avergli passato l'id dell'attività
   eliminaAttivita(activityId: number): void {
     console.log('cancello: '+activityId);
 
