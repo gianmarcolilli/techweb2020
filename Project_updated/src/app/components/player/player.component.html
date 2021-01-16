@@ -5,9 +5,11 @@
   >{{ alert.message }}
 </ngb-alert>
 
-<section *ngIf="!playClicked" class="mainSection" >
+<section *ngIf="!playClicked" class="mainSection">
   <section id="tipoS">
-    <p style="font-size: 1.5em;">Seleziona la storia che preferisci e inizia a giocare</p>
+    <p style="font-size: 1.5em">
+      Seleziona la storia che preferisci e inizia a giocare
+    </p>
     <div class="tipoStoria">
       <div class="card">
         <input
@@ -231,7 +233,6 @@
     </div>
   </section>
 
-
   <div class="container6">
     <div class="container-riepilogo">
       <p class="title">Riepilogo</p>
@@ -260,7 +261,7 @@
             traccia +
             '/autoplay'
           "
-          [width]="256"
+          [width]="156"
           [errorCorrectionLevel]="'M'"
         ></qrcode>
       </div>
@@ -296,38 +297,14 @@
 <!-- fine MainSection -->
 
 <section *ngIf="playClicked">
-  <div *ngIf="tipologiaGruppo == 'individuale'">
-    <p>Ecco il tuo QR code!</p>
-    <qrcode
-      [qrdata]="
-        'http://localhost:4200/player/' +
-        tipologiaGruppo +
-        '/' +
-        fasciaEta +
-        '/' +
-        traccia +
-        '/autoplay'
-      "
-      [width]="256"
-      [errorCorrectionLevel]="'M'"
-    ></qrcode>
-    <button
-      mat-raised-button
-      style="margin: 1em;"
-      color="primary"
-      (click)="iniziaPartita(this.traccia)"
-    >
-    Inizia Partita
-    </button>
-  </div>
-
   <div *ngIf="tipologiaGruppo == 'classe' || tipologiaGruppo == 'gruppo'">
-    <p>Ecco i vostri QR Code!</p>
-    <mat-card *ngFor="let s of squadre" class="example-card">
-      <mat-card-header>
-        <mat-card-title>{{ s.name }}</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
+    <p style="font-family:'Montserrat',sans-serif; font-size: 2em; color:darkgray; margin-top: 1em; font-weight: bold;">
+      Ecco i vostri QR Code!</p>
+    <div *ngFor="let s of squadre" class="container6">
+      <div class="title-container">
+       <p class="title">{{ s.name }}</p>
+      </div>
+      <div class="qrcode-container">
         <qrcode
           [qrdata]="
             'http://localhost:4200/player/' +
@@ -339,10 +316,10 @@
             '/autoplay/' +
             s.idPartita
           "
-          [width]="256"
+          [width]="156"
           [errorCorrectionLevel]="'M'"
         ></qrcode>
-      </mat-card-content>
-    </mat-card>
+      </div>
+    </div>
   </div>
 </section>
