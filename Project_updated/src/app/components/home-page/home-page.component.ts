@@ -10,18 +10,8 @@ export class HomePageComponent implements OnInit {
 
   titolo: string = "Home Page";
 
-  constructor(  private router : Router ) { }
+  constructor(  private router : Router ) {}
 
-  // navigateToStory(storyValue){
-  //       this.router.navigateByUrl("visualizza/4")
-  // }
-
-  // navigateToAutore(){
-  //     this.router.navigateByUrl("autore")
-  // }
-
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
 }
