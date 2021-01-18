@@ -36,12 +36,14 @@ export class PlayerComponent implements OnInit {
   checkPartecipanti: boolean[] = [];
   contatore = 0;
 
+  //Metodo get del servizio dummyApi che restituisce elenco delle storie tramite observable
   getStories() {
     this.apiDb.getStories().subscribe((risultato) => {
       this.storie = risultato.posts
     })
   }
 
+  //Metodo chiamato dal radio button nel player per resituire il numero di studenti possibili per squadra
   popolaDimensioni(tipo:string){
     this.dimensioni = []
     if(tipo=='classe'){
@@ -58,6 +60,7 @@ export class PlayerComponent implements OnInit {
     }
   }
 
+  //Metodo utilizzato per aggiungere il singolo player a squadra con idSquadra dato
   aggiungiPlayer(idSquadra) {
      if (this.nPartecipantiAggiunti + 1 > this.nPartecipanti) return;
      if (this.squadre[idSquadra].players.length + 1 > MAXPARTECIPANTI) return;
@@ -75,17 +78,20 @@ export class PlayerComponent implements OnInit {
     }
   }
 
+  //Metodo utilizzato per rimuovere un player da squadra con idSquadra dato
   rimuoviPlayer(idSquadra) {
     var posDaRimuovere = this.squadre[idSquadra].players.pop();
     this.nPartecipantiAggiunti--
     this.checkPartecipanti[(posDaRimuovere.substring(6, 8))] = false
   }
 
+  //Metodo che inizializza squadre e players chiamato prima di popolare il numero di squadre minimo per partecipanti selezionato
   azzeraSquadre() {
     this.squadre = []
     this.nPartecipantiAggiunti = 0
   }
 
+  //Metodo di aggiunta squadre che viene chiamato ciclicamente quando viene selezionato il numero di partecipanti in modalità classe
   aggiungiSquadra() {
     let lastIdx = this.squadre.length
     this.squadre.push(
@@ -98,6 +104,7 @@ export class PlayerComponent implements OnInit {
     this.contatore++;
   }
 
+  //Metodo che consente di eliminare una squadra specifica tramite idSquadra e scala gli id delle squadre successive
   eliminaSquadra(idSquadra) {
     var playerRemoved = this.squadre[idSquadra].players.length;
     for (let index = 0; index < playerRemoved; index++) {
@@ -110,6 +117,7 @@ export class PlayerComponent implements OnInit {
     }
   }
 
+  //Metodo di aggiunta squadra abbinato al button visibile nel player, per permettere di creare un numero maggiore di squadre rispetto al "numero minimo" di squadre create per default
   aggiungiNuovaSquadra() {
     let lastIdx = this.squadre.length
     this.squadre.push(
@@ -123,12 +131,16 @@ export class PlayerComponent implements OnInit {
     this.aggiungiPartecipanti(MINPARTECIPANTI, lastIdx);
   }
 
+  //Metodo di assegnamento dei players per squadra. Utilizzato nella creazione delle squadre di default con numero di partecipanti per squadra uguale a 2: min di partecipanti per squadra
   aggiungiPartecipanti(numPartecipanti, idS) {
     for (let index = 0; index < numPartecipanti; index++) {
       this.aggiungiPlayer(idS)
     }
   }
 
+  //Metodo che viene chiamato in automatico quando l' utente seleziona il numero di partecipanti totali sa suddividere in squadre
+  //Per default assumiamo come numero massimo di partecipanti per squadra uguale a 5 player e attraverso il quale si ottiene il numero minimo di squadre
+  //In base al numero minimo di partecipanti vengono utilizzati i metodi azzeraSquadra, aggiungiSquadra e aggiungiPartecipanti sopra descritti
   nPartecipantiChanged() {
     this.contatore=0;
 
@@ -143,8 +155,6 @@ export class PlayerComponent implements OnInit {
     } else {
       this.nSquadre = minNGruppi
     }
-
-    // let maxNGruppi = Math.trunc(this.nPartecipanti / MINPARTECIPANTI)
     this.azzeraSquadre()
     for (let i = 0; i < this.nSquadre; i++) {
       this.aggiungiSquadra()
@@ -152,6 +162,7 @@ export class PlayerComponent implements OnInit {
     }
   }
 
+  //Il metodo PlayClick è un metodo che gestisce la visualizzazione dei QR code per le modalità gruppo o classe.
   playClick() {
     if (this.fasciaEta == '' || this.traccia == -1 || this.tipologiaGruppo == "") {
       this.showFormError()
@@ -184,6 +195,7 @@ export class PlayerComponent implements OnInit {
     }
   }
 
+  //Metodo che attraverso il servizio di routing gestisce la navigazione del player verso la partita
   iniziaPartita(id: number, idPartita:number = -1): void {
 
     if(idPartita!=-1){
@@ -197,10 +209,12 @@ export class PlayerComponent implements OnInit {
 
   constructor(private apiDb: DummyApiService, private activeRoute: ActivatedRoute, private router: Router) {}
 
+  //Metodo di pulizia dell' alert associato al click sulla x di chiusura
   close() {
     this.alerts = []
   }
 
+  //Metodo di visualizzazione degli errori associati alla funzione play click
   showFormError() {
     this.alerts = []
     this.alerts.push(myAlert)
