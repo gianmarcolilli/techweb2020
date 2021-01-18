@@ -33,6 +33,11 @@ export class ImagePuzzleComponent implements OnInit {
   position: number[] = [];
 
   constructor(private visComp: VisualizzaComponent){ }
+
+  //Metodo di inizializzazione URL
+  //Risorsa web
+  //Risorsa codificata (esempio base64)
+  //Risorsa locale
   initImageUrl() {
     if (this.imageUrl.startsWith("http")) {
       this.imageUrl = this.imageUrl
@@ -42,11 +47,13 @@ export class ImagePuzzleComponent implements OnInit {
       this.imageUrl = "./assets/images/" + this.imageUrl
     }
   }
+
   ngOnInit() {
     this.initImageUrl()
     this.startGame();
   }
 
+  //Metodo controllo sorting degli indici
   isSorted(indexes): Boolean {
     let i: number = 0;
     for (i = 0; i < indexes.length; i++) {
@@ -57,6 +64,8 @@ export class ImagePuzzleComponent implements OnInit {
     return true;
   }
 
+  //Metodo per riassegnare indici delle immagini in cui è stata scomposta l' immagine completa
+  //Il metodo restituisce un array di indici
   randomize(imageParts: any[]): any[] {
     let i = 0, img: any[] = [], ran = 0;
     for (i = 0; i < imageParts.length; i++) {
@@ -73,9 +82,15 @@ export class ImagePuzzleComponent implements OnInit {
     return img;
   }
 
+  //Metodo di settaggio dati realitivi all' operazione di trascinamento e salvati in oggetto DataTransfer
   onDragStart(event: any): void {
     event.dataTransfer.setData('data', event.target.id);
   }
+
+  //Metodo get dei dati di trascinamento utilizzato per il confronto con il documento origine
+  //se tutte le posizioni combaciano col file origine gameComplete viene settato a true
+  //ogni azione avvalora di 1 il numero di step impiegati
+  //timeVar registra il tempo impiegato a completare il puzzle
   onDrop(event: any): void {
     let origin = event.dataTransfer.getData('data');
     let dest = event.target.id;
@@ -114,6 +129,7 @@ export class ImagePuzzleComponent implements OnInit {
     }
   }
 
+  //Metodo iniettato dal visualizzaComponent
   avanzamentoStep(idQ){
     if(this.gameComplete){
       this.visComp.gestisciAvanzamento(undefined);
