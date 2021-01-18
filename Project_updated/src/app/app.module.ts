@@ -3,7 +3,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import { HTTP_INTERCEPTORS } from "@angular/common/http";
+// import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 
@@ -56,14 +56,6 @@ import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { DragndropComponent } from './components/dragndrop/dragndrop.component';
 import { ClassificaComponent } from './components/classifica/classifica.component';
-
-
-
-// import {MatNativeDateModule} from '@angular/material/core';
-// import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-// import {DemoMaterialModule} from './app/material-module';
-
-// import {DialogContentExample, DialogContentExampleDialog} from './app/dialog-content-example';
 
 @NgModule({
   declarations: [

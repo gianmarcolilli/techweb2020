@@ -21,7 +21,7 @@ export class ClassificaComponent implements OnInit {
   constructor(private apiDb : DummyApiService) {
 
   }
-
+  //Prende tutti i games da db e li ordina per punteggio
   ngOnInit(): void {
     this.apiDb.getGames().subscribe((res)=>{
       this.games = res.posts
