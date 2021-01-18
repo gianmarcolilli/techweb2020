@@ -44,6 +44,8 @@ export class VisualizzaComponent implements OnInit {
 
   constructor(private activeRoute: ActivatedRoute, private apiDb: DummyApiService, private router: Router) { }
 
+  //Metodo refresh della storia tramite get del servizio dummyApi.
+  //Questo metodo ha la funzione di rimanere in ascolto di eventuali modifiche lato database e permette ai players di visualizzare gli avanzamenti di squadra.
   refresh() {
     this.apiDb.getStoria(this.id).subscribe(
       (singleStory) => {
@@ -54,6 +56,7 @@ export class VisualizzaComponent implements OnInit {
     )
   }
 
+
   ngOnInit(): void {
     this.stepStartAt = Date.now()
     this.resetStepTimer();
@@ -62,8 +65,9 @@ export class VisualizzaComponent implements OnInit {
       this.idPartita = this.activeRoute.snapshot.params.partita;
     }
 
+    //Quando la partita è in modalità gruppo o classe, attraverso la tecnica del polling vengono agiornati dati interrogando il server ogni secondo (1000 millisecondi)
     if (this.idPartita != -1) {
-      interval(1000) // run every 2000 millisecond
+      interval(1000) // run every 1000 millisecond
         .pipe(
           startWith(0),
           switchMap((res, i) => {
@@ -79,6 +83,7 @@ export class VisualizzaComponent implements OnInit {
             this.variabileOk = res.variabileOk
             this.punteggio = res.score
 
+            //Se lo step corrente cambia a database a seguito di un update da parte di altro player, il giocatore modifica in locale i dati aggiornati
             if (this.currentStepId != res.currentStepId) {
               this.currentStepId = res.currentStepId
               this.nextStepId = res.nextStepId
@@ -87,6 +92,8 @@ export class VisualizzaComponent implements OnInit {
               return;
             }
 
+            //Nel caso in cui uno dei compagni ha fornito una risposta prima di me ottengo da database punteggio e prossimo step,
+            //mi metto in attesa degli altri player attraverso la variabile locale hoDatoOk
             if (this.nextStepId != res.nextStepId && this.hoDatoOk == false && this.hoProcedutoIo == false && this.stop == false) {
               this.stop = true
               alert('compagno andato avanti! vuoi andare avanti anche tu?')
@@ -101,14 +108,13 @@ export class VisualizzaComponent implements OnInit {
 
             if (this.hoProcedutoIo == true && this.nextStepId == res.nextStepId && this.hoDatoOk == true && this.stop == true) {
               var timeS = Date.now();
-
               this.stop = false
               return;
             }
 
+            //Se tutti i player hanno dato Ok allora il visualizza carica localmente anche id dello step corrente
             if (res.numeroPlayer == res.variabileOk && this.stop == false) {
               console.log('daje');
-
               this.stop = true
               this.apiDb.updateGame(this.idPartita, res.nextStepId, this.punteggio).subscribe((risp: any) => {
                 this.currentStepId = risp.result.currentStepId
@@ -130,7 +136,7 @@ export class VisualizzaComponent implements OnInit {
     this.refresh()
   }
 
-
+  //Metodo che gestisce l' inizia partita dallo step zero
   iniziaStep() {
     if (this.idPartita == -1) {
       this.currentStepId = 0
@@ -143,40 +149,49 @@ export class VisualizzaComponent implements OnInit {
     }
   }
 
+  //Metodo che
   fine(form: NgForm) {
     this.router.navigateByUrl("classifica")
   }
 
-
+  //Metodo di update dell' id del prossimo step su database.
+  //Questo metodo viene utilizzato dal gestisciAvanzamento() che si occupa di individuare l' id dell prossimo Step.
   notificaAvanzamento(nextStepId: number) {
     this.apiDb.updateGame(this.idPartita, nextStepId, this.punteggio).subscribe();
     this.nextStepId = nextStepId;
   }
 
+  //Metodo impiegato per calcolare il punteggio.
+  //Lo score assegnato è in forma di bonus in caso di risposta corretta, in forma di malus in caso di risposta sbagliata. Nel caso di squadra vale come risposta quella del primo player a risponderee/o completare puzzle/dnd
+  //Bonus e malus sono resi proporzionali al timer: quanto più veloce a rispondere correttamente, quanto meno veloce a rispondere scorrettamente.
   gestisciPunteggio(timer: number) {
     if (timer == NaN || timer == undefined || timer == null) return
-
     // if (this.currentStepId == 0) return 0;
     if (this.storia.steps[this.currentStepId].action == "informazione") return 0;
     if (this.nextStepId == this.steps[this.currentStepId].correctId) return (50 / timer)
     if (this.nextStepId == this.steps[this.currentStepId].wrongId) return -(timer / 50);
   }
 
+  //Metodo che restituisce l' intervallo tra inizio e fine step in secondi (/1000)
   resetStepTimer() {
     let oldTimer = this.stepStartAt;
     this.stepStartAt = Date.now()
     return (this.stepStartAt - oldTimer) / 1000
   }
 
+  //Metodo che restituisce un array di dimensione data, impiegato nel nostro caso per costituire un array di player in base a quanto selezionato dallo user
   array(length) {
     return Array(length)
   }
 
-  valutaDomanda():boolean{
+  //Metodo di valutazione della risposta forita dall' utente.
+  //Questo metodo valuta nel primo if se la risposta fornita dall' utente è di tipo "purchessia(presenza/assenza)", nel nostro caso contrassegnata con 'right'
+  //Secondo if effetua un controllo sulla presenza o meno della risposta in una lista di valori
+  valutaDomanda(): boolean {
     if (this.steps[this.currentStepId].tipoDomanda == 'right') {
       return true
     }
-    if(this.steps[this.currentStepId].tipoDomanda == 'array'){
+    if (this.steps[this.currentStepId].tipoDomanda == 'array') {
       for (let i = 0; i < this.steps[this.currentStepId].risposteDomanda.length; i++) {
         if (this.tempRisposta.toLowerCase() == this.steps[this.currentStepId].risposteDomanda[i].toLowerCase()) {
           return true
@@ -186,7 +201,8 @@ export class VisualizzaComponent implements OnInit {
     return false;
   }
 
-
+  //Metodo di gestione avanzamento agli step della storia differenziata a seconda della modalita (singolo o altro), tipologia (informazione, puzzle, domanda, ecc.)
+  //Il metodo inoltre abbina alla gestione degli id anche la gestione del timer e del punteggio
   gestisciAvanzamento(idQuiz) {
     // assegnare il punteggio
     console.log("step corrente: " + this.currentStepId)
@@ -200,9 +216,6 @@ export class VisualizzaComponent implements OnInit {
         console.log("impiegati " + tempoImpiegato + " secondi.");
         this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
         this.currentStepId = this.steps[this.currentStepId].correctId
-
-        // var timeS = Date.now();
-        // console.log(Date.now())
       } else {
         //Avanzamento gioco in modalità squadre
         console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
@@ -220,13 +233,13 @@ export class VisualizzaComponent implements OnInit {
     }
     if (this.storia.steps[this.currentStepId].action == "domanda" || this.storia.steps[this.currentStepId].action == "quiz") {
 
-      //Avanzamento in gioco modalità singolo
       if (this.storia.steps[this.currentStepId].action == "domanda") {
         console.log("sto confrontando questo :" + this.tempRisposta)
-        //console.log("con questo  :" + this.steps[this.currentStepId].risposteDomanda)
+        console.log("con questo  :" + this.steps[this.currentStepId].risposteDomanda)
 
         if (this.valutaDomanda()) {
           alert("hai dato la risposta corretta")
+          //Avanzamento in gioco modalità singolo)
           if (this.idPartita == -1) {
             this.nextStepId = this.steps[this.currentStepId].correctId
             var tempoImpiegato = this.resetStepTimer();
@@ -234,6 +247,7 @@ export class VisualizzaComponent implements OnInit {
             this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
             this.currentStepId = this.steps[this.currentStepId].correctId
           } else {
+            //Avanzamento gioco in modalità squadre
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
             this.nextStepId = this.steps[this.currentStepId].correctId;
             this.stop = true
@@ -247,6 +261,7 @@ export class VisualizzaComponent implements OnInit {
 
         } else {
           alert("hai dato la risposta sbagliata")
+          //Avanzamento gioco in modalità individuale
           if (this.idPartita == -1) {
             this.nextStepId = this.steps[this.currentStepId].wrongId
             var tempoImpiegato = this.resetStepTimer();
@@ -254,6 +269,7 @@ export class VisualizzaComponent implements OnInit {
             this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
             this.currentStepId = this.steps[this.currentStepId].wrongId
           } else {
+            //Avanzamento gioco in modalità squadre
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
             this.nextStepId = this.steps[this.currentStepId].wrongId;
             this.stop = true
@@ -272,7 +288,7 @@ export class VisualizzaComponent implements OnInit {
         let correctQuizResp = this.steps[this.currentStepId].quizCorrectIdx
 
         if (idQuiz == correctQuizResp) {
-          console.log("grande fratello");
+          //Avanzamento gioco in modalità individuale
           if (this.idPartita == -1) {
             this.nextStepId = this.steps[this.currentStepId].correctId
             var tempoImpiegato = this.resetStepTimer();
@@ -280,6 +296,7 @@ export class VisualizzaComponent implements OnInit {
             this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
             this.currentStepId = this.steps[this.currentStepId].correctId
           } else {
+            //Avanzamento gioco in modalità squadre
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
             this.nextStepId = this.steps[this.currentStepId].correctId;
             this.stop = true
@@ -291,7 +308,7 @@ export class VisualizzaComponent implements OnInit {
             this.notificaAvanzamento(this.nextStepId)
           }
         } else {
-          console.log("sei una lota");
+          //Avanzamento gioco in modalità individuale
           if (this.idPartita == -1) {
             this.nextStepId = this.steps[this.currentStepId].wrongId
             var tempoImpiegato = this.resetStepTimer();
@@ -299,6 +316,7 @@ export class VisualizzaComponent implements OnInit {
             this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
             this.currentStepId = this.steps[this.currentStepId].wrongId
           } else {
+            //Avanzamento gioco in modalità squadre
             console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
             this.nextStepId = this.steps[this.currentStepId].wrongId;
             this.stop = true
@@ -312,7 +330,6 @@ export class VisualizzaComponent implements OnInit {
         }
       }
     }
-
     return;
   }
 }
