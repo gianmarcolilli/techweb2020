@@ -106,11 +106,11 @@ export class VisualizzaComponent implements OnInit {
               return;
             }
 
-            if (this.hoProcedutoIo == true && this.nextStepId == res.nextStepId && this.hoDatoOk == true && this.stop == true) {
-              var timeS = Date.now();
-              this.stop = false
-              return;
-            }
+            // if (this.hoProcedutoIo == true && this.nextStepId == res.nextStepId && this.hoDatoOk == true && this.stop == true) {
+            //   var timeS = Date.now();
+            //   this.stop = false
+            //   return;
+            // }
 
             //Se tutti i player hanno dato Ok allora il visualizza carica localmente anche id dello step corrente
             if (res.numeroPlayer == res.variabileOk && this.stop == false) {
@@ -149,8 +149,8 @@ export class VisualizzaComponent implements OnInit {
     }
   }
 
-  //Metodo che
-  fine(form: NgForm) {
+  //Metodo utilizzato solamente in tipologia step 'fine' che permette di essere reindirizzati verso la classifica dei punteggi ottenuti.
+  fine() {
     this.router.navigateByUrl("classifica")
   }
 
