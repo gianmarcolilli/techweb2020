@@ -181,11 +181,7 @@ export class ConfiguraComponent implements OnInit {
     this.resettaForm()
   }
 
-<<<<<<< HEAD
-//metodo utilizzato per generare le risposte possibili di un quiz
-=======
   //metodo utilizzato per generare le risposte possibili di un quiz
->>>>>>> develop
   aggiornaRisposteQuiz() {
     this.risposteQuiz = [];
     for (let i = 0; i < this.numeroRisposte; i++) {
@@ -207,11 +203,7 @@ export class ConfiguraComponent implements OnInit {
     this.tempRisposteDomanda.push("")
   }
 
-<<<<<<< HEAD
- // metodo utilizzato per modificare le attività
-=======
 //metodo per modificare un attività
->>>>>>> develop
   editAttivita(attivita: Step, posArray:number) {
     this.resettaForm()
     this.tempPosArray = posArray;
@@ -256,24 +248,17 @@ export class ConfiguraComponent implements OnInit {
   //   this.flagSalvataggio = true;
   // }
 
-<<<<<<< HEAD
-  //metodo utilizzato per caricare un attività che ha subito delle modifiche
-=======
 
-  //metodo per salvare attivià che ha subito una modifica
->>>>>>> develop
+
+//metodo per salvare attivià che ha subito una modifica
   onSaveActivity() {
     this.aggiungiAttivita(this.tempTipologiaAttivita, this.tempActivityId, this.tempPosArray)
     this.resettaForm();
     this.tempActivityId = -1
   }
 
-<<<<<<< HEAD
-  //metodo utilizzato per caricare una storia nel database
-  //passando per il dummyApiService tramite la updateStoria
-=======
-  //metodo per caricare la storia tramite update
->>>>>>> develop
+
+//metodo per caricare la storia tramite update
   onSaveStory() {
     this.api.updateStoria(
       this.storia
@@ -284,11 +269,7 @@ export class ConfiguraComponent implements OnInit {
     this.resettaForm()
   }
 
-<<<<<<< HEAD
-  //metodo utilizzato per svuotare il form delle attività
-=======
   //metodo per svuotare il form delle attività
->>>>>>> develop
   resettaForm() {
     this.tempContenuto = ''
     this.tempClickToObject = ''
@@ -405,12 +386,8 @@ export class ConfiguraComponent implements OnInit {
 export class CancellazioneDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
-<<<<<<< HEAD
-  //metodo utilizzato per eliminare un attività tramite splice
-  //dopo avergli passato l'id dell'attività
-=======
-  //metodo per eliminare attività tramite splice
->>>>>>> develop
+
+//metodo per eliminare attività tramite splice
   eliminaAttivita(activityId: number): void {
     console.log('cancello: '+activityId);
 
