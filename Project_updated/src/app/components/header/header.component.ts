@@ -18,19 +18,23 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   constructor(private authService: AuthService, private router: Router) { }
 
+//navigazione verso HomePage
   navigateToHome() {
     this.router.navigateByUrl("home")
   }
 
+  //navigazione verso component autore
   navigateToAutore() {
     this.router.navigateByUrl("autore")
   }
 
+  //navigazione verso component player
   navigateToPlayer() {
     this.router.navigateByUrl("player")
   }
 
   ngOnInit() {
+    //per eseguire l'autenticazione
     this.userIsAuthenticated = this.authService.getIsAuth();
     this.authListenerSubs = this.authService
       .getAuthStatusListener()
@@ -39,10 +43,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       });
   }
 
+  //per eseguire logout da autore
   onLogout() {
     this.authService.logout();
   }
 
+  //completa il logout tramite unsubscribe
   ngOnDestroy() {
     this.authListenerSubs.unsubscribe();
   }

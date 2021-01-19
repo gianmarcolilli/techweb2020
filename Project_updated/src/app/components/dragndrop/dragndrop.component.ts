@@ -16,18 +16,22 @@ export class DragndropComponent implements OnInit {
   isCompleted:boolean = false;
   constructor(private visComp: VisualizzaComponent) {}
 
+  //Metodo chiamato ogni volta che sposto una tessera (drop appunto significa rilascio)
   drop(event: CdkDragDrop<number[]>) {
     this.steps++
     moveItemInArray(this.order, event.previousIndex, event.currentIndex);
     this.isCompleted = this.verifyAccomplishment()
   }
 
+  //Permette di accedere allo step successivo
   avanzamentoStep(idQ){
     if(this.isCompleted){
       this.visComp.gestisciAvanzamento(undefined);
     }
   }
 
+  //A ogni spostamenta di una tessera verifica che tutte siano nella posizione corretta
+  //Una volta che l'array è stato ordinato restituisce complete=true, così permettendo l'avanzamento
   verifyAccomplishment(){
     let complete = true
 
@@ -40,7 +44,9 @@ export class DragndropComponent implements OnInit {
     return complete
   }
 
+
   ngOnInit(): void {
+    //Mette in ordine sparso le tessere del drag&drop
     this.order = _.shuffle(this.order)
   }
 
