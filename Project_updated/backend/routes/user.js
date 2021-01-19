@@ -32,6 +32,7 @@ router.post("/signup", (req, res, next) => {
 
 //Route definita per il metodo POST.
 //.compare metodo per confrontare pasward criptate con la libreria bcrypt
+//jwt necessario per l' autenticazione di messaggi hash
 router.post("/login", (req, res, next) => {
   let fetchedUser;
   User.findOne({ email: req.body.email })
