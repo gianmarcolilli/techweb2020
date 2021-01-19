@@ -15,6 +15,7 @@ export class LoginComponent {
   private authStatusSub : Subscription;
   constructor(public authService: AuthService) {}
 
+  //metodo per effettuare il Login ,verificando la validità
   onLogin(form: NgForm) {
     if (form.invalid) {
       return;
