@@ -26,6 +26,7 @@ export class SignupComponent implements OnInit, OnDestroy{
     this.authStatusSub.unsubscribe();
   }
 
+  //per creare un nuovo profilo tramite authService, dopo aver controllato la validità
   onSignup(form: NgForm){
     if(form.invalid){
       return;
