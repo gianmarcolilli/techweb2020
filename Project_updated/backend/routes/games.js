@@ -2,65 +2,53 @@ const { ViewEncapsulation } = require("@angular/core");
 const express = require("express");
 const { create, db } = require("../models/game");
 const mongoose = require("mongoose");
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
+mongoose.set("useFindAndModify", false);
+mongoose.set("useCreateIndex", true);
 
 const Game = require("../models/game");
 
 const router = express.Router();
 
+//Route definita per il metodo POST.
 router.post("", (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
-
   let findQry = Game.find();
 
   findQry
-    .then((documents) => {
-      return Game.count();
-    })
-    .then((lunghezza) => {
+    .then(() => {
       let game = new Game({
-        idPartita: req.body.idPartita,
-        idClasse: req.body.idClasse,
-        idSquadra: req.body.idSquadra,
-        numeroPlayer: req.body.numeroPlayer,
-        currentStepId: -1,
-        nextStepId: -1,
-        variabileOk: 0,
-        score:0
-      });
-
-      game
-        .save()
-        .then((createdGame) => {
-          res.status(201).json({
-            message: "Game added successfully",
-            game: {
-              ...createdGame,
-              idPartita: req.body.idPartita,
-            },
-          });
-        })
-        .catch((e) => {
-          console.log(e.message);
-          res.status(500).json({
-            message: "Error!",
-          });
-        });
+      idPartita: req.body.idPartita,
+      idClasse: req.body.idClasse,
+      idSquadra: req.body.idSquadra,
+      numeroPlayer: req.body.numeroPlayer,
+      currentStepId: -1,
+      nextStepId: -1,
+      variabileOk: 0,
+      score: 0,
     });
+
+    game
+      .save()
+      .then((createdGame) => {
+        res.status(201).json({
+          message: "Game added successfully",
+          game: {
+            ...createdGame,
+            idPartita: req.body.idPartita,
+          },
+        });
+      })
+      .catch((e) => {
+        console.log(e.message);
+        res.status(500).json({
+          message: "Error!",
+        });
+      });
+  });
 });
 
+//Route definita per il metodo PUT.
 router.put("/:idPartita", (req, res, next) => {
-  // if (req.body.prossimoId && variabileOk == 0) {
-  //   let gameIdentificato = Game.find({ idPartita: idPartita });
-  //   gameIdentificato.nextStepId = req.body.prossimoId
-  //   gameIdentificato.variabileOk = 1
-
-  //   // fino a qui
-  //   gameIdentificato.save();
-  // } else if (req.body.prossimoId && gameIdentificato.variabileOk > 1 && gameIdentificato.variabileOk < gameIdentificato.numeroPlayer) {
-  //   gameIdentificato.variabileOk++;
-  // }
   const game = Game.findOne({
     idPartita: req.params.idPartita,
   }).then((game) => {
@@ -82,7 +70,7 @@ router.put("/:idPartita", (req, res, next) => {
               numeroPlayer: game.numeroPlayer,
               currentStepId: game.currentStepId,
               nextStepId: game.nextStepId,
-              score : game.score,
+              score: game.score,
               variabileOk: game.variabileOk + 1,
             },
             { new: true }
@@ -99,7 +87,9 @@ router.put("/:idPartita", (req, res, next) => {
             });
         } else if (game.variabileOk == 0) {
           //Se sono il primo a entrarci
-          console.log("sono il primo e sto impostando come score : "+ req.body.score);
+          console.log(
+            "sono il primo e sto impostando come score : " + req.body.score
+          );
           Game.findOneAndUpdate(
             { idPartita: req.params.idPartita },
             {
@@ -109,7 +99,7 @@ router.put("/:idPartita", (req, res, next) => {
               numeroPlayer: game.numeroPlayer,
               currentStepId: game.currentStepId,
               nextStepId: req.body.prossimoId,
-              score : req.body.score,
+              score: req.body.score,
               variabileOk: 1,
             },
             { new: true }
@@ -137,7 +127,7 @@ router.put("/:idPartita", (req, res, next) => {
             numeroPlayer: game.numeroPlayer,
             currentStepId: game.nextStepId,
             nextStepId: -1,
-            score : game.score,
+            score: game.score,
             variabileOk: 0,
           },
           { new: true }
@@ -159,6 +149,7 @@ router.put("/:idPartita", (req, res, next) => {
   });
 });
 
+//Route definita per il metodo GET.
 router.get("", (req, res, next) => {
   const postQuery = Game.find();
   let fetchedGames;
@@ -188,16 +179,5 @@ router.get("/:idPartita", (req, res, next) => {
     }
   });
 });
-
-// router.delete("/:id", (req, res, next) => {
-//   listaId[req.params.id] = false;
-//   Story.deleteOne({ id: req.params.id }).then((result) => {
-//     if (result.n > 0) {
-//       res.status(200).json({ message: "Deletion successful!" });
-//     } else {
-//       res.status(404).json({ message: "Not found!" });
-//     }
-//   });
-// });
 
 module.exports = router;
