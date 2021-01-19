@@ -249,14 +249,16 @@ export class ConfiguraComponent implements OnInit {
   // }
 
 
-  //metodo per salvare attivià che ha subito una modifica
+
+//metodo per salvare attivià che ha subito una modifica
   onSaveActivity() {
     this.aggiungiAttivita(this.tempTipologiaAttivita, this.tempActivityId, this.tempPosArray)
     this.resettaForm();
     this.tempActivityId = -1
   }
 
-  //metodo per caricare la storia tramite update
+
+//metodo per caricare la storia tramite update
   onSaveStory() {
     this.api.updateStoria(
       this.storia
@@ -384,7 +386,8 @@ export class ConfiguraComponent implements OnInit {
 export class CancellazioneDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
-  //metodo per eliminare attività tramite splice
+
+//metodo per eliminare attività tramite splice
   eliminaAttivita(activityId: number): void {
     console.log('cancello: '+activityId);
 
