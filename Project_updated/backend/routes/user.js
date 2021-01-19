@@ -6,6 +6,8 @@ const User = require("../models/user");
 
 const router = express.Router();
 
+//Route definita per il metodo POST.
+//Bcrypt è una libreria utilizzata per effettuare hashing delle password (SaltRound = 10)
 router.post("/signup", (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(hash => {
     const user = new User({
@@ -28,6 +30,8 @@ router.post("/signup", (req, res, next) => {
   });
 });
 
+//Route definita per il metodo POST.
+//.compare metodo per confrontare pasward criptate con la libreria bcrypt
 router.post("/login", (req, res, next) => {
   let fetchedUser;
   User.findOne({ email: req.body.email })
