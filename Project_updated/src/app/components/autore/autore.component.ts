@@ -1,4 +1,4 @@
-import { Component, OnInit,  ViewEncapsulation, Injectable } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, Injectable } from '@angular/core';
 import { DummyApiService } from '../../services/dummy-api.service';
 import { Storia } from '../../interfaces/storia';
 import { SweetAlert2LoaderService } from '@sweetalert2/ngx-sweetalert2';
@@ -34,7 +34,10 @@ export class AutoreComponent implements OnInit {
   imagePreview: string;
   getStorySubscription: Subscription;
 
-  constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService, private router: Router, private http: HttpClient, public dialog: MatDialog) {}
+  imgurComplete: boolean = false
+
+
+  constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService, private router: Router, private http: HttpClient, public dialog: MatDialog) { }
 
   //Trasforma il file immagine in base64, dopo di che lo passiamo a un servizio che lo porta in un server online, e ci restiruisce il link
   onImagePicked(event: Event) {
@@ -46,7 +49,8 @@ export class AutoreComponent implements OnInit {
       this.imagePreview = reader.result as string;
       let base64 = this.imagePreview.split('base64')
       this.api.uploadImage(base64[1]).subscribe((res) => {
-      this.imagePreview = res.data.link
+        this.imagePreview = res.data.link
+        this.imgurComplete = true
 
       })
     };
@@ -64,6 +68,7 @@ export class AutoreComponent implements OnInit {
     });
   }
 
+
   //Al click sul pulsante che porta a questo metodo, i dati inseriti vengono passati a db tramite un servizio di dummy-api,
   //una volta conclusa l'operazione sarà visibile la storia
   aggiungiStoria(): void {
@@ -77,29 +82,53 @@ export class AutoreComponent implements OnInit {
     }
     this.isLoading = true;
 
-    const tempStoria = {
-      title: this.form.value.myTempName,
-      didascalia: this.form.value.myTempDidascalia,
-      fasciaEta: this.form.value.myTempFasciaEta,
-      image: this.imagePreview,
-      attivita: []
-    }
+    let maxIdx = 0;
 
-    //Servizio di dummy api
-    this.api.addNewStory(tempStoria)
-      .subscribe(responseData => {
-        alert("fatto: " + responseData.message)
-        this.isLoading = false;
-        this.refreshData();
-      });
+    this.api.getStories().subscribe((risultato) => {
+      if (risultato && risultato.posts) {
 
-    this.form.reset();
+        if (risultato.maxPosts == 0) {
+          maxIdx = 0
+        }
+        risultato.posts.forEach(element => {
+          this.storie.push(this.api.reMap(element));
+
+          if (element.id == 0) {
+            maxIdx = 1
+          } else if (element.id >= maxIdx) {
+            maxIdx = Number(element.id) + 1
+          }
+        });
+      }
+      const tempStoria = {
+        id: maxIdx,
+        title: this.form.value.myTempName,
+        didascalia: this.form.value.myTempDidascalia,
+        fasciaEta: this.form.value.myTempFasciaEta,
+        image: this.imagePreview,
+        attivita: []
+      }
+
+      //Servizio di dummy api
+      this.api.addNewStory(tempStoria)
+        .subscribe(responseData => {
+          alert("fatto: " + responseData.message)
+          this.isLoading = false;
+          this.refreshData();
+        });
+
+      this.form.reset();
+    })
+
+
+
   }
 
   //porta al component configura
   configuraStoria(id: number): void {
     this.router.navigateByUrl('configura/' + id);
   }
+
 
   //elimina la storia
   eliminaStoria(id: number): void {
@@ -139,7 +168,7 @@ export class AutoreComponent implements OnInit {
     this.api.getStoria(i).subscribe(storia => {
       storia = this.api.reMapForDownload(storia)
       const blob = new Blob([JSON.stringify(storia)], { type: 'text/json' });
-      const fileName = storia.title+'.json';
+      const fileName = storia.title + '.json';
       saveAs(blob, fileName);
     }, err => {
       console.log(err);
@@ -200,6 +229,8 @@ export class AutoreComponent implements OnInit {
         }
       }
     );
+
+    this.imgurComplete = false
   }
 }
 
@@ -227,18 +258,37 @@ export class UploadDialog {
     fileReader.onload = () => {
       console.log(fileReader.result);
       let storia = JSON.parse(fileReader.result as string)
-      this.api.addNewStory( storia ).subscribe(
-        (res)=>{
-        if (res){
-          alert(res.message)
-        }else{
-          alert("Generic error")
+
+      let maxIdx = 0;
+      this.api.getStories().subscribe((risultato) => {
+        if (risultato && risultato.posts) {
+          if (risultato.maxPosts == 0) {
+            maxIdx = 0
+          }
+          risultato.posts.forEach(element => {
+            if (element.id == 0) {
+              maxIdx = 1
+            } else if (element.id >= maxIdx) {
+              maxIdx = Number(element.id) + 1
+            }
+          });
         }
-      }
-      ,
-      (err)=>{
-        alert(JSON.stringify(err))
-      });
+
+        storia.id = maxIdx
+        //Servizio di dummy api
+        this.api.addNewStory(storia).subscribe(
+          (res) => {
+            if (res) {
+              alert(res.message)
+            } else {
+              alert("Generic error")
+            }
+          }
+          ,
+          (err) => {
+            alert(JSON.stringify(err))
+          });
+      })
     }
     fileReader.onerror = (error) => {
       console.log(error);
