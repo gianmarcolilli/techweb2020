@@ -106,8 +106,11 @@ export class DummyApiService {
 
   //put
   updateStoria(storia: Storia) {
+     let headers = new HttpHeaders().set("Authorization", 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5pdCIsInVzZXJJZCI6IjVmYmZkM2YwZGUwNjRiMzRhNDE4ZTJkYiIsImlhdCI6MTYxMTA3MjA3NSwiZXhwIjoxNjExMDc1Njc1fQ.dLyXbhY_q6ptcBZP226Y3IP8Ds1d0eNJN096C_3MhEE')
+     let options = { headers: headers };
+    // console.log(options);
     return this.http
-      .put("http://localhost:3000/api/stories/" + storia.id, storia)
+      .put("http://localhost:3000/api/stories/" + storia.id, storia, options)
   }
 
   updateGame(idPartita: number, prossimoId: number, punteggio: number) {
@@ -137,10 +140,12 @@ export class DummyApiService {
 
 
   uploadImage(base64imgStr: String) {
-    let headers = new HttpHeaders().set("Authorization", 'Bearer d4e418b1180149c2f908769861db2fa0d6a60ec2')
-    let options = { headers: headers };
-    console.log(options);
+    // let headers = new HttpHeaders().set("Authorization", 'Bearer d4e418b1180149c2f908769861db2fa0d6a60ec2')
+    // let options = { headers: headers };
+    // console.log(options);
 
-    return this.http.post<any>("https://api.imgur.com/3/image", { image: base64imgStr }, options)
+    // return this.http.post<any>("https://api.imgur.com/3/image", { image: base64imgStr }, options)
+
+    return this.http.post<any>("https://api.imgur.com/3/image", { image: base64imgStr })
   }
 }

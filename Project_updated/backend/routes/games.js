@@ -1,6 +1,4 @@
-const { ViewEncapsulation } = require("@angular/core");
 const express = require("express");
-const { create, db } = require("../models/game");
 const mongoose = require("mongoose");
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
@@ -9,7 +7,9 @@ const Game = require("../models/game");
 
 const router = express.Router();
 
-router.post("", (req, res, next) => {
+const checkAuth = require("../middleware/check-auth");
+
+router.post("",checkAuth, (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
 
   let findQry = Game.find();
@@ -50,17 +50,7 @@ router.post("", (req, res, next) => {
     });
 });
 
-router.put("/:idPartita", (req, res, next) => {
-  // if (req.body.prossimoId && variabileOk == 0) {
-  //   let gameIdentificato = Game.find({ idPartita: idPartita });
-  //   gameIdentificato.nextStepId = req.body.prossimoId
-  //   gameIdentificato.variabileOk = 1
-
-  //   // fino a qui
-  //   gameIdentificato.save();
-  // } else if (req.body.prossimoId && gameIdentificato.variabileOk > 1 && gameIdentificato.variabileOk < gameIdentificato.numeroPlayer) {
-  //   gameIdentificato.variabileOk++;
-  // }
+router.put("/:idPartita",checkAuth, (req, res, next) => {
   const game = Game.findOne({
     idPartita: req.params.idPartita,
   }).then((game) => {
@@ -188,16 +178,5 @@ router.get("/:idPartita", (req, res, next) => {
     }
   });
 });
-
-// router.delete("/:id", (req, res, next) => {
-//   listaId[req.params.id] = false;
-//   Story.deleteOne({ id: req.params.id }).then((result) => {
-//     if (result.n > 0) {
-//       res.status(200).json({ message: "Deletion successful!" });
-//     } else {
-//       res.status(404).json({ message: "Not found!" });
-//     }
-//   });
-// });
 
 module.exports = router;

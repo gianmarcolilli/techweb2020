@@ -1,17 +1,16 @@
-const { ViewEncapsulation } = require("@angular/core");
 const express = require("express");
-const { create, db } = require("../models/story");
-const mongoose = require("mongoose");
 
 const router = express.Router();
 const Story = require("../models/story");
+
+const checkAuth = require("../middleware/check-auth");
 
 //quando lo occupo lo metto a true, quando lo libero lo metto a false
 let listaId = [];
 
 router.post(
   "",
-  // checkAuth,
+  checkAuth,
   // multer({ storage: storage }).single("image"),
   (req, res, next) => {
     const url = req.protocol + "://" + req.get("host");
@@ -97,7 +96,7 @@ router.post(
   }
 );
 
-router.put("/:id", (req, res, next) => {
+router.put("/:id",checkAuth, (req, res, next) => {
   Story.updateOne(
     { id: req.params.id },
     {
@@ -160,19 +159,8 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
-// router.get("/t/:title", (req, res, next) => {
-//   Story.findOne({
-//     title: req.params.title,
-//   }).then((story) => {
-//     if (story) {
-//       res.status(200).json(story);
-//     } else {
-//       res.status(404).json({ message: "Post not found!" });
-//     }
-//   });
-// });
 
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id",checkAuth, (req, res, next) => {
   listaId[req.params.id] = false;
   Story.deleteOne({ id: req.params.id }).then((result) => {
     if (result.n > 0) {

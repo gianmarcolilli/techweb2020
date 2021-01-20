@@ -8,23 +8,23 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./signup.component.scss']
 })
 
-export class SignupComponent implements OnInit, OnDestroy{
+export class SignupComponent {
   isLoading=false;
-  titolo: string = "SignUp";
+  titolo:string='Signup'
   private authStatusSub: Subscription;
 
   constructor(public authService:AuthService){}
 
-  ngOnInit() {
-    this.authStatusSub =  this.authService.getAuthStatusListener().subscribe(
-      authStatus => {
-        this.isLoading= false;
-      });
-  }
+  // ngOnInit() {
+  //   this.authStatusSub =  this.authService.getAuthStatusListener().subscribe(
+  //     authStatus => {
+  //       this.isLoading= false;
+  //     });
+  // }
 
-  ngOnDestroy(){
-    this.authStatusSub.unsubscribe();
-  }
+  // ngOnDestroy(){
+  //   this.authStatusSub.unsubscribe();
+  // }
 
   onSignup(form: NgForm){
     if(form.invalid){
@@ -32,6 +32,5 @@ export class SignupComponent implements OnInit, OnDestroy{
     }
     this.isLoading=true;
     this.authService.createUser(form.value.email, form.value.password);
-    this.isLoading=false;
   }
 }

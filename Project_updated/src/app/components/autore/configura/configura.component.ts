@@ -5,7 +5,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { ActivatedRoute, Router } from '@angular/router';
 import { DragDrop, Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
-import { mimeType } from '../autore/mime-type.validator';
+import { mimeType } from '../mime-type.validator';
 
 import {MatDialog, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
