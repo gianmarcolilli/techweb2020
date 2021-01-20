@@ -96,7 +96,7 @@
 </div>
 <!-- end CONTAINER 1 -->
 
-<swal #mioAlert confirmButtonText="Salva" (confirm)="aggiungiStoria()">
+<swal #mioAlert [showConfirmButton]="false">
   <div *swalPortal>
     <form [formGroup]="form">
       <h1>name :</h1>
@@ -143,6 +143,7 @@
         <img [src]="imagePreview" [alt]="form.value.title" />
       </div>
     </form>
+    <button *ngIf="imgurComplete==true"  mat-raised-button color="accent" (click)="aggiungiStoria()">Salva</button>
   </div>
 </swal>
 <div class="btn-container">
