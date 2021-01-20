@@ -24,17 +24,13 @@ mat-card {
 .mainContainer {
   display: flex;
   justify-content: center;
+  padding:1em;
 }
 .copertina {
   position: relative;
-  background-image: url(/assets/book.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  height: 80vh;
-  margin: 1em;
+  margin-top: 1em;
   justify-content: center;
-  align-content: center;
+  align-content: flex-start;
 }
 .storyTitle {
   position: absolute;
@@ -53,8 +49,8 @@ mat-card {
     text-align: center;
   }
   @media (max-width:600px) {
-    left: 10%;
-    top: 14vh;
+    left: 15vw;
+    top: 18vh;
     font-size: 1.6em;
     text-align: center;
   }
@@ -63,14 +59,15 @@ mat-card {
   position: absolute;
   justify-content: center;
   @media (min-width:600px) {
-    left: 32%;
-    width: 40%;
-    bottom: 25vh;
+    font-size: x-large;
+    width: 100%;
+    bottom: 20vh;
   }
   @media (max-width:600px) {
-    left: 11%;
-    width: 25%;
+
+    width: 100%;
     bottom: 25vh;
+    font-size: medium;
   }
 }
 .imgCopertina {
@@ -102,6 +99,7 @@ mat-card {
 }
 mat-card {
   background-color: $background;
+  width: -webkit-fill-available;
 }
 .punteggio {
   float: right;
@@ -184,8 +182,8 @@ mat-card {
   width: 95% !important;
 }
 .img-responsive {
-  width: 50%;
-  height: auto;
+  width: auto;
+  max-height: 50vh;
   margin: 0.8em;
   border-radius: 8px;
   box-shadow: 1px 3px 23px 1px rgba(16, 18, 44, 0.336),
