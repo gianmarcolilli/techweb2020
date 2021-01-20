@@ -6,9 +6,11 @@ const mongoose = require("mongoose");
 const router = express.Router();
 const Story = require("../models/story");
 
-//quando lo occupo lo metto a true, quando lo libero lo metto a false
+//Quando viene utilizzato id i-esimo listaId[i] viene settato a true
+//Quando id i-esimo viene liberato listaId[i] viene settao a false
 let listaId = [];
 
+//Route definita per il metodo POST.
 router.post(
   "",
   // checkAuth,
@@ -57,7 +59,6 @@ router.post(
         } else {
           for (let i = 0; i < listaId.length; i++) {
             if (listaId[i] == false) {
-              //pushamo la storia con id=i
               listaId[i] = true;
               if (listaId[i + 1] != false && listaId[i + 1] != true) {
                 listaId[i + 1] = false;
@@ -97,6 +98,7 @@ router.post(
   }
 );
 
+//Route definita per il metodo PUT.
 router.put("/:id", (req, res, next) => {
   Story.updateOne(
     { id: req.params.id },
@@ -123,7 +125,7 @@ router.put("/:id", (req, res, next) => {
     });
 });
 
-
+//Route definita per il metodo GET.
 router.get("", (req, res, next) => {
   const postQuery = Story.find();
   let fetchedStories;
@@ -160,18 +162,7 @@ router.get("/:id", (req, res, next) => {
   });
 });
 
-// router.get("/t/:title", (req, res, next) => {
-//   Story.findOne({
-//     title: req.params.title,
-//   }).then((story) => {
-//     if (story) {
-//       res.status(200).json(story);
-//     } else {
-//       res.status(404).json({ message: "Post not found!" });
-//     }
-//   });
-// });
-
+//Route definita per il metodo DELETE.
 router.delete("/:id", (req, res, next) => {
   listaId[req.params.id] = false;
   Story.deleteOne({ id: req.params.id }).then((result) => {
