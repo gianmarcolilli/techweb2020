@@ -34,6 +34,9 @@ export class AutoreComponent implements OnInit {
   imagePreview: string;
   getStorySubscription: Subscription;
 
+  imgurComplete: boolean = false
+
+
   constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService, private router: Router, private http: HttpClient, public dialog: MatDialog) {}
 
   //Trasforma il file immagine in base64, dopo di che lo passiamo a un servizio che lo porta in un server online, e ci restiruisce il link
@@ -47,6 +50,7 @@ export class AutoreComponent implements OnInit {
       let base64 = this.imagePreview.split('base64')
       this.api.uploadImage(base64[1]).subscribe((res) => {
       this.imagePreview = res.data.link
+      this.imgurComplete=true
 
       })
     };
@@ -63,6 +67,7 @@ export class AutoreComponent implements OnInit {
       )
     });
   }
+
 
   //Al click sul pulsante che porta a questo metodo, i dati inseriti vengono passati a db tramite un servizio di dummy-api,
   //una volta conclusa l'operazione sarà visibile la storia
@@ -200,6 +205,8 @@ export class AutoreComponent implements OnInit {
         }
       }
     );
+
+    this.imgurComplete = false
   }
 }
 
