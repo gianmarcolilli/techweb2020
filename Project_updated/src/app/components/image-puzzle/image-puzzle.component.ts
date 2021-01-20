@@ -45,6 +45,10 @@ export class ImagePuzzleComponent implements OnInit {
   indexes: number[] = [];
   position: number[] = [];
 
+  //Metodo di inizializzazione URL
+  //Risorsa web
+  //Risorsa codificata (esempio base64)
+  //Risorsa locale
   constructor(private visComp: VisualizzaComponent) {
     this.getScreenSize();
     console.log("imageSize:" + this.imageSize)
@@ -71,11 +75,13 @@ export class ImagePuzzleComponent implements OnInit {
       this.imageUrl = './assets/images/' + this.imageUrl;
     }
   }
+
   ngOnInit() {
     this.initImageUrl();
     this.startGame();
   }
 
+  //Metodo controllo sorting degli indici
   isSorted(indexes): Boolean {
     let i: number = 0;
     for (i = 0; i < indexes.length; i++) {
@@ -86,6 +92,8 @@ export class ImagePuzzleComponent implements OnInit {
     return true;
   }
 
+  //Metodo per riassegnare indici delle immagini in cui è stata scomposta l' immagine completa
+  //Il metodo restituisce un array di indici
   randomize(imageParts: any[]): any[] {
     let i = 0,
       img: any[] = [],
@@ -104,9 +112,15 @@ export class ImagePuzzleComponent implements OnInit {
     return img;
   }
 
+  //Metodo di settaggio dati realitivi all' operazione di trascinamento e salvati in oggetto DataTransfer
   onDragStart(event: any): void {
     event.dataTransfer.setData('data', event.target.id);
   }
+
+  //Metodo get dei dati di trascinamento utilizzato per il confronto con il documento origine
+  //se tutte le posizioni combaciano col file origine gameComplete viene settato a true
+  //ogni azione avvalora di 1 il numero di step impiegati
+  //timeVar registra il tempo impiegato a completare il puzzle
   onDrop(event: any): void {
     let origin = event.dataTransfer.getData('data');
     let dest = event.target.id;
@@ -142,6 +156,7 @@ export class ImagePuzzleComponent implements OnInit {
 
   avanzamentoStep(idQ) {
     if (this.gameComplete) {
+  //Metodo del visualizzaComponent
       this.visComp.gestisciAvanzamento(undefined);
     }
   }
@@ -151,6 +166,7 @@ export class ImagePuzzleComponent implements OnInit {
     event.target.style.opacity = 1;
   }
 
+  //Metodo di stampa degli indici
   printIndexes(sorts: number[]): void {
     let i: number = 0,
       ind: string = '';
@@ -159,11 +175,17 @@ export class ImagePuzzleComponent implements OnInit {
     }
   }
 
+  //Metodo per scomporre nuovamente l' immagine completata in maniera casuale
   reRandomize(): void {
     this.gameComplete = false;
     this.Image = this.randomize(this.Image);
   }
 
+  //Metodo di inizializzazione degli elementi per effettuare un game
+  //-InizializeGame: settaggio della griglia per difficoltà selezionata
+  //-breakImageParts: suddivisione dell' immagine in parti
+  //-reRandomize scomposizione degli indici delle posizioni dei blocchi
+  //-nuova sottoscrizione al timer timeVar
   startGame(): void {
    this.getScreenSize();
 
@@ -175,6 +197,7 @@ export class ImagePuzzleComponent implements OnInit {
     });
   }
 
+  //Formattazione dell' ora 'mm:ss'
   settime(t: number): void {
     this.ticks =
       Math.floor(t / 60).toLocaleString('en-US', {
@@ -187,6 +210,8 @@ export class ImagePuzzleComponent implements OnInit {
         useGrouping: false,
       });
   }
+
+  //Metodo di suddivisione dell' immagine in base al livello di difficoltà selezionato nel configura e calcolato nell' initializeGame()
   breakImageParts(): void {
     for (this.index = 0; this.index < this.totalBoxes; this.index++) {
       const x: string = this.boxSize * (this.index % this.gridsize) + '%';
@@ -203,6 +228,11 @@ export class ImagePuzzleComponent implements OnInit {
     this.boxSize = this.imageSize / this.gridsize;
   }
 
+  //Metodo di inizializzazione game
+  //Impostazione della gridlist in relazione al numero di boxes per difficoltà selezionata:
+  //Facile: 4 boxes
+  //Medio: 9 boxes
+  //Difficile: 16 boxes
   initializeGame(): void {
     this.gridsize = Number(this.difficulty);
     this.boxSize = 100 / (this.gridsize - 1);
@@ -210,6 +240,7 @@ export class ImagePuzzleComponent implements OnInit {
     this.totalBoxes = this.gridsize * this.gridsize;
   }
 
+  //Metodo reset
   reset(): void {
     this.Image = [];
     this.indexes = [];

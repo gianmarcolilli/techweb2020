@@ -69,7 +69,8 @@ export class ConfiguraComponent implements OnInit {
     return "titolo"
   }
 
-
+// metodo che aggiunge un attività alla storia nel database tramite una push
+// dopo aver verificato la tipologia di attività tramite un if
   aggiungiAttivita(type: string, id: number = -1, posArray:number) {
     this.flagSalvataggio = true;
     let proxId:number;
@@ -180,6 +181,7 @@ export class ConfiguraComponent implements OnInit {
     this.resettaForm()
   }
 
+  //metodo utilizzato per generare le risposte possibili di un quiz
   aggiornaRisposteQuiz() {
     this.risposteQuiz = [];
     for (let i = 0; i < this.numeroRisposte; i++) {
@@ -187,6 +189,7 @@ export class ConfiguraComponent implements OnInit {
     }
   }
 
+  //per aggiornare l'ordine del dnd
   aggiornaOrder() {
     this.tempOrder.push(
       {
@@ -195,11 +198,12 @@ export class ConfiguraComponent implements OnInit {
       })
     this.numeroDnd++;
   }
-
+//per aggiorare array risposte possibili in domanda
   aggiornaTempRisposta() {
     this.tempRisposteDomanda.push("")
   }
 
+//metodo per modificare un attività
   editAttivita(attivita: Step, posArray:number) {
     this.resettaForm()
     this.tempPosArray = posArray;
@@ -244,12 +248,17 @@ export class ConfiguraComponent implements OnInit {
   //   this.flagSalvataggio = true;
   // }
 
+
+
+//metodo per salvare attivià che ha subito una modifica
   onSaveActivity() {
     this.aggiungiAttivita(this.tempTipologiaAttivita, this.tempActivityId, this.tempPosArray)
     this.resettaForm();
     this.tempActivityId = -1
   }
 
+
+//metodo per caricare la storia tramite update
   onSaveStory() {
     this.api.updateStoria(
       this.storia
@@ -260,6 +269,7 @@ export class ConfiguraComponent implements OnInit {
     this.resettaForm()
   }
 
+  //metodo per svuotare il form delle attività
   resettaForm() {
     this.tempContenuto = ''
     this.tempClickToObject = ''
@@ -283,6 +293,7 @@ export class ConfiguraComponent implements OnInit {
     this.form.reset()
   }
 
+  //Trasforma il file immagine in base64, dopo di che lo passiamo a un servizio che lo porta in un server online, e ci restiruisce il link
   onImagePicked(event: Event, type?) {
     const file = (event.target as HTMLInputElement).files[0];
     this.form.patchValue({ image: file });
@@ -308,6 +319,7 @@ export class ConfiguraComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
+  //metodo per tenere traccia dell'array del dnd e delle risposte
   trackByFn(index: any, item: any) {
     return index;
   }
@@ -350,6 +362,7 @@ export class ConfiguraComponent implements OnInit {
 
   }
 
+  // metodo per aprire alert in fase di cancellazione di attività
   openDialog(j:number) {
     const dialogRef = this.dialog.open(CancellazioneDialog, {
       data: {
@@ -373,6 +386,8 @@ export class ConfiguraComponent implements OnInit {
 export class CancellazioneDialog {
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 
+
+//metodo per eliminare attività tramite splice
   eliminaAttivita(activityId: number): void {
     console.log('cancello: '+activityId);
 
