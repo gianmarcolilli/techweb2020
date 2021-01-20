@@ -1,28 +1,41 @@
 // import { isNullOrUndefined } from 'util';
-import { Component, Injectable, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  Injectable,
+  Input,
+  OnChanges,
+  OnInit,
+  SimpleChanges,
+} from '@angular/core';
 import { timer } from 'rxjs';
 import { VisualizzaComponent } from '../visualizza/visualizza.component';
 
+import { HostListener } from '@angular/core';
 
 @Component({
   moduleId: module.id,
   selector: 'app-image-puzzle',
   templateUrl: './image-puzzle.component.html',
-  styleUrls: ['./image-puzzle.component.scss']
+  styleUrls: ['./image-puzzle.component.scss'],
 })
-
-
 export class ImagePuzzleComponent implements OnInit {
-  @Input('puzzleUrl') imageUrl: string = "";
+  @Input('puzzleUrl') imageUrl: string = '';
   @Input('difficulty') difficulty: string = '2';
 
-  imageSize: number = 500;
+  screenHeight: number;
+  screenWidth: number;
+
+
+
+  imageSize: number;
   gridsize: number = 2;
   boxSize: number = 100 / (this.gridsize - 1);
   index: number = 0;
   totalBoxes: number = this.gridsize * this.gridsize;
   Image: any[] = [];
-  imageName: string = this.imageUrl.substr(this.imageUrl.lastIndexOf('/') + 1).split('.')[0];
+  imageName: string = this.imageUrl
+    .substr(this.imageUrl.lastIndexOf('/') + 1)
+    .split('.')[0];
   steps: number = 0;
   ticks: string = '0:00';
   timer: any = timer(0, 1000);
@@ -32,18 +45,34 @@ export class ImagePuzzleComponent implements OnInit {
   indexes: number[] = [];
   position: number[] = [];
 
-  constructor(private visComp: VisualizzaComponent){ }
+  constructor(private visComp: VisualizzaComponent) {
+    this.getScreenSize();
+    console.log("imageSize:" + this.imageSize)
+  }
+
+  @HostListener('window:resize', ['$event'])
+  getScreenSize(event?) {
+        this.imageSize = window.innerWidth;
+        this.screenHeight = window.innerHeight;
+        console.log(this.imageSize, this.screenHeight);
+
+        this.reset();
+        this.initializeGame();
+        this.breakImageParts();
+        this.reRandomize();
+  }
+
   initImageUrl() {
-    if (this.imageUrl.startsWith("http")) {
-      this.imageUrl = this.imageUrl
-    } else if (this.imageUrl.startsWith("data:image/")) {
-      this.imageUrl = this.imageUrl
+    if (this.imageUrl.startsWith('http')) {
+      this.imageUrl = this.imageUrl;
+    } else if (this.imageUrl.startsWith('data:image/')) {
+      this.imageUrl = this.imageUrl;
     } else {
-      this.imageUrl = "./assets/images/" + this.imageUrl
+      this.imageUrl = './assets/images/' + this.imageUrl;
     }
   }
   ngOnInit() {
-    this.initImageUrl()
+    this.initImageUrl();
     this.startGame();
   }
 
@@ -58,7 +87,9 @@ export class ImagePuzzleComponent implements OnInit {
   }
 
   randomize(imageParts: any[]): any[] {
-    let i = 0, img: any[] = [], ran = 0;
+    let i = 0,
+      img: any[] = [],
+      ran = 0;
     for (i = 0; i < imageParts.length; i++) {
       ran = Math.floor(Math.random() * imageParts.length);
       while (imageParts[ran] == null) {
@@ -80,19 +111,16 @@ export class ImagePuzzleComponent implements OnInit {
     let origin = event.dataTransfer.getData('data');
     let dest = event.target.id;
 
-
     let originEl = document.getElementById(origin);
     let destEl = document.getElementById(dest);
 
     let origincss = originEl.style.cssText;
     let destcss = event.target.style.cssText;
 
-
     destEl.style.cssText = origincss;
     originEl.style.cssText = destcss;
     originEl.id = dest;
     destEl.id = origin;
-
 
     for (let i = 0; i < this.position.length; i++) {
       if (this.position[i].toString() === originEl.id) {
@@ -100,22 +128,20 @@ export class ImagePuzzleComponent implements OnInit {
       } else if (this.position[i].toString() === destEl.id) {
         this.position[i] = Number(originEl.id);
       }
-
     }
 
     this.printIndexes(this.position);
     this.steps++;
     this.gameComplete = this.isSorted(this.position);
     if (this.gameComplete) {
-
       if (this.timeVar) {
         this.timeVar.unsubscribe();
       }
     }
   }
 
-  avanzamentoStep(idQ){
-    if(this.gameComplete){
+  avanzamentoStep(idQ) {
+    if (this.gameComplete) {
       this.visComp.gestisciAvanzamento(undefined);
     }
   }
@@ -126,7 +152,8 @@ export class ImagePuzzleComponent implements OnInit {
   }
 
   printIndexes(sorts: number[]): void {
-    let i: number = 0, ind: string = '';
+    let i: number = 0,
+      ind: string = '';
     for (i = 0; i < sorts.length; i++) {
       ind += sorts[i].toString() + ' , ';
     }
@@ -138,27 +165,33 @@ export class ImagePuzzleComponent implements OnInit {
   }
 
   startGame(): void {
-    this.reset();
-    this.initializeGame();
-    this.breakImageParts();
-    this.reRandomize();
+   this.getScreenSize();
 
     if (this.timeVar) {
       this.timeVar.unsubscribe();
     }
-    this.timeVar = this.timer.subscribe(t => {
+    this.timeVar = this.timer.subscribe((t) => {
       this.settime(t);
     });
   }
 
   settime(t: number): void {
-    this.ticks = Math.floor(t / 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false }) + ':' +
-      (t % 60).toLocaleString('en-US', { minimumIntegerDigits: 2, useGrouping: false });
+    this.ticks =
+      Math.floor(t / 60).toLocaleString('en-US', {
+        minimumIntegerDigits: 2,
+        useGrouping: false,
+      }) +
+      ':' +
+      (t % 60).toLocaleString('en-US', {
+        minimumIntegerDigits: 2,
+        useGrouping: false,
+      });
   }
   breakImageParts(): void {
     for (this.index = 0; this.index < this.totalBoxes; this.index++) {
-      const x: string = (this.boxSize * (this.index % this.gridsize)) + '%';
-      const y: string = (this.boxSize * Math.floor(this.index / this.gridsize)) + '%';
+      const x: string = this.boxSize * (this.index % this.gridsize) + '%';
+      const y: string =
+        this.boxSize * Math.floor(this.index / this.gridsize) + '%';
       let img: ImageBox = new ImageBox();
       img.x_pos = x;
       img.y_pos = y;
@@ -166,11 +199,11 @@ export class ImagePuzzleComponent implements OnInit {
       this.indexes.push(this.index);
       this.Image.push(img);
     }
+
     this.boxSize = this.imageSize / this.gridsize;
   }
 
   initializeGame(): void {
-
     this.gridsize = Number(this.difficulty);
     this.boxSize = 100 / (this.gridsize - 1);
     this.index = 0;
