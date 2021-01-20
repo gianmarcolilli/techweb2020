@@ -1,25 +1,35 @@
 <app-header [my-title]="'Visualizza'"></app-header>
+<p class="title">SCOPRI SE HAI VINTO!!</p>
+<div class="table-container">
 
-<mat-table [dataSource]="dataSource" matSort matSortActive="score" matSortDirection="desc">
 
-  <!-- nomeSquadra Column -->
-  <ng-container matColumnDef="idSquadra">
-    <mat-header-cell *matHeaderCellDef> idSquadra </mat-header-cell>
-    <mat-cell *matCellDef="let game"> {{game.idSquadra}} </mat-cell>
-  </ng-container>
+  <mat-table
+    [dataSource]="dataSource"
+    matSort
+    matSortActive="score"
+    matSortDirection="desc"
+  >
+    <!-- nomeSquadra Column -->
+    <ng-container matColumnDef="idSquadra">
+      <mat-header-cell *matHeaderCellDef>idSquadra </mat-header-cell>
+      <mat-cell *matCellDef="let game"> {{ game.idSquadra }} </mat-cell>
+    </ng-container>
 
-  <!-- idClasse Column -->
-  <ng-container matColumnDef="idClasse">
-    <mat-header-cell *matHeaderCellDef> idClasse </mat-header-cell>
-    <mat-cell *matCellDef="let game"> {{game.idClasse}} </mat-cell>
-  </ng-container>
+    <!-- idClasse Column -->
+    <ng-container matColumnDef="idClasse">
+      <mat-header-cell *matHeaderCellDef>idClasse </mat-header-cell>
+      <mat-cell *matCellDef="let game"> {{ game.idClasse }} </mat-cell>
+    </ng-container>
 
-  <!-- punteggio Column -->
-  <ng-container matColumnDef="score">
-    <mat-header-cell *matHeaderCellDef> score </mat-header-cell>
-    <mat-cell *matCellDef="let game"> {{game.score | number:'1.0-2'}} </mat-cell>
-  </ng-container>
+    <!-- punteggio Column -->
+    <ng-container matColumnDef="score">
+      <mat-header-cell *matHeaderCellDef>Score </mat-header-cell>
+      <mat-cell *matCellDef="let game">
+        {{ game.score | number: "1.0-2" }}
+      </mat-cell>
+    </ng-container>
 
-  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-  <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-</mat-table>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</div>

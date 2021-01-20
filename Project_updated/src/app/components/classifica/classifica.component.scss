@@ -1,3 +1,45 @@
-table {
-  width: 100%;
+@import url("https://fonts.googleapis.com/css2?family=Acme&family=Architects+Daughter&family=Caveat:wght@700&family=Courgette&family=Montserrat:wght@500&family=Patrick+Hand&family=Permanent+Marker&display=swap");
+
+$font-color: #5c5f66;
+$primary-color: #272fa3e7;
+$background: rgba(212, 200, 200, 0.685);
+$fontAcme: "Acme", sans-serif;
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  box-shadow: 1px 0px 2px 1px rgba(16, 18, 44, 0.336),
+    0px 0px 11px 7px rgba(13, 10, 34, 0.315);
+  background-color: $background;
+  border-radius: 5px;
+  margin: 1em 9vw;
+}
+mat-table {
+  width: 80vw;
+  padding: 2vh 2vw;
+  background-color: transparent;
+  font-family: "Acme", sans-serif !important;
+  color: white !important;
+}
+mat-header-cell{
+  color: $font-color;
+  font-size: 5vw;
+  justify-content: center;
+  display: inline-flex;
+  line-height: normal;
+}
+.title{
+  width: 100vw;
+  text-align: center;
+  font-family: "Acme", sans-serif ;
+  color: $font-color;
+  font-size: 8vw;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  justify-content: center;
+}
+mat-cell{
+  color: $font-color;
+  font-size: 1em;
+  justify-content: center;
 }
