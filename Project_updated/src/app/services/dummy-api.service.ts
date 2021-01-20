@@ -20,6 +20,7 @@ export class DummyApiService {
   constructor(public http: HttpClient, private router: Router) { }
 
 
+  //Metodo remapping della storia impiegato per creare corrispondenza tra l' oggetto Storia generato da frontend con lo schema Storia del backend
   reMap(element): Storia {
     let miaStoriaDaRitornare = {
       nome: element.title,
@@ -30,10 +31,11 @@ export class DummyApiService {
       steps: element.attivita
     }
 
-
     return miaStoriaDaRitornare;
   }
 
+
+  //Metodo remapping della storia impiegato per creare corrispondenza tra oggetto backend e oggetto frontend
   reMapForDownload(element) {
     let miaStoriaDaRitornare = {
       title: element.title,
@@ -46,6 +48,7 @@ export class DummyApiService {
     return miaStoriaDaRitornare;
   }
 
+  //Metodo utilizzato dal reMapForDownload per mappare un array di attività ottenute da backend
   reMapActivityForDownload(element: Array<Step>) {
 
     for (let i = 0; i < element.length; i++) {
@@ -55,9 +58,6 @@ export class DummyApiService {
         activityTitle: element[i].activityTitle,
         action: element[i].action,
         backImg: element[i].backImg,
-
-        // actionImg: element[i].actionImg,
-
         //PUZZLE
         puzzleImg: element[i].puzzleImg,
         difficulty: element[i].difficulty,
@@ -87,7 +87,7 @@ export class DummyApiService {
   }
 
 
-  // get
+  // GET
   // ci restituisce tutte le storie
   getStories(): Observable<any> {
     return this.http.get('http://localhost:3000/api/stories/');
@@ -109,7 +109,7 @@ export class DummyApiService {
   }
 
 
-  //put
+  //PUT
   // per salvare le modifiche di una Storia
   updateStoria(storia: Storia) {
     return this.http
@@ -125,10 +125,9 @@ export class DummyApiService {
       })
   }
 
-  //post
+  //POST
   // per creare una nuova Storia
   addNewStory(storyData) {
-
     return this.http.post<{ message: string, storia: Storia }>("http://localhost:3000/api/stories/", storyData)
   }
 
