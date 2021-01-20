@@ -1,106 +1,10 @@
-const { ViewEncapsulation } = require("@angular/core");
 const express = require("express");
-const { create, db } = require("../models/story");
-const mongoose = require("mongoose");
 
 const router = express.Router();
 const Story = require("../models/story");
 
-//Quando viene utilizzato id i-esimo listaId[i] viene settato a true
-//Quando id i-esimo viene liberato listaId[i] viene settao a false
-// let listaId = [];
 
 // //Route definita per il metodo POST.
-// router.post(
-//   "",
-//   // checkAuth,
-//   // multer({ storage: storage }).single("image"),
-//   (req, res, next) => {
-//     const url = req.protocol + "://" + req.get("host");
-
-//     let findQry = Story.find();
-//     let fetchedStories;
-
-//     findQry
-//       .then((documents) => {
-//         fetchedStories = documents;
-//         return Story.count();
-//       })
-//       .then((lunghezza) => {
-
-//         if (lunghezza == 0) {
-//           listaId[0] = true;
-//           listaId[1] = false;
-//           const story = new Story({
-//             title: req.body.title,
-//             didascalia: req.body.didascalia,
-//             fasciaEta: req.body.fasciaEta,
-//             id: 0,
-//             image: req.body.image,
-//             attivita: req.body.attivita,
-//           });
-//           story
-//             .save()
-//             .then((createdStory) => {
-//               res.status(201).json({
-//                 message: "Storia added successfully",
-//                 story: {
-//                   ...createdStory,
-//                   id: 0,
-//                 },
-//               });
-//             })
-//             .catch((e) => {
-//               console.log(e.message);
-//               res.status(500).json({
-//                 message: "Error!",
-//               });
-//             });
-//         } else {
-//           for (let i = 0; i < listaId.length; i++) {
-//             if (listaId[i] == false) {
-//               listaId[i] = true;
-//               if (listaId[i + 1] != true || listaId[i + 1] != "") {
-//                 listaId[i + 1] = false;
-//               }
-//               const story = new Story({
-//                 title: req.body.title,
-//                 didascalia: req.body.didascalia,
-//                 fasciaEta: req.body.fasciaEta,
-//                 id: i,
-//                 image: req.body.image,
-//                 attivita: req.body.attivita,
-//               });
-//               let x = i;
-//               i=listaId.length
-//               story
-//                 .save()
-//                 .then((createdStory) => {
-//                   res.status(201).json({
-//                     message: "Storia added successfully",
-//                     story: {
-//                       ...createdStory,
-//                       id: x,
-//                     },
-//                   });
-
-//                 })
-//                 .catch((e) => {
-//                   console.log(e.message);
-//                   res.status(500).json({
-//                     message: "Error!",
-//                   });
-//                 });
-//             } else if(listaId[i]=="") {
-//               listaId[i]=false
-//             }
-//           }
-//         }
-//       });
-//   }
-// );
-
-
 router.post("", (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
   let findQry = Story.find();
