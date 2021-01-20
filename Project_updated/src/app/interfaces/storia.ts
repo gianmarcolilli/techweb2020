@@ -2,8 +2,8 @@ export interface Step {
   activityId: number,
   activityTitle: string,
   action: string,
-  correctId :  number,
-  wrongId: number,
+  correctId? :  number,
+  wrongId?: number,
 
   backImg?: string,
   // actionImg ?: string,

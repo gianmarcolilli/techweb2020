@@ -151,3 +151,5 @@ export class DummyApiService {
     return this.http.post<any>("https://api.imgur.com/3/image", { image: base64imgStr }, options)
   }
 }
+
+
