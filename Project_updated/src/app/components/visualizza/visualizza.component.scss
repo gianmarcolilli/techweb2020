@@ -47,6 +47,7 @@ mat-card {
     font-weight: bold;
     min-inline-size: max-content;
     outline-style: double;
+    margin: 0 4px;
   }
   .imgCopertina {
     border: solid 5px;
@@ -74,10 +75,19 @@ mat-card {
 }
 .punteggio {
   float: right;
-  width: 100%;
+  width: 50%;
   p {
-    //font-size: 3vw !important;
     float: right;
+  }
+}
+.container-player {
+  width: 50%;
+  float: left;
+  // margin-left: 59vw;
+  // margin-right: 1vw;
+  text-align-last: left;
+  mat-icon {
+    color: $primary-color;
   }
 }
 .backImage {
@@ -163,10 +173,15 @@ mat-card {
     width: 75%;
   }
 }
-
 .title {
+  width: 100vw;
+  text-align: center;
+  font-family: "Acme", sans-serif;
+  color: $font-color;
+  font-size: 8vw;
+  padding-top: .5em;
+  margin-bottom: .5em;
   justify-content: center;
-  width: 100%;
 }
 .mat-list {
   button {
