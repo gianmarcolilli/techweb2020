@@ -1,21 +1,17 @@
 <app-header [my-title]="'Visualizza'"> </app-header>
 
-<!-- <button (click)="refresh()">aggiorna</button> -->
 <section id="mainSection" *ngIf="this.storia">
   <div id="mainContainer" *ngIf="this.currentStepId < 0">
     <div class="copertina">
-      <img style="width: 80vw; height: 80vh;" src="/assets/book.png">
       <div class="storyTitle">
         {{ this.storia.nome }}
       </div>
-      <div class="copertina-responsive">
-        <img class="imgCopertina" [src]="this.storia.urlBackground" />
-      </div>
+      <img class="imgCopertina" [src]="this.storia.urlBackground" />
       <div class="button-container">
         <button
           *ngIf="this.currentStepId < 0"
           mat-raised-button
-          color="primary"
+          color="link"
           (click)="iniziaStep()"
         >
           {{ startText ? startText : "Inizia" }}
@@ -60,12 +56,6 @@
                 this.storia.steps[currentStepId].answers.length > 0
               "
             >
-              <!-- <mat-selection-list #answers>
-        <mat-list-option *ngFor="let answ of this.steps[currentStepId].answers">
-          {{ answ.content }} {{ answ.correct }}
-        </mat-list-option>
-      </mat-selection-list> -->
-
               <mat-list
                 role="list"
                 *ngFor="
@@ -127,7 +117,7 @@
           ></app-dragndrop>
         </mat-card>
       </div>
-
+      <!-- end DnD-->
       <div
         *ngIf="this.storia.steps[currentStepId].action == 'domanda'"
         class="mainContainer"
@@ -167,7 +157,7 @@
           </mat-card-content>
         </mat-card>
       </div>
-
+      <!-- end domanda-->
       <div
         *ngIf="this.storia.steps[currentStepId].action == 'informazione'"
         class="mainContainer"
@@ -200,7 +190,7 @@
           </div>
         </mat-card>
       </div>
-
+      <!-- end informazione-->
       <div
         *ngIf="this.storia.steps[currentStepId].action == 'fine'"
         class="mainContainer"
@@ -233,8 +223,8 @@
           </mat-card-content>
           <button (click)="fine()">Visualizza classifica</button>
         </mat-card>
-
       </div>
+      <!-- end fine-->
       <div *ngFor="let item of this.arrayPlayers; index as k">
         <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
       </div>
