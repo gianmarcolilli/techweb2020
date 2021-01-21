@@ -47,6 +47,7 @@ mat-card {
     font-weight: bold;
     min-inline-size: max-content;
     outline-style: double;
+    margin: 0 4px;
   }
   .imgCopertina {
     border: solid 5px;
@@ -178,8 +179,8 @@ mat-card {
   font-family: "Acme", sans-serif;
   color: $font-color;
   font-size: 8vw;
-  margin-top: 1em;
-  margin-bottom: 1em;
+  padding-top: .5em;
+  margin-bottom: .5em;
   justify-content: center;
 }
 .mat-list {
