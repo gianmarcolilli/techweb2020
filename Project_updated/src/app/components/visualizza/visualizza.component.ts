@@ -42,6 +42,9 @@ export class VisualizzaComponent implements OnInit {
   timestampGlobale: number = Date.now();
   stepStartAt: number;
 
+  okClassifica=false
+  idClasse:number;
+
   constructor(private activeRoute: ActivatedRoute, private apiDb: DummyApiService, private router: Router) { }
 
   //Metodo refresh della storia tramite get del servizio dummyApi.
@@ -78,6 +81,7 @@ export class VisualizzaComponent implements OnInit {
           res => {
 
             if (!res) return;
+            this.idClasse = res.idClasse
             this.numeroPlayers = res.numeroPlayer
             this.arrayPlayers = this.array(res.numeroPlayer)
             this.variabileOk = res.variabileOk

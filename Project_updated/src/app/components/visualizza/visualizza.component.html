@@ -238,21 +238,12 @@
             <div class="typing-text">
               <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
             </div>
-            <section
-              *ngIf="this.storia.steps[currentStepId].action == 'fine'"
-              ||
-              tipologiaGruppo
-              !="individuale"
-            >
-              <button (click)="fine()">Visualizza classifica</button>
+            <section  *ngIf="this.storia.steps[currentStepId].action == 'fine' && idPartita !=-1">
+              <button  mat-raised-button
+              color="primary" (click)="this.okClassifica=true">Visualizza classifica</button>
             </section>
+            <app-classifica *ngIf="this.okClassifica" [idClasse]="this.idClasse"></app-classifica>
           </mat-card-content>
-          <button
-          mat-raised-button
-          color="primary"
-          (click)="fine()"
-          >
-          Visualizza classifica</button>
         </mat-card>
       </div>
       <!-- end fine-->
