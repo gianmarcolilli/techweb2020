@@ -16,8 +16,9 @@
           'background-image': 'url(' + imageUrl + ') ',
           'background-repeat': 'no-repeat',
           'background-position': '' + img.x_pos + ' ' + img.y_pos + '',
-          'background-size': '' + gridsize * 100 + '% ' + gridsize * 100 + '%'
+          'background-size': boxSize*3+ 'px ' + boxSize*3+ 'px'
         }"
+
       ></li>
     </ul>
     <div class="successMessage" *ngIf="gameComplete">
