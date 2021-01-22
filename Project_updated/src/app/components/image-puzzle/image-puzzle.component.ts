@@ -45,10 +45,7 @@ export class ImagePuzzleComponent implements OnInit {
   indexes: number[] = [];
   position: number[] = [];
 
-  //Metodo di inizializzazione URL
-  //Risorsa web
-  //Risorsa codificata (esempio base64)
-  //Risorsa locale
+
   constructor(private visComp: VisualizzaComponent) {
     this.getScreenSize();
     console.log("imageSize:" + this.imageSize)
@@ -66,6 +63,10 @@ export class ImagePuzzleComponent implements OnInit {
         this.reRandomize();
   }
 
+  //Metodo di inizializzazione URL
+  //Risorsa web
+  //Risorsa codificata (esempio base64)
+  //Risorsa locale
   initImageUrl() {
     if (this.imageUrl.startsWith('http')) {
       this.imageUrl = this.imageUrl;
