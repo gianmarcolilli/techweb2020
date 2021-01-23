@@ -53,14 +53,14 @@ export class ImagePuzzleComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?) {
-        this.imageSize = window.innerWidth;
-        this.screenHeight = window.innerHeight;
-        console.log(this.imageSize, this.screenHeight);
+    this.reset();
+    this.imageSize = window.innerWidth * 0.8;
+    this.screenHeight = window.innerHeight;
+    console.log(this.imageSize, this.screenHeight);
 
-        this.reset();
-        this.initializeGame();
-        this.breakImageParts();
-        this.reRandomize();
+    this.initializeGame();
+    this.breakImageParts();
+    this.reRandomize();
   }
 
   //Metodo di inizializzazione URL
@@ -157,7 +157,7 @@ export class ImagePuzzleComponent implements OnInit {
 
   avanzamentoStep(idQ) {
     if (this.gameComplete) {
-  //Metodo del visualizzaComponent
+      //Metodo del visualizzaComponent
       this.visComp.gestisciAvanzamento(undefined);
     }
   }
@@ -188,7 +188,7 @@ export class ImagePuzzleComponent implements OnInit {
   //-reRandomize scomposizione degli indici delle posizioni dei blocchi
   //-nuova sottoscrizione al timer timeVar
   startGame(): void {
-   this.getScreenSize();
+    this.getScreenSize();
 
     if (this.timeVar) {
       this.timeVar.unsubscribe();
