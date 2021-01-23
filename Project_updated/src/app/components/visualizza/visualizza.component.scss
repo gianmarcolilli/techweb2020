@@ -75,20 +75,22 @@ mat-card {
 }
 .punteggio {
   float: right;
-  width: 50%;
+  width: 65%;
   p {
     float: right;
   }
 }
 .container-player {
-  width: 50%;
+  width: 35%;
   float: left;
-  // margin-left: 59vw;
-  // margin-right: 1vw;
   text-align-last: left;
   mat-icon {
     color: $primary-color;
   }
+}
+.header-matcard{
+  width: 100%;
+  margin-bottom: 3em;
 }
 .backImage {
   position: relative;
@@ -163,14 +165,17 @@ mat-card {
   width: 95% !important;
 }
 .img-responsive {
-  max-height: 50vh;
+  //max-height: 50vh;
   margin: 0.8em;
   border-radius: 8px;
   box-shadow: 1px 3px 23px 1px rgba(16, 18, 44, 0.336),
     4px 3px 25px 21px rgba(13, 10, 34, 0.315);
 
   @media (max-width: 600px) {
-    width: 75%;
+    max-width: 90%;
+  }
+  @media (min-width: 600px) {
+    max-width: 80%;
   }
 }
 .title {
