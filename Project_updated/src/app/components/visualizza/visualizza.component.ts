@@ -5,6 +5,7 @@ import { startWith, switchMap } from 'rxjs/operators';
 import { Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { NgForm } from "@angular/forms";
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
   selector: 'app-visualizza',
@@ -42,7 +43,10 @@ export class VisualizzaComponent implements OnInit {
   timestampGlobale: number = Date.now();
   stepStartAt: number;
 
-  constructor(private activeRoute: ActivatedRoute, private apiDb: DummyApiService, private router: Router) { }
+  okClassifica=false
+  idClasse:number;
+
+  constructor(private device :DeviceDetectorService,private activeRoute: ActivatedRoute, private apiDb: DummyApiService, private router: Router) { }
 
   //Metodo refresh della storia tramite get del servizio dummyApi.
   //Questo metodo ha la funzione di rimanere in ascolto di eventuali modifiche lato database e permette ai players di visualizzare gli avanzamenti di squadra.
@@ -58,6 +62,8 @@ export class VisualizzaComponent implements OnInit {
 
 
   ngOnInit(): void {
+    let info = this.device.getDeviceInfo()
+    console.log(info)
     this.stepStartAt = Date.now()
     this.resetStepTimer();
 
@@ -78,6 +84,7 @@ export class VisualizzaComponent implements OnInit {
           res => {
 
             if (!res) return;
+            this.idClasse = res.idClasse
             this.numeroPlayers = res.numeroPlayer
             this.arrayPlayers = this.array(res.numeroPlayer)
             this.variabileOk = res.variabileOk

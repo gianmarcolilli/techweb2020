@@ -46,8 +46,11 @@ div .img-story {
 img {
   grid-area: "image";
   object-fit: contain;
-  width: 80%;
+
   max-height: auto;
+}
+button{
+  font-family: "Montserrat", sans-serif !important;
 }
 
 @media (min-width: 991px) {

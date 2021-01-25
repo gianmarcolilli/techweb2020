@@ -20,6 +20,7 @@ export class DummyApiService {
   constructor(public http: HttpClient, private router: Router) { }
 
 
+  //Metodo remapping della storia impiegato per creare corrispondenza tra l' oggetto Storia generato da frontend con lo schema Storia del backend
   reMap(element): Storia {
     let miaStoriaDaRitornare = {
       nome: element.title,
@@ -30,10 +31,11 @@ export class DummyApiService {
       steps: element.attivita
     }
 
-
     return miaStoriaDaRitornare;
   }
 
+
+  //Metodo remapping della storia impiegato per creare corrispondenza tra oggetto backend e oggetto frontend
   reMapForDownload(element) {
     let miaStoriaDaRitornare = {
       title: element.title,
@@ -46,6 +48,7 @@ export class DummyApiService {
     return miaStoriaDaRitornare;
   }
 
+  //Metodo utilizzato dal reMapForDownload per mappare un array di attività ottenute da backend
   reMapActivityForDownload(element: Array<Step>) {
 
     for (let i = 0; i < element.length; i++) {
@@ -55,9 +58,6 @@ export class DummyApiService {
         activityTitle: element[i].activityTitle,
         action: element[i].action,
         backImg: element[i].backImg,
-
-        // actionImg: element[i].actionImg,
-
         //PUZZLE
         puzzleImg: element[i].puzzleImg,
         difficulty: element[i].difficulty,
@@ -76,35 +76,41 @@ export class DummyApiService {
     }
     return element
   }
-
   // delete
+  // per eliminare una storia verificando l'id
   deleteStory(id: number) {
     return this.http.delete('http://localhost:3000/api/stories/' + id);
   }
+  //per eliminare un attività verificando l'id
   deleteActivity(activityId: number) {
     return this.http.delete('http://localhost:3000/api/stories/' + activityId);
   }
 
 
-  // get
+  // GET
+  // ci restituisce tutte le storie
   getStories(): Observable<any> {
     return this.http.get('http://localhost:3000/api/stories/');
   }
 
+  // ci restituisce la singola storia,verificando l'id
   getStoria(id: number): Observable<any> {
     return this.http.get("http://localhost:3000/api/stories/" + id)
   }
 
+  //ci restituisce tutte le partite
   getGames(): Observable<any> {
     return this.http.get('http://localhost:3000/api/games/');
   }
 
+  //ci restituisce la singola partita,verificando l'id
   getGame(id: number): Observable<any> {
     return this.http.get("http://localhost:3000/api/games/" + id)
   }
 
 
-  //put
+  //PUT
+  // per salvare le modifiche di una Storia
   updateStoria(storia: Storia) {
      let headers = new HttpHeaders().set("Authorization", 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5pdCIsInVzZXJJZCI6IjVmYmZkM2YwZGUwNjRiMzRhNDE4ZTJkYiIsImlhdCI6MTYxMTA3MjA3NSwiZXhwIjoxNjExMDc1Njc1fQ.dLyXbhY_q6ptcBZP226Y3IP8Ds1d0eNJN096C_3MhEE')
      let options = { headers: headers };
@@ -112,7 +118,7 @@ export class DummyApiService {
     return this.http
       .put("http://localhost:3000/api/stories/" + storia.id, storia, options)
   }
-
+ // per salvare le modifiche di una partita nel caso in cui la partita è di tipologia Gruppo o Classe
   updateGame(idPartita: number, prossimoId: number, punteggio: number) {
     console.log("da frontend mando : " + punteggio)
     return this.http
@@ -122,12 +128,13 @@ export class DummyApiService {
       })
   }
 
-  //post
+  //POST
+  // per creare una nuova Storia
   addNewStory(storyData) {
-
     return this.http.post<{ message: string, storia: Storia }>("http://localhost:3000/api/stories/", storyData)
   }
 
+  //per creare una nuova partita
   addNewGame(idSquadra: Number, idClasse: Number, idPartita: Number, numeroPlayer: Number) {
     const gameData = {
       idSquadra: idSquadra,
@@ -138,7 +145,7 @@ export class DummyApiService {
     return this.http.post<{ message: string, game: Game }>("http://localhost:3000/api/games/", gameData)
   }
 
-
+//per caricare un immagine tramite il metodo post
   uploadImage(base64imgStr: String) {
     // let headers = new HttpHeaders().set("Authorization", 'Bearer d4e418b1180149c2f908769861db2fa0d6a60ec2')
     // let options = { headers: headers };
@@ -149,3 +156,5 @@ export class DummyApiService {
     return this.http.post<any>("https://api.imgur.com/3/image", { image: base64imgStr })
   }
 }
+
+
