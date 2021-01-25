@@ -37,6 +37,7 @@ export class AutoreComponent implements OnInit {
 
   userId: string;
   userIsAuthenticated = false;
+  imgurComplete = false;
   private authStatusSub: Subscription;
 
   constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService, private router: Router, private http: HttpClient, public dialog: MatDialog, private authService: AuthService) {}
