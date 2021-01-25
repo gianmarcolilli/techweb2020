@@ -4,7 +4,7 @@ import { AutoreComponent } from './components/autore/autore.component';
 import { PlayerComponent } from './components/player/player.component';
 import { HomePageComponent } from './components/home-page/home-page.component';
 import { VisualizzaComponent } from './components/visualizza/visualizza.component';
-import { ConfiguraComponent } from './components/configura/configura.component';
+import { ConfiguraComponent } from './components/autore/configura/configura.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { AuthGuard } from "./components/auth/auth.guard";
 import { SignupComponent } from './components/auth/signup/signup.component';
@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: "player/:tipo/:fascia/:traccia/:mode", component:PlayerComponent},
   { path: "player/:tipo/:fascia/:traccia", component:PlayerComponent},
 
-  { path: "configura/:id", component: ConfiguraComponent},
+  { path: "configura/:id", component: ConfiguraComponent , canActivate: [AuthGuard] },
   { path: "login", component: LoginComponent},
   { path: "signup", component: SignupComponent },
   { path: "classifica", component: ClassificaComponent }

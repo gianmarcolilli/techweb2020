@@ -1,38 +1,37 @@
-import { Subscription } from 'rxjs';
-import { Component } from "@angular/core";
+import { Component, OnDestroy, OnInit } from "@angular/core";
 import { NgForm } from "@angular/forms";
-
-import { AuthService } from "../auth.service";
+import { Subscription } from 'rxjs';
+import { AuthService } from '../auth.service';
 
 @Component({
-  selector: 'form-field-error-example',
-  templateUrl: "./login.component.html",
-  styleUrls: ["./login.component.scss"]
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
-  isLoading = false;
-  titolo: string = "Login";
-  private authStatusSub : Subscription;
-  constructor(public authService: AuthService) {}
 
-  //metodo per effettuare il Login ,verificando la validità
-  onLogin(form: NgForm) {
+export class LoginComponent {
+  isLoading=false;
+  titolo: string = 'Login'
+  private authStatusSub: Subscription;
+
+  constructor(public authService:AuthService){}
+
+  ngOnInit(): void {
+    this.authStatusSub =  this.authService.getAuthStatusListener().subscribe(
+      authStatus => {
+        this.isLoading= false;
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.authStatusSub.unsubscribe();
+  }
+
+  onLogin(form: NgForm){
     if (form.invalid) {
       return;
     }
-    this.isLoading = true;
+    this.isLoading=true;
     this.authService.login(form.value.email, form.value.password);
   }
-
-  ngOnInit(): void {
-    this.authStatusSub = this.authService.getAuthStatusListener()
-      .subscribe(authStatus => {
-        this.isLoading= false
-      }
-    )
-  }
 }
-
-
-
-
