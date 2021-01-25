@@ -7,8 +7,9 @@ const Game = require("../models/game");
 
 const router = express.Router();
 
+const checkAuth = require("../middleware/check-auth");
 //Route definita per il metodo POST.
-router.post("", (req, res, next) => {
+router.post("",checkAuth, (req, res, next) => {
   const url = req.protocol + "://" + req.get("host");
   let findQry = Game.find();
 
@@ -46,7 +47,7 @@ router.post("", (req, res, next) => {
 });
 
 //Route definita per il metodo PUT.
-router.put("/:idPartita", (req, res, next) => {
+router.put("/:idPartita",checkAuth, (req, res, next) => {
   const game = Game.findOne({
     idPartita: req.params.idPartita,
   }).then((game) => {

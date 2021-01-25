@@ -36,13 +36,17 @@
         class="mainContainer"
       >
         <mat-card>
-          <div class="container-player">
-            <div *ngFor="let item of this.arrayPlayers; index as k">
-              <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
+          <div class="header-matcard">
+            <div class="container-player">
+              <div *ngFor="let item of this.arrayPlayers; index as k">
+                <mat-icon [ngClass]="{ green: k < variabileOk }"
+                  >person</mat-icon
+                >
+              </div>
             </div>
-          </div>
-          <div class="punteggio">
-            <p>Punteggio : {{ this.punteggio }}</p>
+            <div class="punteggio">
+              <p>Punteggio : {{ this.punteggio }}</p>
+            </div>
           </div>
           <div class="typing-text">
             <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
@@ -82,15 +86,20 @@
       <div
         *ngIf="this.storia.steps[currentStepId].action == 'puzzle'"
         class="mainContainer"
+        #myIdentifier
       >
         <mat-card>
-          <div class="container-player">
-            <div *ngFor="let item of this.arrayPlayers; index as k">
-              <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
+          <div class="header-matcard">
+            <div class="container-player">
+              <div *ngFor="let item of this.arrayPlayers; index as k">
+                <mat-icon [ngClass]="{ green: k < variabileOk }"
+                  >person</mat-icon
+                >
+              </div>
             </div>
-          </div>
-          <div class="punteggio">
-            <p>Punteggio : {{ this.punteggio }}</p>
+            <div class="punteggio">
+              <p>Punteggio : {{ this.punteggio }}</p>
+            </div>
           </div>
           <div class="typing-text">
             <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
@@ -109,13 +118,17 @@
         class="mainContainer"
       >
         <mat-card>
-          <div class="container-player">
-            <div *ngFor="let item of this.arrayPlayers; index as k">
-              <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
+          <div class="header-matcard">
+            <div class="container-player">
+              <div *ngFor="let item of this.arrayPlayers; index as k">
+                <mat-icon [ngClass]="{ green: k < variabileOk }"
+                  >person</mat-icon
+                >
+              </div>
             </div>
-          </div>
-          <div class="punteggio">
-            <p>Punteggio : {{ this.punteggio }}</p>
+            <div class="punteggio">
+              <p>Punteggio : {{ this.punteggio }}</p>
+            </div>
           </div>
           <div class="typing-text">
             <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
@@ -138,13 +151,17 @@
         class="mainContainer"
       >
         <mat-card>
-          <div class="container-player">
-            <div *ngFor="let item of this.arrayPlayers; index as k">
-              <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
+          <div class="header-matcard">
+            <div class="container-player">
+              <div *ngFor="let item of this.arrayPlayers; index as k">
+                <mat-icon [ngClass]="{ green: k < variabileOk }"
+                  >person</mat-icon
+                >
+              </div>
             </div>
-          </div>
-          <div class="punteggio">
-            <p>Punteggio : {{ this.punteggio }}</p>
+            <div class="punteggio">
+              <p>Punteggio : {{ this.punteggio }}</p>
+            </div>
           </div>
           <div class="typing-text">
             <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
@@ -183,13 +200,17 @@
         class="mainContainer"
       >
         <mat-card>
-          <div class="container-player">
-            <div *ngFor="let item of this.arrayPlayers; index as k">
-              <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
+          <div class="header-matcard">
+            <div class="container-player">
+              <div *ngFor="let item of this.arrayPlayers; index as k">
+                <mat-icon [ngClass]="{ green: k < variabileOk }"
+                  >person</mat-icon
+                >
+              </div>
             </div>
-          </div>
-          <div class="punteggio">
-            <p>Punteggio : {{ this.punteggio }}</p>
+            <div class="punteggio">
+              <p>Punteggio : {{ this.punteggio }}</p>
+            </div>
           </div>
           <div class="backImage">
             <img
@@ -234,24 +255,28 @@
           </div>
           <mat-card-content>
             <!-- step corrente {{ this.currentStepId }} -->
-            <div class="typing-text">
+            <!-- <div class="typing-text">
               <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
-            </div>
+            </div> -->
             <section
-              *ngIf="this.storia.steps[currentStepId].action == 'fine'"
-              ||
-              tipologiaGruppo
-              !="individuale"
+              *ngIf="
+                this.storia.steps[currentStepId].action == 'fine' &&
+                idPartita != -1
+              "
             >
-              <button (click)="fine()">Visualizza classifica</button>
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="this.okClassifica = true"
+              >
+                Visualizza classifica
+              </button>
             </section>
+            <app-classifica
+              *ngIf="this.okClassifica"
+              [idClasse]="this.idClasse"
+            ></app-classifica>
           </mat-card-content>
-          <button
-          mat-raised-button
-          color="primary"
-          (click)="fine()"
-          >
-          Visualizza classifica</button>
         </mat-card>
       </div>
       <!-- end fine-->
