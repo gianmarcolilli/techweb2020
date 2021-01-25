@@ -1,15 +1,13 @@
 <div class="imagePuzzle">
   <div class="unsolvedPuzzle">
     <h1 class="sectionName">{{ imageName }}</h1>
-    <ul class="puzzle" dropzone="true">
+    <ul class="puzzle" (cdkDropListDropped)="drop($event)">
       <li
         *ngFor="let img of Image"
         class="box"
         [draggable]="true"
         [id]="img.index"
-        (dragstart)="onDragStart($event)"
-        (drop)="onDrop($event)"
-        (dragover)="allowDrop($event)"
+        cdkDrag
         [style.width.px]="boxSize"
         [style.height.px]="boxSize"
         [ngStyle]="{
@@ -21,7 +19,7 @@
 
       ></li>
     </ul>
-    <div class="successMessage" *ngIf="gameComplete">
+    <div class="successMessage" *ngIf="isCompleted">
       <p>Game Complete.</p>
       <br />
       <p>You completed the game in time = {{ ticks }} & {{ steps }} steps.</p>
@@ -29,9 +27,24 @@
         <i class="material-icons" (click)="avanzamentoStep()">play_arrow</i>
       </button>
     </div>
-    <div *ngIf="!gameComplete" class="score-detail">
+    <div *ngIf="!isCompleted" class="score-detail">
       <p>Time Spent: {{ ticks }}</p>
       <p>Steps : {{ steps }}</p>
     </div>
   </div>
 </div>
+
+
+<!-- {{Image}}
+<div cdkDropList   class="example-list" (cdkDropListDropped)="drop($event)">
+  <div class="example-box" *ngFor="let item of this.Image; index as k" cdkDrag [ngClass]="{ green: k == item.posizione }">
+    <h3 >{{item.desc}}</h3>
+  </div>
+</div>
+<div class="successMessage" *ngIf="isCompleted">
+  <p>Game Complete.</p>
+  <p>You completed the game in time = {{ steps }} steps.</p>
+  <button mat-fab color="primary" class="my-fab-button">
+    <i class="material-icons" (click)="avanzamentoStep()">play_arrow</i>
+  </button>
+</div> -->
