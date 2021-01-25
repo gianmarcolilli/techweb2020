@@ -298,12 +298,18 @@ export class ImagePuzzleComponent implements OnInit {
   //Metodo chiamato ogni volta che sposto una tessera (drop appunto significa rilascio)
   drop(event: CdkDragDrop<number[]>) {
     this.steps++
-    console.log(event.previousIndex, event.currentIndex);
-
+    console.log(event.previousIndex, event.currentIndex, document.getElementById(String(event.previousIndex)));
 
     // this.Image[event.previousIndex].push(this.Image[event.])
 
-    moveItemInArray(this.Image, event.previousIndex, event.currentIndex);
+    // let origin = event.previousIndex;
+    // let dest = indice;
+
+    // let img:ImageBox = this.Image[event.previousIndex]
+    // this.Image[event.previousIndex].push(this.Image[indice]);
+    // this.Image[indice].push(img);
+
+     moveItemInArray(this.Image, event.previousIndex, event.currentIndex);
     this.isCompleted = this.verifyAccomplishment()
   }
 
@@ -427,8 +433,8 @@ export class ImagePuzzleComponent implements OnInit {
 
   ngOnInit(): void {
     this.imageName = this.imageUrl
-    .substr(this.imageUrl.lastIndexOf('/') + 1)
-    .split('.')[0];
+      .substr(this.imageUrl.lastIndexOf('/') + 1)
+      .split('.')[0];
     this.initImageUrl();
     this.startGame();
   }
