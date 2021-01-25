@@ -298,12 +298,17 @@ export class ImagePuzzleComponent implements OnInit {
   //Metodo chiamato ogni volta che sposto una tessera (drop appunto significa rilascio)
   drop(event: CdkDragDrop<number[]>) {
     this.steps++
+    console.log(event.previousIndex, event.currentIndex);
+
+
+    // this.Image[event.previousIndex].push(this.Image[event.])
+
     moveItemInArray(this.Image, event.previousIndex, event.currentIndex);
     this.isCompleted = this.verifyAccomplishment()
   }
 
   //Permette di accedere allo step successivo
-  avanzamentoStep(idQ) {
+  avanzamentoStep() {
     if (this.isCompleted) {
       this.visComp.gestisciAvanzamento(undefined);
     }
@@ -341,7 +346,7 @@ export class ImagePuzzleComponent implements OnInit {
   }
 
   initializeGame(): void {
-    this.boxSize = this.imageSize / this.difficulty
+    this.boxSize = 100 / (this.difficulty - 1);
     this.index = 0;
     this.totalBoxes = this.difficulty * this.difficulty;
   }
@@ -349,8 +354,8 @@ export class ImagePuzzleComponent implements OnInit {
 
   breakImageParts() {
     for (this.index = 0; this.index < this.totalBoxes; this.index++) {
-      const x: string = this.boxSize * (this.index % this.difficulty) + '%';
-      const y: string = this.boxSize * Math.floor(this.index / this.difficulty) + '%';
+      const x: string = (this.boxSize * (this.index % (this.difficulty))) + '%';
+      const y: string = (this.boxSize * Math.floor(this.index / (this.difficulty))) + '%';
       let img: ImageBox = new ImageBox();
       img.x_pos = x;
       img.y_pos = y;
@@ -358,6 +363,7 @@ export class ImagePuzzleComponent implements OnInit {
       this.indexes.push(this.index);
       this.Image.push(img);
     }
+    this.boxSize = this.imageSize / this.difficulty;
   }
 
   reRandomize(): void {
