@@ -57,7 +57,6 @@ import { DragndropComponent } from './components/dragndrop/dragndrop.component';
 import { ClassificaComponent } from './components/classifica/classifica.component';
 
 import { AuthInterceptor } from "./components/auth/auth-interceptor";
-import { ImgurInterceptor } from "./components/autore/imgur-interceptor";
 
 @NgModule({
   declarations: [
@@ -129,7 +128,6 @@ import { ImgurInterceptor } from "./components/autore/imgur-interceptor";
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
-    {provide: HTTP_INTERCEPTORS, useClass: ImgurInterceptor, multi:true},
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}}
   ],
