@@ -11,6 +11,7 @@ import { timer } from 'rxjs';
 import { VisualizzaComponent } from '../visualizza/visualizza.component';
 
 import { HostListener } from '@angular/core';
+import { CdkDragDrop } from '@angular/cdk/drag-drop';
 
 @Component({
   moduleId: module.id,
@@ -44,6 +45,8 @@ export class ImagePuzzleComponent implements OnInit {
 
   indexes: number[] = [];
   position: number[] = [];
+
+  data:number;
 
 
   constructor(private visComp: VisualizzaComponent) {
@@ -116,26 +119,34 @@ export class ImagePuzzleComponent implements OnInit {
   //Metodo di settaggio dati realitivi all' operazione di trascinamento e salvati in oggetto DataTransfer
   onDragStart(event: any): void {
     event.dataTransfer.setData('data', event.target.id);
+    console.log(event.target.id);
+
+    this.data = event.target.id
+
   }
 
   //Metodo get dei dati di trascinamento utilizzato per il confronto con il documento origine
   //se tutte le posizioni combaciano col file origine gameComplete viene settato a true
   //ogni azione avvalora di 1 il numero di step impiegati
   //timeVar registra il tempo impiegato a completare il puzzle
-  onDrop(event: any): void {
-    let origin = event.dataTransfer.getData('data');
-    let dest = event.target.id;
+  onDrop(event: CdkDragDrop<number[]>): void {
 
-    let originEl = document.getElementById(origin);
-    let destEl = document.getElementById(dest);
+    let origin = event.previousIndex
+    let dest = this.data;
+
+    let originEl = document.getElementById(String(origin));
+    let destEl = document.getElementById(String(dest));
+
+    console.log(origin, dest);
+
 
     let origincss = originEl.style.cssText;
-    let destcss = event.target.style.cssText;
+    let destcss = destEl.style.cssText;
 
     destEl.style.cssText = origincss;
     originEl.style.cssText = destcss;
-    originEl.id = dest;
-    destEl.id = origin;
+    originEl.id = String(dest);
+    destEl.id = String(origin);
 
     for (let i = 0; i < this.position.length; i++) {
       if (this.position[i].toString() === originEl.id) {
@@ -162,10 +173,10 @@ export class ImagePuzzleComponent implements OnInit {
     }
   }
 
-  allowDrop(event): void {
-    event.preventDefault();
-    event.target.style.opacity = 1;
-  }
+  // allowDrop(event): void {
+  //   event.preventDefault();
+  //   event.target.style.opacity = 1;
+  // }
 
   //Metodo di stampa degli indici
   printIndexes(sorts: number[]): void {

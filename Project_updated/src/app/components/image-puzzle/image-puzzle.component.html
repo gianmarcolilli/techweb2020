@@ -1,15 +1,15 @@
 <div class="imagePuzzle">
   <div class="unsolvedPuzzle">
     <h1 class="sectionName">{{ imageName }}</h1>
-    <ul class="puzzle" dropzone="true">
+    <ul class="puzzle" dropzone="true" cdkDropList  (cdkDropListDropped)="onDrop($event)" >
       <li
         *ngFor="let img of Image"
         class="box"
-        [draggable]="true"
+
         [id]="img.index"
-        (dragstart)="onDragStart($event)"
-        (drop)="onDrop($event)"
-        (dragover)="allowDrop($event)"
+        cdkDrag
+
+
         [style.width.px]="boxSize"
         [style.height.px]="boxSize"
         [ngStyle]="{
