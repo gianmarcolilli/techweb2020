@@ -1,7 +1,7 @@
 <div class="imagePuzzle">
   <div class="unsolvedPuzzle">
     <h1 class="sectionName">{{ imageName }}</h1>
-    <ul class="puzzle" cdkDropList (cdkDropListDropped)="drop($event)">
+    <ul class="puzzle" cdkDropList (cdkDropListDropped)="drop($event)" [ngStyle]="{'width':''+imageSize+'px'}">
       <li
         *ngFor="let img of Image;  index as k"
         class="box"
