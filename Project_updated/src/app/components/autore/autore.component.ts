@@ -10,6 +10,7 @@ import { Subscription } from 'rxjs';
 import { saveAs } from 'file-saver/dist/FileSaver';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-autore',
@@ -34,10 +35,12 @@ export class AutoreComponent implements OnInit {
   imagePreview: string;
   getStorySubscription: Subscription;
 
-  imgurComplete: boolean = false
+  userId: string;
+  userIsAuthenticated = false;
+  imgurComplete = false;
+  private authStatusSub: Subscription;
 
-
-  constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService, private router: Router, private http: HttpClient, public dialog: MatDialog) { }
+  constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService, private router: Router, private http: HttpClient, public dialog: MatDialog, private authService: AuthService) {}
 
   //Trasforma il file immagine in base64, dopo di che lo passiamo a un servizio che lo porta in un server online, e ci restiruisce il link
   onImagePicked(event: Event) {
@@ -191,6 +194,15 @@ export class AutoreComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.userId = this.authService.getUserId();
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authStatusSub = this.authService
+      .getAuthStatusListener()
+      .subscribe(isAuthenticated => {
+        this.userIsAuthenticated = isAuthenticated;
+        this.userId = this.authService.getUserId();
+      });
 
     this.form = new FormGroup({
       myTempDidascalia: new FormControl(null, {

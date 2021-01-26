@@ -1,9 +1,8 @@
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-// import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 
@@ -50,12 +49,14 @@ import { HomePageComponent } from './components/home-page/home-page.component';
 import { ModificaComponent } from './components/autore/modifica/modifica.component';
 import { HeaderComponent } from './components/header/header.component';
 import { PlayerComponent } from './components/player/player.component';
-import { ConfiguraComponent, CancellazioneDialog } from './components/configura/configura.component';
+import { ConfiguraComponent, CancellazioneDialog } from './components/autore/configura/configura.component';
 import { ImagePuzzleComponent } from './components/image-puzzle/image-puzzle.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { DragndropComponent } from './components/dragndrop/dragndrop.component';
 import { ClassificaComponent } from './components/classifica/classifica.component';
+
+import { AuthInterceptor } from "./components/auth/auth-interceptor";
 
 @NgModule({
   declarations: [
@@ -126,6 +127,7 @@ import { ClassificaComponent } from './components/classifica/classifica.componen
   ],
   schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}}
   ],

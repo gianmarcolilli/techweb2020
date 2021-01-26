@@ -3,10 +3,14 @@ const express = require("express");
 const router = express.Router();
 const Story = require("../models/story");
 
+const checkAuth = require("../middleware/check-auth");
 
 // //Route definita per il metodo POST.
-router.post("", (req, res, next) => {
-  const url = req.protocol + "://" + req.get("host");
+router.post(
+  "",
+  checkAuth,
+  (req, res, next) => {
+    const url = req.protocol + "://" + req.get("host");
   let findQry = Story.find();
 
   findQry
@@ -41,7 +45,7 @@ router.post("", (req, res, next) => {
 });
 
 //Route definita per il metodo PUT.
-router.put("/:id", (req, res, next) => {
+router.put("/:id",checkAuth, (req, res, next) => {
   Story.updateOne(
     { id: req.params.id },
     {
@@ -123,7 +127,7 @@ router.get("/:id", (req, res, next) => {
 });
 
 //Route definita per il metodo DELETE.
-router.delete("/:id", (req, res, next) => {
+router.delete("/:id",checkAuth, (req, res, next) => {
   Story.deleteOne({ id: req.params.id }).then((result) => {
     if (result.n > 0) {
       res.status(200).json({ message: "Deletion successful!" });
