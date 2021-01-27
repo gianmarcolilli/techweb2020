@@ -1,0 +1,37 @@
+<p>puzzle works!</p>
+<h1>Drag&Drop with a flex-wrap</h1>
+
+<ul class="example-list"><li *ngFor="let item of items">{{ item }}</li></ul>
+
+<div class="example-container" cdkDropListGroup>
+  <div [ngStyle]="{'width':''+imageSize+'px'}" cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)"></div>
+  <div  cdkDropList *ngFor="let itm of items;index as i"
+       [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)">
+    <div cdkDrag class="example-box" (cdkDragMoved)="dragMoved($event);"
+    [style.width.px]="boxSize"
+    [style.height.px]="boxSize"
+    [ngStyle]="{
+      'background-image': 'url(' + imageUrl + ') ',
+      'background-repeat': 'no-repeat',
+      'background-position': '' + Image[itm-1].x_pos + ' ' + Image[itm-1].y_pos + '',
+      'background-size': '' + difficulty * 100 + '% ' + difficulty * 100 + '%'
+    }">
+    {{itm}}  pos : {{i}}
+
+  <span *ngIf="itm == i+1"> Corretto! </span>
+  </div>
+  </div>
+</div>
+
+<div class="successMessage" *ngIf="isCompleted">
+  <p>Game Complete.</p>
+  <br />
+  <p>You completed the game in time = {{ ticks }} & {{ steps }} steps.</p>
+  <button mat-fab color="primary" class="my-fab-button">
+    <i class="material-icons" (click)="avanzamentoStep()">play_arrow</i>
+  </button>
+</div>
+<div *ngIf="!isCompleted" class="score-detail">
+  <p>Time Spent: {{ ticks }}</p>
+  <p>Steps : {{ steps }}</p>
+</div>
