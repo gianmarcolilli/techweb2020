@@ -57,6 +57,7 @@ import { DragndropComponent } from './components/dragndrop/dragndrop.component';
 import { ClassificaComponent } from './components/classifica/classifica.component';
 
 import { AuthInterceptor } from "./components/auth/auth-interceptor";
+import { PuzzleComponent } from './components/puzzle/puzzle.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { AuthInterceptor } from "./components/auth/auth-interceptor";
     SignupComponent,
     DragndropComponent,
     ClassificaComponent,
+    PuzzleComponent,
 
   ],
   imports: [
