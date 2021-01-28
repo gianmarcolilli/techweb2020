@@ -1,11 +1,11 @@
-import { Component, Input, HostListener,  NgModule, ViewChild, OnInit } from '@angular/core';
+import { Component, Input, HostListener, NgModule, ViewChild, OnInit } from '@angular/core';
 import {
   CdkDrag,
   CdkDragStart,
   CdkDropList, CdkDropListGroup, CdkDragMove, CdkDragEnter,
   moveItemInArray
 } from "@angular/cdk/drag-drop";
-import {ViewportRuler} from "@angular/cdk/overlay";
+import { ViewportRuler } from "@angular/cdk/overlay";
 import { VisualizzaComponent } from '../visualizza/visualizza.component';
 import { timer } from 'rxjs';
 
@@ -14,7 +14,7 @@ import { timer } from 'rxjs';
   templateUrl: './puzzle.component.html',
   styleUrls: ['./puzzle.component.scss']
 })
-export class PuzzleComponent  implements OnInit {
+export class PuzzleComponent implements OnInit {
 
 
   @Input('puzzleUrl') imageUrl: string;
@@ -69,11 +69,13 @@ export class PuzzleComponent  implements OnInit {
     let complete = true
 
     for (let i = 0; i < this.Image.length; i++) {
-      if (this.Image[i].index != (this.items[i]-1)) {
+      if (this.Image[i].index != (this.items[i] - 1)) {
         complete = false;
         break;
       }
     }
+
+    this.timeVar.unsubscribe();
     return complete
   }
 
@@ -84,8 +86,8 @@ export class PuzzleComponent  implements OnInit {
   }
 
   ngOnInit(): void {
-    for (let i = 0; i < (Math.pow(this.difficulty,2)); i++) {
-      this.items.push(i+1)
+    for (let i = 0; i < (Math.pow(this.difficulty, 2)); i++) {
+      this.items.push(i + 1)
     }
 
     this.imageName = this.imageUrl
@@ -159,7 +161,7 @@ export class PuzzleComponent  implements OnInit {
   // }
 
   shuffle() {
-    this.items.sort(function() {
+    this.items.sort(function () {
       return .5 - Math.random();
     });
   }
@@ -192,7 +194,7 @@ export class PuzzleComponent  implements OnInit {
     this.target = null;
     this.source = null;
 
-    if (this.sourceIndex != this.targetIndex){
+    if (this.sourceIndex != this.targetIndex) {
       moveItemInArray(this.items, this.sourceIndex, this.targetIndex);
       this.isCompleted = this.verifyAccomplishment()
     }
@@ -237,13 +239,13 @@ export class PuzzleComponent  implements OnInit {
   getPointerPositionOnPage(event: MouseEvent | TouchEvent) {
     // `touches` will be empty for start/end events so we have to fall back to `changedTouches`.
     const point = __isTouchEvent(event) ? (event.touches[0] || event.changedTouches[0]) : event;
-        const scrollPosition = this.viewportRuler.getViewportScrollPosition();
+    const scrollPosition = this.viewportRuler.getViewportScrollPosition();
 
-        return {
-            x: point.pageX - scrollPosition.left,
-            y: point.pageY - scrollPosition.top
-        };
-    }
+    return {
+      x: point.pageX - scrollPosition.left,
+      y: point.pageY - scrollPosition.top
+    };
+  }
 }
 
 function __indexOf(collection, node) {
@@ -256,7 +258,7 @@ function __isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
 }
 
 function __isInsideDropListClientRect(dropList: CdkDropList, x: number, y: number) {
-  const {top, bottom, left, right} = dropList.element.nativeElement.getBoundingClientRect();
+  const { top, bottom, left, right } = dropList.element.nativeElement.getBoundingClientRect();
   return y >= top && y <= bottom && x >= left && x <= right;
 }
 
