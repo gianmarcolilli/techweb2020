@@ -102,6 +102,25 @@
       >
     </mat-form-field>
 
+    <!-- CONTENUTO PER QUALSIASI TIPOLOGIA -->
+    <mat-form-field
+      *ngIf="tempTipologiaAttivita != ''"
+      class="example-full-width"
+    >
+      <mat-label>
+        {{ getTitleTranslation(tempTipologiaAttivita) | titlecase }}</mat-label
+      >
+      <textarea
+        matInput
+        type="text"
+        formControlName="tempContenuto"
+        [(ngModel)]="tempContenuto"
+        [placeholder]="
+          'Inserisci ' + getTitleTranslation(tempTipologiaAttivita)
+        "
+      ></textarea>
+    </mat-form-field>
+
     <!-- TIPOLOGIA : QUIZ | Numero Risposte -->
     <mat-form-field
       *ngIf="tempTipologiaAttivita == 'quiz'"
@@ -123,24 +142,6 @@
       >
     </mat-form-field>
 
-    <!-- CONTENUTO PER QUALSIASI TIPOLOGIA -->
-    <mat-form-field
-      *ngIf="tempTipologiaAttivita != ''"
-      class="example-full-width"
-    >
-      <mat-label>
-        {{ getTitleTranslation(tempTipologiaAttivita) | titlecase }}</mat-label
-      >
-      <textarea
-        matInput
-        type="text"
-        formControlName="tempContenuto"
-        [(ngModel)]="tempContenuto"
-        [placeholder]="
-          'Inserisci ' + getTitleTranslation(tempTipologiaAttivita)
-        "
-      ></textarea>
-    </mat-form-field>
 
     <!-- TIPOLOGIA : DOMANDA | Risposta Corretta-->
     <section *ngIf="tempTipologiaAttivita == 'domanda'">
@@ -393,6 +394,7 @@
     </section>
 
     <!-- Associazione immagine ad attività -->
+    <div *ngIf="tempTipologiaAttivita != 'puzzle'">
     <mat-form-field class="example-full-width">
       <mat-label>Nome immagine</mat-label>
       <input matInput placeholder="Inserisci qui il nome dell'immagine" />
@@ -432,6 +434,7 @@
     >
       <img class="img-responsive" [src]="imagePreview" [alt]="form.value.title" />
     </div>
+  </div>
     <div>
       <button
         *ngIf="this.tempActivityId == -1"
