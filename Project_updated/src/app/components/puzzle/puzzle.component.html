@@ -19,14 +19,14 @@
 </div>
 
 <div class="successMessage" *ngIf="isCompleted">
-  <p>Game Complete.</p>
+  <p>Ottimo lavoro, hai completato il puzzle!</p>
   <br />
-  <p>You completed the game in time = {{ ticks }} & {{ steps }} steps.</p>
+  <p>Il tuo tempo è stato = {{ ticks }} & {{ steps }} mosse.</p>
   <button mat-fab color="primary" class="my-fab-button">
     <i class="material-icons" (click)="avanzamentoStep()">play_arrow</i>
   </button>
 </div>
 <div *ngIf="!isCompleted" class="score-detail">
-  <p>Time Spent: {{ ticks }}</p>
-  <p>Steps : {{ steps }}</p>
+  <p>Tempo: {{ ticks }}</p>
+  <p>Mosse : {{ steps }}</p>
 </div>
