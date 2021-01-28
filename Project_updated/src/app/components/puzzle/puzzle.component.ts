@@ -71,7 +71,7 @@ export class PuzzleComponent implements OnInit {
     for (let i = 0; i < this.Image.length; i++) {
       if (this.Image[i].index != (this.items[i] - 1)) {
         complete = false;
-        break;
+        return complete;
       }
     }
 
