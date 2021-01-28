@@ -1,7 +1,4 @@
-<p>puzzle works!</p>
-<h1>Drag&Drop with a flex-wrap</h1>
 
-<ul class="example-list"><li *ngFor="let item of items">{{ item }}</li></ul>
 
 <div class="example-container" cdkDropListGroup>
   <div [ngStyle]="{'width':''+imageSize+'px'}" cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate" (cdkDropListDropped)="dropListDropped($event)"></div>
@@ -16,9 +13,7 @@
       'background-position': '' + Image[itm-1].x_pos + ' ' + Image[itm-1].y_pos + '',
       'background-size': '' + difficulty * 100 + '% ' + difficulty * 100 + '%'
     }">
-    {{itm}}  pos : {{i}}
 
-  <span *ngIf="itm == i+1"> Corretto! </span>
   </div>
   </div>
 </div>
