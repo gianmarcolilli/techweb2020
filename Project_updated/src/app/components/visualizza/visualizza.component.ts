@@ -26,6 +26,8 @@ export class VisualizzaComponent implements OnInit {
   nextStepId = -1;
   storia: Storia;
 
+  currentStep;
+
   hoDatoOk = false;
   hoProcedutoIo = false;
   variabileOk = 0;
@@ -55,6 +57,14 @@ export class VisualizzaComponent implements OnInit {
       (singleStory) => {
         this.storia = this.apiDb.reMap(singleStory);
         this.steps = this.storia.steps
+        this.apiDb.getStep(this.id).subscribe((singleStory)=>{
+          let str = this.apiDb.reMap(singleStory);
+          str.steps.forEach(element => {
+            if (element.activityId==this.currentStepId) {
+              this.currentStep = element
+            }
+          });
+        })
         console.log("la mia storia è" + JSON.stringify(this.storia))
       }
     )
@@ -93,6 +103,14 @@ export class VisualizzaComponent implements OnInit {
             //Se lo step corrente cambia a database a seguito di un update da parte di altro player, il giocatore modifica in locale i dati aggiornati
             if (this.currentStepId != res.currentStepId) {
               this.currentStepId = res.currentStepId
+              this.apiDb.getStep(this.id).subscribe((singleStory)=>{
+                let str = this.apiDb.reMap(singleStory);
+                str.steps.forEach(element => {
+                  if (element.activityId==this.currentStepId) {
+                    this.currentStep = element
+                  }
+                });
+              })
               this.nextStepId = res.nextStepId
               this.hoDatoOk = false
               this.hoProcedutoIo = false
@@ -125,6 +143,14 @@ export class VisualizzaComponent implements OnInit {
               this.stop = true
               this.apiDb.updateGame(this.idPartita, res.nextStepId, this.punteggio).subscribe((risp: any) => {
                 this.currentStepId = risp.result.currentStepId
+                this.apiDb.getStep(this.id).subscribe((singleStory)=>{
+                  let str = this.apiDb.reMap(singleStory);
+                  str.steps.forEach(element => {
+                    if (element.activityId==this.currentStepId) {
+                      this.currentStep = element
+                    }
+                  });
+                })
                 this.nextStepId = risp.result.nextStepId
                 this.hoDatoOk = false
                 this.hoProcedutoIo = false
@@ -147,6 +173,14 @@ export class VisualizzaComponent implements OnInit {
   iniziaStep() {
     if (this.idPartita == -1) {
       this.currentStepId = 0
+      this.apiDb.getStep(this.id).subscribe((singleStory)=>{
+        let str = this.apiDb.reMap(singleStory);
+        str.steps.forEach(element => {
+          if (element.activityId==this.currentStepId) {
+            this.currentStep = element
+          }
+        });
+      })
     } else {
       this.stop = true
       this.hoProcedutoIo = true
@@ -174,9 +208,9 @@ export class VisualizzaComponent implements OnInit {
   gestisciPunteggio(timer: number) {
     if (timer == NaN || timer == undefined || timer == null) return
     // if (this.currentStepId == 0) return 0;
-    if (this.storia.steps[this.currentStepId].action == "informazione") return 0;
-    if (this.nextStepId == this.steps[this.currentStepId].correctId) return (50 / timer)
-    if (this.nextStepId == this.steps[this.currentStepId].wrongId) return -(timer / 50);
+    if (this.currentStep == "informazione") return 0;
+    if (this.nextStepId == this.currentStep.correctId) return (50 / timer)
+    if (this.nextStepId == this.currentStep.wrongId) return -(timer / 50);
   }
 
   //Metodo che restituisce l' intervallo tra inizio e fine step in secondi (/1000)
@@ -195,12 +229,12 @@ export class VisualizzaComponent implements OnInit {
   //Questo metodo valuta nel primo if se la risposta fornita dall' utente è di tipo "purchessia(presenza/assenza)", nel nostro caso contrassegnata con 'right'
   //Secondo if effetua un controllo sulla presenza o meno della risposta in una lista di valori
   valutaDomanda(): boolean {
-    if (this.steps[this.currentStepId].tipoDomanda == 'right') {
+    if (this.currentStep.tipoDomanda == 'right') {
       return true
     }
-    if (this.steps[this.currentStepId].tipoDomanda == 'array') {
-      for (let i = 0; i < this.steps[this.currentStepId].risposteDomanda.length; i++) {
-        if (this.tempRisposta.toLowerCase() == this.steps[this.currentStepId].risposteDomanda[i].toLowerCase()) {
+    if (this.currentStep.tipoDomanda == 'array') {
+      for (let i = 0; i < this.currentStep.risposteDomanda.length; i++) {
+        if (this.tempRisposta.toLowerCase() == this.currentStep.risposteDomanda[i].toLowerCase()) {
           return true
         }
       }
@@ -215,18 +249,26 @@ export class VisualizzaComponent implements OnInit {
     console.log("step corrente: " + this.currentStepId)
     if (this.currentStepId == -1) return
 
-    if (this.storia.steps[this.currentStepId].action == "informazione" || this.storia.steps[this.currentStepId].action == "puzzle" || this.storia.steps[this.currentStepId].action == "dnd") {
+    if (this.currentStep.action == "informazione" || this.currentStep.action == "puzzle" || this.currentStep.action == "dnd") {
       //Avanzamento in gioco modalità singolo
       if (this.idPartita == -1) {
-        this.nextStepId = this.steps[this.currentStepId].correctId
+        this.nextStepId = this.currentStep.correctId
         var tempoImpiegato = this.resetStepTimer();
         console.log("impiegati " + tempoImpiegato + " secondi.");
         this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
-        this.currentStepId = this.steps[this.currentStepId].correctId
+        this.currentStepId = this.currentStep.correctId
+        this.apiDb.getStep(this.id).subscribe((singleStory)=>{
+          let str = this.apiDb.reMap(singleStory);
+          str.steps.forEach(element => {
+            if (element.activityId==this.currentStepId) {
+              this.currentStep = element
+            }
+          });
+        })
       } else {
         //Avanzamento gioco in modalità squadre
-        console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
-        this.nextStepId = this.steps[this.currentStepId].correctId;
+        console.log("sto per far diventare lo step corrente " + this.currentStep.correctId)
+        this.nextStepId = this.currentStep.correctId;
         this.stop = true
         this.hoProcedutoIo = true
         this.hoDatoOk = true
@@ -238,25 +280,33 @@ export class VisualizzaComponent implements OnInit {
 
       return;
     }
-    if (this.storia.steps[this.currentStepId].action == "domanda" || this.storia.steps[this.currentStepId].action == "quiz") {
+    if (this.currentStep.action == "domanda" || this.currentStep.action == "quiz") {
 
-      if (this.storia.steps[this.currentStepId].action == "domanda") {
+      if (this.currentStep.action == "domanda") {
         console.log("sto confrontando questo :" + this.tempRisposta)
-        console.log("con questo  :" + this.steps[this.currentStepId].risposteDomanda)
+        console.log("con questo  :" + this.currentStep.risposteDomanda)
 
         if (this.valutaDomanda()) {
           alert("hai dato la risposta corretta")
           //Avanzamento in gioco modalità singolo)
           if (this.idPartita == -1) {
-            this.nextStepId = this.steps[this.currentStepId].correctId
+            this.nextStepId = this.currentStep.correctId
             var tempoImpiegato = this.resetStepTimer();
             console.log("impiegati " + tempoImpiegato + " secondi.");
             this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
-            this.currentStepId = this.steps[this.currentStepId].correctId
+            this.currentStepId = this.currentStep.correctId
+            this.apiDb.getStep(this.id).subscribe((singleStory)=>{
+              let str = this.apiDb.reMap(singleStory);
+              str.steps.forEach(element => {
+                if (element.activityId==this.currentStepId) {
+                  this.currentStep = element
+                }
+              });
+            })
           } else {
             //Avanzamento gioco in modalità squadre
-            console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
-            this.nextStepId = this.steps[this.currentStepId].correctId;
+            console.log("sto per far diventare lo step corrente " + this.currentStep.correctId)
+            this.nextStepId = this.currentStep.correctId;
             this.stop = true
             this.hoProcedutoIo = true
             this.hoDatoOk = true
@@ -270,15 +320,23 @@ export class VisualizzaComponent implements OnInit {
           alert("hai dato la risposta sbagliata")
           //Avanzamento gioco in modalità individuale
           if (this.idPartita == -1) {
-            this.nextStepId = this.steps[this.currentStepId].wrongId
+            this.nextStepId = this.currentStep.wrongId
             var tempoImpiegato = this.resetStepTimer();
             console.log("impiegati " + tempoImpiegato + " secondi.");
             this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
-            this.currentStepId = this.steps[this.currentStepId].wrongId
+            this.currentStepId = this.currentStep.wrongId
+            this.apiDb.getStep(this.id).subscribe((singleStory)=>{
+              let str = this.apiDb.reMap(singleStory);
+              str.steps.forEach(element => {
+                if (element.activityId==this.currentStepId) {
+                  this.currentStep = element
+                }
+              });
+            })
           } else {
             //Avanzamento gioco in modalità squadre
-            console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
-            this.nextStepId = this.steps[this.currentStepId].wrongId;
+            console.log("sto per far diventare lo step corrente " + this.currentStep.wrongId)
+            this.nextStepId = this.currentStep.wrongId;
             this.stop = true
             this.hoProcedutoIo = true
             this.hoDatoOk = true
@@ -291,21 +349,29 @@ export class VisualizzaComponent implements OnInit {
 
         this.tempRisposta = ""
       }
-      if (this.storia.steps[this.currentStepId].action == "quiz") {
-        let correctQuizResp = this.steps[this.currentStepId].quizCorrectIdx
+      if (this.currentStep.action == "quiz") {
+        let correctQuizResp = this.currentStep.quizCorrectIdx
 
         if (idQuiz == correctQuizResp) {
           //Avanzamento gioco in modalità individuale
           if (this.idPartita == -1) {
-            this.nextStepId = this.steps[this.currentStepId].correctId
+            this.nextStepId = this.currentStep.correctId
             var tempoImpiegato = this.resetStepTimer();
             console.log("impiegati " + tempoImpiegato + " secondi.");
             this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
-            this.currentStepId = this.steps[this.currentStepId].correctId
+            this.currentStepId = this.currentStep.correctId
+            this.apiDb.getStep(this.id).subscribe((singleStory)=>{
+              let str = this.apiDb.reMap(singleStory);
+              str.steps.forEach(element => {
+                if (element.activityId==this.currentStepId) {
+                  this.currentStep = element
+                }
+              });
+            })
           } else {
             //Avanzamento gioco in modalità squadre
-            console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].correctId)
-            this.nextStepId = this.steps[this.currentStepId].correctId;
+            console.log("sto per far diventare lo step corrente " + this.currentStep.correctId)
+            this.nextStepId = this.currentStep.correctId;
             this.stop = true
             this.hoProcedutoIo = true
             this.hoDatoOk = true
@@ -317,15 +383,23 @@ export class VisualizzaComponent implements OnInit {
         } else {
           //Avanzamento gioco in modalità individuale
           if (this.idPartita == -1) {
-            this.nextStepId = this.steps[this.currentStepId].wrongId
+            this.nextStepId = this.currentStep.wrongId
             var tempoImpiegato = this.resetStepTimer();
             console.log("impiegati " + tempoImpiegato + " secondi.");
             this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
-            this.currentStepId = this.steps[this.currentStepId].wrongId
+            this.currentStepId = this.currentStep.wrongId
+            this.apiDb.getStep(this.id).subscribe((singleStory)=>{
+              let str = this.apiDb.reMap(singleStory);
+              str.steps.forEach(element => {
+                if (element.activityId==this.currentStepId) {
+                  this.currentStep = element
+                }
+              });
+            })
           } else {
             //Avanzamento gioco in modalità squadre
-            console.log("sto per far diventare lo step corrente " + this.steps[this.currentStepId].wrongId)
-            this.nextStepId = this.steps[this.currentStepId].wrongId;
+            console.log("sto per far diventare lo step corrente " + this.currentStep.wrongId)
+            this.nextStepId = this.currentStep.wrongId;
             this.stop = true
             this.hoProcedutoIo = true
             this.hoDatoOk = true

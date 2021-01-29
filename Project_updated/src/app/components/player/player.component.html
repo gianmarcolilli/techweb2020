@@ -283,7 +283,9 @@
       *ngIf="
         tipologiaGruppo != 'individuale' &&
         tipologiaGruppo != '' &&
-        nPartecipantiAggiunti == nPartecipanti
+        ((tipologiaGruppo == 'clase' &&
+          nPartecipantiAggiunti == nPartecipanti) ||
+          (tipologiaGruppo == 'gruppo' && nPartecipanti > 0))
       "
       class="fixedLowRight"
       (click)="playClick()"
@@ -298,11 +300,20 @@
 
 <section *ngIf="playClicked">
   <div *ngIf="tipologiaGruppo == 'classe' || tipologiaGruppo == 'gruppo'">
-    <p style="font-family:'Montserrat',sans-serif; font-size: 2em; color:darkgray; margin-top: 1em; font-weight: bold;">
-      Ecco i vostri QR Code!</p>
+    <p
+      style="
+        font-family: 'Montserrat', sans-serif;
+        font-size: 2em;
+        color: darkgray;
+        margin-top: 1em;
+        font-weight: bold;
+      "
+    >
+      Ecco i vostri QR Code!
+    </p>
     <div *ngFor="let s of squadre" class="container6">
       <div class="title-container">
-       <p class="title">{{ s.name }}</p>
+        <p class="title">{{ s.name }}</p>
       </div>
       <div class="qrcode-container">
         <qrcode
