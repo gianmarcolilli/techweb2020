@@ -158,7 +158,11 @@ export class PlayerComponent implements OnInit {
     this.azzeraSquadre()
     for (let i = 0; i < this.nSquadre; i++) {
       this.aggiungiSquadra()
-      this.aggiungiPartecipanti(MINPARTECIPANTI, i)
+      if (this.tipologiaGruppo=='gruppo') {
+        this.aggiungiPartecipanti(this.nPartecipanti, i)
+      } else {
+        this.aggiungiPartecipanti(MINPARTECIPANTI, i)
+      }
     }
   }
 
