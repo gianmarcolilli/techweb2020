@@ -4,8 +4,8 @@
   </div>
 </div>
 <div class="successMessage" *ngIf="isCompleted">
-  <p>Game Complete.</p>
-  <p>You completed the game in time = {{ steps }} steps.</p>
+  <p>Bravissimo, hai ordinato correttamente gli elementi!</p>
+  <p>Hai completato il gioco in {{ steps }} mosse.</p>
   <button mat-fab color="primary" class="my-fab-button">
     <i class="material-icons" (click)="avanzamentoStep()">play_arrow</i>
   </button>

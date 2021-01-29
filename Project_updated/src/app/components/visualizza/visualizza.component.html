@@ -1,7 +1,7 @@
 <app-header [my-title]="'Visualizza'"> </app-header>
 
 <section id="mainSection" *ngIf="this.storia">
-  <div id="mainContainer" *ngIf="this.currentStepId < 0">
+  <div class="mainContainer" *ngIf="this.currentStepId < 0">
     <div class="copertina">
       <div class="storyTitle">
         {{ this.storia.nome }}
@@ -31,6 +31,7 @@
 
   <section *ngIf="this.currentStep">
     <div *ngIf="this.currentStepId != -1">
+      <!-- Inizio attività quiz-->
       <div
         *ngIf="this.currentStep.action == 'quiz'"
         class="mainContainer"
@@ -83,6 +84,7 @@
       </div>
       <!-- end QUIZ -->
 
+      <!-- Inizio attività puzzle-->
       <div
         *ngIf="this.currentStep.action == 'puzzle'"
         class="mainContainer"
@@ -113,6 +115,7 @@
       </div>
       <!-- end PUZZLE -->
 
+      <!-- Inizio attività dnd-->
       <div
         *ngIf="this.currentStep.action == 'dnd'"
         class="mainContainer"
@@ -146,6 +149,8 @@
         </mat-card>
       </div>
       <!-- end DnD-->
+
+      <!-- Inizio attività domanda-->
       <div
         *ngIf="this.currentStep.action == 'domanda'"
         class="mainContainer"
@@ -195,6 +200,8 @@
         </mat-card>
       </div>
       <!-- end domanda-->
+
+      <!-- Inizio attività informazione-->
       <div
         *ngIf="this.currentStep.action == 'informazione'"
         class="mainContainer"
@@ -237,6 +244,7 @@
         </mat-card>
       </div>
       <!-- end informazione-->
+      <!-- Inizio attività fine-->
       <div
         *ngIf="this.currentStep.action == 'fine'"
         class="mainContainer"

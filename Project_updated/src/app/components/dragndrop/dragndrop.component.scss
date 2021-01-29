@@ -7,12 +7,10 @@ $bluBackground: #14144daf;
 $fontAcme: "Acme, sans-serif";
 .example-list {
   width: 100%;
-  border: solid 1.5px #ccc;
-  height: 10em;
-  width: 15rem;
+  width: max-content;
+  min-width: 30vw;
   display: table-cell;
   flex-direction: row;
-  background: $background;
   border-radius: 4px;
   overflow: hidden;
   vertical-align: middle;
@@ -20,12 +18,14 @@ $fontAcme: "Acme, sans-serif";
 
 .example-box {
   font-family: $fontAcme !important;
-  padding: 0.5em;
+  padding: 1vh;
+  margin: 2vh;
   border-right: solid 1px #ccc;
   color: white;
   display: flex;
   flex-direction: row;
   align-items: center;
+  border-radius: 4px ;
   justify-content: center;
   box-sizing: border-box;
   cursor: move;
