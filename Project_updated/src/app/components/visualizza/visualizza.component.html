@@ -29,10 +29,10 @@
     {{ didascalia }}
   </h2>
 
-  <section *ngIf="this.storia.steps">
+  <section *ngIf="this.currentStep">
     <div *ngIf="this.currentStepId != -1">
       <div
-        *ngIf="this.storia.steps[currentStepId].action == 'quiz'"
+        *ngIf="this.currentStep.action == 'quiz'"
         class="mainContainer"
       >
         <mat-card>
@@ -49,26 +49,26 @@
             </div>
           </div>
           <div class="typing-text">
-            <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
+            <p>{{ this.currentStep.activityTitle }}</p>
           </div>
           <div class="backImage">
             <img
               class="img-responsive"
-              *ngIf="this.storia.steps[this.currentStepId].backImg != ''"
-              [src]="this.storia.steps[this.currentStepId].backImg"
+              *ngIf="this.currentStep.backImg != ''"
+              [src]="this.currentStep.backImg"
             />
           </div>
           <mat-card-content>
             <ng-container
               *ngIf="
-                this.storia.steps[currentStepId].answers &&
-                this.storia.steps[currentStepId].answers.length > 0
+                this.currentStep.answers &&
+                this.currentStep.answers.length > 0
               "
             >
               <mat-list
                 role="list"
                 *ngFor="
-                  let answ of this.storia.steps[currentStepId].answers;
+                  let answ of this.currentStep.answers;
                   let i = index
                 "
                 (click)="gestisciAvanzamento(i)"
@@ -84,7 +84,7 @@
       <!-- end QUIZ -->
 
       <div
-        *ngIf="this.storia.steps[currentStepId].action == 'puzzle'"
+        *ngIf="this.currentStep.action == 'puzzle'"
         class="mainContainer"
         #myIdentifier
       >
@@ -102,11 +102,11 @@
             </div>
           </div>
           <div class="typing-text">
-            <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
+            <p>{{ this.currentStep.activityTitle }}</p>
           </div>
           <app-puzzle
-            [difficulty]="this.storia.steps[this.currentStepId].difficulty"
-            [puzzleUrl]="this.storia.steps[this.currentStepId].puzzleImg"
+            [difficulty]="this.currentStep.difficulty"
+            [puzzleUrl]="this.currentStep.puzzleImg"
           >
           </app-puzzle>
         </mat-card>
@@ -114,7 +114,7 @@
       <!-- end PUZZLE -->
 
       <div
-        *ngIf="this.storia.steps[currentStepId].action == 'dnd'"
+        *ngIf="this.currentStep.action == 'dnd'"
         class="mainContainer"
       >
         <mat-card>
@@ -131,23 +131,23 @@
             </div>
           </div>
           <div class="typing-text">
-            <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
+            <p>{{ this.currentStep.activityTitle }}</p>
           </div>
           <div class="backImage">
             <img
               class="img-responsive"
-              *ngIf="this.storia.steps[this.currentStepId].backImg != ''"
-              [src]="this.storia.steps[this.currentStepId].backImg"
+              *ngIf="this.currentStep.backImg != ''"
+              [src]="this.currentStep.backImg"
             />
           </div>
           <app-dragndrop
-            [order]="this.storia.steps[this.currentStepId].order"
+            [order]="this.currentStep.order"
           ></app-dragndrop>
         </mat-card>
       </div>
       <!-- end DnD-->
       <div
-        *ngIf="this.storia.steps[currentStepId].action == 'domanda'"
+        *ngIf="this.currentStep.action == 'domanda'"
         class="mainContainer"
       >
         <mat-card>
@@ -164,13 +164,13 @@
             </div>
           </div>
           <div class="typing-text">
-            <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
+            <p>{{ this.currentStep.activityTitle }}</p>
           </div>
           <div class="backImage">
             <img
               class="img-responsive"
-              *ngIf="this.storia.steps[this.currentStepId].backImg != ''"
-              [src]="this.storia.steps[this.currentStepId].backImg"
+              *ngIf="this.currentStep.backImg != ''"
+              [src]="this.currentStep.backImg"
             />
           </div>
           <mat-card-content>
@@ -196,7 +196,7 @@
       </div>
       <!-- end domanda-->
       <div
-        *ngIf="this.storia.steps[currentStepId].action == 'informazione'"
+        *ngIf="this.currentStep.action == 'informazione'"
         class="mainContainer"
       >
         <mat-card>
@@ -215,13 +215,13 @@
           <div class="backImage">
             <img
               class="img-responsive"
-              *ngIf="this.storia.steps[this.currentStepId].backImg != ''"
-              [src]="this.storia.steps[this.currentStepId].backImg"
+              *ngIf="this.currentStep.backImg != ''"
+              [src]="this.currentStep.backImg"
             />
           </div>
           <mat-card-content>
             <div class="typing-text">
-              <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
+              <p>{{ this.currentStep.activityTitle }}</p>
             </div>
           </mat-card-content>
 
@@ -238,19 +238,19 @@
       </div>
       <!-- end informazione-->
       <div
-        *ngIf="this.storia.steps[currentStepId].action == 'fine'"
+        *ngIf="this.currentStep.action == 'fine'"
         class="mainContainer"
       >
         <mat-card>
           <p class="title">Partita Finita</p>
           <div class="typing-text">
-            <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
+            <p>{{ this.currentStep.activityTitle }}</p>
           </div>
           <div class="backImage">
             <img
               class="img-responsive"
-              *ngIf="this.storia.steps[this.currentStepId].backImg != ''"
-              [src]="this.storia.steps[this.currentStepId].backImg"
+              *ngIf="this.currentStep.backImg != ''"
+              [src]="this.currentStep.backImg"
             />
           </div>
           <mat-card-content>
@@ -260,7 +260,7 @@
             </div> -->
             <section
               *ngIf="
-                this.storia.steps[currentStepId].action == 'fine' &&
+                this.currentStep.action == 'fine' &&
                 idPartita != -1
               "
             >
