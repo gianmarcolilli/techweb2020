@@ -98,6 +98,10 @@ export class DummyApiService {
     return this.http.get("http://localhost:3000/api/stories/" + id)
   }
 
+  getStep(idStoria: number) : Observable<any> {
+    return this.http.get("http://localhost:3000/api/stories/" + idStoria)
+  }
+
   //ci restituisce tutte le partite
   getGames(): Observable<any> {
     return this.http.get('http://localhost:3000/api/games/');
