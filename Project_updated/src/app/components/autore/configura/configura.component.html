@@ -14,14 +14,14 @@
       ><h1 style="font-weight: bold">{{ storia.nome }}</h1>
     </mat-card-title>
     <mat-card-subtitle
-      ><div class="img-responsive">
+      >
         <img
         class="img-responsive"
           [src]="storia.urlBackground"
           [alt]="'  immagine sfondo di  ' + storia.nome"
           style="border:3px solid"
-        /></div
-    ></mat-card-subtitle>
+        />
+    </mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <div *ngFor="let act of storia.steps; index as j">
