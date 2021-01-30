@@ -46,7 +46,7 @@ div .img-story {
 img {
   grid-area: "image";
   object-fit: contain;
-
+  max-width:90%;
   max-height: auto;
 }
 button{
