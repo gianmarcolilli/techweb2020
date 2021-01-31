@@ -47,8 +47,12 @@ export class DragndropComponent implements OnInit {
 
   ngOnInit(): void {
     console.log("siamo entrati")
+    console.log(this.order.length)
     //Mette in ordine sparso le tessere del drag&drop
     this.order = _.shuffle(this.order)
+    if(this.verifyAccomplishment){
+      this.order = _.shuffle(this.order)
+    }
   }
 
 }
