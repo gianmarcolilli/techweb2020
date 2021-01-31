@@ -40,27 +40,25 @@
             </button>
           </div>
           <div class="button-edit-container">
-            <!-- <button (click)="eliminaAttivita(j)" mat-mini-fab color="warn"> -->
               <button (click)="openDialog(j)" mat-mini-fab color="warn">
               <i class="material-icons">delete</i>
             </button>
           </div>
         </div>
       </div>
-
-      <!-- end row 1 -->
-      <!-- row 2 -->
-
       <h3 style="font-weight: bold">Contenuto:</h3>
       <p>{{ act.activityTitle }}</p>
-
-      <!-- end row 2 -->
-      <!-- eventual row 3 -->
+      <!-- ID step domanda-->
       <div *ngIf="act.action == 'domanda'">
         <h3 style="font-weight: bold">Risposta:</h3>
         <p>{{ act.risposteDomanda }}</p>
       </div>
-      <!-- row 4 -->
+      <!-- Id next step informazione-->
+      <div *ngIf="act.action == 'informazione'">
+        <h3 style="font-weight: bold">Id prossimo step:</h3>
+        <p>{{ act.correctId }}</p>
+      </div>
+      <!-- ID risposte Quiz-->
       <div class="risposte-quiz" *ngIf="act.action == 'quiz'">
         <h3 style="font-weight: bold">Id Risposta:</h3>
         <p>{{ act.quizCorrectIdx }}</p>
