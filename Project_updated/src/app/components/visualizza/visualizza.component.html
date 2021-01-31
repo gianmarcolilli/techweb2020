@@ -1,7 +1,7 @@
 <app-header [my-title]="'Visualizza'"> </app-header>
 
 <section id="mainSection" *ngIf="this.storia">
-  <div id="mainContainer" *ngIf="this.currentStepId < 0">
+  <div class="mainContainer" *ngIf="this.currentStepId < 0">
     <div class="copertina">
       <div class="storyTitle">
         {{ this.storia.nome }}
@@ -26,7 +26,11 @@
 
   <section *ngIf="this.currentStep">
     <div *ngIf="this.currentStepId != -1">
-      <div *ngIf="this.currentStep.action == 'quiz'" class="mainContainer">
+      <!-- Inizio attività quiz-->
+      <div
+        *ngIf="this.currentStep.action == 'quiz'"
+        class="mainContainer"
+      >
         <mat-card>
           <div class="header-matcard">
             <div class="container-player">
@@ -63,7 +67,12 @@
       </div>
       <!-- end QUIZ -->
 
-      <div *ngIf="this.currentStep.action == 'puzzle'" class="mainContainer" #myIdentifier>
+      <!-- Inizio attività puzzle-->
+      <div
+        *ngIf="this.currentStep.action == 'puzzle'"
+        class="mainContainer"
+        #myIdentifier
+      >
         <mat-card>
           <div class="header-matcard">
             <div *ngFor="let item of this.arrayPlayers; index as k">
@@ -82,7 +91,11 @@
       </div>
       <!-- end PUZZLE -->
 
-      <div *ngIf="this.currentStep.action == 'dnd'" class="mainContainer">
+      <!-- Inizio attività dnd-->
+      <div
+        *ngIf="this.currentStep.action == 'dnd'"
+        class="mainContainer"
+      >
         <mat-card>
           <div class="header-matcard">
             <div *ngFor="let item of this.arrayPlayers; index as k">
@@ -102,7 +115,12 @@
         </mat-card>
       </div>
       <!-- end DnD-->
-      <div *ngIf="this.currentStep.action == 'domanda'" class="mainContainer">
+
+      <!-- Inizio attività domanda-->
+      <div
+        *ngIf="this.currentStep.action == 'domanda'"
+        class="mainContainer"
+      >
         <mat-card>
           <div class="header-matcard">
               <div *ngFor="let item of this.arrayPlayers; index as k">
@@ -132,7 +150,12 @@
         </mat-card>
       </div>
       <!-- end domanda-->
-      <div *ngIf="this.currentStep.action == 'informazione'" class="mainContainer">
+
+      <!-- Inizio attività informazione-->
+      <div
+        *ngIf="this.currentStep.action == 'informazione'"
+        class="mainContainer"
+      >
         <mat-card>
           <div class="header-matcard">
             <div *ngFor="let item of this.arrayPlayers; index as k">
@@ -159,7 +182,11 @@
         </mat-card>
       </div>
       <!-- end informazione-->
-      <div *ngIf="this.currentStep.action == 'fine'" class="mainContainer">
+      <!-- Inizio attività fine-->
+      <div
+        *ngIf="this.currentStep.action == 'fine'"
+        class="mainContainer"
+      >
         <mat-card>
           <p class="title">Partita Finita</p>
           <div class="typing-text">

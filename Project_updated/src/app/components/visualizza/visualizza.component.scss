@@ -18,21 +18,21 @@ mat-card {
 .mainContainer {
   display: flex;
   justify-content: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 .copertina {
   font-family: "Montserrat", sans-serif !important;
   display: flex;
   flex-wrap: wrap;
-  margin-left: 15%;
-  margin-top: 3em;
-  padding-top: 0.6em;
-  padding-bottom: 0.6em;
-  width: 70%;
-  max-height: 90vh;
+  margin-top: 10vh;
+  padding: 1vh 0;
+  width: 80%;
+  max-height: max-content;
   justify-content: center;
   box-shadow: 1px 0px 2px 1px rgba(16, 18, 44, 0.336),
     0px 0px 11px 7px rgba(13, 10, 34, 0.315);
-  background-color: $primary-color;
+  background-color: #272fa3e7;
   border-radius: 5px;
 
   .storyTitle {
@@ -53,18 +53,17 @@ mat-card {
     border: solid 5px;
     border-color: #570606;
     border-radius: 3px;
-    width: 47vw !important;
-    margin-top: 1em;
-    margin-bottom: 1em;
+    width: 75%;
+    margin: 2vw 0;
   }
   .button-container {
     width: 100%;
     justify-content: center;
 
     button {
+      font-family: $fontAcme !important;
       font-size: 4vw;
-      padding: 0.1em 0.3em !important;
-      height: 8vh;
+      height: 8vw;
       border-radius: 6px;
     }
   }
@@ -88,7 +87,7 @@ mat-card {
     color: $primary-color;
   }
 }
-.header-matcard{
+.header-matcard {
   width: 100%;
   margin-bottom: 3em;
 }
@@ -96,7 +95,6 @@ mat-card {
   position: relative;
   height: auto;
   background-color: transparent !important;
-  margin: 20px;
 }
 .typing-text p {
   // animation: type 5s steps(242);
@@ -165,8 +163,7 @@ mat-card {
   width: 95% !important;
 }
 .img-responsive {
-  //max-height: 50vh;
-  margin: 0.8em;
+  margin: 2vh 0;
   border-radius: 8px;
   box-shadow: 1px 3px 23px 1px rgba(16, 18, 44, 0.336),
     4px 3px 25px 21px rgba(13, 10, 34, 0.315);
@@ -184,8 +181,8 @@ mat-card {
   font-family: "Acme", sans-serif;
   color: $font-color;
   font-size: 8vw;
-  padding-top: .5em;
-  margin-bottom: .5em;
+  padding-top: 0.5em;
+  margin-bottom: 0.5em;
   justify-content: center;
 }
 .mat-list {
