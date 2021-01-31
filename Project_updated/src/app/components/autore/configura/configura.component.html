@@ -45,6 +45,13 @@
           </div>
         </div>
       </div>
+      <div class="image-preview" *ngIf="act.backImg != ''">
+        <img [src]="act.backImg" style="border: #14144daf 3px solid" />
+      </div>
+      <div class="noimage-container" *ngIf="act.backImg == ''">
+        Nessuna immagine caricata
+      </div>
+
       <h3 style="font-weight: bold">Contenuto:</h3>
       <p>{{ act.activityTitle }}</p>
       <!-- ID step domanda-->
@@ -117,6 +124,9 @@
         "
       ></textarea>
     </mat-form-field>
+    <div *ngIf="tempTipologiaAttivita != ''" class="puzzle-preview">
+      <img [src]="this.imagePreview" />
+    </div>
 
     <!-- TIPOLOGIA : QUIZ | Numero Risposte -->
     <mat-form-field
