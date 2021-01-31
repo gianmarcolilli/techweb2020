@@ -25,8 +25,7 @@
           >
             Modifica
           </button>
-          <!-- </div>
-          <div class="container-configura"> --><br />
+          <br />
           <button
             mat-raised-button
             color="info"
@@ -34,8 +33,7 @@
           >
             Configura
           </button>
-          <!-- </div>
-        <div class="container-download"> --><br />
+          <br />
           <button mat-raised-button color="info" (click)="download(storia.id)">
             Download JSON
           </button>
@@ -143,7 +141,14 @@
         <img [src]="imagePreview" [alt]="form.value.title" />
       </div>
     </form>
-    <button *ngIf="imgurComplete==true"  mat-raised-button color="accent" (click)="aggiungiStoria()">Salva</button>
+    <button
+      *ngIf="imgurComplete == true"
+      mat-raised-button
+      color="accent"
+      (click)="aggiungiStoria()"
+    >
+      Salva
+    </button>
   </div>
 </swal>
 <div class="btn-container">
