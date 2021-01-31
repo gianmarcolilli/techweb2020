@@ -8,12 +8,7 @@
       </div>
       <img class="imgCopertina" [src]="this.storia.urlBackground" />
       <div class="button-container">
-        <button
-          *ngIf="this.currentStepId < 0"
-          mat-raised-button
-          color="link"
-          (click)="iniziaStep()"
-        >
+        <button *ngIf="this.currentStepId < 0" mat-raised-button color="link" (click)="iniziaStep()">
           {{ startText ? startText : "Inizia" }}
           <!-- <p>{{ timestampGlobale }}</p>
         <p>Timestamp start : {{ this.stepStartAt }}</p> -->
@@ -31,48 +26,33 @@
 
   <section *ngIf="this.currentStep">
     <div *ngIf="this.currentStepId != -1">
-      <div
-        *ngIf="this.currentStep.action == 'quiz'"
-        class="mainContainer"
-      >
+      <div *ngIf="this.currentStep.action == 'quiz'" class="mainContainer">
         <mat-card>
           <div class="header-matcard">
             <div class="container-player">
               <div *ngFor="let item of this.arrayPlayers; index as k">
-                <mat-icon [ngClass]="{ green: k < variabileOk }"
-                  >person</mat-icon
-                >
+                <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
               </div>
             </div>
             <div class="punteggio">
-              <p>Punteggio : {{ this.punteggio }}</p>
+              <p>Punteggio a : {{ this.punteggio }}</p>
             </div>
           </div>
           <div class="typing-text">
             <p>{{ this.currentStep.activityTitle }}</p>
           </div>
           <div class="backImage">
-            <img
-              class="img-responsive"
-              *ngIf="this.currentStep.backImg != ''"
-              [src]="this.currentStep.backImg"
-            />
+            <img class="img-responsive" *ngIf="this.currentStep.backImg != ''" [src]="this.currentStep.backImg" />
           </div>
           <mat-card-content>
-            <ng-container
-              *ngIf="
+            <ng-container *ngIf="
                 this.currentStep.answers &&
                 this.currentStep.answers.length > 0
-              "
-            >
-              <mat-list
-                role="list"
-                *ngFor="
+              ">
+              <mat-list role="list" *ngFor="
                   let answ of this.currentStep.answers;
                   let i = index
-                "
-                (click)="gestisciAvanzamento(i)"
-              >
+                " (click)="gestisciAvanzamento(i)">
                 <button mat-raised-button color="accent" role="listitem">
                   <p>{{ answ }}</p>
                 </button>
@@ -83,19 +63,11 @@
       </div>
       <!-- end QUIZ -->
 
-      <div
-        *ngIf="this.currentStep.action == 'puzzle'"
-        class="mainContainer"
-        #myIdentifier
-      >
+      <div *ngIf="this.currentStep.action == 'puzzle'" class="mainContainer" #myIdentifier>
         <mat-card>
           <div class="header-matcard">
-            <div class="container-player">
-              <div *ngFor="let item of this.arrayPlayers; index as k">
-                <mat-icon [ngClass]="{ green: k < variabileOk }"
-                  >person</mat-icon
-                >
-              </div>
+            <div *ngFor="let item of this.arrayPlayers; index as k">
+              <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
             </div>
             <div class="punteggio">
               <p>Punteggio : {{ this.punteggio }}</p>
@@ -104,27 +76,17 @@
           <div class="typing-text">
             <p>{{ this.currentStep.activityTitle }}</p>
           </div>
-          <app-puzzle
-            [difficulty]="this.currentStep.difficulty"
-            [puzzleUrl]="this.currentStep.puzzleImg"
-          >
+          <app-puzzle [difficulty]="this.currentStep.difficulty" [puzzleUrl]="this.currentStep.puzzleImg">
           </app-puzzle>
         </mat-card>
       </div>
       <!-- end PUZZLE -->
 
-      <div
-        *ngIf="this.currentStep.action == 'dnd'"
-        class="mainContainer"
-      >
+      <div *ngIf="this.currentStep.action == 'dnd'" class="mainContainer">
         <mat-card>
           <div class="header-matcard">
-            <div class="container-player">
-              <div *ngFor="let item of this.arrayPlayers; index as k">
-                <mat-icon [ngClass]="{ green: k < variabileOk }"
-                  >person</mat-icon
-                >
-              </div>
+            <div *ngFor="let item of this.arrayPlayers; index as k">
+              <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
             </div>
             <div class="punteggio">
               <p>Punteggio : {{ this.punteggio }}</p>
@@ -134,31 +96,18 @@
             <p>{{ this.currentStep.activityTitle }}</p>
           </div>
           <div class="backImage">
-            <img
-              class="img-responsive"
-              *ngIf="this.currentStep.backImg != ''"
-              [src]="this.currentStep.backImg"
-            />
+            <img class="img-responsive" *ngIf="this.currentStep.backImg != ''" [src]="this.currentStep.backImg" />
           </div>
-          <app-dragndrop
-            [order]="this.currentStep.order"
-          ></app-dragndrop>
+          <app-dragndrop [order]="this.currentStep.order"></app-dragndrop>
         </mat-card>
       </div>
       <!-- end DnD-->
-      <div
-        *ngIf="this.currentStep.action == 'domanda'"
-        class="mainContainer"
-      >
+      <div *ngIf="this.currentStep.action == 'domanda'" class="mainContainer">
         <mat-card>
           <div class="header-matcard">
-            <div class="container-player">
               <div *ngFor="let item of this.arrayPlayers; index as k">
-                <mat-icon [ngClass]="{ green: k < variabileOk }"
-                  >person</mat-icon
-                >
+                <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
               </div>
-            </div>
             <div class="punteggio">
               <p>Punteggio : {{ this.punteggio }}</p>
             </div>
@@ -167,27 +116,15 @@
             <p>{{ this.currentStep.activityTitle }}</p>
           </div>
           <div class="backImage">
-            <img
-              class="img-responsive"
-              *ngIf="this.currentStep.backImg != ''"
-              [src]="this.currentStep.backImg"
-            />
+            <img class="img-responsive" *ngIf="this.currentStep.backImg != ''" [src]="this.currentStep.backImg" />
           </div>
           <mat-card-content>
             <div class="input-container">
-              <input
-                [(ngModel)]="tempRisposta"
-                class="form-control"
-                type="text"
-                placeholder="Inserisci qui la risposta "
-              />
+              <input [(ngModel)]="tempRisposta" class="form-control" type="text"
+                placeholder="Inserisci qui la risposta " />
             </div>
             <div class="container-btn-avanti">
-              <button
-                mat-mini-fab
-                class="btn-avanti"
-                (click)="gestisciAvanzamento()"
-              >
+              <button mat-mini-fab class="btn-avanti" (click)="gestisciAvanzamento()">
                 <i class="material-icons">play_arrow</i>
               </button>
             </div>
@@ -195,29 +132,18 @@
         </mat-card>
       </div>
       <!-- end domanda-->
-      <div
-        *ngIf="this.currentStep.action == 'informazione'"
-        class="mainContainer"
-      >
+      <div *ngIf="this.currentStep.action == 'informazione'" class="mainContainer">
         <mat-card>
           <div class="header-matcard">
-            <div class="container-player">
-              <div *ngFor="let item of this.arrayPlayers; index as k">
-                <mat-icon [ngClass]="{ green: k < variabileOk }"
-                  >person</mat-icon
-                >
-              </div>
+            <div *ngFor="let item of this.arrayPlayers; index as k">
+              <mat-icon [ngClass]="{ green: k < variabileOk }">person</mat-icon>
             </div>
             <div class="punteggio">
               <p>Punteggio : {{ this.punteggio }}</p>
             </div>
           </div>
           <div class="backImage">
-            <img
-              class="img-responsive"
-              *ngIf="this.currentStep.backImg != ''"
-              [src]="this.currentStep.backImg"
-            />
+            <img class="img-responsive" *ngIf="this.currentStep.backImg != ''" [src]="this.currentStep.backImg" />
           </div>
           <mat-card-content>
             <div class="typing-text">
@@ -226,60 +152,45 @@
           </mat-card-content>
 
           <div class="container-btn-avanti">
-            <button
-              mat-mini-fab
-              class="btn-avanti"
-              (click)="gestisciAvanzamento()"
-            >
+            <button mat-mini-fab class="btn-avanti" (click)="gestisciAvanzamento()">
               <i class="material-icons">play_arrow</i>
             </button>
           </div>
         </mat-card>
       </div>
       <!-- end informazione-->
-      <div
-        *ngIf="this.currentStep.action == 'fine'"
-        class="mainContainer"
-      >
+      <div *ngIf="this.currentStep.action == 'fine'" class="mainContainer">
         <mat-card>
           <p class="title">Partita Finita</p>
           <div class="typing-text">
             <p>{{ this.currentStep.activityTitle }}</p>
           </div>
           <div class="backImage">
-            <img
-              class="img-responsive"
-              *ngIf="this.currentStep.backImg != ''"
-              [src]="this.currentStep.backImg"
-            />
+            <img class="img-responsive" *ngIf="this.currentStep.backImg != ''" [src]="this.currentStep.backImg" />
           </div>
           <mat-card-content>
             <!-- step corrente {{ this.currentStepId }} -->
             <!-- <div class="typing-text">
               <p>{{ this.storia.steps[currentStepId].activityTitle }}</p>
             </div> -->
-            <section
-              *ngIf="
+            <section *ngIf="
                 this.currentStep.action == 'fine' &&
                 idPartita != -1
-              "
-            >
-              <button
-                mat-raised-button
-                color="primary"
-                (click)="this.okClassifica = true"
-              >
+              ">
+              <button mat-raised-button color="primary" (click)="this.okClassifica = true">
                 Visualizza classifica
               </button>
             </section>
-            <app-classifica
-              *ngIf="this.okClassifica"
-              [idClasse]="this.idClasse"
-            ></app-classifica>
+            <app-classifica *ngIf="this.okClassifica" [idClasse]="this.idClasse"></app-classifica>
           </mat-card-content>
         </mat-card>
       </div>
       <!-- end fine-->
     </div>
   </section>
+  <p>Ho dato ok: {{this.hoDatoOk}}</p>
+  <p>Ho proceduto io: {{this.hoProcedutoIo}} </p>
+  Stop: {{this.stop}}
+stepId : {{this.nextStepId }}
+  <p> messaggio di alert mostra {{( this.hoDatoOk == false && this.hoProcedutoIo == false && this.stop == false)}}</p>
 </section>

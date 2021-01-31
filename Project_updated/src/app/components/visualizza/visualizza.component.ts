@@ -6,7 +6,7 @@ import { Step, Storia } from 'src/app/interfaces/storia';
 import { DummyApiService } from 'src/app/services/dummy-api.service';
 import { NgForm } from "@angular/forms";
 import { DeviceDetectorService } from 'ngx-device-detector';
-
+import * as _ from 'lodash';
 @Component({
   selector: 'app-visualizza',
   templateUrl: './visualizza.component.html',
@@ -50,6 +50,11 @@ export class VisualizzaComponent implements OnInit {
 
   constructor(private device :DeviceDetectorService,private activeRoute: ActivatedRoute, private apiDb: DummyApiService, private router: Router) { }
 
+
+
+  randomize(el){
+    return _.shuffle(el)
+  }
   //Metodo refresh della storia tramite get del servizio dummyApi.
   //Questo metodo ha la funzione di rimanere in ascolto di eventuali modifiche lato database e permette ai players di visualizzare gli avanzamenti di squadra.
   refresh() {
@@ -114,6 +119,7 @@ export class VisualizzaComponent implements OnInit {
               this.nextStepId = res.nextStepId
               this.hoDatoOk = false
               this.hoProcedutoIo = false
+              this.stop = false
               return;
             }
 
@@ -257,6 +263,7 @@ export class VisualizzaComponent implements OnInit {
         console.log("impiegati " + tempoImpiegato + " secondi.");
         this.punteggio = this.punteggio + this.gestisciPunteggio(tempoImpiegato);
         this.currentStepId = this.currentStep.correctId
+
         this.apiDb.getStep(this.id).subscribe((singleStory)=>{
           let str = this.apiDb.reMap(singleStory);
           str.steps.forEach(element => {
