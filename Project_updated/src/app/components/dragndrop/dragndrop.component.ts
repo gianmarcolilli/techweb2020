@@ -1,8 +1,9 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, NgZone, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import { DragDrop } from 'src/app/interfaces/storia';
 import { VisualizzaComponent } from '../visualizza/visualizza.component';
 import * as _ from 'lodash';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-dragndrop',
@@ -14,12 +15,15 @@ export class DragndropComponent implements OnInit {
   @Input('order') order:DragDrop[] = [];
   steps:number=0;
   isCompleted:boolean = false;
-  constructor(private visComp: VisualizzaComponent) {}
+  arrayNgFor: DragDrop[];
+  constructor(private visComp: VisualizzaComponent,private ngZone : NgZone) {
+    this.arrayNgFor = this.order
+  }
 
   //Metodo chiamato ogni volta che sposto una tessera (drop appunto significa rilascio)
   drop(event: CdkDragDrop<number[]>) {
     this.steps++
-    moveItemInArray(this.order, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.arrayNgFor, event.previousIndex, event.currentIndex);
     this.isCompleted = this.verifyAccomplishment()
   }
 
@@ -32,11 +36,11 @@ export class DragndropComponent implements OnInit {
 
   //A ogni spostamenta di una tessera verifica che tutte siano nella posizione corretta
   //Una volta che l'array è stato ordinato restituisce complete=true, così permettendo l'avanzamento
-  verifyAccomplishment(){
+  verifyAccomplishment():boolean{
     let complete = true
 
-    for (let i = 0; i < this.order.length; i++) {
-      if(this.order[i].posizione != i){
+    for (let i = 0; i < this.arrayNgFor.length; i++) {
+      if(this.arrayNgFor[i].posizione != i){
        complete = false;
        break;
       }
@@ -45,9 +49,15 @@ export class DragndropComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
-    //Mette in ordine sparso le tessere del drag&drop
-    this.order = _.shuffle(this.order)
+   shuffle(){
+    let myOrder = _.shuffle(this.order)
+    this.ngZone.run(()=>{
+        this.arrayNgFor = myOrder
+    })
+    console.log(this.order)
   }
+  ngOnInit(): void {
+      this.shuffle()
 
+}
 }
