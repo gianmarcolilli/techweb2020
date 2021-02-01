@@ -109,8 +109,13 @@ input[type="file"] {
   width: 100%;
 }
 .image-preview {
-  height: 5rem;
+  height: 15vh;
   margin: 1rem 0;
+}
+.noimage-container{
+  border: #14144daf 3px solid;
+  margin: 2px 30%;
+  height:10%;
 }
 
 .image-preview img {
