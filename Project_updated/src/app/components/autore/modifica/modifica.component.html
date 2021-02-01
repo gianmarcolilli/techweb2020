@@ -1,30 +1,38 @@
-
 <div class="container-input">
-  <p>Id: </p>
-<input type="text" class="form-control" id="id" name="id" [(ngModel)]="id" />
+  <p>Id:</p>
+  <input type="text" class="form-control" id="id" name="id" [(ngModel)]="id" />
 </div>
 <div class="container-input">
-  <p>Titolo: </p>>
-<input type="text" class="form-control" id="title" name="title" [(ngModel)]="title" />
+  <p>Titolo:</p>
+  <input
+    type="text"
+    class="form-control"
+    id="title"
+    name="title"
+    [(ngModel)]="title"
+  />
 </div>
 <div class="container-input">
-  <p>Immagine copertina: </p>>
-<input type="text" placeholder="Copia il link dal web o carica dal pc" class="form-control" id="sfondo" name="sfondo" [(ngModel)]="sfondo" />
+  <p>Immagine copertina:</p>
+  <input
+    type="text"
+    placeholder="Copia il link dal web o carica dal pc"
+    class="form-control"
+    id="sfondo"
+    name="sfondo"
+    [(ngModel)]="sfondo"
+  />
 </div>
 <div>
+  <button mat-stroked-button type="button" (click)="filePicker.click()">
+    Pick Image
+  </button>
 
-  <button mat-stroked-button type="button" (click)="filePicker.click()">Pick Image</button>
-
-  <input type="file" #filePicker (change)="onImagePicked($event)">
-
+  <input type="file" #filePicker (change)="onImagePicked($event)" />
 </div>
-
-<div class="image-preview" *ngIf="imagePreview!=='' && imagePreview && form.get('image').valid">
-
-  <img [src]="imagePreview" [alt]="form.value.title">
-
+<div
+  class="image-preview"
+  *ngIf="imagePreview !== '' && imagePreview && form.get('image').valid"
+>
+  <img [src]="imagePreview" [alt]="form.value.title" />
 </div>
-
-<!-- <button mat-raised-button color="warn" (click)="salvaModifiche()">
-  Salva
-</button> -->

@@ -1,5 +1,5 @@
 <div cdkDropList   class="example-list" (cdkDropListDropped)="drop($event)">
-  <div class="example-box" *ngFor="let item of this.order; index as k" cdkDrag [ngClass]="{ green: k == item.posizione }">
+  <div class="example-box" *ngFor="let item of this.arrayNgFor; index as k" cdkDrag [ngClass]="{ green: k == item.posizione }">
     <h3 >{{item.desc}}</h3>
   </div>
 </div>
@@ -10,3 +10,5 @@
     <i class="material-icons" (click)="avanzamentoStep()">play_arrow</i>
   </button>
 </div>
+<button (click)="shuffle()"> shuffle</button>
+{{ this.order | json}}
