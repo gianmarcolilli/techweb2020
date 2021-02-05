@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
 //navigazione verso HomePage
   navigateToHome() {
-    this.router.navigateByUrl("home")
+    this.router.navigateByUrl("")
   }
 
   //navigazione verso component autore

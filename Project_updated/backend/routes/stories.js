@@ -10,7 +10,7 @@ router.post(
   "",
   checkAuth,
   (req, res, next) => {
-    const url = req.protocol + "://" + req.get("host");
+    // const url = req.protocol + "://" + req.get("host");
   let findQry = Story.find();
 
   findQry
@@ -72,30 +72,6 @@ router.put("/:id",checkAuth, (req, res, next) => {
 });
 
 // //Route definita per il metodo GET.
-// router.get("", (req, res, next) => {
-//   const postQuery = Story.find();
-//   let fetchedStories;
-//   postQuery
-//     .then((documents) => {
-//       fetchedStories = documents;
-//       return Story.count();
-//     })
-//     .then((count) => {
-//       res.status(200).json({
-//         message: "Posts fetched successfully!",
-//         posts: fetchedStories,
-//         maxPosts: count,
-//       });
-//       for (let i = 0; i <= count; i++) {
-//         if (i < count) {
-//           listaId[fetchedStories[i].id] = true;
-//         } else {
-//           listaId[i] = false;
-//         }
-//       }
-//     });
-// });
-
 router.get("", (req, res, next) => {
   const postQuery = Story.find();
   let fetchedStories;

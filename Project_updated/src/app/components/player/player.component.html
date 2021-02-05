@@ -285,7 +285,8 @@
         tipologiaGruppo != '' &&
         ((tipologiaGruppo == 'classe' &&
           nPartecipantiAggiunti == nPartecipanti) ||
-          (tipologiaGruppo == 'gruppo' && nPartecipanti > 0))
+          (tipologiaGruppo == 'gruppo' && nPartecipanti > 0)) &&
+          traccia != -1
       "
       class="fixedLowRight"
       (click)="playClick()"
