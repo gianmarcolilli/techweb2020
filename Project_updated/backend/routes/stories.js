@@ -10,7 +10,7 @@ router.post(
   "",
   checkAuth,
   (req, res, next) => {
-    // const url = req.protocol + "://" + req.get("host");
+
   let findQry = Story.find();
 
   findQry
