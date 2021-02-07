@@ -24,10 +24,14 @@ const onError = error => {
   }
   const bind = typeof port === "string" ? "pipe " + port : "port " + port;
   switch (error.code) {
+
+    //EACCES (Autorizzazione negata): è stato effettuato un tentativo di accedere in un modo vietato dalle sue autorizzazioni di accesso ai file.
     case "EACCES":
       console.error(bind + " requires elevated privileges");
       process.exit(1);
       break;
+
+    //EADDRINUSE(Indirizzo già in uso): un tentativo di legare un server ad un indirizzo locale, negata a causa di un altro server sul sistema locale già occupato.
     case "EADDRINUSE":
       console.error(bind + " is already in use");
       process.exit(1);

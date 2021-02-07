@@ -15,17 +15,6 @@ export class SignupComponent {
 
   constructor(public authService:AuthService){}
 
-  // ngOnInit() {
-  //   this.authStatusSub =  this.authService.getAuthStatusListener().subscribe(
-  //     authStatus => {
-  //       this.isLoading= false;
-  //     });
-  // }
-
-  // ngOnDestroy(){
-  //   this.authStatusSub.unsubscribe();
-  // }
-
   //per creare un nuovo profilo tramite authService, dopo aver controllato la validità
   onSignup(form: NgForm){
     if(form.invalid){

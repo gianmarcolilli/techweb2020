@@ -37,7 +37,7 @@ export class AutoreComponent implements OnInit {
   userId: string;
   userIsAuthenticated = false;
   imgurComplete = false;
-  private authStatusSub: Subscription;
+  // private authStatusSub: Subscription;
 
   constructor(private api: DummyApiService, private swalLoader: SweetAlert2LoaderService, private router: Router, private http: HttpClient, public dialog: MatDialog, private authService: AuthService) {}
 
@@ -155,7 +155,6 @@ export class AutoreComponent implements OnInit {
 
   //Possibilità di scaricare la storia in formato json
   download(i: number) {
-    let tempStoria: Storia;
     this.api.getStoria(i).subscribe(storia => {
       storia = this.api.reMapForDownload(storia)
       const blob = new Blob([JSON.stringify(storia)], { type: 'text/json' });
@@ -175,22 +174,22 @@ export class AutoreComponent implements OnInit {
       this.refreshData()
 
     });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-    });
+    // dialogRef.afterClosed().subscribe(result => {
+    //   console.log('The dialog was closed');
+    // });
   }
 
 
   ngOnInit(): void {
 
-    this.userId = this.authService.getUserId();
-    this.userIsAuthenticated = this.authService.getIsAuth();
-    this.authStatusSub = this.authService
-      .getAuthStatusListener()
-      .subscribe(isAuthenticated => {
-        this.userIsAuthenticated = isAuthenticated;
-        this.userId = this.authService.getUserId();
-      });
+    // this.userId = this.authService.getUserId();
+    // this.userIsAuthenticated = this.authService.getIsAuth();
+    // this.authStatusSub = this.authService
+    //   .getAuthStatusListener()
+    //   .subscribe(isAuthenticated => {
+    //     this.userIsAuthenticated = isAuthenticated;
+    //     this.userId = this.authService.getUserId();
+    //   });
 
     this.form = new FormGroup({
       myTempDidascalia: new FormControl(null, {

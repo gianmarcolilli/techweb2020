@@ -12,7 +12,6 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor(private authService: AuthService) { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler) {
-    // const authToken = this.authService.getToken();
     let authToken;
 
     if(req.url.includes('imgur')){
@@ -21,6 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
       authToken = this.authService.getToken();
     }
 
+    //setto un extra header a quelli gia presenti
     const authRequest = req.clone({
       headers: req.headers.set('Authorization', "Bearer " + authToken)
     });

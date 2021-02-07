@@ -6,6 +6,7 @@ const userSchema = mongoose.Schema({
   password: {type:String, required:true}
 });
 
+//non facciamo registrare due volte la stessa mail
 userSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('User', userSchema);

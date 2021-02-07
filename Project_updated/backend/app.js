@@ -22,14 +22,20 @@ mongoose
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
-// app.use("/images", express.static(path.join("backend/images")));
 
 app.use((req,res,next)=>{
+
+  //significa che non importa da quale dominio l'app che sta inviando la richiesta è in esecuzione, gli è consentito accedere alle nostre risorse
   res.setHeader("Access-Control-Allow-Origin","*");
+
+  //ora possiamo anche limitarla ai domini che inviano richieste con un certo insieme di intestazioni predefinite
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-Width, Content-Type, Accept, Authorization"
   );
+
+  //quali verbi http concediamo
+  //option è una richiesta implicita che fa il nostro browser, ad esempio prima di una post per verificare se la richiesta di post è valida
   res.setHeader(
     "Access-Control-Allow-Methods",
     "GET, POST, PATCH, PUT, DELETE, OPTIONS"
@@ -37,6 +43,8 @@ app.use((req,res,next)=>{
   next();
 });
 
+
+//filtra per path e decide a che routes indirizzare
 app.use("/api/stories", storiesRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/games", gamesRoutes);

@@ -43,25 +43,19 @@ export class PuzzleComponent implements OnInit {
   timer: any = timer(0, 1000);
   ticks: string = '0:00';
 
-  //Quelli che saranno @Input
-  // imageUrl:string = 'https://i.imgur.com/4X6O8T7.jpg'
-  // difficulty: number = 3
-
   constructor(private viewportRuler: ViewportRuler, private visComp: VisualizzaComponent) {
     this.target = null;
     this.source = null;
     this.getScreenSize();
   }
 
+  //ascolta i cambiamenti di dimensione dello schermo
   @HostListener('window:resize', ['$event'])
   getScreenSize(event?) {
     this.reset();
     this.imageSize = window.innerWidth * 0.8;
     this.initializeGame();
     this.breakImageParts();
-
-    //Usare shuffle
-    // this.reRandomize();
     this.shuffle();
   }
 
@@ -86,9 +80,12 @@ export class PuzzleComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
+    //array che ci inidica quante caselle avrà il puzzle
     for (let i = 0; i < (Math.pow(this.difficulty, 2)); i++) {
       this.items.push(i + 1)
     }
+
 
     this.imageName = this.imageUrl
       .substr(this.imageUrl.lastIndexOf('/') + 1)
@@ -106,6 +103,7 @@ export class PuzzleComponent implements OnInit {
     this.Image = [];
   }
 
+  //controlla che tipo di risporsa è
   initImageUrl() {
     if (this.imageUrl.startsWith('http')) {
       this.imageUrl = this.imageUrl;
@@ -155,10 +153,6 @@ export class PuzzleComponent implements OnInit {
     phElement.style.display = 'none';
     phElement.parentElement.removeChild(phElement);
   }
-
-  // add() {
-  //   this.items.push(this.items.length + 1);
-  // }
 
   shuffle() {
     this.items.sort(function () {
