@@ -20,7 +20,6 @@ import { AuthService } from '../auth/auth.service';
 
 })
 
-
 @Injectable()
 export class AutoreComponent implements OnInit {
   titolo: string = "Menu' Autore";
@@ -58,17 +57,6 @@ export class AutoreComponent implements OnInit {
       })
     };
     reader.readAsDataURL(file);
-  }
-
-  //Non credo che lo stiamo usando
-  showAlert(testo: string) {
-    let promiseDiSwal = this.swalLoader.swal;
-    console.log(testo)
-    promiseDiSwal.then((istanzadellaClasseSwal) => {
-      istanzadellaClasseSwal.fire(
-        testo
-      )
-    });
   }
 
 

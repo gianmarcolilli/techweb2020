@@ -3,7 +3,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
-import {DragDropModule} from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AngularFileUploaderModule } from "angular-file-uploader";
 
 
@@ -22,22 +22,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
-import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatSidenavModule} from '@angular/material/sidenav';
-import {MatMenuModule} from '@angular/material/menu';
-import {MatTableModule} from '@angular/material/table';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
-import {MAT_FORM_FIELD_DEFAULT_OPTIONS} from '@angular/material/form-field';
+import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
-import { MyUppercasePipe } from './pipes/my-uppercase.pipe';
-import { SquadreNamePipe } from './pipes/squadre-name.pipe';
 
 import { NgbAlertModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { QRCodeModule } from 'angularx-qrcode';
@@ -50,30 +47,26 @@ import { ModificaComponent } from './components/autore/modifica/modifica.compone
 import { HeaderComponent } from './components/header/header.component';
 import { PlayerComponent } from './components/player/player.component';
 import { ConfiguraComponent, CancellazioneDialog } from './components/autore/configura/configura.component';
-import { ImagePuzzleComponent } from './components/image-puzzle/image-puzzle.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { SignupComponent } from './components/auth/signup/signup.component';
 import { DragndropComponent } from './components/dragndrop/dragndrop.component';
 import { ClassificaComponent } from './components/classifica/classifica.component';
+import { PuzzleComponent } from './components/puzzle/puzzle.component';
 
 import { AuthInterceptor } from "./components/auth/auth-interceptor";
-import { PuzzleComponent } from './components/puzzle/puzzle.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AutoreComponent,
     UploadDialog,
-    MyUppercasePipe,
     VisualizzaComponent,
     HomePageComponent,
     ModificaComponent,
     HeaderComponent,
     PlayerComponent,
-    SquadreNamePipe,
     ConfiguraComponent,
     CancellazioneDialog,
-    ImagePuzzleComponent,
     LoginComponent,
     SignupComponent,
     DragndropComponent,
@@ -118,20 +111,12 @@ import { PuzzleComponent } from './components/puzzle/puzzle.component';
     MatSortModule,
     AngularFileUploaderModule,
     MatDialogModule,
-
-    // CancellazioneDialog,
-
-    NgbModule,
-    NgbAlertModule,
-    QRCodeModule
-
-
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
-    {provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi:true},
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'fill' } },
-    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: {floatLabel: 'always'}}
+    { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { floatLabel: 'always' } }
   ],
   bootstrap: [AppComponent]
 })

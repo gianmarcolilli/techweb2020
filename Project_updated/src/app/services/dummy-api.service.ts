@@ -79,54 +79,53 @@ export class DummyApiService {
   // delete
   // per eliminare una storia verificando l'id
   deleteStory(id: number) {
-    return this.http.delete('http://localhost:3000/api/stories/' + id);
+    return this.http.delete('http://giovanna.cs.unibo.it:3002/api/stories/' + id);
   }
   //per eliminare un attività verificando l'id
   deleteActivity(activityId: number) {
-    return this.http.delete('http://localhost:3000/api/stories/' + activityId);
+    return this.http.delete('http://giovanna.cs.unibo.it:3002/api/stories/' + activityId);
   }
 
 
   // GET
   // ci restituisce tutte le storie
   getStories(): Observable<any> {
-    return this.http.get('http://localhost:3000/api/stories/');
+    return this.http.get('http://giovanna.cs.unibo.it:3002/api/stories/');
   }
 
   // ci restituisce la singola storia,verificando l'id
   getStoria(id: number): Observable<any> {
-    return this.http.get("http://localhost:3000/api/stories/" + id)
+    return this.http.get("http://giovanna.cs.unibo.it:3002/api/stories/" + id)
   }
 
   getStep(idStoria: number) : Observable<any> {
-    return this.http.get("http://localhost:3000/api/stories/" + idStoria)
+    return this.http.get("http://giovanna.cs.unibo.it:3002/api/stories/" + idStoria)
   }
 
   //ci restituisce tutte le partite
   getGames(): Observable<any> {
-    return this.http.get('http://localhost:3000/api/games/');
+    return this.http.get('http://giovanna.cs.unibo.it:3002/api/games/');
   }
 
   //ci restituisce la singola partita,verificando l'id
   getGame(id: number): Observable<any> {
-    return this.http.get("http://localhost:3000/api/games/" + id)
+    return this.http.get("http://giovanna.cs.unibo.it:3002/api/games/" + id)
   }
 
 
   //PUT
   // per salvare le modifiche di una Storia
   updateStoria(storia: Storia) {
-     let headers = new HttpHeaders().set("Authorization", 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5pdCIsInVzZXJJZCI6IjVmYmZkM2YwZGUwNjRiMzRhNDE4ZTJkYiIsImlhdCI6MTYxMTA3MjA3NSwiZXhwIjoxNjExMDc1Njc1fQ.dLyXbhY_q6ptcBZP226Y3IP8Ds1d0eNJN096C_3MhEE')
-     let options = { headers: headers };
+    //  let headers = new HttpHeaders().set("Authorization", 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5pdCIsInVzZXJJZCI6IjVmYmZkM2YwZGUwNjRiMzRhNDE4ZTJkYiIsImlhdCI6MTYxMTA3MjA3NSwiZXhwIjoxNjExMDc1Njc1fQ.dLyXbhY_q6ptcBZP226Y3IP8Ds1d0eNJN096C_3MhEE')
+    //  let options = { headers: headers };
     // console.log(options);
-    return this.http
-      .put("http://localhost:3000/api/stories/" + storia.id, storia, options)
+    return this.http.put("http://giovanna.cs.unibo.it:3002/api/stories/" + storia.id, storia)
   }
  // per salvare le modifiche di una partita nel caso in cui la partita è di tipologia Gruppo o Classe
   updateGame(idPartita: number, prossimoId: number, punteggio: number) {
     console.log("da frontend mando : " + punteggio)
     return this.http
-      .put("http://localhost:3000/api/games/" + idPartita, {
+      .put("http://giovanna.cs.unibo.it:3002/api/games/" + idPartita, {
         prossimoId: prossimoId,
         score: punteggio
       })
@@ -135,7 +134,7 @@ export class DummyApiService {
   //POST
   // per creare una nuova Storia
   addNewStory(storyData) {
-    return this.http.post<{ message: string, storia: Storia }>("http://localhost:3000/api/stories/", storyData)
+    return this.http.post<{ message: string, storia: Storia }>("http://giovanna.cs.unibo.it:3002/api/stories/", storyData)
   }
 
   //per creare una nuova partita
@@ -146,19 +145,16 @@ export class DummyApiService {
       idPartita: idPartita,
       numeroPlayer: numeroPlayer
     }
-    return this.http.post<{ message: string, game: Game }>("http://localhost:3000/api/games/", gameData)
+    return this.http.post<{ message: string, game: Game }>("http://giovanna.cs.unibo.it:3002/api/games/", gameData)
   }
 
 //per caricare un immagine tramite il metodo post
   uploadImage(base64imgStr: String) {
-    // let headers = new HttpHeaders().set("Authorization", 'Bearer d4e418b1180149c2f908769861db2fa0d6a60ec2')
-    // let options = { headers: headers };
-    // console.log(options);
-
-    // return this.http.post<any>("https://api.imgur.com/3/image", { image: base64imgStr }, options)
 
     return this.http.post<any>("https://api.imgur.com/3/image", { image: base64imgStr })
   }
+
+
 }
 
 

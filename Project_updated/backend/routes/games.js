@@ -9,7 +9,7 @@ const router = express.Router();
 
 //Route definita per il metodo POST.
 router.post("", (req, res, next) => {
-  const url = req.protocol + "://" + req.get("host");
+
   let findQry = Game.find();
 
   findQry

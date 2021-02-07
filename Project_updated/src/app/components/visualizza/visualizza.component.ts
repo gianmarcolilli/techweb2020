@@ -77,8 +77,8 @@ export class VisualizzaComponent implements OnInit {
 
 
   ngOnInit(): void {
-    let info = this.device.getDeviceInfo()
-    console.log(info)
+    // let info = this.device.getDeviceInfo()
+    // console.log(info)
     this.stepStartAt = Date.now()
     this.resetStepTimer();
 

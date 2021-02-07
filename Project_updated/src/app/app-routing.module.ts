@@ -12,7 +12,7 @@ import { ClassificaComponent } from './components/classifica/classifica.componen
 import { PuzzleComponent } from './components/puzzle/puzzle.component';
 
 const routes: Routes = [
-  { path: "home" , component:HomePageComponent},
+  // { path: "home" , component:HomePageComponent},
   { path: "autore" , component:AutoreComponent,canActivate:[AuthGuard]},
   { path: "player" , component:PlayerComponent},
   { path: "visualizza/:id/:partita" , component:VisualizzaComponent},
@@ -37,9 +37,4 @@ const routes: Routes = [
   exports: [RouterModule],
   providers: [AuthGuard]
 })
-export class AppRoutingModule {
-
-
-
-
- }
+export class AppRoutingModule {}
