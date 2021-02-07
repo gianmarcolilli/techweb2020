@@ -64,7 +64,6 @@ export class AutoreComponent implements OnInit {
   //una volta conclusa l'operazione sarà visibile la storia
   aggiungiStoria(): void {
     this.isLoading = true;
-    console.log("wohoo devo aggiungere una storia !")
 
     if (this.form.invalid) {
       alert("errore compila i tutti i campi")

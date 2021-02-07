@@ -203,7 +203,6 @@ export class PlayerComponent implements OnInit {
   iniziaPartita(id: number, idPartita:number = -1): void {
 
     if(idPartita!=-1){
-      console.log('anche qua arrivati siamo con id partita '+ idPartita);
       this.router.navigateByUrl('visualizza/'+id+'/'+idPartita);
     }else {
       this.router.navigateByUrl('visualizza/' + id);
@@ -236,7 +235,6 @@ export class PlayerComponent implements OnInit {
       this.traccia = parseInt(this.activeRoute.snapshot.params.traccia)
     }
     if(this.activeRoute.snapshot.params.partita){
-      console.log('arrivati siamo');
 
       this.iniziaPartita(this.traccia, this.activeRoute.snapshot.params.partita)
       return
