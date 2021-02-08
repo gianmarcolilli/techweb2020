@@ -250,10 +250,10 @@
       <div class="container-riepilogo">
         <qrcode
           *ngIf="
-            tipologiaGruppo == 'individuale' || tipologiaGruppo == 'gruppo'
+            tipologiaGruppo == 'individuale'
           "
           [qrdata]="
-            'http://localhost:4200/player/' +
+            'http://site192029.tw.cs.unibo.it/player/' +
             tipologiaGruppo +
             '/' +
             fasciaEta +
@@ -319,7 +319,7 @@
       <div class="qrcode-container">
         <qrcode
           [qrdata]="
-            'http://localhost:4200/player/' +
+            'http://site192029.tw.cs.unibo.it/player/' +
             tipologiaGruppo +
             '/' +
             fasciaEta +

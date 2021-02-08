@@ -235,7 +235,6 @@ export class PlayerComponent implements OnInit {
       this.traccia = parseInt(this.activeRoute.snapshot.params.traccia)
     }
     if(this.activeRoute.snapshot.params.partita){
-
       this.iniziaPartita(this.traccia, this.activeRoute.snapshot.params.partita)
       return
     }
