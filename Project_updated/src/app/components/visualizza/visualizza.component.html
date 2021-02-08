@@ -10,8 +10,6 @@
       <div class="button-container">
         <button *ngIf="this.currentStepId < 0" mat-raised-button color="link" (click)="iniziaStep()">
           {{ startText ? startText : "Inizia" }}
-          <!-- <p>{{ timestampGlobale }}</p>
-        <p>Timestamp start : {{ this.stepStartAt }}</p> -->
         </button>
       </div>
     </div>
@@ -215,9 +213,4 @@
       <!-- end fine-->
     </div>
   </section>
-  <p>Ho dato ok: {{this.hoDatoOk}}</p>
-  <p>Ho proceduto io: {{this.hoProcedutoIo}} </p>
-  Stop: {{this.stop}}
-stepId : {{this.nextStepId }}
-  <p> messaggio di alert mostra {{( this.hoDatoOk == false && this.hoProcedutoIo == false && this.stop == false)}}</p>
 </section>
