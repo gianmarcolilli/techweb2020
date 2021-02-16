@@ -1,4 +1,4 @@
-// const path = require("path");
+const path = require("path");
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -23,6 +23,7 @@ mongoose
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
 // app.use("/images", express.static(path.join("backend/images")));
+app.use("/", express.static(path.join(__dirname, "angular")));
 
 app.use((req,res,next)=>{
   res.setHeader("Access-Control-Allow-Origin","*");
@@ -40,6 +41,9 @@ app.use((req,res,next)=>{
 app.use("/api/stories", storiesRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/games", gamesRoutes);
+app.use((req, res, next)=> {
+  res.sendFile(path.join(__dirname, "angular","index.html"));
+});
 
 
 module.exports = app;
