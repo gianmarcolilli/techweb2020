@@ -6,7 +6,6 @@ export interface Step {
   wrongId?: number,
 
   backImg?: string,
-  // actionImg ?: string,
   //PUZZLE
   puzzleImg ?: string,
   difficulty ?: string,
@@ -22,7 +21,6 @@ export interface Step {
 
 }
 
-
 export interface Answer{
   content:string,
   correct:boolean
@@ -35,9 +33,6 @@ export interface Storia {
   urlBackground?: string,
   steps?: Step[],
   didascalia?: string,
-  // startText ?: string,
-  // entryId ?: number
-
 }
 
 export interface DragDrop{

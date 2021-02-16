@@ -59,6 +59,8 @@ mat-card {
   .button-container {
     width: 100%;
     justify-content: center;
+    margin-left: auto;
+    margin-right:auto;
 
     button {
       font-family: $fontAcme !important;

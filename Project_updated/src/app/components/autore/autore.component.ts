@@ -20,7 +20,6 @@ import { AuthService } from '../auth/auth.service';
 
 })
 
-
 @Injectable()
 export class AutoreComponent implements OnInit {
   titolo: string = "Menu' Autore";
@@ -60,23 +59,11 @@ export class AutoreComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
-  //Non credo che lo stiamo usando
-  showAlert(testo: string) {
-    let promiseDiSwal = this.swalLoader.swal;
-    console.log(testo)
-    promiseDiSwal.then((istanzadellaClasseSwal) => {
-      istanzadellaClasseSwal.fire(
-        testo
-      )
-    });
-  }
-
 
   //Al click sul pulsante che porta a questo metodo, i dati inseriti vengono passati a db tramite un servizio di dummy-api,
   //una volta conclusa l'operazione sarà visibile la storia
   aggiungiStoria(): void {
     this.isLoading = true;
-    console.log("wohoo devo aggiungere una storia !")
 
     if (this.form.invalid) {
       alert("errore compila i tutti i campi")

@@ -77,8 +77,8 @@ export class VisualizzaComponent implements OnInit {
 
 
   ngOnInit(): void {
-    let info = this.device.getDeviceInfo()
-    console.log(info)
+    // let info = this.device.getDeviceInfo()
+    // console.log(info)
     this.stepStartAt = Date.now()
     this.resetStepTimer();
 
@@ -145,7 +145,7 @@ export class VisualizzaComponent implements OnInit {
 
             //Se tutti i player hanno dato Ok allora il visualizza carica localmente anche id dello step corrente
             if (res.numeroPlayer == res.variabileOk && this.stop == false) {
-              console.log('daje');
+
               this.stop = true
               this.apiDb.updateGame(this.idPartita, res.nextStepId, this.punteggio).subscribe((risp: any) => {
                 this.currentStepId = risp.result.currentStepId

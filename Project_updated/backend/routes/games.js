@@ -9,7 +9,7 @@ const router = express.Router();
 
 //Route definita per il metodo POST.
 router.post("", (req, res, next) => {
-  const url = req.protocol + "://" + req.get("host");
+
   let findQry = Game.find();
 
   findQry
@@ -115,7 +115,7 @@ router.put("/:idPartita", (req, res, next) => {
         }
       } else if (game.variabileOk == game.numeroPlayer) {
         //Se sono l'ultimo a entrarci
-        console.log("sono l ultimooooo");
+        console.log("sono l ultimo");
         Game.findOneAndUpdate(
           { idPartita: req.params.idPartita },
           {
