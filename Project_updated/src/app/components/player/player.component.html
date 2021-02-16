@@ -1,8 +1,4 @@
-<ngb-alert
-  *ngFor="let alert of alerts"
-  [type]="alert.type"
-  (close)="close(alert)"
-  >{{ alert.message }}
+<ngb-alert *ngFor="let alert of alerts" [type]="alert.type" (close)="close(alert)">{{ alert.message }}
 </ngb-alert>
 
 <section *ngIf="!playClicked" class="mainSection">
@@ -12,43 +8,19 @@
     </p>
     <div class="tipoStoria">
       <div class="card">
-        <input
-          type="radio"
-          name="tipologiaGruppo"
-          id="Individuale"
-          value="individuale"
-          [(ngModel)]="tipologiaGruppo"
-        />
+        <input type="radio" name="tipologiaGruppo" id="Individuale" value="individuale" [(ngModel)]="tipologiaGruppo" />
         <label class="fa fa-code" for="Individuale">
-          <i
-            id="icon-tipos"
-            class="material-icons"
-            aria-hidden="false"
-            aria-label="person icon"
-            >person</i
-          >
+          <i id="icon-tipos" class="material-icons" aria-hidden="false" aria-label="person icon">person</i>
           <br />
           <p>Individuale</p>
         </label>
       </div>
 
       <div class="card">
-        <input
-          type="radio"
-          name="tipologiaGruppo"
-          id="Gruppo"
-          value="gruppo"
-          [(ngModel)]="tipologiaGruppo"
-          (click)="popolaDimensioni('gruppo')"
-        />
+        <input type="radio" name="tipologiaGruppo" id="Gruppo" value="gruppo" [(ngModel)]="tipologiaGruppo"
+          (click)="popolaDimensioni('gruppo')" />
         <label class="fa fa-code" for="Gruppo">
-          <i
-            id="icon-tipos"
-            class="material-icons"
-            aria-hidden="false"
-            aria-label="group icon"
-            >group</i
-          >
+          <i id="icon-tipos" class="material-icons" aria-hidden="false" aria-label="group icon">group</i>
           <br />
           <p>Gruppo</p>
           <p>(2-5 persone)</p>
@@ -56,22 +28,10 @@
       </div>
 
       <div class="card">
-        <input
-          type="radio"
-          name="tipologiaGruppo"
-          id="Classe"
-          value="classe"
-          [(ngModel)]="tipologiaGruppo"
-          (click)="popolaDimensioni('classe')"
-        />
+        <input type="radio" name="tipologiaGruppo" id="Classe" value="classe" [(ngModel)]="tipologiaGruppo"
+          (click)="popolaDimensioni('classe')" />
         <label class="fa fa-code" for="Classe">
-          <i
-            id="icon-tipos"
-            class="material-icons"
-            aria-hidden="false"
-            aria-label="person icon"
-            >groups</i
-          >
+          <i id="icon-tipos" class="material-icons" aria-hidden="false" aria-label="person icon">groups</i>
           <br />
           <div class="text">
             <p>Classe</p>
@@ -82,17 +42,10 @@
     </div>
   </section>
   <div class="container2">
-    <mat-form-field
-      appearance="fill"
-      *ngIf="tipologiaGruppo == 'classe' || tipologiaGruppo == 'gruppo'"
-      ngDefaultControl
-      name="nPartecipanti"
-    >
+    <mat-form-field appearance="fill" *ngIf="tipologiaGruppo == 'classe' || tipologiaGruppo == 'gruppo'"
+      ngDefaultControl name="nPartecipanti">
       <mat-label>Numero di studenti</mat-label>
-      <mat-select
-        [(ngModel)]="nPartecipanti"
-        (ngModelChange)="nPartecipantiChanged()"
-      >
+      <mat-select [(ngModel)]="nPartecipanti" (ngModelChange)="nPartecipantiChanged()">
         <mat-option *ngFor="let dimensione of dimensioni" [value]="dimensione">
           {{ dimensione }} studenti
         </mat-option>
@@ -104,12 +57,8 @@
     <div class="partecipanti">
       <p>Partecipanti : {{ nPartecipantiAggiunti }} / {{ nPartecipanti }}</p>
     </div>
-    <button
-      *ngIf="nPartecipanti - nPartecipantiAggiunti >= 2"
-      (click)="aggiungiNuovaSquadra()"
-      mat-stroked-button
-      color="primary"
-    >
+    <button *ngIf="nPartecipanti - nPartecipantiAggiunti >= 2" (click)="aggiungiNuovaSquadra()" mat-stroked-button
+      color="primary">
       + Aggiungi squadra
     </button>
 
@@ -120,12 +69,8 @@
             <p id="nomeSquadra">{{ squadra.name }}</p>
           </div>
           <div class="button-container">
-            <button
-              mat-mini-fab
-              color="warn"
-              *ngIf="this.squadre.length > this.nSquadre"
-              (click)="eliminaSquadra(squadra.id)"
-            >
+            <button mat-mini-fab color="warn" *ngIf="this.squadre.length > this.nSquadre"
+              (click)="eliminaSquadra(squadra.id)">
               <i class="material-icons">clear</i>
             </button>
           </div>
@@ -139,25 +84,15 @@
           </ul>
         </div>
         <div class="button-add-container">
-          <button
-            *ngIf="
+          <button *ngIf="
               this.nPartecipantiAggiunti < this.nPartecipanti ||
               squadra.players.length < 5
-            "
-            mat-mini-fab
-            color="primary"
-            (click)="aggiungiPlayer(squadra.id)"
-          >
+            " mat-mini-fab color="primary" (click)="aggiungiPlayer(squadra.id)">
             <i class="material-icons">add</i>
           </button>
         </div>
         <div class="button-rem-container">
-          <button
-            *ngIf="squadra.players.length > 2"
-            mat-mini-fab
-            color="warn"
-            (click)="rimuoviPlayer(squadra.id)"
-          >
+          <button *ngIf="squadra.players.length > 2" mat-mini-fab color="warn" (click)="rimuoviPlayer(squadra.id)">
             <i class="material-icons">delete_forever</i>
           </button>
         </div>
@@ -167,45 +102,23 @@
   <!-- fine sec2 -->
 
   <section id="sec3">
-    <div
-      class="container4"
-      aria-label="Select an option"
-      (click)="traccia = -1"
-    >
+    <div class="container4" aria-label="Select an option" (click)="traccia = -1">
       <div class="card">
-        <input
-          type="radio"
-          name="fasciaEta"
-          id="7-10"
-          value="fasciaUno"
-          [(ngModel)]="fasciaEta"
-        />
+        <input type="radio" name="fasciaEta" id="7-10" value="fasciaUno" [(ngModel)]="fasciaEta" />
         <label for="7-10">
           <p>7 - 10 anni</p>
         </label>
       </div>
 
       <div class="card">
-        <input
-          type="radio"
-          name="fasciaEta"
-          id="11-14"
-          value="fasciaDue"
-          [(ngModel)]="fasciaEta"
-        />
+        <input type="radio" name="fasciaEta" id="11-14" value="fasciaDue" [(ngModel)]="fasciaEta" />
         <label for="11-14">
           <p>11 - 14 anni</p>
         </label>
       </div>
 
       <div class="card">
-        <input
-          type="radio"
-          name="fasciaEta"
-          id="15-18"
-          value="fasciaTre"
-          [(ngModel)]="fasciaEta"
-        />
+        <input type="radio" name="fasciaEta" id="15-18" value="fasciaTre" [(ngModel)]="fasciaEta" />
         <label for="15-18">
           <p>15 - 18 anni</p>
         </label>
@@ -215,13 +128,7 @@
     <div class="container5" *ngIf="fasciaEta != ''">
       <form aria-label="Select an option" *ngFor="let storia of storie">
         <div class="card" *ngIf="storia.fasciaEta == fasciaEta">
-          <input
-            [id]="storia.id"
-            name="traccia"
-            type="radio"
-            [value]="storia.id"
-            [(ngModel)]="traccia"
-          />
+          <input [id]="storia.id" name="traccia" type="radio" [value]="storia.id" [(ngModel)]="traccia" />
           <label [for]="storia.id">
             <i id="icon-tipos" class="material-icons">history_edu</i>
             <br />
@@ -248,49 +155,48 @@
         <p>Traccia: {{ traccia }}</p>
       </div>
       <div class="container-riepilogo">
-        <qrcode
-          *ngIf="
+        <qrcode *ngIf="
             tipologiaGruppo == 'individuale'
-          "
-          [qrdata]="
-            'http://site192029.tw.cs.unibo.it/player/' +
+          " [qrdata]="
+            'http://localhost:4200/player/' +
             tipologiaGruppo +
             '/' +
             fasciaEta +
             '/' +
             traccia +
             '/autoplay'
-          "
-          [width]="156"
-          [errorCorrectionLevel]="'M'"
-        ></qrcode>
+          " [width]="156" [errorCorrectionLevel]="'M'"></qrcode>
       </div>
+
       <div class="container-riepilogo">
-        <button
-          *ngIf="tipologiaGruppo == 'individuale'"
-          mat-raised-button
-          color="primary"
-          (click)="iniziaPartita(this.traccia)"
-        >
+        <button *ngIf="tipologiaGruppo == 'individuale'" mat-raised-button color="primary"
+          (click)="iniziaPartita(this.traccia)">
           Inizia Partita
         </button>
+        <button *ngIf="
+        tipologiaGruppo != 'individuale' &&
+        tipologiaGruppo != '' &&
+        ((tipologiaGruppo == 'classe' &&
+          nPartecipantiAggiunti == nPartecipanti) ||
+          (tipologiaGruppo == 'gruppo' && nPartecipanti > 0)) &&
+          traccia != -1"
+          (click)="iniziaPartita(this.traccia)"
+          mat-raised-button color="primary">
+          Inizia Partita
+      </button>
       </div>
     </div>
   </div>
 
   <div class="container-riepilogo">
-    <div
-      *ngIf="
+    <div *ngIf="
         tipologiaGruppo != 'individuale' &&
         tipologiaGruppo != '' &&
         ((tipologiaGruppo == 'classe' &&
           nPartecipantiAggiunti == nPartecipanti) ||
           (tipologiaGruppo == 'gruppo' && nPartecipanti > 0)) &&
           traccia != -1
-      "
-      class="fixedLowRight"
-      (click)="playClick()"
-    >
+      " class="fixedLowRight" (click)="playClick()">
       <button mat-fab color="warn" class="my-fab-button">
         <mat-icon class="icon-tipoS">play_arrow</mat-icon>
       </button>
@@ -301,15 +207,13 @@
 
 <section *ngIf="playClicked">
   <div *ngIf="tipologiaGruppo == 'classe' || tipologiaGruppo == 'gruppo'">
-    <p
-      style="
+    <p style="
         font-family: 'Montserrat', sans-serif;
         font-size: 2em;
         color: darkgray;
         margin-top: 1em;
         font-weight: bold;
-      "
-    >
+      ">
       Ecco i vostri QR Code!
     </p>
     <div *ngFor="let s of squadre" class="container6">
@@ -317,9 +221,8 @@
         <p class="title">{{ s.name }}</p>
       </div>
       <div class="qrcode-container">
-        <qrcode
-          [qrdata]="
-            'http://site192029.tw.cs.unibo.it/player/' +
+        <qrcode [qrdata]="
+            'http://localhost:4200/player/' +
             tipologiaGruppo +
             '/' +
             fasciaEta +
@@ -327,10 +230,7 @@
             traccia +
             '/autoplay/' +
             s.idPartita
-          "
-          [width]="156"
-          [errorCorrectionLevel]="'M'"
-        ></qrcode>
+          " [width]="156" [errorCorrectionLevel]="'M'"></qrcode>
       </div>
     </div>
   </div>
