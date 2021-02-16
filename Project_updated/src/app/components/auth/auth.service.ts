@@ -35,7 +35,7 @@ export class AuthService {
   createUser(email: string, password: string) {
     const authData: AuthData = { email: email, password: password };
     this.http
-      .post("http://giovanna.cs.unibo.it:3002/api/user/signup", authData)
+      .post("https://site181965.tw.cs.unibo.it/api/user/signup", authData)
       .subscribe(response => {
 
         this._snackBar.open("Utente Creato Correttamente , ora esegui il Login", "OK", {
@@ -56,7 +56,7 @@ export class AuthService {
     const authData: AuthData = { email: email, password: password };
     this.http
       .post<{ token: string; expiresIn: number, userId: string }>(
-        "http://giovanna.cs.unibo.it:3002/api/user/login",
+        "https://site181965.tw.cs.unibo.it/api/user/login",
         authData
       )
       .subscribe(response => {

@@ -1,6 +1,5 @@
 const app = require("./app");
-const debug = require("debug")("node-angular");
-const http = require("http");
+const https = require("https");
 
 const normalizePort = val => {
   var port = parseInt(val, 10);
@@ -17,6 +16,7 @@ const normalizePort = val => {
 
   return false;
 };
+
 
 const onError = error => {
   if (error.syscall !== "listen") {
@@ -40,13 +40,13 @@ const onError = error => {
 const onListening = () => {
   const addr = server.address();
   const bind = typeof port === "string" ? "pipe " + port : "port " + port;
-  debug("Listening on " + bind);
 };
 
-const port = normalizePort(process.env.PORT || "3000");
+const port = normalizePort(process.env.PORT || "8000");
 app.set("port", port);
 
-const server = http.createServer(app);
+
+const server = https.createServer(app);
 server.on("error", onError);
 server.on("listening", onListening);
 server.listen(port);
