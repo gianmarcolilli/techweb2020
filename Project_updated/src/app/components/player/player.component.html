@@ -173,17 +173,6 @@
           (click)="iniziaPartita(this.traccia)">
           Inizia Partita
         </button>
-        <button *ngIf="
-        tipologiaGruppo != 'individuale' &&
-        tipologiaGruppo != '' &&
-        ((tipologiaGruppo == 'classe' &&
-          nPartecipantiAggiunti == nPartecipanti) ||
-          (tipologiaGruppo == 'gruppo' && nPartecipanti > 0)) &&
-          traccia != -1"
-          (click)="iniziaPartita(this.traccia)"
-          mat-raised-button color="primary">
-          Inizia Partita
-      </button>
       </div>
     </div>
   </div>
@@ -220,6 +209,9 @@
       <div class="title-container">
         <p class="title">{{ s.name }}</p>
       </div>
+      <button mat-raised-button color="primary" (click)="iniziaPartita(this.traccia, s.idPartita)">
+        Inizia Partita
+      </button>
       <div class="qrcode-container">
         <qrcode [qrdata]="
             'http://localhost:4200/player/' +

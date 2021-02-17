@@ -194,7 +194,6 @@ export class PlayerComponent implements OnInit {
           this.squadre[i].idPartita=numeroGame
           numeroGame++;
         }
-        // this.idClasseUsati++
       })
     }
   }
