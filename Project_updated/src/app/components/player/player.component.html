@@ -1,77 +1,46 @@
+<!-- Alert è un componente per fornire messaggi di feedback contestuali per l'utente.
+Supporta diversi tipi di alert e può essere ignorato. -->
 <ngb-alert
-  *ngFor="let alert of alerts"
-  [type]="alert.type"
-  (close)="close(alert)"
-  >{{ alert.message }}
+*ngFor="let alert of alerts"
+[type]="alert.type"
+(close)="close(alert)">
+{{ alert.message }}
 </ngb-alert>
 
 <section *ngIf="!playClicked" class="mainSection">
+
+  <!-- Section di selezione tipologia gioco: individuale/gruppo/squadra -->
   <section id="tipoS">
     <p style="font-size: 1.5em">
       Seleziona la storia che preferisci e inizia a giocare
     </p>
     <div class="tipoStoria">
+      <!-- Card per titpologia gruppo: individuale -->
       <div class="card">
-        <input
-          type="radio"
-          name="tipologiaGruppo"
-          id="Individuale"
-          value="individuale"
-          [(ngModel)]="tipologiaGruppo"
-        />
+        <input type="radio" name="tipologiaGruppo" id="Individuale" value="individuale" [(ngModel)]="tipologiaGruppo" />
         <label class="fa fa-code" for="Individuale">
-          <i
-            id="icon-tipos"
-            class="material-icons"
-            aria-hidden="false"
-            aria-label="person icon"
-            >person</i
-          >
+          <i id="icon-tipos" class="material-icons" aria-hidden="false" aria-label="person icon">person</i>
           <br />
           <p>Individuale</p>
         </label>
       </div>
-
+      <!-- Card per tipologia gruppo: gruppo -->
       <div class="card">
-        <input
-          type="radio"
-          name="tipologiaGruppo"
-          id="Gruppo"
-          value="gruppo"
-          [(ngModel)]="tipologiaGruppo"
-          (click)="popolaDimensioni('gruppo')"
-        />
+        <input type="radio" name="tipologiaGruppo" id="Gruppo" value="gruppo" [(ngModel)]="tipologiaGruppo"
+          (click)="popolaDimensioni('gruppo')" />
         <label class="fa fa-code" for="Gruppo">
-          <i
-            id="icon-tipos"
-            class="material-icons"
-            aria-hidden="false"
-            aria-label="group icon"
-            >group</i
-          >
+          <i id="icon-tipos" class="material-icons" aria-hidden="false" aria-label="group icon">group</i>
           <br />
           <p>Gruppo</p>
           <p>(2-5 persone)</p>
         </label>
       </div>
-
+      <!-- Card per tipologia gruppo: classe -->
       <div class="card">
-        <input
-          type="radio"
-          name="tipologiaGruppo"
-          id="Classe"
-          value="classe"
-          [(ngModel)]="tipologiaGruppo"
-          (click)="popolaDimensioni('classe')"
-        />
+        <input type="radio" name="tipologiaGruppo" id="Classe" value="classe" [(ngModel)]="tipologiaGruppo"
+          (click)="popolaDimensioni('classe')" />
         <label class="fa fa-code" for="Classe">
-          <i
-            id="icon-tipos"
-            class="material-icons"
-            aria-hidden="false"
-            aria-label="person icon"
-            >groups</i
-          >
+          <i id="icon-tipos" class="material-icons" aria-hidden="false" aria-label="person icon">groups</i>
           <br />
           <div class="text">
             <p>Classe</p>
@@ -81,18 +50,14 @@
       </div>
     </div>
   </section>
+
+  <!-- div di selezione del numero di partecipanti per modalità di gioco: gruppo o classe
+  Predisposizione per creazione di default delle squadre -->
   <div class="container2">
-    <mat-form-field
-      appearance="fill"
-      *ngIf="tipologiaGruppo == 'classe' || tipologiaGruppo == 'gruppo'"
-      ngDefaultControl
-      name="nPartecipanti"
-    >
+    <mat-form-field appearance="fill" *ngIf="tipologiaGruppo == 'classe' || tipologiaGruppo == 'gruppo'"
+      ngDefaultControl name="nPartecipanti">
       <mat-label>Numero di studenti</mat-label>
-      <mat-select
-        [(ngModel)]="nPartecipanti"
-        (ngModelChange)="nPartecipantiChanged()"
-      >
+      <mat-select [(ngModel)]="nPartecipanti" (ngModelChange)="nPartecipantiChanged()">
         <mat-option *ngFor="let dimensione of dimensioni" [value]="dimensione">
           {{ dimensione }} studenti
         </mat-option>
@@ -100,19 +65,17 @@
     </mat-form-field>
   </div>
 
+  <!-- Section di gestione delle squadre -->
   <section id="sec2" *ngIf="nPartecipanti != -1 && tipologiaGruppo == 'classe'">
     <div class="partecipanti">
       <p>Partecipanti : {{ nPartecipantiAggiunti }} / {{ nPartecipanti }}</p>
     </div>
-    <button
-      *ngIf="nPartecipanti - nPartecipantiAggiunti >= 2"
-      (click)="aggiungiNuovaSquadra()"
-      mat-stroked-button
-      color="primary"
-    >
+    <!-- Pulsante di aggiunta squadra ulteriore alle predeterminate di default -->
+    <button *ngIf="nPartecipanti - nPartecipantiAggiunti >= 2" (click)="aggiungiNuovaSquadra()" mat-stroked-button
+      color="primary">
       + Aggiungi squadra
     </button>
-
+    <!-- Visualizzazione in cards delle squadre -->
     <div class="container3">
       <div class="card" *ngFor="let squadra of squadre">
         <div class="heading">
@@ -120,12 +83,8 @@
             <p id="nomeSquadra">{{ squadra.name }}</p>
           </div>
           <div class="button-container">
-            <button
-              mat-mini-fab
-              color="warn"
-              *ngIf="this.squadre.length > this.nSquadre"
-              (click)="eliminaSquadra(squadra.id)"
-            >
+            <button mat-mini-fab color="warn" *ngIf="this.squadre.length > this.nSquadre"
+              (click)="eliminaSquadra(squadra.id)">
               <i class="material-icons">clear</i>
             </button>
           </div>
@@ -139,89 +98,53 @@
           </ul>
         </div>
         <div class="button-add-container">
-          <button
-            *ngIf="
+          <button *ngIf="
               this.nPartecipantiAggiunti < this.nPartecipanti ||
               squadra.players.length < 5
-            "
-            mat-mini-fab
-            color="primary"
-            (click)="aggiungiPlayer(squadra.id)"
-          >
+            " mat-mini-fab color="primary" (click)="aggiungiPlayer(squadra.id)">
             <i class="material-icons">add</i>
           </button>
         </div>
         <div class="button-rem-container">
-          <button
-            *ngIf="squadra.players.length > 2"
-            mat-mini-fab
-            color="warn"
-            (click)="rimuoviPlayer(squadra.id)"
-          >
+          <button *ngIf="squadra.players.length > 2" mat-mini-fab color="warn" (click)="rimuoviPlayer(squadra.id)">
             <i class="material-icons">delete_forever</i>
           </button>
         </div>
       </div>
     </div>
   </section>
-  <!-- fine sec2 -->
+  <!-- fine section di gestione squadre-->
 
+  <!-- Section per selezione della fascia di età la quale determina le tracce al quale il player potrà giocare -->
   <section id="sec3">
-    <div
-      class="container4"
-      aria-label="Select an option"
-      (click)="traccia = -1"
-    >
+    <div class="container4" aria-label="Select an option" (click)="traccia = -1">
+      <!-- FasciaUno: 7-10 anni -->
       <div class="card">
-        <input
-          type="radio"
-          name="fasciaEta"
-          id="7-10"
-          value="fasciaUno"
-          [(ngModel)]="fasciaEta"
-        />
+        <input type="radio" name="fasciaEta" id="7-10" value="fasciaUno" [(ngModel)]="fasciaEta" />
         <label for="7-10">
           <p>7 - 10 anni</p>
         </label>
       </div>
-
+      <!-- -fascia due: 11-14 anni -->
       <div class="card">
-        <input
-          type="radio"
-          name="fasciaEta"
-          id="11-14"
-          value="fasciaDue"
-          [(ngModel)]="fasciaEta"
-        />
+        <input type="radio" name="fasciaEta" id="11-14" value="fasciaDue" [(ngModel)]="fasciaEta" />
         <label for="11-14">
           <p>11 - 14 anni</p>
         </label>
       </div>
-
+      <!-- FasciaTre: 15-18 anni -->
       <div class="card">
-        <input
-          type="radio"
-          name="fasciaEta"
-          id="15-18"
-          value="fasciaTre"
-          [(ngModel)]="fasciaEta"
-        />
+        <input type="radio" name="fasciaEta" id="15-18" value="fasciaTre" [(ngModel)]="fasciaEta" />
         <label for="15-18">
           <p>15 - 18 anni</p>
         </label>
       </div>
     </div>
-
+    <!-- Visualizzazione delle tracce associate per fascia di età -->
     <div class="container5" *ngIf="fasciaEta != ''">
       <form aria-label="Select an option" *ngFor="let storia of storie">
         <div class="card" *ngIf="storia.fasciaEta == fasciaEta">
-          <input
-            [id]="storia.id"
-            name="traccia"
-            type="radio"
-            [value]="storia.id"
-            [(ngModel)]="traccia"
-          />
+          <input [id]="storia.id" name="traccia" type="radio" [value]="storia.id" [(ngModel)]="traccia" />
           <label [for]="storia.id">
             <i id="icon-tipos" class="material-icons">history_edu</i>
             <br />
@@ -233,6 +156,7 @@
     </div>
   </section>
 
+  <!-- Sezione riepilogativa dei parametri di gioco selezionati -->
   <div class="container6">
     <div class="container-riepilogo">
       <p class="title">Riepilogo</p>
@@ -247,50 +171,40 @@
       <div class="container-riepilogo">
         <p>Traccia: {{ traccia }}</p>
       </div>
+
+      <!-- Modalità singolo -->
       <div class="container-riepilogo">
-        <qrcode
-          *ngIf="
+        <qrcode *ngIf="
             tipologiaGruppo == 'individuale'
-          "
-          [qrdata]="
-            'http://site192029.tw.cs.unibo.it/player/' +
+          " [qrdata]="
+            'https://site192029.tw.cs.unibo.it/player/' +
             tipologiaGruppo +
             '/' +
             fasciaEta +
             '/' +
             traccia +
             '/autoplay'
-          "
-          [width]="156"
-          [errorCorrectionLevel]="'M'"
-        ></qrcode>
+          " [width]="156" [errorCorrectionLevel]="'M'"></qrcode>
       </div>
       <div class="container-riepilogo">
-        <button
-          *ngIf="tipologiaGruppo == 'individuale'"
-          mat-raised-button
-          color="primary"
-          (click)="iniziaPartita(this.traccia)"
-        >
+        <button *ngIf="tipologiaGruppo == 'individuale'" mat-raised-button color="primary"
+          (click)="iniziaPartita(this.traccia)">
           Inizia Partita
         </button>
       </div>
     </div>
   </div>
 
+  <!-- Modalità gruppo o squadra -->
   <div class="container-riepilogo">
-    <div
-      *ngIf="
+    <div *ngIf="
         tipologiaGruppo != 'individuale' &&
         tipologiaGruppo != '' &&
         ((tipologiaGruppo == 'classe' &&
           nPartecipantiAggiunti == nPartecipanti) ||
           (tipologiaGruppo == 'gruppo' && nPartecipanti > 0)) &&
           traccia != -1
-      "
-      class="fixedLowRight"
-      (click)="playClick()"
-    >
+      " class="fixedLowRight" (click)="playClick()">
       <button mat-fab color="warn" class="my-fab-button">
         <mat-icon class="icon-tipoS">play_arrow</mat-icon>
       </button>
@@ -301,25 +215,25 @@
 
 <section *ngIf="playClicked">
   <div *ngIf="tipologiaGruppo == 'classe' || tipologiaGruppo == 'gruppo'">
-    <p
-      style="
+    <p style="
         font-family: 'Montserrat', sans-serif;
         font-size: 2em;
         color: darkgray;
         margin-top: 1em;
         font-weight: bold;
-      "
-    >
+      ">
       Ecco i vostri QR Code!
     </p>
     <div *ngFor="let s of squadre" class="container6">
       <div class="title-container">
         <p class="title">{{ s.name }}</p>
       </div>
+      <button mat-raised-button color="primary" (click)="iniziaPartita(this.traccia, s.idPartita)">
+        Inizia Partita
+      </button>
       <div class="qrcode-container">
-        <qrcode
-          [qrdata]="
-            'http://site192029.tw.cs.unibo.it/player/' +
+        <qrcode [qrdata]="
+            'https://site192029.tw.cs.unibo.it/player/' +
             tipologiaGruppo +
             '/' +
             fasciaEta +
@@ -327,10 +241,7 @@
             traccia +
             '/autoplay/' +
             s.idPartita
-          "
-          [width]="156"
-          [errorCorrectionLevel]="'M'"
-        ></qrcode>
+          " [width]="156" [errorCorrectionLevel]="'M'"></qrcode>
       </div>
     </div>
   </div>
