@@ -156,10 +156,6 @@ export class PuzzleComponent implements OnInit {
     phElement.parentElement.removeChild(phElement);
   }
 
-  // add() {
-  //   this.items.push(this.items.length + 1);
-  // }
-
   shuffle() {
     this.items.sort(function () {
       return .5 - Math.random();
