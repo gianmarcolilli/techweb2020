@@ -214,7 +214,7 @@ export class VisualizzaComponent implements OnInit {
   gestisciPunteggio(timer: number) {
     if (timer == NaN || timer == undefined || timer == null) return
     // if (this.currentStepId == 0) return 0;
-    if (this.currentStep == "informazione") return 0;
+    if (this.currentStep.action == "informazione") return 0;
     if (this.nextStepId == this.currentStep.correctId) return Number((500 / timer).toPrecision(4));
     if (this.nextStepId == this.currentStep.wrongId) return -Number((timer / 50).toPrecision(4));
   }
