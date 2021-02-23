@@ -127,7 +127,7 @@ export class VisualizzaComponent implements OnInit {
             //mi metto in attesa degli altri player attraverso la variabile locale hoDatoOk
             if (this.nextStepId != res.nextStepId && this.hoDatoOk == false && this.hoProcedutoIo == false && this.stop == false) {
               this.stop = true
-              alert('compagno andato avanti! vuoi andare avanti anche tu?')
+              // alert('compagno andato avanti! vuoi andare avanti anche tu?')
               this.apiDb.updateGame(this.idPartita, res.nextStepId, this.punteggio).subscribe((risp: any) => {
                 console.log(risp);
                 this.hoDatoOk = true

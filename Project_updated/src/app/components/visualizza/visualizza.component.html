@@ -8,7 +8,7 @@
       </div>
       <img class="imgCopertina" [src]="this.storia.urlBackground" />
       <div class="button-container">
-        <button *ngIf="this.currentStepId < 0" mat-raised-button color="link" (click)="iniziaStep()">
+        <button *ngIf="this.currentStepId < 0" mat-raised-button color="link" (click)="iniziaStep()" [disabled]="hoDatoOk || hoProcedutoIo">
           {{ startText ? startText : "Inizia" }}
         </button>
       </div>
