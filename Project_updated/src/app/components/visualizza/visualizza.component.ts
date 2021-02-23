@@ -215,8 +215,8 @@ export class VisualizzaComponent implements OnInit {
     if (timer == NaN || timer == undefined || timer == null) return
     // if (this.currentStepId == 0) return 0;
     if (this.currentStep == "informazione") return 0;
-    if (this.nextStepId == this.currentStep.correctId) return (50 / timer)
-    if (this.nextStepId == this.currentStep.wrongId) return -(timer / 50);
+    if (this.nextStepId == this.currentStep.correctId) return Number((500 / timer).toPrecision(4));
+    if (this.nextStepId == this.currentStep.wrongId) return -Number((timer / 50).toPrecision(4));
   }
 
   //Metodo che restituisce l' intervallo tra inizio e fine step in secondi (/1000)

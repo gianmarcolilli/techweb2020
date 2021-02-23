@@ -32,8 +32,8 @@
   <p>Ottimo lavoro, hai completato il puzzle!</p>
   <br />
   <p>Hai impiegato {{ ticks }} e {{ steps }} mosse.</p>
-  <button mat-fab color="primary" class="my-fab-button">
-    <i class="material-icons" (click)="avanzamentoStep()">play_arrow</i>
+  <button mat-fab color="primary" class="my-fab-button" [disabled]="hoProceduto">
+    <i class="material-icons" (click)="avanzamentoStep()" >play_arrow</i>
   </button>
 </div>
 <div *ngIf="!isCompleted" class="score-detail">

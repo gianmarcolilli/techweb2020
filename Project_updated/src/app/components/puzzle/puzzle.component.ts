@@ -43,6 +43,8 @@ export class PuzzleComponent implements OnInit {
   timer: any = timer(0, 1000);
   ticks: string = '0:00';
 
+  hoProceduto = false;
+
   //Quelli che saranno @Input
   // imageUrl:string = 'https://i.imgur.com/4X6O8T7.jpg'
   // difficulty: number = 3
@@ -81,6 +83,7 @@ export class PuzzleComponent implements OnInit {
 
   avanzamentoStep() {
     if (this.isCompleted) {
+      this.hoProceduto=true;
       this.visComp.gestisciAvanzamento(undefined);
     }
   }

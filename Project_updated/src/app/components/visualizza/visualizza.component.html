@@ -55,7 +55,7 @@
                   let answ of this.currentStep.answers;
                   let i = index
                 " (click)="gestisciAvanzamento(i)">
-                <button mat-raised-button color="accent" role="listitem">
+                <button mat-raised-button color="accent" role="listitem" [disabled]="hoDatoOk || hoProcedutoIo">
                   <p>{{ answ }}</p>
                 </button>
               </mat-list>
@@ -140,7 +140,7 @@
                 placeholder="Inserisci qui la risposta " />
             </div>
             <div class="container-btn-avanti">
-              <button mat-mini-fab class="btn-avanti" (click)="gestisciAvanzamento()">
+              <button mat-mini-fab class="btn-avanti" (click)="gestisciAvanzamento()" [disabled]="hoDatoOk || hoProcedutoIo">
                 <i class="material-icons">play_arrow</i>
               </button>
             </div>
@@ -173,7 +173,7 @@
           </mat-card-content>
 
           <div class="container-btn-avanti">
-            <button mat-mini-fab class="btn-avanti" (click)="gestisciAvanzamento()">
+            <button mat-mini-fab class="btn-avanti" (click)="gestisciAvanzamento()" [disabled]="hoDatoOk || hoProcedutoIo">
               <i class="material-icons">play_arrow</i>
             </button>
           </div>

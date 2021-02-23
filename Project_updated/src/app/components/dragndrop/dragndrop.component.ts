@@ -16,6 +16,7 @@ export class DragndropComponent implements OnInit {
   steps:number=0;
   isCompleted:boolean = false;
   arrayNgFor: DragDrop[];
+  hoProceduto = false;
   constructor(private visComp: VisualizzaComponent,private ngZone : NgZone) {
     this.arrayNgFor = this.order
   }
@@ -30,6 +31,7 @@ export class DragndropComponent implements OnInit {
   //Permette di accedere allo step successivo
   avanzamentoStep(idQ){
     if(this.isCompleted){
+      this.hoProceduto=true;
       this.visComp.gestisciAvanzamento(undefined);
     }
   }
