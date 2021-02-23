@@ -1,5 +1,5 @@
 const app = require("./app");
-const https = require("https");
+const http = require("http");
 
 const normalizePort = val => {
   var port = parseInt(val, 10);
@@ -46,7 +46,7 @@ const port = normalizePort(process.env.PORT || "8000");
 app.set("port", port);
 
 
-const server = https.createServer(app);
+const server = http.createServer(app);
 server.on("error", onError);
 server.on("listening", onListening);
 server.listen(port);
