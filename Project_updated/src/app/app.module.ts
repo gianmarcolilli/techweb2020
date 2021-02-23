@@ -109,8 +109,7 @@ import { AuthInterceptor } from "./components/auth/auth-interceptor";
     MatMenuModule,
     MatTableModule,
     MatSortModule,
-    AngularFileUploaderModule,
-    MatDialogModule,
+    AngularFileUploaderModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [
