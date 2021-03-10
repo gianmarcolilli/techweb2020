@@ -22,7 +22,7 @@ mongoose
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
-app.use("/", express.static(path.join(__dirname, "dist")));
+// app.use("/", express.static(path.join(__dirname, "dist")));
 
 app.use((req,res,next)=>{
   res.setHeader("Access-Control-Allow-Origin","*");
@@ -40,9 +40,9 @@ app.use((req,res,next)=>{
 app.use("/api/stories", storiesRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/games", gamesRoutes);
-app.use((req, res, next)=> {
-  res.sendFile(path.join(__dirname, "dist","index.html"));
-});
+// app.use((req, res, next)=> {
+//   res.sendFile(path.join(__dirname, "dist","index.html"));
+// });
 
 
 module.exports = app;

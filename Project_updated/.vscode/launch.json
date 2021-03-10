@@ -8,7 +8,7 @@
       "name": "Attach debug to frontend",
       "request": "launch",
       "type": "chrome",
-      "url": "https://site192029.tw.cs.unibo.it",
+      "url": "http://localhost:4200",
       "webRoot": "${workspaceFolder}"
     },
     {
