@@ -216,7 +216,7 @@ export class VisualizzaComponent implements OnInit {
     // if (this.currentStepId == 0) return 0;
     if (this.currentStep.action == "informazione") return 0;
     if (this.nextStepId == this.currentStep.correctId) return Math.round(500 / timer);
-    if (this.nextStepId == this.currentStep.wrongId) return -Math.round(timer / 50);
+    if (this.nextStepId == this.currentStep.wrongId) return -Math.round(timer / 5);
   }
 
   //Metodo che restituisce l' intervallo tra inizio e fine step in secondi (/1000)
