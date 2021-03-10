@@ -79,37 +79,37 @@ export class DummyApiService {
   // delete
   // per eliminare una storia verificando l'id
   deleteStory(id: number) {
-    return this.http.delete('http://localhost:3000/api/stories/' + id);
+    return this.http.delete('https://site192029.tw.cs.unibo.it/api/stories/' + id);
   }
   //per eliminare un attività verificando l'id
   deleteActivity(activityId: number) {
-    return this.http.delete('http://localhost:3000/api/stories/' + activityId);
+    return this.http.delete('https://site192029.tw.cs.unibo.it/api/stories/' + activityId);
   }
 
 
   // GET
   // ci restituisce tutte le storie
   getStories(): Observable<any> {
-    return this.http.get('http://localhost:3000/api/stories/');
+    return this.http.get('https://site192029.tw.cs.unibo.it/api/stories/');
   }
 
   // ci restituisce la singola storia,verificando l'id
   getStoria(id: number): Observable<any> {
-    return this.http.get("http://localhost:3000/api/stories/" + id)
+    return this.http.get("https://site192029.tw.cs.unibo.it/api/stories/" + id)
   }
 
   getStep(idStoria: number) : Observable<any> {
-    return this.http.get("http://localhost:3000/api/stories/" + idStoria)
+    return this.http.get("https://site192029.tw.cs.unibo.it/api/stories/" + idStoria)
   }
 
   //ci restituisce tutte le partite
   getGames(): Observable<any> {
-    return this.http.get('http://localhost:3000/api/games/');
+    return this.http.get('https://site192029.tw.cs.unibo.it/api/games/');
   }
 
   //ci restituisce la singola partita,verificando l'id
   getGame(id: number): Observable<any> {
-    return this.http.get("http://localhost:3000/api/games/" + id)
+    return this.http.get("https://site192029.tw.cs.unibo.it/api/games/" + id)
   }
 
 
@@ -119,13 +119,13 @@ export class DummyApiService {
     //  let headers = new HttpHeaders().set("Authorization", 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFAYS5pdCIsInVzZXJJZCI6IjVmYmZkM2YwZGUwNjRiMzRhNDE4ZTJkYiIsImlhdCI6MTYxMTA3MjA3NSwiZXhwIjoxNjExMDc1Njc1fQ.dLyXbhY_q6ptcBZP226Y3IP8Ds1d0eNJN096C_3MhEE')
     //  let options = { headers: headers };
     // console.log(options);
-    return this.http.put("http://localhost:3000/api/stories/" + storia.id, storia)
+    return this.http.put("https://site192029.tw.cs.unibo.it/api/stories/" + storia.id, storia)
   }
  // per salvare le modifiche di una partita nel caso in cui la partita è di tipologia Gruppo o Classe
   updateGame(idPartita: number, prossimoId: number, punteggio: number) {
     console.log("da frontend mando : " + punteggio)
     return this.http
-      .put("http://localhost:3000/api/games/" + idPartita, {
+      .put("https://site192029.tw.cs.unibo.it/api/games/" + idPartita, {
         prossimoId: prossimoId,
         score: punteggio
       })
@@ -134,7 +134,7 @@ export class DummyApiService {
   //POST
   // per creare una nuova Storia
   addNewStory(storyData) {
-    return this.http.post<{ message: string, storia: Storia }>("http://localhost:3000/api/stories/", storyData)
+    return this.http.post<{ message: string, storia: Storia }>("https://site192029.tw.cs.unibo.it/api/stories/", storyData)
   }
 
   //per creare una nuova partita
@@ -145,7 +145,7 @@ export class DummyApiService {
       idPartita: idPartita,
       numeroPlayer: numeroPlayer
     }
-    return this.http.post<{ message: string, game: Game }>("http://localhost:3000/api/games/", gameData)
+    return this.http.post<{ message: string, game: Game }>("https://site192029.tw.cs.unibo.it/api/games/", gameData)
   }
 
 //per caricare un immagine tramite il metodo post
